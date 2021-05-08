@@ -46,3 +46,5 @@ e2e/*.map
 .history
 .ionide
 
+.env
+
