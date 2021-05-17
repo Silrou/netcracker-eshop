@@ -12,16 +12,46 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/main" routerLinkActive="active">Main</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/products" routerLinkActive="active">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/auctions" routerLinkActive="active">Auctions</a>
+      </li>
     </ul>
     <ul class="navbar-nav">
+      <a class="nav-link" routerLink="/shopping-cart" routerLinkActive="active">
+        <img src="../assets/img/shopping-basket.png" width="30" height="30"/>
+      </a>
       <a class="nav-link" *ngIf="!loggedIn" routerLink="/login" routerLinkActive="active" (click)="login()">
         Login</a>
       <a class="nav-link" *ngIf="!loggedIn" routerLink="/register" routerLinkActive="active" (click)="login()">
         Register</a>
+
+      <a class="nav-link" style="cursor:pointer" *ngIf="loggedIn" routerLink="settings">
+        <img src="../assets/img/settings.png" width="30" height="30"/>
+      </a>
       <a class="nav-link" style="cursor:pointer" *ngIf="loggedIn" (click)="logout()">Logout</a>
     </ul>
   </div>
 </nav>
-<div class="container">
+<div class="container pt-5">
   <router-outlet></router-outlet>
 </div>
+
+<!--
+<footer class="footer">
+  <div class="container">
+    <div class="d-sm-flex justify-content-between">
+      <div class="footer-left ml-5">
+        <span class="text-muted">Made by Team #2</span>
+      </div>
+      <div class="footer-right mr-5">
+        <a href="https://github.com/LordNani/netcracker-eshop">
+        <img src="../assets/img/GitHub.png" height="30" width="30"/>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+-->
