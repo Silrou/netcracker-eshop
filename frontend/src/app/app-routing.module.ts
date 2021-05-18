@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {MainPageComponent} from './Components/main-page/main-page.component';
-import {LoginComponent} from './Components/authorization/login/login.component';
-import {RegistrationComponent} from './Components/authorization/registration/registration.component';
-import {AuctionsComponent} from './Components/auctions/auctions.component';
-import {ProductsComponent} from './Components/products/products.component';
-import {ShoppingCartComponent} from './Components/shopping-cart/shopping-cart.component';
-import {SettingsComponent} from './Components/settings/settings.component';
-import {ProductComponent} from './Components/product/product.component';
-import {AuctionComponent} from './Components/auction/auction.component';
-import {BidComponent} from './Components/bid/bid.component';
+import {MainPageComponent} from './main-page/main-page.component';
+import {LoginComponent} from './authorization/login/login.component';
+import {RegistrationComponent} from './authorization/registration/registration.component';
+import {AuctionsComponent} from './auctions/auctions.component';
+import {ProductsComponent} from './products/products.component';
+import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
+import {SettingsComponent} from './settings/settings.component';
+import {ProductComponent} from './product/product.component';
+import {AuctionComponent} from './auction/auction.component';
+import {BidComponent} from './bid/bid.component';
 
 const routes: Routes = [
   {
