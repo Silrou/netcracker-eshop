@@ -16,9 +16,17 @@
             <input type="password" class="form-control rounded-0" name="password" required
                    [(ngModel)]="loginUserData.password">
           </div>
-          <button type="button" class="btn btn-success float-right"
-                  (click)="login()">Login</button>
+          <div class="text-center">
+            <button type="button" class="btn btn-secondary"
+                    (click)="login()">Submit
+            </button>
+          </div>
+
         </form>
+        <div class="text-center mt-3">
+          <a routerLink="/auctions" routerLinkActive="active">Don't have an account yet? Register now!</a>
+        </div>
+
       </div>
     </div>
   </div>
