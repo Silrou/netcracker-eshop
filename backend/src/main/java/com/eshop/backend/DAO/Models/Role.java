@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.eshop.backend.DAO.Models;
 
 public enum Role {
     ADMIN,

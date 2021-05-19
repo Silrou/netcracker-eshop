@@ -1,6 +1,7 @@
 package com.eshop.backend.auth.controllers;
 
 import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.DAO.Models.Role;
 import com.eshop.backend.auth.DTO.RegistationRequestDTO;
 import com.eshop.backend.DAO.Models.AuthorizedUser;
 import com.eshop.backend.auth.mail.EmailSenderService;
@@ -34,7 +35,7 @@ public class RegistrarionController {
 
         AuthorizedUser user = authorizedUsersDao.getByLogin(request.getEmail());
         if (user != null) {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         if (!"".equals(request.getEmail()) &&
@@ -42,7 +43,7 @@ public class RegistrarionController {
                 emailValidator.isValid(request.getEmail()) &&
                 passwordValidator.isValid(request.getPassword())) {
 
-            user = new AuthorizedUser(request.getEmail(), request.getPassword(), "ROLE_USER", UUID.randomUUID().toString());
+            user = new AuthorizedUser(request.getEmail(), request.getPassword(), Role.USER.name(), UUID.randomUUID().toString());
             authorizedUsersDao.create(user);
 
             emailSenderService.sendToEmail(user.getUserLogin());
@@ -62,7 +63,7 @@ public class RegistrarionController {
             authorizedUsersDao.update(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }

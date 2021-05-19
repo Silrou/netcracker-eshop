@@ -36,7 +36,7 @@ public class LoginController {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (DataAccessException e) {
-            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>(HttpStatus.OK);
 
