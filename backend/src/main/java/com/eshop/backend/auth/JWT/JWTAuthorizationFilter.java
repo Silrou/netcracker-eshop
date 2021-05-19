@@ -2,8 +2,11 @@ package com.eshop.backend.auth.JWT;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.DAO.Models.AuthorizedUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -13,13 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.eshop.backend.auth.JWT.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    private final AuthorizedUserDao authorizedUserDao;
+
+    public JWTAuthorizationFilter(AuthenticationManager authManager, AuthorizedUserDao authorizedUserDao) {
         super(authManager);
+        this.authorizedUserDao = authorizedUserDao;
     }
 
     @Override
@@ -52,7 +59,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (user != null) {
                 // new arraylist means authorities
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+                AuthorizedUser authorizedUser = authorizedUserDao.getByLogin(user);
+                return new UsernamePasswordAuthenticationToken(user, null,
+                        Collections.singleton(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserRole())));
+
             }
 
             return null;
