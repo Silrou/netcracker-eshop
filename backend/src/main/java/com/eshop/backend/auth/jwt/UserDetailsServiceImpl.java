@@ -1,4 +1,4 @@
-package com.eshop.backend.auth.JWT;
+package com.eshop.backend.auth.jwt;
 
 import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
 import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDaoImpl;
@@ -36,7 +36,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
     }
 
-    public List<SimpleGrantedAuthority> getGrantedAuthorities(User user) {
-        return new ArrayList<>();
-    }
 }

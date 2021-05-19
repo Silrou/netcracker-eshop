@@ -2,20 +2,25 @@ package com.eshop.backend.auth.controllers;
 
 import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
 import com.eshop.backend.DAO.Models.Role;
-import com.eshop.backend.auth.DTO.RegistationRequestDTO;
+import com.eshop.backend.auth.dto.RegistationRequestDTO;
 import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.auth.jwt.JwtCreator;
 import com.eshop.backend.auth.mail.EmailSenderService;
 import com.eshop.backend.auth.validator.EmailValidator;
 import com.eshop.backend.auth.validator.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
+import static com.eshop.backend.auth.jwt.SecurityConstants.HEADER_STRING;
+import static com.eshop.backend.auth.jwt.SecurityConstants.TOKEN_PREFIX;
+
 @RestController
-public class RegistrarionController {
+public class RegistrationController {
 
     private final EmailValidator emailValidator;
     private final AuthorizedUserDao authorizedUsersDao;
@@ -23,7 +28,7 @@ public class RegistrarionController {
     private final EmailSenderService emailSenderService;
 
     @Autowired
-    public RegistrarionController(EmailValidator emailValidator, AuthorizedUserDao authorizedUsersDao, PasswordValidator passwordValidator, EmailSenderService emailSenderService) {
+    public RegistrationController(EmailValidator emailValidator, AuthorizedUserDao authorizedUsersDao, PasswordValidator passwordValidator, EmailSenderService emailSenderService) {
         this.emailValidator = emailValidator;
         this.authorizedUsersDao = authorizedUsersDao;
         this.passwordValidator = passwordValidator;
@@ -61,7 +66,12 @@ public class RegistrarionController {
             AuthorizedUser user = authorizedUsersDao.getByStatus(confirmationToken);
             user.setUserStatus("verified");
             authorizedUsersDao.update(user);
-            return new ResponseEntity<>(HttpStatus.OK);
+
+            String token = JwtCreator.createJwt(user.getUserLogin());
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HEADER_STRING, TOKEN_PREFIX + token);
+
+            return new ResponseEntity<>(headers, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

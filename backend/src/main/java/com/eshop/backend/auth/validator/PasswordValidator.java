@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 @Component
 public class PasswordValidator {
 
-    private Pattern pattern;
-    private Matcher matcher;
     private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
 
     public boolean isValid(String password){
@@ -18,8 +16,8 @@ public class PasswordValidator {
 
     private boolean validatePassword(String password)
     {
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
+        Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+        Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
 

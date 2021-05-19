@@ -1,4 +1,4 @@
-package com.eshop.backend.auth.DTO;
+package com.eshop.backend.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,6 @@ public class RegistationRequestDTO {
     private String firstName;
     private String lastName;
     private String email;
-
     private String password;
 
 }

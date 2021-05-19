@@ -1,7 +1,5 @@
-package com.eshop.backend.auth.JWT;
+package com.eshop.backend.auth.jwt;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.eshop.backend.DAO.Models.AuthorizedUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,11 +14,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
-import static com.eshop.backend.auth.JWT.SecurityConstants.*;
+import static com.eshop.backend.auth.jwt.SecurityConstants.*;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -57,10 +53,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) {
         //create token
-        String token = JWT.create()
-                .withSubject(((User) auth.getPrincipal()).getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(SECRET.getBytes()));
+        String token = JwtCreator.createJwt(((User) auth.getPrincipal()).getUsername());
 
         // put token in header "Authorization: Bearer ...tokenText"
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);

@@ -1,4 +1,4 @@
-package com.eshop.backend.auth.JWT;
+package com.eshop.backend.auth.jwt;
 
 public class SecurityConstants {
     public static final String SECRET = "hd%34#$soehd%34#$soehd%34#$soe";

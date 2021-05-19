@@ -2,7 +2,7 @@ package com.eshop.backend.auth.controllers;
 
 import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
 import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDaoImpl;
-import com.eshop.backend.auth.DTO.LoginRequstDTO;
+import com.eshop.backend.auth.dto.LoginRequstDTO;
 import com.eshop.backend.DAO.Models.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

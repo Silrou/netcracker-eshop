@@ -1,4 +1,4 @@
-package com.eshop.backend.auth.DTO;
+package com.eshop.backend.auth.dto;
 
 import lombok.Data;
 

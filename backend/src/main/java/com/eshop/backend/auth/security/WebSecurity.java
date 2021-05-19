@@ -1,9 +1,9 @@
 package com.eshop.backend.auth.security;
 
 import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.auth.JWT.JWTAuthenticationFilter;
-import com.eshop.backend.auth.JWT.JWTAuthorizationFilter;
-import com.eshop.backend.auth.JWT.UserDetailsServiceImpl;
+import com.eshop.backend.auth.jwt.JWTAuthenticationFilter;
+import com.eshop.backend.auth.jwt.JWTAuthorizationFilter;
+import com.eshop.backend.auth.jwt.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
