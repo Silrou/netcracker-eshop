@@ -6,6 +6,7 @@ import com.eshop.backend.DAO.Models.AuthorizedUser;
 
 public interface AuthorizedUserDao extends MainDao<AuthorizedUser> {
 
-    AuthorizedUser readByLogin(String login);
+    AuthorizedUser getByLogin(String login);
+    AuthorizedUser getByStatus(String status);
 
 }

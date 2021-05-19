@@ -14,6 +14,7 @@ public class AuthorizedUser {
     private String userRole;
     private String userStatus;
 
+
     public AuthorizedUser(String userLogin, String userPassword, String userRole, String userStatus) {
         this.userLogin = userLogin;
         this.userPassword = userPassword;

@@ -26,7 +26,12 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     }
 
     @Override
-    public AuthorizedUser readByLogin(String login) throws DataAccessException {
+    public AuthorizedUser getByLogin(String login) throws DataAccessException {
+        return null;
+    }
+
+    @Override
+    public AuthorizedUser getByStatus(String status) {
         return null;
     }
 

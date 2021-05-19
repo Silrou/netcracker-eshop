@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        AuthorizedUser user = authorizedUserDao.readByLogin(email);
+        AuthorizedUser user = authorizedUserDao.getByLogin(email);
         if (user != null) {
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             return new User(user.getUserLogin(), user.getUserPassword(), authorities);
