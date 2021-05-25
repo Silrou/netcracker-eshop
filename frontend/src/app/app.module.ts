@@ -26,6 +26,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
     AuthorizationModule,
     AuctionsModule,
     ProductsModule,
+    HttpClientModule
   ],
   providers: [AuthService,
     {
