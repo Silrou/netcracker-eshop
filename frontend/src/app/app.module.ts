@@ -14,6 +14,7 @@ import {CommonModule} from './common/common.module';
 import {NavBarModule} from './nav-bar/nav-bar.module';
 import {SettingsModule} from './settings/settings.module';
 import {UserService} from './_service/user.service';
+import {WorkSpaceModule} from './work-space/work-space.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {UserService} from './_service/user.service';
     HttpClientModule,
     CommonModule,
     NavBarModule,
-    SettingsModule
+    SettingsModule,
+    WorkSpaceModule
   ],
   providers: [AuthService,
     UserService,
