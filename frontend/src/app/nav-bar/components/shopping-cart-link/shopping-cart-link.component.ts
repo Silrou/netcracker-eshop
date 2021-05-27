@@ -5,7 +5,7 @@ import {LinkService} from '../../services/link.service';
 @Component({
   selector: 'app-shopping-cart-link',
   templateUrl: '../base-link/base-link.component.html',
-  styleUrls: ['./shopping-cart-link.component.css']
+  styleUrls: ['./shopping-cart-link.component.css', '../base-link/base-link.component.css']
 })
 export class ShoppingCartLinkComponent extends BaseLinkComponent{
   url = 'basket';
