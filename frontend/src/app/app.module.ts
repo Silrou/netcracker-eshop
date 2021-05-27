@@ -11,7 +11,8 @@ import { SettingsComponent } from './settings/settings.component';
 import {AuthService} from './_service/auth.service';
 import {TokenInterceptorService} from './_service/token-interceptor.service';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-
+import {CommonModule} from './common/common.module';
+import {NavBarModule} from './nav-bar/nav-bar.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
     AuthorizationModule,
     AuctionsModule,
     ProductsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    NavBarModule
   ],
   providers: [AuthService,
     {

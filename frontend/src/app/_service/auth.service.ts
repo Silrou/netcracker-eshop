@@ -11,6 +11,7 @@ export class AuthService {
   private userEmailUrl = 'http://localhost:8081/user/email';
   private registerUrl = 'http://localhost:8081/user/register';
   private loginUrl = 'http://localhost:8081/user/login';
+  private roleUrl = 'http://localhost:8081/user/role';
   constructor(private http: HttpClient,
               private router: Router) {
   }
@@ -23,6 +24,11 @@ export class AuthService {
   loginUser(user: User): Observable<any>{
     return this.http.post(this.loginUrl, JSON.stringify(user));
   }
+
+  getUserRole(): Observable<any>{
+    return this.http.get(this.roleUrl);
+  }
+
   getToken(): string{
     return localStorage.getItem('token');
   }
