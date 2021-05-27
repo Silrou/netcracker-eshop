@@ -13,6 +13,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CommonModule} from './common/common.module';
 import {NavBarModule} from './nav-bar/nav-bar.module';
 import {SettingsModule} from './settings/settings.module';
+import {UserService} from "./_service/user.service";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {SettingsModule} from './settings/settings.module';
     SettingsModule
   ],
   providers: [AuthService,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
