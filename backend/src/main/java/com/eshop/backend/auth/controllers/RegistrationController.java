@@ -44,9 +44,7 @@ public class RegistrationController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (!"".equals(request.getEmail()) &&
-                request.getEmail() != null &&
-                emailValidator.isValid(request.getEmail()) &&
+        if (emailValidator.isValid(request.getEmail()) &&
                 passwordValidator.isValid(request.getPassword())) {
 
             user = new AuthorizedUser(request.getEmail(), request.getPassword(), Role.USER.name(), UUID.randomUUID().toString());
