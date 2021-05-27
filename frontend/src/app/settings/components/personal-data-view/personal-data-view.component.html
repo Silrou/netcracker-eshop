@@ -1,0 +1,34 @@
+<div class="card mt-4">
+  <div class="card-header">
+    <h2 class="text-center p-1">Personal information</h2>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 justify-content-around">
+          <img src="../../../assets/img/person.png" class="img-fluid"/></div>
+        <div class="col-md-9">
+          <div class="container">
+            <h5 class="card-title">First name: {{user.firstName}}</h5>
+          </div>
+          <div class="container">
+            <h5 class="card-title">Last name: {{user.lastName}}</h5>
+          </div>
+          <div class="container">
+          <h5 class="card-title">Email: {{user.email}}</h5>
+        </div>
+        <div class="container">
+        <h5 class="card-title">Password: {{user.password}}</h5>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6 justify-content-around">
+        <button type="button" class="btn btn-secondary mb-3" (click)="edit()">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
