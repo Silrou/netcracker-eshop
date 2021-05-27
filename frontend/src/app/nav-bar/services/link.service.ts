@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 export class LinkService {
 
   constructor(private http: HttpClient) { }
-  getUserHomeLink(): Observable<any>{
-    return this.http.get('../../../../assets/json/links/home.json');
+  getLink(url: string): Observable<any>{
+    return this.http.get('assets/json/links/' + url + '.json');
   }
 }
