@@ -62,7 +62,7 @@
               Password has not been entered
             </div>
           </div>
-          <button [disabled]="fname.invalid || lname.invalid || password.invalid || email.invalid"
+          <button [disabled]="fname.invalid || lname.invalid || password.invalid"
                   type="button" class="btn btn-success float-right"
                   (click)="register()">Register</button>
         </form>

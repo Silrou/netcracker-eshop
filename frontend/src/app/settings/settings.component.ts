@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +6,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  constructor(private router: Router) { }
-  edit = false;
+
+  constructor() { }
+
   ngOnInit(): void {
-    this.router.navigate(['/settings/view']);
   }
+
 }

@@ -15,21 +15,21 @@
 
 
     <ul class="navbar-nav">
-      <li class="nav-item" *ngIf="role==anonymous">
+      <li class="nav-item">
         <a class="nav-link" style="cursor:pointer"  routerLink="/settings" routerLinkActive="active" >
           <img src="../../../../assets/img/person.png" width="30" height="30"/>
         </a>
       </li>
-      <li *ngIf="role==anonymous">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active" >
+      <li>
+        <a class="nav-link" *ngIf="role==anonymous" routerLink="/login" routerLinkActive="active" >
           Login</a>
       </li>
-      <li *ngIf="role==anonymous">
-        <a class="nav-link" routerLink="/register" routerLinkActive="active" >
+      <li>
+        <a class="nav-link" *ngIf="role==anonymous" routerLink="/register" routerLinkActive="active" >
           Register</a>
       </li>
-      <li *ngIf="role!=anonymous">
-        <a class="nav-link" style="cursor:pointer"  >Log out
+      <li>
+        <a class="nav-link" style="cursor:pointer" *ngIf="role!=anonymous" >Log out
           <img src="../../../../assets/img/logout.png" width="30" height="30"/></a>
       </li>
     </ul>
