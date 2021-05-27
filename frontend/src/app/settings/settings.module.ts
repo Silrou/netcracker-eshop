@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { PersonalDataViewComponent } from './components/personal-data-view/personal-data-view.component';
 import { PersonalDataEditComponent } from './components/personal-data-edit/personal-data-edit.component';
+import {RouterModule} from '@angular/router';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -13,7 +15,9 @@ import { PersonalDataEditComponent } from './components/personal-data-edit/perso
     PersonalDataEditComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    FormsModule
   ]
 })
 export class SettingsModule { }

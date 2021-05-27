@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../_model/user';
+import {UserService} from '../../../_service/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-personal-data-edit',
@@ -7,10 +9,18 @@ import {User} from '../../../_model/user';
   styleUrls: ['./personal-data-edit.component.css']
 })
 export class PersonalDataEditComponent implements OnInit {
-  @Input()user: User;
-  constructor() { }
+  user = new User();
+  constructor(private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
+  }
+  save(): void{
+    this.userService.sendUserInfo(this.user).subscribe(
+      res => console.log('success'),
+      error => console.log(error.body)
+    );
+    this.router.navigate(['/settings/view']);
   }
 
 }

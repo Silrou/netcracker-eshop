@@ -13,6 +13,13 @@ import {BidComponent} from './auctions/bid/bid.component';
 import {ProductComponent} from './products/product/product.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 import {SettingsComponent} from './settings/pages/settings/settings.component';
+import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
+import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
+
+const settingsChildRoutes: Routes = [
+  { path: 'view', component: PersonalDataViewComponent},
+  { path: 'edit', component: PersonalDataEditComponent},
+];
 
 const routes: Routes = [
   {
@@ -59,6 +66,11 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    children: settingsChildRoutes
   }
 ];
 
