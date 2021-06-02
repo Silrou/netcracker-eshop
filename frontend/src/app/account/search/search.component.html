@@ -38,8 +38,7 @@
     <tbody>
     <tr *ngFor="let manager of managers">
 
-      <td   mat-row
-            *matRowDef="let row" [ngClass]="{ 'selected-row' : row.selected }"(click)="getID(manager.id)">{{manager.id}}</td>
+      <td (click)="getID(manager.id)">{{manager.id}}</td>
 
       <td>{{manager.firstName}}</td>
       <td>{{manager.lastName}}</td>
@@ -48,7 +47,7 @@
       <td>{{manager.role}}</td>
 
       <button mat-icon-button color="primary" (click)="onEdit()" title="Edit Contact"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button color="primary" (click)="onDelete(getID(manager.id),row.selected)" title="Delete Contact"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button color="primary" (click)="onDelete(getID(manager.id))" title="Delete Contact"><mat-icon>delete</mat-icon></button>
     </tr>
     </tbody>
   </table>

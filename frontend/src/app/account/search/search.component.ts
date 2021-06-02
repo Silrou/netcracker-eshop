@@ -58,9 +58,9 @@ export class SearchComponent implements OnInit {
   //   );
   // }
 
-  onDelete(id: number, selected: boolean): void{
+  onDelete(id: number): void{
    console.log(id);
-   this.rs.deleteUser(id, selected);
+   // this.rs.deleteUser(id, selected);
   }
   getID(id: number): number{
     return this.clickedID = id;
