@@ -15,6 +15,9 @@ http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<name>backend</name>
 	<description>Netcracker group project</description>
 	<properties>
+		<sonar.projectKey>LordNani_netcracker-eshop</sonar.projectKey>
+		<sonar.organization>lordnani</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
