@@ -12,7 +12,9 @@
         <app-shopping-cart-link></app-shopping-cart-link>
       </li>
       <li class="nav-item" *ngIf="role==admin">
-        <app-admin-work-space-link></app-admin-work-space-link>
+<!--        <app-admin-work-space-link>-->
+          <a  routerLink="search" routerLinkActive="active">Admin</a>
+<!--        </app-admin-work-space-link>-->
       </li>
     </ul>
 

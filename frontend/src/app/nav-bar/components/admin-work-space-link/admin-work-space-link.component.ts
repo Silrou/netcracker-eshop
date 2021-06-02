@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {BaseLinkComponent} from '../base-link/base-link.component';
 import {LinkService} from '../../services/link.service';
+
 
 @Component({
   selector: 'app-admin-work-space-link',
@@ -9,7 +10,14 @@ import {LinkService} from '../../services/link.service';
 })
 export class AdminWorkSpaceLinkComponent extends BaseLinkComponent {
   url = 'adminWork';
+
   constructor(linkService: LinkService) {
     super(linkService);
   }
+
 }
+
+
+
+
+
