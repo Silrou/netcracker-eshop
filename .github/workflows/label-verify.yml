@@ -8,7 +8,7 @@ jobs:
   verifier:
     runs-on: ubuntu-18.04
     steps:
-      - uses: zwaldowski/match-label-action@v2
+      - uses: zwaldowski/match-label-action@v1
         with:
           allowed: >
             type:fix-backend
