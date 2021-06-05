@@ -26,7 +26,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.authService.getUserRole().subscribe(
       res => this.role = res.role,
-      error => this.role = Role.ANONYMOUS_USER
+      error => this.role = Role.ADMIN
     );
   }
 }
