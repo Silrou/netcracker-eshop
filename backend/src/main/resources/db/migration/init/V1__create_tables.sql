@@ -30,7 +30,7 @@ create table product (
                          productStatus VARCHAR(100) NOT NULL
 );
 
-create table orderProduckt(
+create table orderProduct(
                               id int NOT NULL PRIMARY KEY,
                               productId int NOT NULL,
                               orderId int NOT NULL,
