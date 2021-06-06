@@ -5,7 +5,7 @@ import {MainPageComponent} from './main-page/main-page.component';
 import {LoginComponent} from './authorization/login/login.component';
 import {RegistrationComponent} from './authorization/registration/registration.component';
 import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
-import {SettingsComponent} from './settings/settings.component';
+
 
 import {AuctionComponent} from './auctions/auction/auction.component';
 import {AuctionListComponent} from './auctions/auction-list/auction-list.component';
@@ -13,17 +13,18 @@ import {BidComponent} from './auctions/bid/bid.component';
 
 import {ProductComponent} from './products/product/product.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
-import {SettingsComponent} from './settings/pages/settings/settings.component';
-import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
-import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
+// import {SettingsComponent} from './settings/pages/settings/settings.component';
+// import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
+// import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
 import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 import {ProfileComponent} from './account/profile/profile.component';
 import {SearchComponent} from './account/search/search.component';
+import {SettingsComponent} from './settings/settings.component';
 
-const settingsChildRoutes: Routes = [
-  { path: 'view', component: PersonalDataViewComponent},
-  { path: 'edit', component: PersonalDataEditComponent},
-];
+// const settingsChildRoutes: Routes = [
+//   { path: 'view', component: PersonalDataViewComponent},
+//   { path: 'edit', component: PersonalDataEditComponent},
+// ];
 
 const routes: Routes = [
   {
@@ -71,11 +72,11 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent
   },
-  {
-    path: 'settings',
-    component: SettingsComponent,
-    children: settingsChildRoutes
-  },
+  // {
+  //   path: 'settings',
+  //   component: SettingsComponent,
+  //   children: settingsChildRoutes
+  // },
   { path: 'search',
     component: SearchComponent
      },

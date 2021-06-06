@@ -13,8 +13,8 @@ import {TokenInterceptorService} from './_service/token-interceptor.service';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CommonModule} from './common/common.module';
 import {NavBarModule} from './nav-bar/nav-bar.module';
-import {SettingsModule} from './settings/settings.module';
-import {UserService} from './_service/user.service';
+// import {SettingsModule} from './settings/settings.module';
+// import {UserService} from './_service/user.service';
 import {WorkSpaceModule} from './work-space/work-space.module';
 import { ProfileComponent } from './account/profile/profile.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -41,7 +41,9 @@ import {MatRadioModule} from '@angular/material/radio';
     ProfileComponent,
     SearchComponent,
     RestComponent,
-    EditComponent
+    EditComponent,
+    SearchComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,7 @@ import {MatRadioModule} from '@angular/material/radio';
     HttpClientModule,
     CommonModule,
     NavBarModule,
-    SettingsModule,
+    // SettingsModule,
     WorkSpaceModule,
     FormsModule,
     ReactiveFormsModule,
