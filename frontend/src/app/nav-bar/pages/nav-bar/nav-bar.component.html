@@ -8,8 +8,13 @@
       <li class="nav-item">
         <app-catalogue-link></app-catalogue-link>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="role==anonymous||role==authorized">
         <app-shopping-cart-link></app-shopping-cart-link>
+      </li>
+      <li class="nav-item" *ngIf="role==admin">
+<!--        <app-admin-work-space-link>-->
+          <a  routerLink="search" routerLinkActive="active">Admin</a>
+<!--        </app-admin-work-space-link>-->
       </li>
     </ul>
 
