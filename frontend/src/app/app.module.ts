@@ -7,6 +7,7 @@ import { AuthorizationModule } from './authorization/authorization.module';
 import { AuctionsModule } from './auctions/auctions.module';
 import { ProductsModule } from './products/products.module';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { SettingsComponent } from './settings/settings.component';
 import {AuthService} from './_service/auth.service';
 import {TokenInterceptorService} from './_service/token-interceptor.service';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -31,10 +32,12 @@ import { EditComponent } from './account/edit/edit.component';
 import {MatDialogModule, MatDialogConfig} from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
 // import {MatOptionModule} from "@angular/material/core";
+
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
+    SettingsComponent,
     ShoppingCartComponent,
     ProfileComponent,
     SearchComponent,
@@ -66,6 +69,7 @@ import {MatRadioModule} from '@angular/material/radio';
     MatDialogModule,
     MatRadioModule
     // MatOptionModule
+
   ],
   providers: [AuthService,
     {

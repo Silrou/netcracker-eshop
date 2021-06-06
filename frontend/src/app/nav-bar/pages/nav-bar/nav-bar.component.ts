@@ -12,7 +12,8 @@ export class NavBarComponent implements OnInit {
   anonymous = Role.ANONYMOUS_USER;
   authorized = Role.AUTHORIZED_USER;
   admin = Role.ADMIN;
-  @Input()role: Role;
+  @Input()role = Role.ANONYMOUS_USER;
+
   constructor(private router: Router,
               private authService: AuthService) { }
 
