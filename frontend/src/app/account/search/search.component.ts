@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
 
   onDelete(id: number): void{
    console.log(id);
-   // this.rs.deleteUser(id, selected);
+   this.rs.deleteUser(id);
   }
   getID(id: number): number{
     return this.clickedID = id;

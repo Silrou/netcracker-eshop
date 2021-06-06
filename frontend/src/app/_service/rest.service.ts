@@ -25,7 +25,7 @@ export class RestService {
     return this.http.post<Managers>(this.url, manager);
 
   }
-  deleteUser(id: number, manager): void{
+  deleteUser(manager): void{
     this.http.delete<Managers>(this.url, manager);
   }
 }
