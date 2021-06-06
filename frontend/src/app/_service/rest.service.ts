@@ -25,7 +25,7 @@ export class RestService {
     return this.http.post<Managers>(this.url, manager);
 
   }
-  deleteUser(manager): void{
-    this.http.delete<Managers>(this.url, manager);
+  deleteUser(id: number): Observable<Managers>{
+    return this.http.delete<Managers>(this.url + '/' + id);
   }
 }

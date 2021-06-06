@@ -13,7 +13,6 @@ import {TokenInterceptorService} from './_service/token-interceptor.service';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CommonModule} from './common/common.module';
 import {NavBarModule} from './nav-bar/nav-bar.module';
-import {SettingsComponent} from './settings/settings.component';
 // import {SettingsModule} from './settings/settings.module';
 // import {UserService} from './_service/user.service';
 import {WorkSpaceModule} from './work-space/work-space.module';
