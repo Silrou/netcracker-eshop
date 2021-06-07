@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    private int id;
+    private Long id;
 
     private int productCategory;
 
@@ -20,12 +21,14 @@ public class Product {
 
     private double productPrice;
 
-    private int productDiscount;
+    private double productDiscount;
 
     private Date productDate;
 
+    private String productPict;
+
     private String productDescription;
 
-    private boolean productStatus;
+    private String productStatus;
 
 }

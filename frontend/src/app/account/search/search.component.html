@@ -48,8 +48,8 @@
       <td>{{manager.phoneNumber}}</td>
       <td>{{manager.role}}</td>
 
-      <button mat-icon-button color="primary" (click)="onEdit()" title="Edit Contact"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button color="primary" (click)="onDelete(getID(manager.id))" title="Delete Contact"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button color="primary"  title="Edit Contact"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button color="primary" (click)="onDelete(manager.id)" title="Delete Contact"><mat-icon>delete</mat-icon></button>
     </tr>
     </tbody>
   </table>
