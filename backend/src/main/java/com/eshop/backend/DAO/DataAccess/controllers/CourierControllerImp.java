@@ -26,7 +26,7 @@ public class CourierControllerImp implements CourierController {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
 
     }
 
