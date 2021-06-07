@@ -12,5 +12,5 @@ public interface MainDao <T>{
 
     void update(T model);
 
-    void delete(int id);
+    void delete(Long id);
 }
