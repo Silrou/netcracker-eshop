@@ -4,13 +4,15 @@ import { ProductComponent } from './product/product.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { ProductSearchComponent } from './product-search/product-search.component';
 
 
 @NgModule({
   declarations: [
     ProductComponent,
     ProductListComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductSearchComponent
   ],
   imports: [
     CommonModule,

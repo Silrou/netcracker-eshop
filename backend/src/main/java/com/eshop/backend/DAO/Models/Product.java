@@ -26,6 +26,6 @@ public class Product {
 
     private String productDescription;
 
-    //private int productStatus; ?
+    private boolean productStatus;
 
 }

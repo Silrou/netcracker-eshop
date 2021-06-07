@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, map, tap} from 'rxjs/operators';
 import {Observable, of} from "rxjs";
 import {Product} from "../../_model/product";
+
+import {PRODUCTS} from "../../_utils/products"; //удалить, когда продукты будут браться с бэка
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,10 @@ export class ProductService {
 
   private productsUrl = 'localhost:8081/api/products';
 
-  private handleError<T>(operation = 'operation', result?: T){
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log(`${operation} failed: ${error.message}`);
-      return of (result as T);
+      return of(result as T);
     };
   }
 
@@ -22,11 +24,15 @@ export class ProductService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  getAllProducts(): Observable<Product[]>{
+  getAllProducts(): Observable<Product[]> {
+    /*
     return this.http.get<Product[]>(this.productsUrl)
       .pipe(
         catchError(this.handleError<Product[]>('getAllProducts', []))
-      );
+      );*/
+    //удалить, когда продукты будут браться с бэка:
+    const products = of(PRODUCTS);
+    return products;
   }
 
   getProduct(id: number): Observable<Product> {
@@ -44,14 +50,14 @@ export class ProductService {
       );
   }
 
-  addProduct(product: Product): Observable<Product>{
+  addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.productsUrl, product, this.httpOptions)
       .pipe(
         catchError(this.handleError<Product>('addProduct'))
       );
   }
 
-  deleteProduct(id: number): Observable<Product>{
+  deleteProduct(id: number): Observable<Product> {
     const url = `${this.productsUrl}/${id}`;
     return this.http.delete<Product>(url, this.httpOptions)
       .pipe(
@@ -59,17 +65,18 @@ export class ProductService {
       );
   }
 
-  searchProducts(term: string): Observable<Product[]>{
+  searchProducts(term: string): Observable<Product[]> {
     if (!term.trim()) {
       return of([]);
     }
     return this.http.get<Product[]>(`${this.productsUrl}/?name=${term}`)
       .pipe(
-        catchError(this.handleError<Product[]>('searchHeroes', []))
+        catchError(this.handleError<Product[]>('searchProducts', []))
       );
   }
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) {
+  }
 }
