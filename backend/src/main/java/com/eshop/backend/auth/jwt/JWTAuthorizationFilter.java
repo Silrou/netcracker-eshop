@@ -14,6 +14,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import static com.eshop.backend.auth.jwt.SecurityConstants.*;
@@ -33,12 +34,16 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                                     FilterChain chain) throws ServletException, java.io.IOException {
         String header = req.getHeader(HEADER_STRING);
 
-        if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+        if (header == null || !header.startsWith(TOKEN_PREFIX) || header.equals(TOKEN_PREFIX + "null")) {
             chain.doFilter(req, res);
             return;
         }
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
+
+        //refresh token
+        res.addHeader(HEADER_STRING, TOKEN_PREFIX + JwtCreator.createJwt((String) (authentication != null ? authentication.getPrincipal() : null)));
+
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
@@ -58,8 +63,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             if (user != null) {
                 // new arraylist means authorities
                 AuthorizedUser authorizedUser = authorizedUserDao.getByLogin(user);
+
+                ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getStatus()));
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getRole()));
+
                 return new UsernamePasswordAuthenticationToken(user, null,
-                        Collections.singleton(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserRole())));
+                        list);
 
             }
 

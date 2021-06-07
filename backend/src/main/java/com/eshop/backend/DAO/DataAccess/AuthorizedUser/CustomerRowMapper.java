@@ -12,9 +12,11 @@ public class CustomerRowMapper implements RowMapper<AuthorizedUser> {
     public AuthorizedUser mapRow(ResultSet rs, int rowNum) throws SQLException {
 
         AuthorizedUser authorizedUsers = new AuthorizedUser();
-        authorizedUsers.setUserLogin(rs.getString("user_login"));
-        authorizedUsers.setUserPassword(rs.getString("user_password"));
-        authorizedUsers.setUserRole(rs.getString("user_role"));
+        authorizedUsers.setId(rs.getLong("id"));
+        authorizedUsers.setEmail(rs.getString("user_login"));
+        authorizedUsers.setPassword(rs.getString("user_password"));
+        authorizedUsers.setRole(rs.getString("user_role"));
+        authorizedUsers.setStatus(rs.getString("user_status"));
         return authorizedUsers;
 
     }
