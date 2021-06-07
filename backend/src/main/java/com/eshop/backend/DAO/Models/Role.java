@@ -4,5 +4,7 @@ public enum Role {
     ADMIN,
     USER,
     MANAGER,
-    COURIER
+    COURIER,
+    AUTHORIZED,
+    ANONYMOUS
 }
