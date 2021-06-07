@@ -1,16 +1,30 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {MainPageComponent} from './Components/main-page/main-page.component';
-import {LoginComponent} from './Components/authorization/login/login.component';
-import {RegistrationComponent} from './Components/authorization/registration/registration.component';
-import {AuctionsComponent} from './Components/auctions/auctions.component';
-import {ProductsComponent} from './Components/products/products.component';
-import {ShoppingCartComponent} from './Components/shopping-cart/shopping-cart.component';
-import {SettingsComponent} from './Components/settings/settings.component';
-import {ProductComponent} from './Components/product/product.component';
-import {AuctionComponent} from './Components/auction/auction.component';
-import {BidComponent} from './Components/bid/bid.component';
+import {MainPageComponent} from './main-page/main-page.component';
+import {LoginComponent} from './authorization/login/login.component';
+import {RegistrationComponent} from './authorization/registration/registration.component';
+import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
+
+
+import {AuctionComponent} from './auctions/auction/auction.component';
+import {AuctionListComponent} from './auctions/auction-list/auction-list.component';
+import {BidComponent} from './auctions/bid/bid.component';
+
+import {ProductComponent} from './products/product/product.component';
+import {ProductListComponent} from './products/product-list/product-list.component';
+// import {SettingsComponent} from './settings/pages/settings/settings.component';
+// import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
+// import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
+import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
+import {ProfileComponent} from './account/profile/profile.component';
+import {SearchComponent} from './account/search/search.component';
+import {SettingsComponent} from './settings/settings.component';
+
+// const settingsChildRoutes: Routes = [
+//   { path: 'view', component: PersonalDataViewComponent},
+//   { path: 'edit', component: PersonalDataEditComponent},
+// ];
 
 const routes: Routes = [
   {
@@ -31,8 +45,8 @@ const routes: Routes = [
     component: RegistrationComponent
   },
   {
-    path: 'auctions',
-    component: AuctionsComponent
+    path: 'auction-list',
+    component: AuctionListComponent
   },
   {
     path: 'auction',
@@ -43,13 +57,13 @@ const routes: Routes = [
     component: BidComponent
   },
   {
-    path: 'products',
-    component: ProductsComponent
+    path: 'product-list',
+    component: ProductListComponent
   },
-  {
-    path: 'product',
-    component: ProductComponent
-  },
+    {
+      path: 'product',
+      component: ProductComponent
+    },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent
@@ -57,6 +71,18 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent
+  },
+  // {
+  //   path: 'settings',
+  //   component: SettingsComponent,
+  //   children: settingsChildRoutes
+  // },
+  { path: 'search',
+    component: SearchComponent
+     },
+  {
+    path: 'account/profile',
+    component: ProfileComponent
   }
 ];
 
