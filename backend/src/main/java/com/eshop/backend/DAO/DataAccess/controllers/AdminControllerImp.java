@@ -31,9 +31,10 @@ public class AdminControllerImp implements AdminController {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
 
     }
+
 
     @Override
     public AuthorizedUser getManagerDataByLogin(String login) {
