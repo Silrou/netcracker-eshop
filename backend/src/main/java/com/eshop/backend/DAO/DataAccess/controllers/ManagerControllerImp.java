@@ -35,7 +35,7 @@ public class ManagerControllerImp implements  ManagerController{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
 
     }
 

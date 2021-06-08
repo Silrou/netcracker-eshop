@@ -17,32 +17,6 @@ public class ProductServiceImp implements ProductService {
         this.productDao = productDao;
     }
 
-
-    @Override
-    public void create(Product model) {
-        productDao.create(model);
-    }
-
-    @Override
-    public Product getById(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Product> getAll() {
-        return null;
-    }
-
-    @Override
-    public void update(Product model) {
-        productDao.update(model);
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
     @Override
     public List<Product> getProductPage(int page, int size) {
         page = getPageNumeration(page, size);
@@ -65,5 +39,30 @@ public class ProductServiceImp implements ProductService {
         if(page > 1)
             page = (page - 1) * size + 1;
         return page;
+    }
+
+    @Override
+    public void create(Product model) {
+
+    }
+
+    @Override
+    public Product getById(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return null;
+    }
+
+    @Override
+    public void update(Product model) {
+
+    }
+
+    @Override
+    public void delete(Long id) {
+
     }
 }
