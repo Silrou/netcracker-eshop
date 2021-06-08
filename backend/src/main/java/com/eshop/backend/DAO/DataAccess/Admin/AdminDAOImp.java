@@ -1,18 +1,14 @@
-package com.eshop.backend.DAO.DataAccess.controllers;
+package com.eshop.backend.DAO.DataAccess.Admin;
+
 
 import com.eshop.backend.DAO.Models.AuthorizedUser;
-import com.eshop.backend.DAO.Models.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 @Controller
-public class ManagerControllerImp implements  ManagerController{
+public class AdminDAOImp implements AdminDAO {
 
-    @Autowired
-    JdbcTemplate template;
 
     @Override
     public void create(AuthorizedUser model) {
@@ -59,4 +55,23 @@ public class ManagerControllerImp implements  ManagerController{
         return null;
     }
 
+    @Override
+    public AuthorizedUser getCourierDataByLogin(String login) {
+        return null;
+    }
+
+    @Override
+    public AuthorizedUser updateCourierDataByLogin(String login) {
+        return null;
+    }
+
+    @Override
+    public AuthorizedUser getCourierDataById(int id) {
+        return null;
+    }
+
+    @Override
+    public AuthorizedUser updateCourierDataById(int id) {
+        return null;
+    }
 }

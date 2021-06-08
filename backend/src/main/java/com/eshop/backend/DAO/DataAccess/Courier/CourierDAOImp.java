@@ -1,10 +1,10 @@
-package com.eshop.backend.DAO.DataAccess.controllers;
+package com.eshop.backend.DAO.DataAccess.Courier;
 
 import com.eshop.backend.DAO.Models.AuthorizedUser;
 
 import java.util.List;
 
-public class CourierControllerImp implements CourierController {
+public class CourierDAOImp implements CourierDAO {
     @Override
     public void create(AuthorizedUser model) {
 

@@ -1,4 +1,4 @@
-package com.eshop.backend.DAO.DataAccess.controllers;
+package com.eshop.backend.DAO.DataAccess.Manager;
 
 import com.eshop.backend.DAO.DataAccess.MainDao;
 import com.eshop.backend.DAO.Models.AuthorizedUser;

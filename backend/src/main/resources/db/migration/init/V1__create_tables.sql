@@ -4,6 +4,7 @@ create table authorizedUser(
                                userPassword varchar(100) NOT NULL,
                                userRole varchar(100) NOT NULL,
                                userName varchar(100) NOT NULL,
+                               userSurname varchar(100) NOT NULL,
                                userRegistrationDate DATE NOT NULL,
                                userStatus VARCHAR(100) NOT NULL,
                                userAddress VARCHAR(100) NOT NULL,

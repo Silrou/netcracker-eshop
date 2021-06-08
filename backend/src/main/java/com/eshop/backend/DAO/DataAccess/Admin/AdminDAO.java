@@ -1,9 +1,9 @@
-package com.eshop.backend.DAO.DataAccess.controllers;
+package com.eshop.backend.DAO.DataAccess.Admin;
 
-import com.eshop.backend.DAO.DataAccess.MainDao;
+import com.eshop.backend.DAO.DataAccess.Manager.ManagerController;
 import com.eshop.backend.DAO.Models.AuthorizedUser;
 
-public interface AdminController extends ManagerController {
+public interface AdminDAO extends ManagerController {
     AuthorizedUser getManagerDataByLogin(String login);
     AuthorizedUser updateManagerDataByLogin(String login);
     AuthorizedUser getManagerDataById(int id);
