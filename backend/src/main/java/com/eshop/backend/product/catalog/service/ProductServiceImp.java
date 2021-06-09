@@ -51,7 +51,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Product getById(int id) {
+    public Product getById(Long id) {
         return productdao.getById(id);
     }
 

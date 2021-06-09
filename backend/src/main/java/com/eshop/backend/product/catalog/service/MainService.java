@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface MainService<T> {
     void create(T model);
-    T getById(int id);
+    T getById(Long id);
     List<T> getAll();
     void update(T model);
     void delete(Long id);

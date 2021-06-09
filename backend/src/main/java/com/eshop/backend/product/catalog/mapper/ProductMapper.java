@@ -18,20 +18,20 @@ public class ProductMapper implements RowMapper<Product> {
 
     @Override
     public Product mapRow(ResultSet rs, int i) throws SQLException {
-        int id = rs.getInt("id");
+        Long id = rs.getLong("id");
         String name = rs.getString("productname");
-        int amount = rs.getInt("productamount");
-        double price = rs.getDouble("productprice");
-        double discount = rs.getDouble("productdiscount");
+        Long amount = rs.getLong("productamount");
+        int price = rs.getInt("productprice");
+        int discount = rs.getInt("productdiscount");
         Date date = rs.getDate("productdate");
         String pict = rs.getString("productpict");
         String description = rs.getString("productdescription");
         String status = rs.getString("productstatus");
-        int genre = rs.getInt("genre");
-        int coverType = rs.getInt("covertype");
-        int author = rs.getInt("author");
-        int language = rs.getInt("language");
-        int publisher = rs.getInt("publisher");
+        Long genre = rs.getLong("genre");
+        Long coverType = rs.getLong("covertype");
+        Long author = rs.getLong("author");
+        Long language = rs.getLong("language");
+        Long publisher = rs.getLong("publisher");
         return new Product(id, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
     }
 }

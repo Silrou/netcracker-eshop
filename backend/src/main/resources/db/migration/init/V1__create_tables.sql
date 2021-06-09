@@ -1,5 +1,5 @@
 create table authorizedUser(
-                               id int NOT NULL,
+                               id bigserial NOT NULL,
                                userLogin varchar(100) NOT NULL,
                                userPassword varchar(100) NOT NULL,
                                userRole varchar(100) NOT NULL,
@@ -12,27 +12,27 @@ create table authorizedUser(
 );
 
 create table genre(
-                id int PRIMARY KEY,
+                id bigserial PRIMARY KEY,
                 genreName varchar(100) NOT NULL
 );
 
 create table coverType(
-                id int PRIMARY KEY,
+                id bigserial PRIMARY KEY,
                 coverTypeName varchar(100) NOT NULL
 );
 
 create table author(
-                          id int PRIMARY KEY,
+                          id bigserial PRIMARY KEY,
                           authorName varchar(100) NOT NULL
 );
 
 create table language(
-                          id int PRIMARY KEY,
+                          id bigserial PRIMARY KEY,
                           languageName varchar(100) NOT NULL
 );
 
 create table publisher(
-                         id int PRIMARY KEY,
+                         id bigserial PRIMARY KEY,
                          publisherName varchar(100) NOT NULL
 );
 
@@ -54,14 +54,14 @@ create table product (
 );
 
 create table orderProduct(
-                              id int NOT NULL PRIMARY KEY,
-                              productId int NOT NULL,
-                              orderId int NOT NULL,
-                              inCartProductAmount int NOT NULL
+                              id bigserial NOT NULL PRIMARY KEY,
+                              productId bigserial NOT NULL,
+                              orderId bigserial NOT NULL,
+                              inCartProductAmount bigserial NOT NULL
 );
 
 create table orderCart(
-                          id int NOT NULL PRIMARY KEY,
+                          id bigserial NOT NULL PRIMARY KEY,
                           packageId integer NOT NULL,
                           courierId integer NOT NULL,
                           packageDescription varchar(100) NOT NULL,
@@ -76,11 +76,11 @@ create table orderCart(
 
 
 CREATE table statistic(
-                          id integer PRIMARY KEY,
-                          productCategory integer NOT NULL,
-                          productId integer NOT NULL,
-                          productBought integer NOT NULL,
-                          productSold integer NOT NULL,
+                          id bigserial PRIMARY KEY,
+                          productCategory bigserial NOT NULL,
+                          productId bigserial NOT NULL,
+                          productBought bigserial NOT NULL,
+                          productSold bigserial NOT NULL,
                           productRating float
 );
 
