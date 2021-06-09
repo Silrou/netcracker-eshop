@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
@@ -25,12 +26,14 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
     @Override
     public void create(AuthorizedUser user) {
-        String SQL = "insert into users (user_login, user_password," +
-                "user_role, user_status)\n" +
-                "values (?,?,?,?)";
+
+        String SQL = "insert into authorizeduser (userlogin, userpassword," +
+                "userrole, username, userregistrationdate, userstatus, useraddress, usernumber)\n" +
+                "values (?,?,?,?,?,?,?,?)";
         try {
-            jdbcTemplate.update(SQL, user.getEmail(), user.getPassword(),
-                    user.getRole(), user.getStatus());
+            jdbcTemplate.update(SQL, user.getUserLogin(), user.getUserPassword(),
+                    user.getUserRole(), user.getUserName(), user.getUserRegistrationDate(),
+                    user.getUserStatus(), " ", " ");
         } catch (Exception e) {
             String str = e.toString();
         }
@@ -39,9 +42,12 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     @Override
     public AuthorizedUser getByLogin(String login) throws DataAccessException {
         try{
-            String getUserSql = "SELECT id, user_login , user_password, user_role, user_status FROM users WHERE user_login = ?";
-            return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
+            String ss = bCryptPasswordEncoder.encode("MANAGER");
+            String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
+            AuthorizedUser user = jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
+            return user;
         } catch (DataAccessException e) {
+            String str = e.toString();
             return null;
         }
 
@@ -55,9 +61,10 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     @Override
     public AuthorizedUser getRoleByLogin(String login) {
         try{
-            String getUserSql = "SELECT id, user_login , user_password, user_role, user_status FROM users WHERE user_login = ?";
+            String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
         } catch (DataAccessException e) {
+            String srt = e.toString();
             return null;
         }
     }
@@ -78,18 +85,18 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     @Override
     public void createVerificationToken(AuthorizedUser user, String token) {
         //save token
-        String SQL = "update users set \"user_login\" = ?,\n" +
-                "                   \"user_password\"= ?,\n" +
-                "                   \"user_role\" = ?,\n" +
-                "                   \"user_status\" = ?,\n" +
-                "                   \"user_token\" = ?\n" +
-                "                   where id = ?";
-        try {
-            jdbcTemplate.update(SQL, user.getEmail(), user.getPassword(), user.getRole(),
-                    user.getStatus(), token, user.getId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+//        String SQL = "update users set \"user_login\" = ?,\n" +
+//                "                   \"user_password\"= ?,\n" +
+//                "                   \"user_role\" = ?,\n" +
+//                "                   \"user_status\" = ?,\n" +
+//                "                   \"user_token\" = ?\n" +
+//                "                   where id = ?";
+//        try {
+//            jdbcTemplate.update(SQL, user.getEmail(), user.getPassword(), user.getRole(),
+//                    user.getStatus(), token, user.getId());
+//        } catch (Exception e) {
+//            String str = e.toString();
+//        }
     }
 
 
@@ -105,13 +112,13 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
     @Override
     public void update(AuthorizedUser user) {
-        String SQL = "update users set \"user_status\" = ?\n" +
-                "                   where id = ?";
-        try {
-            jdbcTemplate.update(SQL, user.getStatus(), user.getId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+//        String SQL = "update users set \"user_status\" = ?\n" +
+//                "                   where id = ?";
+//        try {
+//            jdbcTemplate.update(SQL, user.getStatus(), user.getId());
+//        } catch (Exception e) {
+//            String str = e.toString();
+//        }
     }
 
     @Override

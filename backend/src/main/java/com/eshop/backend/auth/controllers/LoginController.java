@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -32,9 +33,10 @@ public class LoginController {
         try {
             AuthorizedUser user = authorizedUserDao.getByLogin(request.getEmail());
 
-            if (user != null && bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword())){
+            if (user != null && bCryptPasswordEncoder.matches(request.getPassword(), user.getUserPassword())){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
+
         } catch (DataAccessException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }

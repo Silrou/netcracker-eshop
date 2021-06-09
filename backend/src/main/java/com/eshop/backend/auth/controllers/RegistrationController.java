@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Calendar;
 
 @RestController
@@ -38,18 +40,25 @@ public class RegistrationController {
     @PostMapping("/user/register")
     public ResponseEntity<?> Registration(@RequestBody RegistationRequestDTO request) {
 
-        AuthorizedUser user = authorizedUsersDao.getByLogin(request.getEmail());
+        AuthorizedUser user = authorizedUsersDao.getByLogin(request.getUserLogin());
 
         if (user != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (emailValidator.isValid(request.getEmail()) &&
-                passwordValidator.isValid(request.getPassword())) {
+        if (emailValidator.isValid(request.getUserLogin()) &&
+                passwordValidator.isValid(request.getUserPassword())) {
 
-            user = new AuthorizedUser(request.getEmail(), request.getPassword(), Role.USER.name(), Role.ANONYMOUS.name());
+            user = AuthorizedUser.builder()
+                    .userLogin(request.getUserLogin())
+                    .userPassword(request.getUserPassword())
+                    .userRole(Role.USER.name())
+                    .userName(request.getFirstName())
+                    .userRegistrationDate(new Date(System.currentTimeMillis()))
+                    .userStatus(Role.ANONYMOUS.name())
+                    .build();
+
             authorizedUsersDao.create(user);
-            user = authorizedUsersDao.getByLogin(user.getEmail());
 
             emailSenderService.sendEmail(user);
 
@@ -65,19 +74,14 @@ public class RegistrationController {
         if (confirmationToken != null) {
             EmailToken emailToken = emailTokenDao.getByToken(confirmationToken);
             AuthorizedUser user = authorizedUsersDao.getByToken(confirmationToken);
-//            user.setStatus(Role.AUTHORIZED.name());
-//            authorizedUsersDao.update(user);
 
             Calendar cal = Calendar.getInstance();
 
             if ((emailToken.getExpiryDate().getTime() - cal.getTime().getTime()) >= 0) {
-                user.setStatus(Role.AUTHORIZED.name());
+                user.setUserStatus(Role.AUTHORIZED.name());
                 authorizedUsersDao.update(user);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-//            String token = JwtCreator.createJwt(user.getEmail());
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.add(HEADER_STRING, TOKEN_PREFIX + token);
 
         }
 
