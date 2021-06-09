@@ -1,6 +1,6 @@
 package com.eshop.backend.auth.security;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
 import com.eshop.backend.auth.jwt.JWTAuthenticationFilter;
 import com.eshop.backend.auth.jwt.JWTAuthorizationFilter;
 import com.eshop.backend.auth.jwt.UserDetailsServiceImpl;
@@ -30,16 +30,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final AuthorizedUserDao authorizedUserDao;
+    private final AuthorizedUserDao authorizedUserdao;
 
     private String[] allowedURIs = new String[] {"/", "/v2/api-docs/**", "/configuration/ui/**",
             "/swagger-resources/**", "/swagger-ui.html*", "/webjars/**",
             "/actuator/*", "/localizations/**"};
 
-    public WebSecurity(UserDetailsServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder, AuthorizedUserDao authorizedUserDao) {
+    public WebSecurity(UserDetailsServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder, AuthorizedUserDao authorizedUserdao) {
         this.userDetailsService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.authorizedUserDao = authorizedUserDao;
+        this.authorizedUserdao = authorizedUserdao;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserDao));
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserdao));
 
     }
 

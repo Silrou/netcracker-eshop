@@ -1,8 +1,8 @@
-package com.eshop.backend.DAO.DataAccess.EmailToken;
+package com.eshop.backend.dao.DataAccess.EmailToken;
 
-import com.eshop.backend.DAO.DataAccess.MainDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
-import com.eshop.backend.DAO.Models.EmailToken;
+import com.eshop.backend.dao.DataAccess.MainDao;
+import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.EmailToken;
 
 public interface EmailTokenDao extends MainDao<EmailToken> {
     void createVerificationToken(AuthorizedUser user, EmailToken token);

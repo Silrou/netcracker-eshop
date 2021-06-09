@@ -1,8 +1,8 @@
-package com.eshop.backend.DAO.DataAccess.AuthorizedUser;
+package com.eshop.backend.dao.DataAccess.AuthorizedUser;
 
 
-import com.eshop.backend.DAO.DataAccess.MainDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.DataAccess.MainDao;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 
 public interface AuthorizedUserDao extends MainDao<AuthorizedUser> {
 

@@ -1,4 +1,4 @@
-package com.eshop.backend.DAO.Models;
+package com.eshop.backend.dao.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,9 +1,9 @@
-package com.eshop.backend.DAO.DataAccess;
+package com.eshop.backend.dao.DataAccess;
 
 
 import java.util.List;
 
-public interface MainDao <T>{
+public interface MainDao<T>{
     void create(T model);
 
     T getById(int id);

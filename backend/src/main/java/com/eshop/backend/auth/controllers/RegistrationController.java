@@ -1,11 +1,11 @@
 package com.eshop.backend.auth.controllers;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.DataAccess.EmailToken.EmailTokenDao;
-import com.eshop.backend.DAO.Models.EmailToken;
-import com.eshop.backend.DAO.Models.Role;
+import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.EmailToken.EmailTokenDao;
+import com.eshop.backend.dao.Models.EmailToken;
+import com.eshop.backend.dao.Models.Role;
 import com.eshop.backend.auth.dto.RegistationRequestDTO;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 import com.eshop.backend.auth.mail.EmailSenderService;
 import com.eshop.backend.auth.validator.EmailValidator;
 import com.eshop.backend.auth.validator.PasswordValidator;
@@ -20,17 +20,17 @@ import java.util.Calendar;
 public class RegistrationController {
 
     private final EmailValidator emailValidator;
-    private final AuthorizedUserDao authorizedUsersDao;
-    private final EmailTokenDao emailTokenDao;
+    private final AuthorizedUserDao authorizedUsersdao;
+    private final EmailTokenDao emailTokendao;
     private final PasswordValidator passwordValidator;
     private final EmailSenderService emailSenderService;
 
     @Autowired
-    public RegistrationController(EmailValidator emailValidator, AuthorizedUserDao authorizedUsersDao,
-                                  EmailTokenDao emailTokenDao, PasswordValidator passwordValidator, EmailSenderService emailSenderService) {
+    public RegistrationController(EmailValidator emailValidator, AuthorizedUserDao authorizedUsersdao,
+                                  EmailTokenDao emailTokendao, PasswordValidator passwordValidator, EmailSenderService emailSenderService) {
         this.emailValidator = emailValidator;
-        this.authorizedUsersDao = authorizedUsersDao;
-        this.emailTokenDao = emailTokenDao;
+        this.authorizedUsersdao = authorizedUsersdao;
+        this.emailTokendao = emailTokendao;
         this.passwordValidator = passwordValidator;
         this.emailSenderService = emailSenderService;
     }
@@ -38,7 +38,7 @@ public class RegistrationController {
     @PostMapping("/user/register")
     public ResponseEntity<?> Registration(@RequestBody RegistationRequestDTO request) {
 
-        AuthorizedUser user = authorizedUsersDao.getByLogin(request.getEmail());
+        AuthorizedUser user = authorizedUsersdao.getByLogin(request.getEmail());
 
         if (user != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -48,8 +48,8 @@ public class RegistrationController {
                 passwordValidator.isValid(request.getPassword())) {
 
             user = new AuthorizedUser(request.getEmail(), request.getPassword(), Role.USER.name(), Role.ANONYMOUS.name());
-            authorizedUsersDao.create(user);
-            user = authorizedUsersDao.getByLogin(user.getEmail());
+            authorizedUsersdao.create(user);
+            user = authorizedUsersdao.getByLogin(user.getEmail());
 
             emailSenderService.sendEmail(user);
 
@@ -63,16 +63,16 @@ public class RegistrationController {
     public ResponseEntity<?> confirmUserAccount(@RequestParam("token")String confirmationToken) {
 
         if (confirmationToken != null) {
-            EmailToken emailToken = emailTokenDao.getByToken(confirmationToken);
-            AuthorizedUser user = authorizedUsersDao.getByToken(confirmationToken);
+            EmailToken emailToken = emailTokendao.getByToken(confirmationToken);
+            AuthorizedUser user = authorizedUsersdao.getByToken(confirmationToken);
 //            user.setStatus(Role.AUTHORIZED.name());
-//            authorizedUsersDao.update(user);
+//            authorizedUsersdao.update(user);
 
             Calendar cal = Calendar.getInstance();
 
             if ((emailToken.getExpiryDate().getTime() - cal.getTime().getTime()) >= 0) {
                 user.setStatus(Role.AUTHORIZED.name());
-                authorizedUsersDao.update(user);
+                authorizedUsersdao.update(user);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
 //            String token = JwtCreator.createJwt(user.getEmail());

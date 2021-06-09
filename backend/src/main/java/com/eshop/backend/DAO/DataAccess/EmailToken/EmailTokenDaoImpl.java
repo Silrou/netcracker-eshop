@@ -1,8 +1,8 @@
-package com.eshop.backend.DAO.DataAccess.EmailToken;
+package com.eshop.backend.dao.DataAccess.EmailToken;
 
 
-import com.eshop.backend.DAO.Models.AuthorizedUser;
-import com.eshop.backend.DAO.Models.EmailToken;
+import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.EmailToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

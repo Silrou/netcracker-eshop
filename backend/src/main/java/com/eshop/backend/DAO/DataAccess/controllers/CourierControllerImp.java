@@ -1,6 +1,6 @@
-package com.eshop.backend.DAO.DataAccess.controllers;
+package com.eshop.backend.dao.DataAccess.controllers;
 
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 
 import java.util.List;
 
