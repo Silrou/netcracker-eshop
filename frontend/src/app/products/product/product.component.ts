@@ -22,17 +22,21 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProduct();
-    console.log(this.product.id)
+    // console.log(this.product.id)
   }
 
   getProduct(): void {
-    // const id = Number(this.route.snapshot.paramMap.get('id'));
-    // this.productService.getProduct(id)
-    //   .subscribe(product => this.product = product);
-    this.product=
-      {id: 1, productCategory: 1, productName: 'product 1', productAmount: 2,
-        productPrice: 100, productDiscount: 0, productDate: new Date("2021-06-02"),
-        productDescription: 'Description', productStatus: true} as Product;
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.productService.getProduct(id)
+      .subscribe(product => {
+        console.log(product);
+        this.product = product
+      }, error => console.log(error));
+
+    // this.product=
+    //   {id: 1, productName: 'product 1', productAmount: 2, productPrice: 100,
+    //   productDiscount: 0, productDate: new Date("2021-06-02"), productDescription: 'Description',
+    //   productStatus: 'T', genre: 0, author: 0, coverType: 0, language: 0, publisher: 0} as Product;
   }
 
   goBack(): void {

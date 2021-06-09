@@ -11,7 +11,7 @@ import {PRODUCTS} from "../../_utils/products"; //удалить, когда п�
 })
 export class ProductService {
 
-  private productsUrl = 'localhost:8081/api/products';
+  private productsUrl = 'http://localhost:8081/product';
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -24,19 +24,16 @@ export class ProductService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  getAllProducts(): Observable<Product[]> {
-    /*
-    return this.http.get<Product[]>(this.productsUrl)
+  getAllProducts(page: number, size: number): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-all?page=${page}&size=${size}`;
+    return this.http.get<Product[]>(url)
       .pipe(
         catchError(this.handleError<Product[]>('getAllProducts', []))
-      );*/
-    //удалить, когда продукты будут браться с бэка:
-    const products = of(PRODUCTS);
-    return products;
+      );
   }
 
   getProduct(id: number): Observable<Product> {
-    const url = `${this.productsUrl}/${id}`;
+    const url = `${this.productsUrl}/getById/${id}`;
     return this.http.get<Product>(url)
       .pipe(
         catchError(this.handleError<Product>(`getProduct id=${id}`))
@@ -71,6 +68,9 @@ export class ProductService {
     }
     return this.http.get<Product[]>(`${this.productsUrl}/?name=${term}`)
       .pipe(
+        tap(x => x.length ?
+          console.log(`found products matching "${term}"`) :
+          console.log(`no products matching "${term}"`)),
         catchError(this.handleError<Product[]>('searchProducts', []))
       );
   }

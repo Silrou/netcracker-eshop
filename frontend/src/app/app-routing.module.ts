@@ -17,8 +17,8 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 // import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
 // import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
 import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
-import {ProfileComponent} from './account/profile/profile.component';
-import {SearchComponent} from './account/search/search.component';
+// import {ProfileComponent} from './account/profile/profile.component';
+// import {SearchComponent} from './account/search/search.component';
 import {SettingsComponent} from './settings/settings.component';
 
 // const settingsChildRoutes: Routes = [
@@ -77,13 +77,13 @@ const routes: Routes = [
   //   component: SettingsComponent,
   //   children: settingsChildRoutes
   // },
-  { path: 'search',
-    component: SearchComponent
-     },
-  {
-    path: 'account/profile',
-    component: ProfileComponent
-  }
+  // { path: 'search',
+  //   component: SearchComponent
+  //    },
+  // {
+  //   path: 'account/profile',
+  //   component: ProfileComponent
+  // }
 ];
 
 @NgModule({

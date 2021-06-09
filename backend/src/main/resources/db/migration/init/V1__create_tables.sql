@@ -11,23 +11,46 @@ create table authorizedUser(
                                CONSTRAINT id_pk PRIMARY KEY(id)
 );
 
-create table productCategory(
-                                id integer  PRIMARY KEY,
-                                productCategoryName VARCHAR(100) NOT NULL,
-                                productSuperCategoryId integer
+create table genre(
+                id int PRIMARY KEY,
+                genreName varchar(100) NOT NULL
+);
+
+create table coverType(
+                id int PRIMARY KEY,
+                coverTypeName varchar(100) NOT NULL
+);
+
+create table author(
+                          id int PRIMARY KEY,
+                          authorName varchar(100) NOT NULL
+);
+
+create table language(
+                          id int PRIMARY KEY,
+                          languageName varchar(100) NOT NULL
+);
+
+create table publisher(
+                         id int PRIMARY KEY,
+                         publisherName varchar(100) NOT NULL
 );
 
 create table product (
-                         id int PRIMARY KEY,
-                         productCategory int NOT NULL ,
-                         productName varchar(100) NOT NULL,
-                         productAmount int NOT NULL ,
-                         productPrice float NOT NULL,
-                         productDiscount float NOT NULL,
+                         id bigserial PRIMARY KEY,
+                         productName varchar(255) NOT NULL,
+                         productAmount bigserial NOT NULL ,
+                         productPrice int NOT NULL,
+                         productDiscount int NOT NULL,
                          productDate DATE NOT NULL,
                          productPict VARCHAR(100),
                          productDescription VARCHAR(100) NOT NULL,
-                         productStatus VARCHAR(100) NOT NULL
+                         productStatus VARCHAR(100) NOT NULL,
+                         genre bigserial NOT NULL,
+                         coverType bigserial NOT NULL,
+                         author bigserial NOT NULL,
+                         language bigserial NOT NULL,
+                         publisher bigserial NOT NULL
 );
 
 create table orderProduct(

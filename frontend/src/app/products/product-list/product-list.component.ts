@@ -12,6 +12,8 @@ import {element} from "protractor";
 })
 export class ProductListComponent implements OnInit {
 
+  page: number = 1;
+  size: number = 50;
   productCategories: ProductCategory[] = [];
   allProducts: Product[] = [];
   currentProducts: Product[] = [];
@@ -51,9 +53,13 @@ export class ProductListComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.productService.getAllProducts()
-      .subscribe(products => this.allProducts = products);
-    this.currentProducts = this.allProducts;
+    this.productService.getAllProducts(1, 50)
+      .subscribe(products => {
+        this.allProducts = products;
+        this.currentProducts = this.allProducts;
+      });
+
+
   }
 
 }

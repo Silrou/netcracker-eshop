@@ -1,6 +1,6 @@
 package com.eshop.backend.product.catalog.controllers;
 
-import com.eshop.backend.DAO.Models.Product;
+import com.eshop.backend.dao.Models.Product;
 import com.eshop.backend.product.catalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/product")
 public class ProductCRUDController {
@@ -20,6 +21,20 @@ public class ProductCRUDController {
     public ProductCRUDController(ProductService productService) {
         this.productService = productService;
     }
+
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Product> getById(@PathVariable("id")int id) {
+        Product product = productService.getById(id);
+        return new ResponseEntity(product, HttpStatus.OK);
+    }
+
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity<List<Product>> getById(@PathVariable("name")String name) {
+        List<Product> products = productService.getByName(name);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
 
     @GetMapping("/get-all")
     public ResponseEntity<List<Product>> getAllProduct(@RequestParam("page")int page,

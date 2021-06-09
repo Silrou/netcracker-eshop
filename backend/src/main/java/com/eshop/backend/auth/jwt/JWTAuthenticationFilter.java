@@ -1,6 +1,6 @@
 package com.eshop.backend.auth.jwt;
 
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

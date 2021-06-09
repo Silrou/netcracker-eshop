@@ -1,11 +1,10 @@
-package com.eshop.backend.DAO.DataAccess.AuthorizedUser;
+package com.eshop.backend.dao.DataAccess.AuthorizedUser;
 
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

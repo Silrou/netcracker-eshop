@@ -1,9 +1,9 @@
 package com.eshop.backend.auth.mail;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.DataAccess.EmailToken.EmailTokenDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
-import com.eshop.backend.DAO.Models.EmailToken;
+import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.EmailToken.EmailTokenDao;
+import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.EmailToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,14 +14,14 @@ import java.util.UUID;
 @Service
 public class EmailSenderService {
 
-    private final AuthorizedUserDao authorizedUsersDao;
-    private final EmailTokenDao emailTokenDao;
+    private final AuthorizedUserDao authorizedUsersdao;
+    private final EmailTokenDao emailTokendao;
     private final JavaMailSender mailSender;
 
     @Autowired
-    public EmailSenderService(AuthorizedUserDao authorizedUsersDao, EmailTokenDao emailTokenDao, JavaMailSender mailSender) {
-        this.authorizedUsersDao = authorizedUsersDao;
-        this.emailTokenDao = emailTokenDao;
+    public EmailSenderService(AuthorizedUserDao authorizedUsersdao, EmailTokenDao emailTokendao, JavaMailSender mailSender) {
+        this.authorizedUsersdao = authorizedUsersdao;
+        this.emailTokendao = emailTokendao;
         this.mailSender = mailSender;
     }
 
@@ -30,7 +30,7 @@ public class EmailSenderService {
         String token = UUID.randomUUID().toString();
 
         EmailToken emailToken = new EmailToken(token, user.getId());
-        emailTokenDao.createVerificationToken(user, emailToken);
+        emailTokendao.createVerificationToken(user, emailToken);
 
         String recipientAddress = user.getEmail();
         String subject = "Registration Confirmation";

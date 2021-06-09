@@ -1,11 +1,16 @@
 export interface Product{
   id: number;
-  productCategory: number;
   productName: string;
   productAmount: number;
   productPrice: number;
   productDiscount: number;
-  productDate: Date;
+  productDate: string;
+  productPict?: string;
   productDescription: string;
-  productStatus: boolean;
+  productStatus: string;
+  genre: number;
+  coverType: number;
+  author: number;
+  language: number;
+  publisher: number;
 }

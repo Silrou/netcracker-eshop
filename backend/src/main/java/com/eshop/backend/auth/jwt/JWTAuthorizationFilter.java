@@ -2,8 +2,8 @@ package com.eshop.backend.auth.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,17 +15,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static com.eshop.backend.auth.jwt.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private final AuthorizedUserDao authorizedUserDao;
+    private final AuthorizedUserDao authorizedUserdao;
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager, AuthorizedUserDao authorizedUserDao) {
+    public JWTAuthorizationFilter(AuthenticationManager authManager, AuthorizedUserDao authorizedUserdao) {
         super(authManager);
-        this.authorizedUserDao = authorizedUserDao;
+        this.authorizedUserdao = authorizedUserdao;
     }
 
     @Override
@@ -62,7 +61,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (user != null) {
                 // new arraylist means authorities
-                AuthorizedUser authorizedUser = authorizedUserDao.getByLogin(user);
+                AuthorizedUser authorizedUser = authorizedUserdao.getByLogin(user);
 
                 ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
                 list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getStatus()));
