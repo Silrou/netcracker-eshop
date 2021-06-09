@@ -42,7 +42,6 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     @Override
     public AuthorizedUser getByLogin(String login) throws DataAccessException {
         try{
-            String ss = bCryptPasswordEncoder.encode("MANAGER");
             String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
             AuthorizedUser user = jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
             return user;
