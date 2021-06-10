@@ -32,6 +32,7 @@ public class ProductMapper implements RowMapper<Product> {
         Long author = rs.getLong("author");
         Long language = rs.getLong("language");
         Long publisher = rs.getLong("publisher");
-        return new Product(id, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
+        return new Product(Math.toIntExact(id), name, Math.toIntExact(amount), price, discount, date, pict, description, status,
+                Math.toIntExact(genre),Math.toIntExact(coverType), Math.toIntExact(author), Math.toIntExact(language), Math.toIntExact(publisher));
     }
 }

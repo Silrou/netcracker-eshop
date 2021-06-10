@@ -52,7 +52,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return productdao.getById(id);
+        return productdao.getById(Math.toIntExact(id));
     }
 
     @Override
