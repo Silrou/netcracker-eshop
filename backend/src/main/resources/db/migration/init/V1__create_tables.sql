@@ -1,5 +1,5 @@
 create table authorizedUser(
-                               id int NOT NULL,
+                               id bigserial NOT NULL,
                                userLogin varchar(100) NOT NULL,
                                userPassword varchar(100) NOT NULL,
                                userRole varchar(100) NOT NULL,
@@ -11,34 +11,57 @@ create table authorizedUser(
                                CONSTRAINT id_pk PRIMARY KEY(id)
 );
 
-create table productCategory(
-                                id integer  PRIMARY KEY,
-                                productCategoryName VARCHAR(100) NOT NULL,
-                                productSuperCategoryId integer
+create table genre(
+                id bigserial PRIMARY KEY,
+                genreName varchar(100) NOT NULL
+);
+
+create table coverType(
+                id bigserial PRIMARY KEY,
+                coverTypeName varchar(100) NOT NULL
+);
+
+create table author(
+                          id bigserial PRIMARY KEY,
+                          authorName varchar(100) NOT NULL
+);
+
+create table language(
+                          id bigserial PRIMARY KEY,
+                          languageName varchar(100) NOT NULL
+);
+
+create table publisher(
+                         id bigserial PRIMARY KEY,
+                         publisherName varchar(100) NOT NULL
 );
 
 create table product (
-                         id int PRIMARY KEY,
-                         productCategory int NOT NULL ,
-                         productName varchar(100) NOT NULL,
-                         productAmount int NOT NULL ,
-                         productPrice float NOT NULL,
-                         productDiscount float NOT NULL,
+                         id bigserial PRIMARY KEY,
+                         productName varchar(255) NOT NULL,
+                         productAmount bigserial NOT NULL ,
+                         productPrice int NOT NULL,
+                         productDiscount int NOT NULL,
                          productDate DATE NOT NULL,
                          productPict VARCHAR(100),
                          productDescription VARCHAR(100) NOT NULL,
-                         productStatus VARCHAR(100) NOT NULL
+                         productStatus VARCHAR(100) NOT NULL,
+                         genre bigserial NOT NULL,
+                         coverType bigserial NOT NULL,
+                         author bigserial NOT NULL,
+                         language bigserial NOT NULL,
+                         publisher bigserial NOT NULL
 );
 
-create table orderProduckt(
-                              id int NOT NULL PRIMARY KEY,
-                              productId int NOT NULL,
-                              orderId int NOT NULL,
-                              inCartProductAmount int NOT NULL
+create table orderProduct(
+                              id bigserial NOT NULL PRIMARY KEY,
+                              productId bigserial NOT NULL,
+                              orderId bigserial NOT NULL,
+                              inCartProductAmount bigserial NOT NULL
 );
 
 create table orderCart(
-                          id int NOT NULL PRIMARY KEY,
+                          id bigserial NOT NULL PRIMARY KEY,
                           packageId integer NOT NULL,
                           courierId integer NOT NULL,
                           packageDescription varchar(100) NOT NULL,
@@ -53,11 +76,11 @@ create table orderCart(
 
 
 CREATE table statistic(
-                          id integer PRIMARY KEY,
-                          productCategory integer NOT NULL,
-                          productId integer NOT NULL,
-                          productBought integer NOT NULL,
-                          productSold integer NOT NULL,
+                          id bigserial PRIMARY KEY,
+                          productCategory bigserial NOT NULL,
+                          productId bigserial NOT NULL,
+                          productBought bigserial NOT NULL,
+                          productSold bigserial NOT NULL,
                           productRating float
 );
 

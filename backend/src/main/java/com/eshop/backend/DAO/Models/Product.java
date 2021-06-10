@@ -1,9 +1,10 @@
-package com.eshop.backend.DAO.Models;
+package com.eshop.backend.dao.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -12,20 +13,30 @@ import java.util.Date;
 public class Product {
     private int id;
 
-    private int productCategory;
-
     private String productName;
 
     private int productAmount;
 
     private double productPrice;
 
-    private int productDiscount;
+    private double productDiscount;
 
     private Date productDate;
 
+    private String productPict;
+
     private String productDescription;
 
-    //private int productStatus; ?
+    private String productStatus;
+
+    private int genre;
+
+    private int coverType;
+
+    private int author;
+
+    private int language;
+
+    private int publisher;
 
 }

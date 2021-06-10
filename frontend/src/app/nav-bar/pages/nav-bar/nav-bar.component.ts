@@ -10,7 +10,10 @@ import {AuthService} from '../../../_service/auth.service';
 })
 export class NavBarComponent implements OnInit {
   anonymous = Role.ANONYMOUS_USER;
-@Input()role: Role;
+  authorized = Role.AUTHORIZED_USER;
+  admin = Role.ADMIN;
+  @Input()role = Role.ANONYMOUS_USER;
+
   constructor(private router: Router,
               private authService: AuthService) { }
 
