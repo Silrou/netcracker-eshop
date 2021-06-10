@@ -1,7 +1,8 @@
 name: Build and Publish to Dockerhub
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - 'master'
 jobs:
   build_push_backend:
     name: Push backend image
