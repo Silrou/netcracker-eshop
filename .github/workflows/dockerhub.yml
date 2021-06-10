@@ -1,7 +1,5 @@
 name: Build and Publish to Dockerhub
 on:
-  release:
-    types: [published]
   push:
     branches:
       - master, feature/ci-build-test
