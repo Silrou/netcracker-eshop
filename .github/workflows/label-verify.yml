@@ -10,5 +10,4 @@ jobs:
     steps:
       - uses: zwaldowski/match-label-action@v2
         with:
-          allowed: 
-           'type:fix-backend, type:features-backend, type:tests, type:config, type:fix-frontend, type:features-frontend, type:documentation'
+          allowed: 'type:fix, type:features, type:documentation, type:tests, type:config'
