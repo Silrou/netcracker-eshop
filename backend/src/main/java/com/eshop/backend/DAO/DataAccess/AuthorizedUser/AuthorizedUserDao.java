@@ -13,4 +13,9 @@ public interface AuthorizedUserDao extends MainDao<AuthorizedUser> {
     List<AuthorizedUser> getAllUsers();
     List<AuthorizedUser> getAllManager();
     List<AuthorizedUser> getAllCourier();
+    List<AuthorizedUser> getFilteredByStatusOn();
+    List<AuthorizedUser> getFilteredByStatusOff();
+    List<AuthorizedUser> getByName();
+    List<AuthorizedUser> getBySurname();
+    List<AuthorizedUser> getByid();
 }

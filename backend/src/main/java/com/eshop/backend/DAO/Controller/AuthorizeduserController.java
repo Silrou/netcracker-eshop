@@ -26,4 +26,28 @@ public class AuthorizeduserController {
         model.addAttribute("getAllUsers",authorizeduserService.getAllCourier());
         return "getAllCourier";
     }
+    @GetMapping("/admin/AllUsersMenu")
+    public String getFilteredByStatusOn(Model model){
+        model.addAttribute("getFilteredByStatusOn",authorizeduserService.getFilteredByStatusOn());
+        return "getFilteredByStatusOn";
+    }
+    @GetMapping("/admin/AllUsersMenu")
+    public String getFilteredByStatusOff(Model model){
+        model.addAttribute("getFilteredByStatusOff",authorizeduserService.getFilteredByStatusOff());
+        return "getFilteredByStatusOff";
+    }
+//    @GetMapping("/admin/AllUsersMenu")
+//    public String getByName(Model model){
+//        model.addAttribute("geByName",authorizeduserService.getByName());
+//        return "geByName";
+//    }
+//    @GetMapping("/admin/AllUsersMenu")
+//    public String getBySurname(Model model){
+//        model.addAttribute("geBySurname",authorizeduserService.getBySurname());
+//        return "geBySurname";
+//    }
+//    @GetMapping("/admin/AllUsersMenu")
+//    public String getById(Model model){
+//        model.addAttribute("getById",authorizeduserService.getById());
+//        return "getById";
 }
