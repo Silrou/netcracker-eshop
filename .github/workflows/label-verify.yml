@@ -5,7 +5,7 @@ on:
     types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-  verifier:
+  label-verify:
     runs-on: ubuntu-18.04
     steps:
       - uses: zwaldowski/match-label-action@v2
