@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface AuthorizeduserService {
-    public Collection<AuthorizedUser> getAllUsers() ;
+    public List<AuthorizedUser> getAllUsers() ;
     public Collection<AuthorizedUser> getAllManager();
     public Collection<AuthorizedUser> getAllCourier();
     public List<AuthorizedUser> getFilteredByStatusOn();

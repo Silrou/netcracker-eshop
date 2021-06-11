@@ -18,7 +18,7 @@ public class AuthorizeduserServiceImp implements AuthorizeduserService {
     }
 
     @Override
-    public Collection<AuthorizedUser> getAllUsers() {return authorizedUserDao.getAllUsers();    }
+    public List<AuthorizedUser> getAllUsers() {return authorizedUserDao.getAllUsers();    }
 
     @Override
     public Collection<AuthorizedUser> getAllManager() {return authorizedUserDao.getAllManager();}
