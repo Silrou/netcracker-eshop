@@ -1,6 +1,6 @@
-package com.eshop.backend.dao.DataAccess.controllers;
+package com.eshop.backend.DAO.DataAccess.controllers;
 
-import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.DAO.Models.AuthorizedUser;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class CourierControllerImp implements CourierController {
     }
 
     @Override
-    public AuthorizedUser getById(int id) {
+    public AuthorizedUser getById(Long id) {
         return null;
     }
 

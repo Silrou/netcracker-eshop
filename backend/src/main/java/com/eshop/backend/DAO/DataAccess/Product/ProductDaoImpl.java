@@ -1,15 +1,15 @@
-package com.eshop.backend.dao.DataAccess.Product;
+package com.eshop.backend.DAO.DataAccess.Product;
 
-import com.eshop.backend.dao.Models.Product;
+import com.eshop.backend.DAO.Models.Product;
 import com.eshop.backend.product.catalog.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,72 +19,26 @@ public class ProductDaoImpl implements ProductDao {
     @Autowired
     JdbcTemplate template;
 
-    //до смены бд
-//    @Override
-//    public void create(Product product) {
-//        String SQL = "insert into product (productname, productamount,\n" +
-//                "                     productprice, productdiscount,\n" +
-//                "                     productdate, productdescription,\n" +
-//                "                     productstatus, productcategory)\n" +
-//                "                     values (?,?,?,?,?,?,?,?)";
-//        try {
-//            template.update(SQL, product.getProductName(), product.getProductAmount(),
-//                    product.getProductPrice(), product.getProductDiscount(),
-//                    product.getProductDate(), product.getProductDescription(),
-//                    product.getProductStatus(), product.getProductCategory());
-//        } catch (Exception e) {
-//            String str = e.toString();
-//        }
-//    }
-
     @Override
     public void create(Product product) {
         String SQL = "insert into product (productname, productamount,\n" +
                 "                     productprice, productdiscount,\n" +
                 "                     productdate, productdescription,\n" +
-                "                     productstatus, genre, " +
-                "                     covertype, author," +
-                "                     language, publisher)\n" +
-                "                     values (?,?,?,?,?,?,?,?,?,?,?,?)";
+                "                     productstatus, productcategory)\n" +
+                "                     values (?,?,?,?,?,?,?,?)";
         try {
             template.update(SQL, product.getProductName(), product.getProductAmount(),
                     product.getProductPrice(), product.getProductDiscount(),
                     product.getProductDate(), product.getProductDescription(),
-                    product.getProductStatus(), product.getGenre(),
-                    product.getCoverType(), product.getAuthor(),
-                    product.getLanguage(), product.getPublisher());
+                    product.getProductStatus(), product.getProductCategory());
         } catch (Exception e) {
             String str = e.toString();
         }
     }
 
     @Override
-    public Product getById(int id) {
-        String sql = ProductMapper.SELECT_SQL + "where id = ?";
-        return template.queryForObject(sql, new Object[]{Integer.valueOf(id)}, (rs, rowNum) -> {
-            int id1 = rs.getInt("id");
-            String name = rs.getString("productname");
-            int amount = rs.getInt("productamount");
-            double price = rs.getDouble("productprice");
-            double discount = rs.getDouble("productdiscount");
-            Date date = rs.getDate("productdate");
-            String pict = rs.getString("productpict");
-            String description = rs.getString("productdescription");
-            String status = rs.getString("productstatus");
-            int genre = rs.getInt("genre");
-            int coverType = rs.getInt("covertype");
-            int author = rs.getInt("author");
-            int language = rs.getInt("language");
-            int publisher = rs.getInt("publisher");
-            return new Product(id1, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
-        });
-    }
-
-    @Override
-    public List<Product> getByName(String name) {
-        String sql = ProductMapper.SELECT_SQL +
-                " WHERE p.productname ILIKE '%" + name + "%'";
-        return template.query(sql, new ProductMapper());
+    public Product getById(Long id) {
+        return null;
     }
 
     @Override
@@ -94,9 +48,20 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> getProductPage(int page, int size) {
-        String sql = ProductMapper.SELECT_SQL +
-                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-        return template.query(sql, new ProductMapper());
+        try{
+            String name = "big";
+            String sql = "select * from product where productname ilike '%" + name + "%'";
+            List<Product> a = template.query(sql, new ProductMapper());
+            return template.query(sql, new ProductMapper());
+        } catch (Exception e) {
+            String str = e.toString();
+            return null;
+        }
+
+//        String sql = ProductMapper.SELECT_SQL +
+//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+//        return template.query(sql, new ProductMapper());
+
     }
 
     @Override
@@ -151,6 +116,5 @@ public class ProductDaoImpl implements ProductDao {
                 " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
         return template.query(sql, new ProductMapper());
     }
-
 
 }

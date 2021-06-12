@@ -1,7 +1,7 @@
-package com.eshop.backend.dao.DataAccess.controllers;
+package com.eshop.backend.DAO.DataAccess.controllers;
 
 
-import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.DAO.Models.AuthorizedUser;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class AdminControllerImp implements AdminController {
     }
 
     @Override
-    public AuthorizedUser getById(int id) {
+    public AuthorizedUser getById(Long id) {
         return null;
     }
 

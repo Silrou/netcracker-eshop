@@ -1,7 +1,7 @@
 package com.eshop.backend.product.catalog.service;
 
-import com.eshop.backend.dao.DataAccess.Product.ProductDao;
-import com.eshop.backend.dao.Models.Product;
+import com.eshop.backend.DAO.DataAccess.Product.ProductDao;
+import com.eshop.backend.DAO.Models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,34 +10,29 @@ import java.util.List;
 @Service
 public class ProductServiceImp implements ProductService {
 
-    ProductDao productdao;
+    ProductDao productDao;
 
     @Autowired
-    public ProductServiceImp(ProductDao productdao) {
-        this.productdao = productdao;
+    public ProductServiceImp(ProductDao productDao) {
+        this.productDao = productDao;
     }
 
     @Override
     public List<Product> getProductPage(int page, int size) {
         page = getPageNumeration(page, size);
-        return productdao.getProductPage(page, size);
+        return productDao.getProductPage(page, size);
     }
 
     @Override
     public List<Product> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
         page = getPageNumeration(page, size);
-        return productdao.getAllOrderByWithFilters(page, size, orderBy, filter);
+        return productDao.getAllOrderByWithFilters(page, size, orderBy, filter);
     }
 
     @Override
     public List<Product> getAllOrderBy(int page, int size, String orderBy) {
         page = getPageNumeration(page, size);
-        return productdao.getAllOrderBy(page, size, orderBy);
-    }
-
-    @Override
-    public List<Product> getByName(String name) {
-        return productdao.getByName(name);
+        return productDao.getAllOrderBy(page, size, orderBy);
     }
 
     public int getPageNumeration(int page, int size){
@@ -48,11 +43,12 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void create(Product model) {
+
     }
 
     @Override
-    public Product getById(Long id) {
-        return productdao.getById(Math.toIntExact(id));
+    public Product getById(int id) {
+        return null;
     }
 
     @Override

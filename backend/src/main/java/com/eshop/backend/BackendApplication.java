@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 @ComponentScan(basePackages = {"com.eshop.backend.auth"})
-@ComponentScan(basePackages = {"com.eshop.backend.dao"})
+@ComponentScan(basePackages = {"com.eshop.backend.DAO"})
 @SpringBootApplication
 @EnableAsync
 public class BackendApplication {

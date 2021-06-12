@@ -1,4 +1,4 @@
-package com.eshop.backend.dao.Models;
+package com.eshop.backend.DAO.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    private int id;
+    private Long id;
+
+    private int productCategory;
 
     private String productName;
 
@@ -28,15 +30,5 @@ public class Product {
     private String productDescription;
 
     private String productStatus;
-
-    private int genre;
-
-    private int coverType;
-
-    private int author;
-
-    private int language;
-
-    private int publisher;
 
 }

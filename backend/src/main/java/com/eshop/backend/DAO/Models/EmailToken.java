@@ -1,6 +1,7 @@
-package com.eshop.backend.dao.Models;
+package com.eshop.backend.DAO.Models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,14 +18,16 @@ public class EmailToken {
     private static final int EXPIRATION = 60 * 24;
 
     private Long id;
-    private String token;
-    private Long userId;
-    private Date expiryDate;
+    private String tokenName;
+    private String tokenValue;
+    private Date tokenExpiryDate;
+    private Long authorizedUserId;
 
-    public EmailToken(String token, Long userId) {
-        this.token = token;
-        this.userId = userId;
-        this.expiryDate = calculateExpiryDate();
+    public EmailToken(String tokenName, String tokenValue, Long authorizedUserId) {
+        this.tokenName = tokenName;
+        this.tokenValue = tokenValue;
+        this.authorizedUserId = authorizedUserId;
+        this.tokenExpiryDate = calculateExpiryDate();
     }
 
     private Date calculateExpiryDate() {
