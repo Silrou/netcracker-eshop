@@ -35,11 +35,8 @@ public class CaptchaService {
         }catch(RestClientException e){
             System.out.print(e.getMessage());
         }
-        if(recaptchaResponse.isSuccess()){
-            return true;
-        }else {
-            return false;
-        }
+
+        return recaptchaResponse != null && recaptchaResponse.isSuccess();
     }
 
 }

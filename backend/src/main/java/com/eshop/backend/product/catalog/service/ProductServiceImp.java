@@ -38,7 +38,7 @@ public class ProductServiceImp implements ProductService {
     public int getPageNumeration(int page, int size){
         if(page > 1)
             page = (page - 1) * size + 1;
-        return page;
+        return page-1;
     }
 
     @Override

@@ -4,8 +4,12 @@ import com.eshop.backend.dao.models.Product;
 import com.eshop.backend.product.catalog.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,18 +49,20 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<Product> getProductPage(int page, int size) {
         try{
-            String name = "big";
-            String sql = "select * from product where productname ilike '%" + name + "%'";
-            List<Product> a = template.query(sql, new ProductMapper());
-            return template.query(sql, new ProductMapper());
+            String sql = ProductMapper.SELECT_SQL +
+                " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            PreparedStatementCreator statementCreator = con -> {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, page);
+                ps.setInt(2, size);
+                return ps;
+            };
+
+        return template.query(statementCreator, new ProductMapper());
         } catch (Exception e) {
             String str = e.toString();
             return null;
         }
-
-//        String sql = ProductMapper.SELECT_SQL +
-//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-//        return template.query(sql, new ProductMapper());
 
     }
 
@@ -98,19 +104,27 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
-        String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
-        String sql = String.format(ProductMapper.SELECT_SQL +
-                " left join productcategory on p.productcategory = productcategory.id" +
-                " where productcategory.productcategoryname in (%s) order by p." + orderBy +
-                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY", inSql);
-        return template.query(sql, new ProductMapper(), filter.toArray());
+        return null;
     }
 
     @Override
     public List<Product> getAllOrderBy(int page, int size, String orderBy) {
-        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
-                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-        return template.query(sql, new ProductMapper());
+        try {
+            String sql = ProductMapper.SELECT_SQL + " order by ?" +
+                    " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+            PreparedStatementCreator statementCreator = con -> {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, orderBy);
+                ps.setInt(2, page);
+                ps.setInt(3, size);
+                return ps;
+            };
+            return template.query(statementCreator, new ProductMapper());
+        } catch (Exception e) {
+            String str = e.toString();
+            return null;
+        }
+
     }
 
 }
