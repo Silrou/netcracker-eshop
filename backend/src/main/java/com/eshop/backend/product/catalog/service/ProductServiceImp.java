@@ -1,7 +1,7 @@
 package com.eshop.backend.product.catalog.service;
 
-import com.eshop.backend.DAO.DataAccess.Product.ProductDao;
-import com.eshop.backend.DAO.Models.Product;
+import com.eshop.backend.dao.DataAccess.product.ProductDao;
+import com.eshop.backend.dao.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

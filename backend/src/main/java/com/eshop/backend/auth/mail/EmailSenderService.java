@@ -1,9 +1,9 @@
 package com.eshop.backend.auth.mail;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.DataAccess.EmailToken.EmailTokenDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
-import com.eshop.backend.DAO.Models.EmailToken;
+import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.email_token.EmailTokenDao;
+import com.eshop.backend.dao.models.AuthorizedUser;
+import com.eshop.backend.dao.models.EmailToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

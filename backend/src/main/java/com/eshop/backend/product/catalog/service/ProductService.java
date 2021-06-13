@@ -1,6 +1,6 @@
 package com.eshop.backend.product.catalog.service;
 
-import com.eshop.backend.DAO.Models.Product;
+import com.eshop.backend.dao.models.Product;
 
 import java.util.List;
 
