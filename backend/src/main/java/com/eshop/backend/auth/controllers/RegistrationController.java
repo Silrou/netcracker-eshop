@@ -1,11 +1,11 @@
 package com.eshop.backend.auth.controllers;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.DataAccess.EmailToken.EmailTokenDao;
-import com.eshop.backend.DAO.Models.EmailToken;
-import com.eshop.backend.DAO.Models.Role;
+import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.email_token.EmailTokenDao;
+import com.eshop.backend.dao.models.EmailToken;
+import com.eshop.backend.dao.models.Role;
 import com.eshop.backend.auth.dto.RegistationRequestDTO;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.models.AuthorizedUser;
 import com.eshop.backend.auth.mail.EmailSenderService;
 import com.eshop.backend.auth.validator.EmailValidator;
 import com.eshop.backend.auth.validator.PasswordValidator;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Calendar;
 
 @RestController

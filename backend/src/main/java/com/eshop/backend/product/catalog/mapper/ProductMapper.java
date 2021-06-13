@@ -1,9 +1,7 @@
 package com.eshop.backend.product.catalog.mapper;
 
-import com.eshop.backend.DAO.Models.AuthorizedUser;
-import com.eshop.backend.DAO.Models.Product;
+import com.eshop.backend.dao.models.Product;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.core.parameters.P;
 
 import java.sql.Date;
 import java.sql.ResultSet;

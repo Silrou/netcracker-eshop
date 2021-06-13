@@ -1,8 +1,8 @@
 package com.eshop.backend.auth.controllers;
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDaoImpl;
+import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDaoImpl;
 import com.eshop.backend.auth.dto.LoginRequestDTO;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.models.AuthorizedUser;
 import com.eshop.backend.auth.exceptions.UserAlreadyExists;
 import com.eshop.backend.auth.services.CaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.eshop.backend.auth.jwt;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDaoImpl;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDaoImpl;
+import com.eshop.backend.dao.models.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
