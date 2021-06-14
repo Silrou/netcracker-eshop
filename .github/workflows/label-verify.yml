@@ -5,19 +5,9 @@ on:
     types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-  verifier:
+  label-verify:
     runs-on: ubuntu-18.04
     steps:
-      - uses: zwaldowski/match-label-action@v1
+      - uses: zwaldowski/match-label-action@v2
         with:
-          allowed: >
-            type:fix-backend
-            type:features-backend
-            type:documentation-backend
-            type:tests-backend
-            type:config-backend
-            type:fix-frontend
-            type:features-frontend
-            type:documentation-frontend
-            type:tests-frontend
-            type:config-frontend
+          allowed: 'type:fix, type:features, type:documentation, type:tests, type:config'

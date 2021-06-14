@@ -18,22 +18,6 @@
   },
   "Managers": [
     {
-      "id": 1,
-      "firstName": "Vasja",
-      "lastName": "Pupkin",
-      "email": "a123@gmail.com",
-      "phoneNumber": "+380778906534",
-      "role": "manager"
-    },
-    {
-      "id": 2,
-      "firstName": "John",
-      "lastName": "Petrov",
-      "email": "c123@gmail.com",
-      "phoneNumber": "+38077890987",
-      "role": "manager"
-    },
-    {
       "firstName": "Фісун Єлизавета Борисівна",
       "lastName": "Fisun",
       "email": "Elyzaveta13fsn@gmail.com",

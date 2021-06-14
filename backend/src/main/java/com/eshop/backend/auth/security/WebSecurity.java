@@ -1,6 +1,6 @@
 package com.eshop.backend.auth.security;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
 import com.eshop.backend.auth.jwt.JWTAuthenticationFilter;
 import com.eshop.backend.auth.jwt.JWTAuthorizationFilter;
 import com.eshop.backend.auth.jwt.UserDetailsServiceImpl;
@@ -60,13 +60,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/product/**").permitAll()
                 .antMatchers("/catalog/**").permitAll()
-                .antMatchers("/admin/search/**").permitAll()
                 .antMatchers(allowedURIs).permitAll()
                 .anyRequest().authenticated()
-//                .and()
-//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-//                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserdao));
-;
+                .and()
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserdao));
+
     }
 
     @Override

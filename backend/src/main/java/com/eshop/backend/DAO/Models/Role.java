@@ -1,8 +1,10 @@
-package com.eshop.backend.DAO.Models;
+package com.eshop.backend.dao.Models;
 
 public enum Role {
     ADMIN,
     USER,
     MANAGER,
-    COURIER
+    COURIER,
+    AUTHORIZED,
+    ANONYMOUS
 }

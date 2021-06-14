@@ -1,8 +1,8 @@
-package com.eshop.backend.DAO.DataAccess.AuthorizedUser;
+package com.eshop.backend.dao.DataAccess.AuthorizedUser;
 
 
-import com.eshop.backend.DAO.DataAccess.MainDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.DataAccess.MainDao;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 
 import java.util.List;
 
@@ -18,4 +18,7 @@ public interface AuthorizedUserDao extends MainDao<AuthorizedUser> {
 //    List<AuthorizedUser> getByName();
 //    List<AuthorizedUser> getBySurname();
 //    List<AuthorizedUser> getByid();
+    AuthorizedUser getRoleByLogin(String login);
+    AuthorizedUser getByToken(String token);
+    void createVerificationToken(AuthorizedUser user, String token);
 }

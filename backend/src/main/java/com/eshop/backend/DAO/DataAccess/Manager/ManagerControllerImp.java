@@ -1,6 +1,7 @@
-package com.eshop.backend.DAO.DataAccess.Manager;
+package com.eshop.backend.dao.DataAccess.controllers;
 
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.dao.Models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class ManagerControllerImp implements  ManagerController{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
 
     }
 

@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="product">
   <div class="row justify-content-around mt-4 mb-4">
     <div class="col-md-6">
 
@@ -28,22 +28,25 @@
 
     <div class="col-md-6 mt-5 ">
       <div class="container mb-5">
-        <h2>Super puper product 1<span class="badge badge-success ml-4">New!</span></h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus gravida mauris sit amet placerat dignissim.
-          Proin id auctor libero, ac ornare dolor. Sed a enim risus. Cras ut ante eget lacus porta blandit. Nam lacinia
-          eget augue eget gravida. Mauris a fringilla velit, vel maximus dui. Suspendisse in vehicula enim. Sed
-          fermentum
-          cursus nunc, non vulputate libero. Suspendisse potenti. Vestibulum dictum nulla quis vehicula tempus. </p>
-        <p>Maecenas non sapien euismod, rhoncus enim non, blandit tortor. Duis efficitur aliquam nisl, id laoreet libero
-          commodo eget. Curabitur in massa elit. Sed mi velit, sollicitudin in ipsum sed, hendrerit volutpat nisl.
-          Praesent faucibus lacinia nunc egestas blandit. Aenean nec varius magna. Ut ut cursus ex, in pulvinar dui.
-          Duis
-          eget dolor magna. </p>
+        <h2>{{product.productName}}</h2>
+        <p>{{product.productDescription}}</p>
       </div>
-      <div class="mb-3 justify-content-md-end d-md-flex">
-        <a href="" class="btn btn-secondary mb-3">Add to cart</a>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <a href="" class="btn btn-secondary mb-3">compare</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3 justify-content-md-end d-md-flex">
+            <a href="" class="btn btn-secondary mb-3">Add to cart</a>
+          </div>
+        </div>
       </div>
+
+
     </div>
   </div>
 </div>
 
+<button (click)="goBack()">go back</button>
