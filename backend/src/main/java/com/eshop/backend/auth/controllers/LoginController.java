@@ -50,5 +50,11 @@ public class LoginController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-
+    @GetMapping("/user/test")
+    public ResponseEntity<?> test() {
+        AuthorizedUser user = new AuthorizedUser();
+        user.setUserLogin("testLogin");
+        user.setUserPassword("some password");
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }

@@ -61,11 +61,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/product/**").hasRole("MANAGER")
                 .antMatchers("/catalog/**").permitAll()
                 .antMatchers("/catalog/**").permitAll()
+                .antMatchers("/search").permitAll()
                 .antMatchers(allowedURIs).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserDao));
+                .anyRequest().authenticated();
+//                .and()
+//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+//                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserDao));
 
     }
 

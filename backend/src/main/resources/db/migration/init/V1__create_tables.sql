@@ -61,3 +61,14 @@ CREATE table statistic(
                           productRating float
 );
 
+CREATE TABLE public.employee
+(
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    "firstName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    id integer NOT NULL,
+    "lastName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    "phoneNumber" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    role character(1) COLLATE pg_catalog."default" NOT NULL,
+    status character(1) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT employee_pkey PRIMARY KEY (id)
+)
