@@ -16,15 +16,18 @@ public class AuthorizedUser {
     private String userRole;
     private String userName;
     private String userSurname;
-    private String UserRegistrationDate;
+    private String userRegistrationDate;
     private String userStatus;
-    private String UserAddres;
-    private String UserNumber;
+    private String userAddres;
+    private String userNumber;
+
+
+
 
     public AuthorizedUser(String userLogin, String userPassword, String userRole, String userStatus) {
-        this.email = userLogin;
-        this.password = userPassword;
-        this.role = userRole;
-        this.status = userStatus;
+        this.userLogin = userLogin;
+        this.userPassword = userPassword;
+        this.userRole = userRole;
+        this.userStatus = userStatus;
     }
 }

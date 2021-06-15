@@ -32,7 +32,7 @@ public class EmailSenderService {
         EmailToken emailToken = new EmailToken(token, user.getId());
         emailTokendao.createVerificationToken(user, emailToken);
 
-        String recipientAddress = user.getEmail();
+        String recipientAddress = user.getUserLogin();
         String subject = "Registration Confirmation";
         String confirmationUrl = "/user/confirm-account?token=" + token;
         String message = "To confirm your e-mail address, please click the link below:\n";

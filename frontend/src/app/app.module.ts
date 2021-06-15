@@ -42,7 +42,7 @@ import {MatRadioModule} from '@angular/material/radio';
     // SearchComponent,
     // RestComponent,
     // EditComponent,
-    // SearchComponent,
+    //SearchComponent,
     SettingsComponent
   ],
   imports: [

@@ -49,7 +49,7 @@ public class RegistrationController {
 
             user = new AuthorizedUser(request.getEmail(), request.getPassword(), Role.USER.name(), Role.ANONYMOUS.name());
             authorizedUsersdao.create(user);
-            user = authorizedUsersdao.getByLogin(user.getEmail());
+            user = authorizedUsersdao.getByLogin(user.getUserLogin());
 
             emailSenderService.sendEmail(user);
 
@@ -71,7 +71,7 @@ public class RegistrationController {
             Calendar cal = Calendar.getInstance();
 
             if ((emailToken.getExpiryDate().getTime() - cal.getTime().getTime()) >= 0) {
-                user.setStatus(Role.AUTHORIZED.name());
+                user.setUserStatus(Role.AUTHORIZED.name());
                 authorizedUsersdao.update(user);
                 return new ResponseEntity<>(HttpStatus.OK);
             }

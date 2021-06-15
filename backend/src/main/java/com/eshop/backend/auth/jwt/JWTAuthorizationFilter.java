@@ -64,8 +64,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 AuthorizedUser authorizedUser = authorizedUserdao.getByLogin(user);
 
                 ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
-                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getStatus()));
-                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getRole()));
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserStatus()));
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserRole()));
 
                 return new UsernamePasswordAuthenticationToken(user, null,
                         list);
