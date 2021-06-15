@@ -1,17 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
-import {Observable, of} from "rxjs";
-import {Product} from "../../_model/product";
+import {Observable, of} from 'rxjs';
+import {Product} from '../../_model/product';
 
-import {PRODUCTS} from "../../_utils/products"; //удалить, когда продукты будут браться с бэка
+import {PRODUCTS} from '../../_utils/products'; // удалить, когда продукты будут браться с бэка
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
+  constructor(
+    private http: HttpClient,
+  ) {
+  }
+
   private productsUrl = 'http://localhost:8081/product';
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -37,7 +43,7 @@ export class ProductService {
     return this.http.get<Product>(url)
       .pipe(
         catchError(this.handleError<Product>(`getProduct id=${id}`))
-      )
+      );
   }
 
   updateProduct(product: Product): Observable<any> {
@@ -62,39 +68,13 @@ export class ProductService {
       );
   }
 
-  // searchProducts(term: string): Observable<Product[]> {
-  //   const url = `${this.productsUrl}/getByName/${term}`;
-  //   if (!term.trim())  {
-  //     return of([]);
-  //   }
-  //   return this.http.get<Product[]>(url)
-  //     .pipe(
-  //       tap(x => x.length ?
-  //         console.log(`found products matching "${term}"`) :
-  //         console.log(`no products matching "${term}"`)),
-  //       catchError(this.handleError<Product[]>('searchProducts', []))
-  //     );
-  // }
-
   searchProducts(term: string): Observable<Product[]> {
-    const url = `${this.productsUrl}/getByName/${term}`;
-    // if (term === '') {
-    //   return this.getAllProducts(1, 50);
-    // } else {
-    //   return this.http.get<Product[]>(url)
-    //     .pipe(
-    //       catchError(this.handleError<Product[]>('getProductsByName', []))
-    //     );
-    // }
-
-    return this.http.get<Product[]>(url)
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Product[]>(`${this.productsUrl}/?name=${term}`)
       .pipe(
         catchError(this.handleError<Product[]>('getProductsByName', []))
       );
-
-
-  }
-
-  constructor(private http: HttpClient) {
   }
 }
