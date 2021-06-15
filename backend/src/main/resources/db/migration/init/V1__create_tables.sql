@@ -4,6 +4,7 @@ create table authorizedUser(
                                userPassword varchar(100) NOT NULL,
                                userRole varchar(100) NOT NULL,
                                userName varchar(100) NOT NULL,
+                               userSurname varchar(100) NOT NULL,
                                userRegistrationDate DATE NOT NULL,
                                userStatus VARCHAR(100) NOT NULL,
                                userAddress VARCHAR(100) NOT NULL,
@@ -66,10 +67,9 @@ create table orderCart(
                           courierId integer NOT NULL,
                           packageDescription varchar(100) NOT NULL,
                           orderStatus varchar(100) NOT NULL,
-                          totalPrice float NOT NULL,
+                          totalPrice BIGSERIAL NOT NULL,
                           userName varchar(100) NOT NULL,
                           deliveryTime DATE NOT NULL,
-                          fullName VARCHAR(100) NOT NULL,
                           fullAddress VARCHAR(100) NOT NULL,
                           dontDisturb VARCHAR(1)
 );
@@ -81,6 +81,30 @@ CREATE table statistic(
                           productId bigserial NOT NULL,
                           productBought bigserial NOT NULL,
                           productSold bigserial NOT NULL,
-                          productRating float
+                          productRating integer
 );
 
+CREATE table courierCalendar(
+                          courierId BIGSERIAL ,
+                          F9T10 BIGSERIAL ,
+                          F10T11 BIGSERIAL ,
+                          F11T12 BIGSERIAL ,
+                          F12T13 BIGSERIAL ,
+                          F13T14 BIGSERIAL ,
+              F14T15 BIGSERIAL ,
+              F15T16 BIGSERIAL ,
+              F16T17 BIGSERIAL ,
+              F17T18 BIGSERIAL ,
+              F18T19 BIGSERIAL ,
+              F19T20 BIGSERIAL ,
+              F20T21 BIGSERIAL ,
+              userRegistrationDate DATE NOT NULL
+);
+
+CREATE table tokenTable(
+                          token varchar(100) ,
+                          idUser bigserial,
+                          id bigserial ,
+                          tokenName varchar(100),
+                          deleteDate DATE,
+                          );
