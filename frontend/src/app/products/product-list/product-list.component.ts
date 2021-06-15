@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductCategory} from "../../_model/productCategory";
-import {ProductCategoryService} from "../../_service/product-category/product-category.service";
-import {Product} from "../../_model/product";
-import {ProductService} from "../../_service/product/product.service";
-import {element} from "protractor";
+import {ProductCategory} from '../../_model/productCategory';
+import {ProductCategoryService} from '../../_service/product-category/product-category.service';
+import {Product} from '../../_model/product';
+import {ProductService} from '../../_service/product/product.service';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-product-list',

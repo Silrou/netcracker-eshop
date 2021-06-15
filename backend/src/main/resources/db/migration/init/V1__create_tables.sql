@@ -1,5 +1,5 @@
 create table authorizedUser(
-                               id bigserial NOT NULL,
+                               id BIGSERIAL NOT NULL,
                                userLogin varchar(100) NOT NULL,
                                userPassword varchar(100) NOT NULL,
                                userRole varchar(100) NOT NULL,
@@ -12,29 +12,35 @@ create table authorizedUser(
                                CONSTRAINT id_pk PRIMARY KEY(id)
 );
 
+create table productCategory(
+                                id BIGSERIAL  PRIMARY KEY,
+                                productCategoryName VARCHAR(100) NOT NULL,
+                                productSuperCategoryId BIGSERIAL
+);
+
 create table genre(
-                id bigserial PRIMARY KEY,
-                genreName varchar(100) NOT NULL
+                      id bigserial PRIMARY KEY,
+                      genreName varchar(100) NOT NULL
 );
 
 create table coverType(
-                id bigserial PRIMARY KEY,
-                coverTypeName varchar(100) NOT NULL
+                          id bigserial PRIMARY KEY,
+                          coverTypeName varchar(100) NOT NULL
 );
 
 create table author(
-                          id bigserial PRIMARY KEY,
-                          authorName varchar(100) NOT NULL
+                       id bigserial PRIMARY KEY,
+                       authorName varchar(100) NOT NULL
 );
 
 create table language(
-                          id bigserial PRIMARY KEY,
-                          languageName varchar(100) NOT NULL
+                         id bigserial PRIMARY KEY,
+                         languageName varchar(100) NOT NULL
 );
 
 create table publisher(
-                         id bigserial PRIMARY KEY,
-                         publisherName varchar(100) NOT NULL
+                          id bigserial PRIMARY KEY,
+                          publisherName varchar(100) NOT NULL
 );
 
 create table product (
@@ -55,16 +61,16 @@ create table product (
 );
 
 create table orderProduct(
-                              id bigserial NOT NULL PRIMARY KEY,
-                              productId bigserial NOT NULL,
-                              orderId bigserial NOT NULL,
-                              inCartProductAmount bigserial NOT NULL
+                              id BIGSERIAL NOT NULL PRIMARY KEY,
+                              productId BIGSERIAL NOT NULL,
+                              orderId BIGSERIAL NOT NULL,
+                              inCartProductAmount BIGSERIAL NOT NULL
 );
 
 create table orderCart(
-                          id bigserial NOT NULL PRIMARY KEY,
-                          packageId integer NOT NULL,
-                          courierId integer NOT NULL,
+                          id BIGSERIAL NOT NULL PRIMARY KEY,
+                          userID BIGSERIAL NOT NULL,
+                          courierId BIGSERIAL NOT NULL,
                           packageDescription varchar(100) NOT NULL,
                           orderStatus varchar(100) NOT NULL,
                           totalPrice BIGSERIAL NOT NULL,
@@ -76,29 +82,29 @@ create table orderCart(
 
 
 CREATE table statistic(
-                          id bigserial PRIMARY KEY,
-                          productCategory bigserial NOT NULL,
-                          productId bigserial NOT NULL,
-                          productBought bigserial NOT NULL,
-                          productSold bigserial NOT NULL,
-                          productRating integer
+                          id BIGSERIAL PRIMARY KEY,
+                          productCategory BIGSERIAL NOT NULL,
+                          productId BIGSERIAL NOT NULL,
+                          productBought BIGSERIAL NOT NULL,
+                          productSold BIGSERIAL NOT NULL,
+                          productRating BIGSERIAL
 );
 
 CREATE table courierCalendar(
-                          courierId BIGSERIAL ,
-                          F9T10 BIGSERIAL ,
-                          F10T11 BIGSERIAL ,
-                          F11T12 BIGSERIAL ,
-                          F12T13 BIGSERIAL ,
-                          F13T14 BIGSERIAL ,
-              F14T15 BIGSERIAL ,
-              F15T16 BIGSERIAL ,
-              F16T17 BIGSERIAL ,
-              F17T18 BIGSERIAL ,
-              F18T19 BIGSERIAL ,
-              F19T20 BIGSERIAL ,
-              F20T21 BIGSERIAL ,
-              userRegistrationDate DATE NOT NULL
+                                courierId BIGSERIAL ,
+                                F9T10 BIGSERIAL ,
+                                F10T11 BIGSERIAL ,
+                                F11T12 BIGSERIAL ,
+                                F12T13 BIGSERIAL ,
+                                F13T14 BIGSERIAL ,
+                                F14T15 BIGSERIAL ,
+                                F15T16 BIGSERIAL ,
+                                F16T17 BIGSERIAL ,
+                                F17T18 BIGSERIAL ,
+                                F18T19 BIGSERIAL ,
+                                F19T20 BIGSERIAL ,
+                                F20T21 BIGSERIAL ,
+                                userRegistrationDate DATE NOT NULL
 );
 
 CREATE table tokenTable(
@@ -106,5 +112,5 @@ CREATE table tokenTable(
                           idUser bigserial,
                           id bigserial ,
                           tokenName varchar(100),
-                          deleteDate DATE,
+                          deleteDate DATE
                           );

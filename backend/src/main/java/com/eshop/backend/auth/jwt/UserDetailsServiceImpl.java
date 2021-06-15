@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         AuthorizedUser user = authorizedUserdao.getByLogin(email);
         if (user != null) {
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            return new User(user.getEmail(), user.getPassword(), authorities);
+            return new User(user.getUserLogin(), user.getUserPassword(), authorities);
         } else {
             throw new UsernameNotFoundException("User " + email + " does not exist...");
         }

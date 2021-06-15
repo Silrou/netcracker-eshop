@@ -1,7 +1,7 @@
-package com.eshop.backend.DAO.DataAccess.Services;
+package com.eshop.backend.dao.DataAccess.Services;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
+import com.eshop.backend.dao.Models.AuthorizedUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

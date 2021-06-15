@@ -28,7 +28,7 @@ public class LoginController {
         try {
             AuthorizedUser user = authorizedUserdao.getByLogin(request.getEmail());
 
-            if (user != null && bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword())){
+            if (user != null && bCryptPasswordEncoder.matches(request.getPassword(), user.getUserPassword())){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (DataAccessException e) {
