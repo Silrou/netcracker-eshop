@@ -11,32 +11,20 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    private int id;
-
+    private Long id;
     private String productName;
-
-    private int productAmount;
-
-    private double productPrice;
-
-    private double productDiscount;
-
+    private Long productAmount;
+    private int productPrice;
+    private int productDiscount;
     private Date productDate;
-
     private String productPict;
-
     private String productDescription;
-
     private String productStatus;
 
-    private int genre;
-
-    private int coverType;
-
-    private int author;
-
-    private int language;
-
-    private int publisher;
+    private Long genre;
+    private Long coverType;
+    private Long author;
+    private Long language;
+    private Long publisher;
 
 }

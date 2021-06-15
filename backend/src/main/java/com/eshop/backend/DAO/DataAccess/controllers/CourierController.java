@@ -6,6 +6,6 @@ import com.eshop.backend.dao.Models.AuthorizedUser;
 public interface CourierController extends MainDao<AuthorizedUser> {
     AuthorizedUser getCourierDataByLogin(String login);
     AuthorizedUser updateCourierDataByLogin(String login);
-    AuthorizedUser getCourierDataById(int id);
-    AuthorizedUser updateCourierDataById(int id);
+    AuthorizedUser getCourierDataById(Long id);
+    AuthorizedUser updateCourierDataById(Long id);
 }

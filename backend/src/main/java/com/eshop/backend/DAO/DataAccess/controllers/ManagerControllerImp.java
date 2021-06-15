@@ -20,7 +20,7 @@ public class ManagerControllerImp implements  ManagerController{
     }
 
     @Override
-    public AuthorizedUser getById(int id) {
+    public AuthorizedUser getById(Long id) {
         return null;
     }
 
@@ -50,12 +50,12 @@ public class ManagerControllerImp implements  ManagerController{
     }
 
     @Override
-    public AuthorizedUser getManagerDataById(int id) {
+    public AuthorizedUser getManagerDataById(Long id) {
         return null;
     }
 
     @Override
-    public AuthorizedUser updateManagerDataByID(int id) {
+    public AuthorizedUser updateManagerDataByID(Long id) {
         return null;
     }
 

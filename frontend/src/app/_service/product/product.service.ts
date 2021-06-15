@@ -62,21 +62,39 @@ export class ProductService {
       );
   }
 
+  // searchProducts(term: string): Observable<Product[]> {
+  //   const url = `${this.productsUrl}/getByName/${term}`;
+  //   if (!term.trim())  {
+  //     return of([]);
+  //   }
+  //   return this.http.get<Product[]>(url)
+  //     .pipe(
+  //       tap(x => x.length ?
+  //         console.log(`found products matching "${term}"`) :
+  //         console.log(`no products matching "${term}"`)),
+  //       catchError(this.handleError<Product[]>('searchProducts', []))
+  //     );
+  // }
+
   searchProducts(term: string): Observable<Product[]> {
-    if (!term.trim()) {
-      return of([]);
-    }
-    return this.http.get<Product[]>(`${this.productsUrl}/?name=${term}`)
+    const url = `${this.productsUrl}/getByName/${term}`;
+    // if (term === '') {
+    //   return this.getAllProducts(1, 50);
+    // } else {
+    //   return this.http.get<Product[]>(url)
+    //     .pipe(
+    //       catchError(this.handleError<Product[]>('getProductsByName', []))
+    //     );
+    // }
+
+    return this.http.get<Product[]>(url)
       .pipe(
-        tap(x => x.length ?
-          console.log(`found products matching "${term}"`) :
-          console.log(`no products matching "${term}"`)),
-        catchError(this.handleError<Product[]>('searchProducts', []))
+        catchError(this.handleError<Product[]>('getProductsByName', []))
       );
+
+
   }
 
-  constructor(
-    private http: HttpClient,
-  ) {
+  constructor(private http: HttpClient) {
   }
 }

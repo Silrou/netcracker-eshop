@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin("*")
+
 @RestController
 @RequestMapping("/product")
 public class ProductCRUDController {
@@ -23,18 +23,17 @@ public class ProductCRUDController {
     }
 
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/get-by-id/{id}")
     public ResponseEntity<Product> getById(@PathVariable("id")Long id) {
         Product product = productService.getById(id);
         return new ResponseEntity(product, HttpStatus.OK);
     }
 
-    @GetMapping("/getByName/{name}")
+    @GetMapping("/get-by-name/{name}")
     public ResponseEntity<List<Product>> getById(@PathVariable("name")String name) {
         List<Product> products = productService.getByName(name);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
-
 
     @GetMapping("/get-all")
     public ResponseEntity<List<Product>> getAllProduct(@RequestParam("page")int page,

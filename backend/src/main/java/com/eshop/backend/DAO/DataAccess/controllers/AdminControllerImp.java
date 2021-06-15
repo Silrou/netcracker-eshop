@@ -16,7 +16,7 @@ public class AdminControllerImp implements AdminController {
     }
 
     @Override
-    public AuthorizedUser getById(int id) {
+    public AuthorizedUser getById(Long id) {
         return null;
     }
 
@@ -47,12 +47,12 @@ public class AdminControllerImp implements AdminController {
     }
 
     @Override
-    public AuthorizedUser getManagerDataById(int id) {
+    public AuthorizedUser getManagerDataById(Long id) {
         return null;
     }
 
     @Override
-    public AuthorizedUser updateManagerDataByID(int id) {
+    public AuthorizedUser updateManagerDataByID(Long id) {
         return null;
     }
 
@@ -67,12 +67,12 @@ public class AdminControllerImp implements AdminController {
     }
 
     @Override
-    public AuthorizedUser getCourierDataById(int id) {
+    public AuthorizedUser getCourierDataById(Long id) {
         return null;
     }
 
     @Override
-    public AuthorizedUser updateCourierDataById(int id) {
+    public AuthorizedUser updateCourierDataById(Long id) {
         return null;
     }
 }

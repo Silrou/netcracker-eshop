@@ -11,7 +11,7 @@ public class CourierControllerImp implements CourierController {
     }
 
     @Override
-    public AuthorizedUser getById(int id) {
+    public AuthorizedUser getById(Long id) {
         return null;
     }
 
@@ -41,12 +41,12 @@ public class CourierControllerImp implements CourierController {
     }
 
     @Override
-    public AuthorizedUser getCourierDataById(int id) {
+    public AuthorizedUser getCourierDataById(Long id) {
         return null;
     }
 
     @Override
-    public AuthorizedUser updateCourierDataById(int id) {
+    public AuthorizedUser updateCourierDataById(Long id) {
         return null;
     }
 }

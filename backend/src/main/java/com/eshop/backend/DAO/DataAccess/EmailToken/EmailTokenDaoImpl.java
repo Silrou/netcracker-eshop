@@ -55,7 +55,7 @@ public class EmailTokenDaoImpl implements EmailTokenDao {
     }
 
     @Override
-    public EmailToken getById(int id) {
+    public EmailToken getById(Long id) {
         return null;
     }
 

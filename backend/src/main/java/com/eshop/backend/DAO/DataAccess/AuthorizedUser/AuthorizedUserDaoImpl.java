@@ -93,7 +93,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
 
     @Override
-    public AuthorizedUser getById(int id) {
+    public AuthorizedUser getById(Long id) {
         return null;
     }
 
