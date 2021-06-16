@@ -229,21 +229,21 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
         return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
     }
 
-//    @Override
+   @Override
     public List<AuthorizedUser> getByName(String name) {
-        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where USERNAME="+name;
-
+        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where  USERNAME ILIKE '%"+name+"%' or USERSURNAME ILIKE '%" +name+ "%'";
+        System.out.println(getAllAuthorizedUsersSQL);
         RowMapper<AuthorizedUser> rowMapper = (rs,rowNum) -> new AuthorizedUser(
                 rs.getLong("id"),
                 rs.getString("userlogin"),
                 rs.getString("userpassword"),
-                rs.getString("getRole"),
-                rs.getString("getName"),
-                rs.getString("getSurname"),
-                rs.getString("UserRegistrationDate"),
-                rs.getString("UserStatus"),
-                rs.getString("UserAddres"),
-                rs.getString("UserNumber"));
+                rs.getString("userrole"),
+                rs.getString("username"),
+                rs.getString("usersurname"),
+                rs.getString("userregistrationdate"),
+                rs.getString("userstatus"),
+                rs.getString("useraddress"),
+                rs.getString("usernumber"));
         return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
     }
 

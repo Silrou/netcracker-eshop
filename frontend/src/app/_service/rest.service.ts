@@ -38,4 +38,9 @@ export class RestService {
     const nUrl = `${TUrll}`;
     return this.http.get(nUrl);
   }
+  getByName(name): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/getByName/' + name + '';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
 }

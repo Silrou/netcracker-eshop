@@ -38,7 +38,7 @@ public class AuthorizeduserServiceImp implements AuthorizeduserService {
 
     @Override
     public List<AuthorizedUser> getByName(String name) {
-        return null;
+        return authorizedUserDao.getByName(name);
     }
 
     @Override

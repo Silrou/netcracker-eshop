@@ -31,14 +31,15 @@ export class SearchComponent implements OnInit {
       this.managers = response;
     });
   }
+
   Search(): void{
     if (this.userName === ''){
       this.ngOnInit();
     }
     else{
-      this.managers = this.managers.filter(res => {
-        return ( res.userName.toLocaleLowerCase().match(this.userName.toLocaleLowerCase()) );
-      });
+      this.rs.getByName(this.userName).subscribe((response) => {
+      this.managers = response;
+    });
     }
   }
 
