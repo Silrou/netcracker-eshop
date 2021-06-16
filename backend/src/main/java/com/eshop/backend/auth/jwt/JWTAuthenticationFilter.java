@@ -25,7 +25,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         this.authenticationManager = authenticationManager;
 
         //Sets the URL that determines if authentication is required
-        setFilterProcessesUrl("/user/login");
+        setFilterProcessesUrl("/user/token");
     }
 
     @Override

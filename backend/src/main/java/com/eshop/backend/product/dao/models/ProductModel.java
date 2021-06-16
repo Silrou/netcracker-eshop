@@ -10,11 +10,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductModel {
-    private int id;
+    private Long id;
 
     private String productName;
 
-    private int productAmount;
+    private Long productAmount;
 
     private double productPrice;
 
@@ -28,14 +28,14 @@ public class ProductModel {
 
     private String productStatus;
 
-    private int genre;
+    private Long genre;
 
-    private int coverType;
+    private Long coverType;
 
-    private int author;
+    private Long author;
 
-    private int language;
+    private Long language;
 
-    private int publisher;
+    private Long publisher;
 
 }

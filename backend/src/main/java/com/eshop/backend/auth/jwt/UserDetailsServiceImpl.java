@@ -17,17 +17,17 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final AuthorizedUserDao authorizedUserdao;
+    private final AuthorizedUserDao authorizedUserDao;
 
     @Autowired
-    public UserDetailsServiceImpl(AuthorizedUserDaoImpl authorizedUserdao) {
-        this.authorizedUserdao = authorizedUserdao;
+    public UserDetailsServiceImpl(AuthorizedUserDaoImpl authorizedUserDao) {
+        this.authorizedUserDao = authorizedUserDao;
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        AuthorizedUserModel user = authorizedUserdao.getByLogin(email);
+        AuthorizedUserModel user = authorizedUserDao.getByLogin(email);
         if (user != null) {
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             return new User(user.getUserLogin(), user.getUserPassword(), authorities);

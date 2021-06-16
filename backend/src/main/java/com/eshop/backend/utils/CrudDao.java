@@ -6,7 +6,7 @@ import java.util.List;
 public interface CrudDao<T>{
     void create(T model);
 
-    T getById(int id);
+    T getById(Long id);
 
     List<T> getAll();
 

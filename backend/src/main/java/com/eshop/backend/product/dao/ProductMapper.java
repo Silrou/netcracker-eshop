@@ -18,7 +18,7 @@ public class ProductMapper implements RowMapper<ProductModel> {
     public ProductModel mapRow(ResultSet rs, int i) throws SQLException {
         Long id = rs.getLong("id");
         String name = rs.getString("productname");
-        Long amount = rs.getLong("productamount");
+        int amount = rs.getInt("productamount");
         int price = rs.getInt("productprice");
         int discount = rs.getInt("productdiscount");
         Date date = rs.getDate("productdate");
@@ -30,7 +30,7 @@ public class ProductMapper implements RowMapper<ProductModel> {
         Long author = rs.getLong("author");
         Long language = rs.getLong("language");
         Long publisher = rs.getLong("publisher");
-        return new ProductModel(Math.toIntExact(id), name, Math.toIntExact(amount), price, discount, date, pict, description, status,
-                Math.toIntExact(genre),Math.toIntExact(coverType), Math.toIntExact(author), Math.toIntExact(language), Math.toIntExact(publisher));
+        return new ProductModel(id, name, amount, price, discount, date, pict, description, status,
+                genre, coverType, author, language, publisher);
     }
 }

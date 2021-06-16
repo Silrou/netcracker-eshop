@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../_model/user';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../_service/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {AlertService} from '../../_service/alert.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,27 +14,110 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class LoginComponent implements OnInit {
   loginUserData = new User();
   error = false;
+  siteKey = '6Lf8SSgbAAAAALxW_hIMBPJeKQzgvvg7NmbCzVO2';
+  defaultKey = '6Lf8SSgbAAAAALxW_hIMBPJeKQzgvvg7123CzVO2';
+  loginForm: FormGroup;
+  submitted = false;
+  invalidLogin = false;
+  captchaError = false;
+  loginResponse: string;
+  failedRegistration = 0;
+
   constructor(private router: Router,
-              private authService: AuthService) { }
-  ngOnInit(): void {
+              private authService: AuthService,
+              private alertService: AlertService,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute) {
   }
 
-  login(): void {
-    console.log(this.loginUserData);
-    this.authService.loginUser(this.loginUserData).subscribe(
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required,
+                      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z\d].{8,20}')]],
+      recaptcha: [this.defaultKey]
+    });
+  }
+
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    if (this.failedRegistration >= 5) {
+      const response = grecaptcha?.getResponse();
+      if (response.length === 0) {
+        this.captchaError = true;
+        return;
+      }
+    }
+
+    const login = new User();
+    login.userLogin = this.loginForm.controls.email.value;
+    login.userPassword = this.loginForm.controls.password.value;
+
+    login.recaptchaResponse = this.loginForm.controls.recaptcha.value;
+    console.log(login.recaptchaResponse);
+    // login.recaptchaResponse = undefined;
+
+    this.login(login);
+
+    // this.authService.loginUser(login).subscribe(data => {
+    //   if (data.status === 200) {
+    //     this.router.navigate(['/main']);
+    //   } else {
+    //     this.invalidLogin = true;
+    //     this.loginResponse = data.message;
+    //   }
+    //   grecaptcha.reset();
+    // });
+  }
+
+  getRole(): void {
+    this.authService.getUserRole(this.loginUserData.userLogin);
+  }
+
+  login(loginData: User): void {
+    this.authService.loginUser(loginData).subscribe(
       res => {
         this.error = false;
-        localStorage.setItem('token', res.headers.get('Authorization').body);
-        this.router.navigate(['/main']);
+        this.authService.role = res.userRole;
+        this.authService.status = res.userStatus;
+        this.loginUserData = res;
+        localStorage.setItem('login', this.loginUserData.userLogin);
+        if (!this.error) {
+          loginData.recaptchaResponse = undefined;
+          this.authService.getToken(loginData).subscribe(
+            response => {
+            });
+        }
+        const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+        this.router.navigateByUrl(returnUrl);
+        // this.router.navigate(['/main']);
       },
       error => {
         this.error = true;
-        if (error instanceof HttpErrorResponse) {
-          if (error.status === 401) {
-            console.log(error); // ?????
-          }
+        console.log(error);
+        this.failedRegistration++;
+        if (this.failedRegistration >= 5) {
+          console.log('show recaptcha now!!!!!!');
         }
+        this.alertService.error(error, { autoClose: false });
+        this.invalidLogin = true;
+        this.loginResponse = error.message;
+        grecaptcha.reset();
       }
     );
+
+    // this.getRole();
+  }
+
+  resolved(captchaResponse: string): void {
+    console.log(`Resolved response token: ${captchaResponse}`);
+  }
+
+  handleSuccess(captchaResponse: string): void {
+    console.log(`Resolved response token: ${captchaResponse}`);
   }
 }

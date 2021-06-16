@@ -12,10 +12,11 @@ create table authorizedUser(
                                CONSTRAINT id_pk PRIMARY KEY(id)
 );
 
+
 create table productCategory(
-                                id BIGSERIAL  PRIMARY KEY,
+                                id BIGSERIAL PRIMARY KEY,
                                 productCategoryName VARCHAR(100) NOT NULL,
-                                productSuperCategoryId BIGSERIAL
+                                productSuperCategoryId integer
 );
 
 create table genre(
@@ -43,7 +44,7 @@ create table publisher(
                           publisherName varchar(100) NOT NULL
 );
 
-create table product(
+create table product (
                          id bigserial PRIMARY KEY,
                          productName varchar(255) NOT NULL,
                          productAmount bigserial NOT NULL ,
@@ -58,13 +59,6 @@ create table product(
                          author bigserial NOT NULL,
                          language bigserial NOT NULL,
                          publisher bigserial NOT NULL
-);
-
-create table orderProduct(
-                              id BIGSERIAL NOT NULL PRIMARY KEY,
-                              productId BIGSERIAL NOT NULL,
-                              orderId BIGSERIAL NOT NULL,
-                              inCartProductAmount BIGSERIAL NOT NULL
 );
 
 create table orderCart(
@@ -107,10 +101,10 @@ CREATE table courierCalendar(
                                 userRegistrationDate DATE NOT NULL
 );
 
-CREATE table tokenTable(
-                          token varchar(100) ,
-                          idUser bigserial,
-                          id bigserial ,
-                          tokenName varchar(100),
-                          deleteDate DATE
-                          );
+create table verificationToken(
+                                  id BIGSERIAL PRIMARY KEY,
+                                  tokenName VARCHAR(100) NOT NULL,
+                                  tokenValue VARCHAR(100) NOT NULL,
+                                  tokenExpiryDate DATE NOT NULL,
+                                  authorizedUserid integer NOT NULL
+);
