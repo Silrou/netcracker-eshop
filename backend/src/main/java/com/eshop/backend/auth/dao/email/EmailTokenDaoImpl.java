@@ -22,30 +22,43 @@ public class EmailTokenDaoImpl implements EmailTokenDao {
 
     @Override
     public void createVerificationToken(AuthorizedUserModel user, EmailTokenModel token) {
-        String SQL = "insert into email_token (token, expiry_date," +
-                "user_id)\n" +
-                "values (?,?,?)";
+        String SQL = "insert into verificationtoken (tokenname, tokenvalue," +
+                "tokenexpirydate, authorizeduserid)\n" +
+                "values (?,?,?,?)";
         try {
-            jdbcTemplate.update(SQL, token.getToken(), token.getExpiryDate(), user.getId());
+            jdbcTemplate.update(SQL, token.getTokenName(), token.getTokenValue(),
+                    token.getTokenExpiryDate(), token.getAuthorizedUserId());
         } catch (Exception e) {
             String str = e.toString();
         }
     }
 
     @Override
-    public EmailTokenModel getByToken(String token) {
+    public EmailTokenModel getByToken(String token, String name) {
         try{
-            String getByTokenSql = "SELECT id, token , user_id, expiry_date FROM email_token WHERE token = ?";
+            String getByTokenSql = "SELECT id, tokenname , tokenvalue, tokenexpirydate, authorizeduserid FROM verificationtoken WHERE tokenvalue = ?" +
+                    " AND tokenname = ?";
             return jdbcTemplate.queryForObject(getByTokenSql, (rs, rowNum) ->
                     new EmailTokenModel(
                             rs.getLong("id"),
-                            rs.getString("token"),
-                            rs.getLong("user_id"),
-                            rs.getDate("expiry_date")
-                    ), token);
+                            rs.getString("tokenname"),
+                            rs.getString("tokenvalue"),
+                            rs.getDate("tokenexpirydate"),
+                            rs.getLong("authorizeduserid")
+                    ), token, name);
         } catch (DataAccessException e) {
             String str = e.toString();
             return null;
+        }
+    }
+
+    @Override
+    public void deleteByValue(String token) {
+        String SQL = "delete from verificationtoken where tokenvalue = ?";
+        try {
+            jdbcTemplate.update(SQL, token);
+        } catch (Exception e) {
+            String str = e.toString();
         }
     }
 

@@ -1,8 +1,5 @@
 package com.eshop.backend.product.dao;
-<<<<<<< HEAD
-=======
 
->>>>>>> develop
 import com.eshop.backend.product.dao.models.ProductModel;
 import com.eshop.backend.utils.CrudDao;
 

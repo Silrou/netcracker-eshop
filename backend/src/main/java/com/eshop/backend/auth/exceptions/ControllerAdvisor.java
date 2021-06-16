@@ -1,5 +1,6 @@
 package com.eshop.backend.auth.exceptions;
 
+import com.eshop.backend.auth.exceptions.dto.ErrorMessageDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,14 +14,14 @@ public class ControllerAdvisor {
 
     @ExceptionHandler({UserAlreadyExistsException.class, NeedMailConfirmationException.class,
                         NoUserWithThisEmailException.class, NewPasswordSameAsOldException.class})
-    public ResponseEntity<ErrorMessage> handleCityNotFoundException(
+    public ResponseEntity<ErrorMessageDTO> handleCityNotFoundException(
             Exception ex, WebRequest request) {
 
-        ErrorMessage message = new ErrorMessage(
+        ErrorMessageDTO message = new ErrorMessageDTO(
                 LocalDateTime.now(),
                 ex.getMessage());
 
-        return new ResponseEntity<ErrorMessage>(message, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ErrorMessageDTO>(message, HttpStatus.BAD_REQUEST);
     }
 
 }

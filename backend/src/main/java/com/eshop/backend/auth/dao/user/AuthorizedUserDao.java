@@ -4,6 +4,9 @@ package com.eshop.backend.auth.dao.user;
 import com.eshop.backend.utils.CrudDao;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 
+import java.util.Collection;
+import java.util.List;
+
 public interface AuthorizedUserDao extends CrudDao<AuthorizedUserModel> {
 
     AuthorizedUserModel getByLogin(String login);
@@ -12,4 +15,9 @@ public interface AuthorizedUserDao extends CrudDao<AuthorizedUserModel> {
     AuthorizedUserModel getByToken(String token);
     void createVerificationToken(AuthorizedUserModel user, String token);
 
+    List<AuthorizedUserModel> getAllUsers();
+
+    Collection<AuthorizedUserModel> getAllManager();
+
+    Collection<AuthorizedUserModel> getAllCourier();
 }

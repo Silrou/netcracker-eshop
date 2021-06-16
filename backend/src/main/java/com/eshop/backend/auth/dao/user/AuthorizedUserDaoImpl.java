@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -96,6 +97,21 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 //        } catch (Exception e) {
 //            String str = e.toString();
 //        }
+    }
+
+    @Override
+    public List<AuthorizedUserModel> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public Collection<AuthorizedUserModel> getAllManager() {
+        return null;
+    }
+
+    @Override
+    public Collection<AuthorizedUserModel> getAllCourier() {
+        return null;
     }
 
 
