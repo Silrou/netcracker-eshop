@@ -51,4 +51,14 @@ public class ProductServiceImp implements ProductService {
         return productdao.getById(Math.toIntExact(id));
     }
 
+    @Override
+    public void create(ProductModel productModel) {
+        
+    }
+
+    @Override
+    public void update(ProductModel productModel) {
+
+    }
+
 }
