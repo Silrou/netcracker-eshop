@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface AdminService {
     public List<AuthorizedUserModel> getAllUsers() ;
-    public Collection<AuthorizedUserModel> getAllManager();
-    public Collection<AuthorizedUserModel> getAllCourier();
+    public List<AuthorizedUserModel> getAllManager();
+    public List<AuthorizedUserModel> getAllCourier();
     public List<AuthorizedUserModel> getFilteredByStatusOn();
     public  List<AuthorizedUserModel> getFilteredByStatusOff();
     public List<AuthorizedUserModel> getByName(String name);

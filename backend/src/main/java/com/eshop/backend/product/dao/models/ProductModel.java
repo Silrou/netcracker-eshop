@@ -14,7 +14,7 @@ public class ProductModel {
 
     private String productName;
 
-    private Long productAmount;
+    private int productAmount;
 
     private double productPrice;
 

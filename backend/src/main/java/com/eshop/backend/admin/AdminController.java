@@ -1,8 +1,8 @@
 package com.eshop.backend.admin;
 
-import com.eshop.backend.dao.DataAccess.Services.AuthorizeduserService;
-import com.eshop.backend.dao.Models.AuthorizedUser;
-import com.eshop.backend.dao.Models.Product;
+
+import com.eshop.backend.admin.services.AdminService;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,23 +24,23 @@ public class AdminController {
 //        return "getAllUsers";
 //    }
     @GetMapping("/admin/search")
-    public ResponseEntity<List<AuthorizedUser>> getAllProduct() {
-         List<AuthorizedUser> authorizedUser = authorizeduserService.getAllUsers();
-    return  new ResponseEntity<>(authorizedUser, HttpStatus.OK);
+    public ResponseEntity<List<AuthorizedUserModel>> getAllProduct() {
+         List<AuthorizedUserModel> AuthorizedUserModel = adminService.getAllUsers();
+    return  new ResponseEntity<>(AuthorizedUserModel, HttpStatus.OK);
     };
     @GetMapping("/admin/search/manager")
-    public ResponseEntity<List<AuthorizedUser>> getAllManager(){
-        List<AuthorizedUser> authorizedManager = authorizeduserService.getAllManager();
+    public ResponseEntity<List<AuthorizedUserModel>> getAllManager(){
+        List<AuthorizedUserModel> authorizedManager =  adminService.getAllManager();
         return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
     @GetMapping("/admin/search/courier")
-    public ResponseEntity<List<AuthorizedUser>> getAllCourier(){
-        List<AuthorizedUser> authorizedManager = authorizeduserService.getAllCourier();
+    public ResponseEntity<List<AuthorizedUserModel>> getAllCourier(){
+        List<AuthorizedUserModel> authorizedManager =  adminService.getAllCourier();
         return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
     @GetMapping("/admin/onDuty")
-    public ResponseEntity<List<AuthorizedUser>> getFilteredByStatusOn(Model model){
-        List<AuthorizedUser> authorizedManager = authorizeduserService.getFilteredByStatusOn();
+    public ResponseEntity<List<AuthorizedUserModel>> getFilteredByStatusOn(Model model){
+        List<AuthorizedUserModel> authorizedManager = adminService.getFilteredByStatusOn();
         return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
     @GetMapping("/admin/AllUsersMenu4")
@@ -49,9 +49,9 @@ public class AdminController {
         return "getFilteredByStatusOff";
     }
     @GetMapping("admin/getByName/{name}")
-    public ResponseEntity<List<AuthorizedUser>> getByName(@PathVariable("name")String name) {
-        List<AuthorizedUser> authorizedUser = authorizeduserService.getByName(name);
-        return new ResponseEntity<>(authorizedUser, HttpStatus.OK);
+    public ResponseEntity<List<AuthorizedUserModel>> getByName(@PathVariable("name")String name) {
+        List<AuthorizedUserModel> AuthorizedUserModel = adminService.getByName(name);
+        return new ResponseEntity<>(AuthorizedUserModel, HttpStatus.OK);
     }
 //    @GetMapping("/admin/AllUsersMenu")
 //    public String getByName(Model model){
