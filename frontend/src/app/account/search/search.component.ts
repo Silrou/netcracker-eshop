@@ -18,41 +18,44 @@ export class SearchComponent implements OnInit {
   userName: string;
   userSurname: string;
   userRole: string;
+
   constructor(public rs: RestService,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.rs.getManagers().subscribe((response) => {
       this.managers = response;
     });
   }
-  getEmployee(): void{
+
+  getEmployee(): void {
     this.rs.getManagers().subscribe((response) => {
       this.managers = response;
     });
   }
 
-  Search(): void{
-    if (this.userName === ''){
+  Search(): void {
+    if (this.userName === '') {
       this.ngOnInit();
-    }
-    else{
+    } else {
       this.rs.getByName(this.userName).subscribe((response) => {
-      this.managers = response;
-    });
+        this.managers = response;
+      });
     }
   }
 
   // onEdit(): void{
   // this.dialog.open(EditComponent);
   // }
-  onCreate(): void{
+  onCreate(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
     this.dialog.open(ProfileComponent, dialogConfig);
   }
+
   // deleteContact(id){
   //   id = this.managers[].firstName;
   //   this.service.deleteUser(id).subscribe(
@@ -61,23 +64,31 @@ export class SearchComponent implements OnInit {
   //
   //   );
   // }
-
-  onDelete(id: number): void{
-   console.log(id);
-   this.rs.deleteUser(id) .subscribe(response => {
-     this.managers = this.managers.filter(item => item.id !== id);
-   });
+  onDelete(id: number): void {
+    console.log(id);
+    this.rs.deleteUser(id).subscribe(response => {
+      this.managers = this.managers.filter(item => item.id !== id);
+    });
   }
-  getID(id: number): number{
+
+  getID(id: number): number {
     return this.clickedID = id;
   }
+
   getAllManager(): void {
     this.rs.getManager().subscribe((response) => {
       this.managers = response;
     });
   }
+
   getAllCoriers(): void {
     this.rs.getCorier().subscribe((response) => {
+      this.managers = response;
+    });
+  }
+
+  getOnDuty(): void {
+    this.rs.getOnDutyNow().subscribe((response) => {
       this.managers = response;
     });
   }

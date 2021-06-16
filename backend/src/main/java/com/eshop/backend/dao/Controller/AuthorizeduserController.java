@@ -38,10 +38,10 @@ public class AuthorizeduserController {
         List<AuthorizedUser> authorizedManager = authorizeduserService.getAllCourier();
         return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
-    @GetMapping("/admin/AllUsersMenu1")
-    public String getFilteredByStatusOn(Model model){
-        model.addAttribute("getFilteredByStatusOn",authorizeduserService.getFilteredByStatusOn());
-        return "getFilteredByStatusOn";
+    @GetMapping("/admin/onDuty")
+    public ResponseEntity<List<AuthorizedUser>> getFilteredByStatusOn(Model model){
+        List<AuthorizedUser> authorizedManager = authorizeduserService.getFilteredByStatusOn();
+        return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
     @GetMapping("/admin/AllUsersMenu4")
     public String getFilteredByStatusOff(Model model){

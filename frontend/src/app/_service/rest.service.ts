@@ -43,4 +43,9 @@ export class RestService {
     const nUrl = `${TUrll}`;
     return this.http.get(nUrl);
   }
+  getOnDutyNow(): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/onDuty';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
 }

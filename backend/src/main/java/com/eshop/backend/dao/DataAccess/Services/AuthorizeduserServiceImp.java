@@ -28,7 +28,7 @@ public class AuthorizeduserServiceImp implements AuthorizeduserService {
 
     @Override
     public List<AuthorizedUser> getFilteredByStatusOn() {
-        return null;
+        return authorizedUserDao.getFilteredByStatusOn();
     }
 
     @Override
