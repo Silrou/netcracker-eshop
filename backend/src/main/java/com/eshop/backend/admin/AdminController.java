@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class AdminController {
     @Autowired
-    AdminService authorizeduserService;
+    AdminService adminService;
 
 //    @GetMapping("/admin/search")
 //    public String getAllUsers(Model model){
@@ -23,27 +23,27 @@ public class AdminController {
 //    }
     @GetMapping("/admin/search")
     public ResponseEntity<List<AuthorizedUserModel>> getAllProduct() {
-        List<AuthorizedUserModel> authorizedUserModel = authorizeduserService.getAllUsers();
+        List<AuthorizedUserModel> authorizedUserModel = adminService.getAllUsers();
         return new ResponseEntity<>(authorizedUserModel, HttpStatus.OK);
     }
     @GetMapping("/admin/AllUsersMenu3")
     public String getAllManager(Model model){
-        model.addAttribute("getAllUsers",authorizeduserService.getAllManager());
+        model.addAttribute("getAllUsers", adminService.getAllManager());
         return "getAllManager";
     }
     @GetMapping("/admin/AllUsersMenu2")
     public String getAllCourier(Model model){
-        model.addAttribute("getAllUsers",authorizeduserService.getAllCourier());
+        model.addAttribute("getAllUsers", adminService.getAllCourier());
         return "getAllCourier";
     }
     @GetMapping("/admin/AllUsersMenu1")
     public String getFilteredByStatusOn(Model model){
-        model.addAttribute("getFilteredByStatusOn",authorizeduserService.getFilteredByStatusOn());
+        model.addAttribute("getFilteredByStatusOn", adminService.getFilteredByStatusOn());
         return "getFilteredByStatusOn";
     }
     @GetMapping("/admin/AllUsersMenu4")
     public String getFilteredByStatusOff(Model model){
-        model.addAttribute("getFilteredByStatusOff",authorizeduserService.getFilteredByStatusOff());
+        model.addAttribute("getFilteredByStatusOff", adminService.getFilteredByStatusOff());
         return "getFilteredByStatusOff";
     }
 //    @GetMapping("/admin/AllUsersMenu")
