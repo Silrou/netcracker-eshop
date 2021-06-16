@@ -17,7 +17,7 @@ public interface AuthorizedUserDao extends CrudDao<AuthorizedUserModel> {
 
     List<AuthorizedUserModel> getAllUsers();
 
-    Collection<AuthorizedUserModel> getAllManager();
+    List<AuthorizedUserModel> getAllManager();
 
-    Collection<AuthorizedUserModel> getAllCourier();
+    List<AuthorizedUserModel> getAllCourier();
 }

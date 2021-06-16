@@ -21,10 +21,10 @@ public class AdminServiceImp implements AdminService {
     public List<AuthorizedUserModel> getAllUsers() {return authorizedUserDao.getAllUsers();    }
 
     @Override
-    public Collection<AuthorizedUserModel> getAllManager() {return authorizedUserDao.getAllManager();}
+    public List<AuthorizedUserModel> getAllManager() {return authorizedUserDao.getAllManager();}
 
     @Override
-    public Collection<AuthorizedUserModel> getAllCourier() {return authorizedUserDao.getAllCourier();}
+    public List<AuthorizedUserModel> getAllCourier() {return authorizedUserDao.getAllCourier();}
 
     @Override
     public List<AuthorizedUserModel> getFilteredByStatusOn() {
