@@ -1,4 +1,4 @@
-create table authorizedUserModel(
+create table authorizedUser(
                                id BIGSERIAL NOT NULL,
                                userLogin varchar(100) NOT NULL,
                                userPassword varchar(100) NOT NULL,
@@ -43,7 +43,7 @@ create table publisher(
                           publisherName varchar(100) NOT NULL
 );
 
-create table productModel (
+create table product(
                          id bigserial PRIMARY KEY,
                          productName varchar(255) NOT NULL,
                          productAmount bigserial NOT NULL ,
