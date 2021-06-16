@@ -54,6 +54,7 @@ public class RegistrationController {
                     .userPassword(request.getUserPassword())
                     .userRole(Role.USER.name())
                     .userName(request.getFirstName())
+                    .userSurname(request.getLastName())
                     .userRegistrationDate(new Date(System.currentTimeMillis()))
                     .userStatus(Role.ANONYMOUS.name())
                     .build();

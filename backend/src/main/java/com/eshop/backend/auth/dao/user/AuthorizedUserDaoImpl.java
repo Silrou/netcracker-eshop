@@ -26,11 +26,12 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public void create(AuthorizedUserModel user) {
 
         String SQL = "insert into authorizeduser (userlogin, userpassword," +
-                "userrole, username, userregistrationdate, userstatus, useraddress, usernumber)\n" +
-                "values (?,?,?,?,?,?,?,?)";
+                "userrole, username, usersurname, userregistrationdate, userstatus," +
+                " useraddress, usernumber)\n" +
+                "values (?,?,?,?,?,?,?,?,?)";
         try {
             jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
-                    user.getUserRole(), user.getUserName(), user.getUserRegistrationDate(),
+                    user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
                     user.getUserStatus(), " ", " ");
         } catch (Exception e) {
             String str = e.toString();
