@@ -4,6 +4,7 @@ package com.eshop.backend.dao.DataAccess.controllers;
 import com.eshop.backend.dao.models.AuthorizedUser;
 import org.springframework.stereotype.Controller;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -12,7 +13,7 @@ public class AdminControllerImp implements AdminController {
 
     @Override
     public void create(AuthorizedUser model) {
-
+        // create user
     }
 
     @Override
@@ -22,17 +23,17 @@ public class AdminControllerImp implements AdminController {
 
     @Override
     public List<AuthorizedUser> getAll() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
     public void update(AuthorizedUser model) {
-
+        // update user
     }
 
     @Override
     public void delete(Long id) {
-
+        // delete user
     }
 
 

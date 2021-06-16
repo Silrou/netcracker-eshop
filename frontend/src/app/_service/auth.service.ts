@@ -20,8 +20,8 @@ export class AuthService {
 
   role: Role;
   status: Status;
-  public globalRole = 'USER';
-  public globalStatus = 'ANONYMOUS';
+  // public globalRole = 'USER';
+  // public globalStatus = 'ANONYMOUS';
 
   public user = new User();
 
@@ -55,12 +55,12 @@ export class AuthService {
   getUserRole(login: string): void{
     this.http.get(this.roleUrl + '?login=' + login, {observe: 'response'}).subscribe((res) => {
       const body = JSON.parse(JSON.stringify(res)).body;
-
-      this.role = body.userRole;
-      this.status = body.userStatus;
-
-      localStorage.setItem('globalRole', this.role);
-      localStorage.setItem('globalStatus', this.status);
+      if (body != null) {
+        this.role = body.userRole;
+        this.status = body.userStatus;
+        localStorage.setItem('globalRole', this.role);
+        localStorage.setItem('globalStatus', this.status);
+      }
     });
   }
 

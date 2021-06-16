@@ -1,10 +1,13 @@
 package com.eshop.backend.auth.controllers;
+
+import com.eshop.backend.auth.exceptions.NeedMailConfirmationException;
 import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
 import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDaoImpl;
 import com.eshop.backend.auth.dto.LoginRequestDTO;
 import com.eshop.backend.dao.models.AuthorizedUser;
-import com.eshop.backend.auth.exceptions.UserAlreadyExists;
+import com.eshop.backend.auth.exceptions.UserAlreadyExistsException;
 import com.eshop.backend.auth.services.CaptchaService;
+import com.eshop.backend.dao.models.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,20 +31,22 @@ public class LoginController {
 
     @PostMapping("/user/login")
     public ResponseEntity<?> authenticate(@RequestBody LoginRequestDTO request) {
-        try {
-            //add to if statement
-            boolean captchaVerified = captchaService.verify(request.getRecaptchaResponse());
+        //add to if statement
 
-            AuthorizedUser user = authorizedUserDao.getByLogin(request.getUserLogin());
+        boolean captchaVerified = captchaService.verify(request.getRecaptchaResponse());
 
-            if (captchaVerified && user != null && bCryptPasswordEncoder.matches(request.getUserPassword(), user.getUserPassword())){
-                return new ResponseEntity<>(user, HttpStatus.OK);
-            }
+        AuthorizedUser user = authorizedUserDao.getByLogin(request.getUserLogin());
 
+        if (user == null) System.out.println("go and reg your acc");
 
-        } catch (Exception e) {
-            throw new UserAlreadyExists();
+        if (user.getUserStatus().equals(Role.ANONYMOUS.name())){
+            throw new NeedMailConfirmationException();
         }
+
+        if (captchaVerified && bCryptPasswordEncoder.matches(request.getUserPassword(), user.getUserPassword())) {
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(HttpStatus.OK);
 
     }

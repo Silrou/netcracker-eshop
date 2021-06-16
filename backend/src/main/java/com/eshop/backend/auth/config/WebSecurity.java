@@ -1,4 +1,4 @@
-package com.eshop.backend.auth.security;
+package com.eshop.backend.auth.config;
 
 import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
 import com.eshop.backend.auth.jwt.JWTAuthenticationFilter;

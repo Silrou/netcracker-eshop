@@ -1,5 +1,6 @@
 package com.eshop.backend.auth.controllers;
 
+import com.eshop.backend.auth.exceptions.UserAlreadyExistsException;
 import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
 import com.eshop.backend.dao.DataAccess.email_token.EmailTokenDao;
 import com.eshop.backend.dao.models.EmailToken;
@@ -42,7 +43,7 @@ public class RegistrationController {
         AuthorizedUser user = authorizedUsersDao.getByLogin(request.getUserLogin());
 
         if (user != null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new UserAlreadyExistsException();
         }
 
         if (emailValidator.isValid(request.getUserLogin()) &&

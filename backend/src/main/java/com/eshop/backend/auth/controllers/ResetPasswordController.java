@@ -1,5 +1,7 @@
 package com.eshop.backend.auth.controllers;
 
+import com.eshop.backend.auth.exceptions.NoUserWithThisEmailException;
+import com.eshop.backend.auth.exceptions.NewPasswordSameAsOldException;
 import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
 import com.eshop.backend.dao.DataAccess.email_token.EmailTokenDao;
 import com.eshop.backend.dao.models.AuthorizedUser;
@@ -41,7 +43,7 @@ public class ResetPasswordController {
 
         AuthorizedUser user = authorizedUsersDao.getByLogin(forgotPasswordDTO.getEmail());
         if (user == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new NoUserWithThisEmailException();
         }
 
         emailSenderService.sendEmail(user, "resetPassword");
@@ -77,7 +79,7 @@ public class ResetPasswordController {
             AuthorizedUser user = authorizedUsersDao.getByToken(resetPasswordDTO.getToken());
 
             if (bCryptPasswordEncoder.matches(resetPasswordDTO.getPassword(), user.getUserPassword())) {
-                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                throw new NewPasswordSameAsOldException();
             }
 
             user.setUserPassword(resetPasswordDTO.getPassword());

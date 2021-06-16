@@ -17,6 +17,8 @@ import {ProductCatalogComponent} from './product-catalog/product-catalog.compone
 import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
 import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
+import {AuthGuard} from './_helper/auth.guard';
+import {Role} from './_model/role';
 
 const routes: Routes = [
   {
@@ -66,7 +68,9 @@ const routes: Routes = [
   },
   {
     path: 'working-cabinet',
-    component: ProductCatalogComponent
+    component: ProductCatalogComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.MANAGER, Role.ADMIN, Role.COURIER] }
   },
   {
     path: 'verify-email',
