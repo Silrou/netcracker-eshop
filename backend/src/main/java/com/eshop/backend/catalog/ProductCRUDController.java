@@ -22,13 +22,13 @@ public class ProductCRUDController {
     }
 
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/get-by-id/{id}")
     public ResponseEntity<ProductModel> getById(@PathVariable("id")Long id) {
         ProductModel productModel = productService.getById(id);
         return new ResponseEntity(productModel, HttpStatus.OK);
     }
 
-    @GetMapping("/getByName/{name}")
+    @GetMapping("/get-by-name/{name}")
     public ResponseEntity<List<ProductModel>> getById(@PathVariable("name")String name) {
         List<ProductModel> productModels = productService.getByName(name);
         return new ResponseEntity<>(productModels, HttpStatus.OK);

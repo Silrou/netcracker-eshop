@@ -37,6 +37,11 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     }
 
     @Override
+    public AuthorizedUserModel getById(Long id) {
+        return null;
+    }
+
+    @Override
     public AuthorizedUserModel getByLogin(String login) throws DataAccessException {
         try{
             String getUserSql = "SELECT id, user_login , user_password, user_role, user_status FROM users WHERE user_login = ?";
@@ -92,11 +97,6 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
         }
     }
 
-
-    @Override
-    public AuthorizedUserModel getById(int id) {
-        return null;
-    }
 
     @Override
     public List<AuthorizedUserModel> getAll() {

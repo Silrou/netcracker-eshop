@@ -37,25 +37,26 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public ProductModel getById(int id) {
+    public ProductModel getById(Long id) {
         String sql = ProductMapper.SELECT_SQL + "where id = ?";
-        return template.queryForObject(sql, (rs, rowNum) -> {
-            int id1 = rs.getInt("id");
-            String name = rs.getString("productname");
-            int amount = rs.getInt("productamount");
-            double price = rs.getDouble("productprice");
-            double discount = rs.getDouble("productdiscount");
-            Date date = rs.getDate("productdate");
-            String pict = rs.getString("productpict");
-            String description = rs.getString("productdescription");
-            String status = rs.getString("productstatus");
-            int genre = rs.getInt("genre");
-            int coverType = rs.getInt("covertype");
-            int author = rs.getInt("author");
-            int language = rs.getInt("language");
-            int publisher = rs.getInt("publisher");
-            return new ProductModel(id1, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
-        },new Object[]{id});
+        return template.queryForObject(sql, new ProductMapper(), new Object[]{Long.valueOf(id)});
+//        return template.queryForObject(sql, (rs, rowNum) -> {
+//            Long id1 = rs.getLong("id");
+//            String name = rs.getString("productname");
+//            int amount = rs.getInt("productamount");
+//            double price = rs.getDouble("productprice");
+//            double discount = rs.getDouble("productdiscount");
+//            Date date = rs.getDate("productdate");
+//            String pict = rs.getString("productpict");
+//            String description = rs.getString("productdescription");
+//            String status = rs.getString("productstatus");
+//            Long genre = rs.getLong("genre");
+//            Long coverType = rs.getLong("covertype");
+//            Long author = rs.getLong("author");
+//            Long language = rs.getLong("language");
+//            Long publisher = rs.getLong("publisher");
+//            return new ProductModel(id1, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
+//        },new Object[]{id});
     }
 
     @Override

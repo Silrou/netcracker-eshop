@@ -89,11 +89,11 @@ http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>9.0.39</version>
 		</dependency>
-<!--		<dependency>-->
-<!--				<groupId>com.h2database</groupId>-->
-<!--				<artifactId>h2</artifactId>-->
-<!--				<version>1.4.197</version>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--				<groupId>com.h2database</groupId>-->
+		<!--				<artifactId>h2</artifactId>-->
+		<!--				<version>1.4.197</version>-->
+		<!--		</dependency>-->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
@@ -177,3 +177,4 @@ http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	</build>
 
 </project>
+

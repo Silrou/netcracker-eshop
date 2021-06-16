@@ -8,16 +8,17 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 })
 export class RestService {
-  // httpOptions = {
-  //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  // };
-   usename: string;
-   usersurname: string;
-   userlogin: string;
-   userNumber: string;
-   userRole: string;
-   constructor(private http: HttpClient) { }
-  url = 'http://localhost:8081/admin/search';
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+  // firstName: string;
+  // lastName: string;
+  // email: string;
+  // phoneNumber: string;
+  // role: string;
+  managers: Managers;
+  constructor(private http: HttpClient) { }
+  url = 'http://localhost:3000/Managers';
   getManagers(): Observable<any> {
     return this.http.get<Managers[]>(this.url);
   }
