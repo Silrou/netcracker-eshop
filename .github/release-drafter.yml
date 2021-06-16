@@ -1,37 +1,25 @@
 name-template: 'v$NEXT_PATCH_VERSION'
 tag-template: 'v$NEXT_PATCH_VERSION'
 categories:
-  - title: ' New Features in Backend'
+  - title: ' New Features'
     labels:
-      - 'type:features-backend'
+      - 'type:features'
 
-  - title: ' Bugs Fixes in Backend'
+  - title: ' Bugs Fixes'
     labels:
-      - 'type:fix-backend'
+      - 'type:fix'
 
-  - title: ' Documentation for Backend'
+  - title: ' Documentation'
     labels:
-      - 'type:documentation-backend'
+      - 'type:documentation'
 
-  - title: ' Configuration for Backend'
+  - title: ' Configuration'
     labels:
-      - 'type:config-backend'
+      - 'type:config'
   
-  - title: ' New Features in Frontend'
+  - title: ' Tests'
     labels:
-      - 'type:features-frontend'
-
-  - title: ' Bugs Fixes in Frontend'
-    labels:
-      - 'type:fix-frontend'
-
-  - title: ' Documentation for Frontend'
-    labels:
-      - 'type:documentation-frontend'
-
-  - title: ' Configuration for Frontend'
-    labels:
-      - 'type:config-frontend'
+      - 'type:tests'
 
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 template: |
