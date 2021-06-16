@@ -15,27 +15,32 @@ import {MatDialogRef} from '@angular/material/dialog';
 export class SearchComponent implements OnInit {
   managers: Managers[] = [];
   clickedID: number;
-  firstName: string;
+  userName: string;
+  userSurname: string;
+  userRole: string;
+
   constructor(public rs: RestService,
-              private dialog: MatDialog) {}
+              private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.rs.getManagers().subscribe((response) => {
       this.managers = response;
     });
   }
-  getEmployee(): void{
+
+  getEmployee(): void {
     this.rs.getManagers().subscribe((response) => {
       this.managers = response;
     });
   }
-  Search(): void{
-    if (this.firstName === ''){
+
+  Search(): void {
+    if (this.userName === '') {
       this.ngOnInit();
-    }
-    else{
-      this.managers = this.managers.filter(res => {
-        return res.firstName.toLocaleLowerCase().match(this.firstName.toLocaleLowerCase());
+    } else {
+      this.rs.getByName(this.userName).subscribe((response) => {
+        this.managers = response;
       });
     }
   }
@@ -43,7 +48,7 @@ export class SearchComponent implements OnInit {
   // onEdit(): void{
   // this.dialog.open(EditComponent);
   // }
-  onCreate(): void{
+  onCreate(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -55,17 +60,35 @@ export class SearchComponent implements OnInit {
   //   this.service.deleteUser(id).subscribe(
   //     ()=> console.log(`Employee with Id = ${this.managers.id}deleted`),
   //     (err) => console.log(err)
+  //
   //   );
   // }
-
-  onDelete(id: number): void{
-   console.log(id);
-   this.rs.deleteUser(id) .subscribe(response => {
-     this.managers = this.managers.filter(item => item.id !== id);
-   });
+  onDelete(id: number): void {
+    console.log(id);
+    this.rs.deleteUser(id).subscribe(response => {
+      this.managers = this.managers.filter(item => item.id !== id);
+    });
   }
-  getID(id: number): number{
-    return this.clickedID = id;
 
+  getID(id: number): number {
+    return this.clickedID = id;
+  }
+
+  getAllManager(): void {
+    this.rs.getManager().subscribe((response) => {
+      this.managers = response;
+    });
+  }
+
+  getAllCoriers(): void {
+    this.rs.getCorier().subscribe((response) => {
+      this.managers = response;
+    });
+  }
+
+  getOnDuty(): void {
+    this.rs.getOnDutyNow().subscribe((response) => {
+      this.managers = response;
+    });
   }
 }
