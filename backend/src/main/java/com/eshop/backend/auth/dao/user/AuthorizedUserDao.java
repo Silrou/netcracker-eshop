@@ -17,7 +17,7 @@ public interface AuthorizedUserDao extends CrudDao<AuthorizedUserModel> {
     List<AuthorizedUserModel> getFilteredByStatusOff();
 //    List<AuthorizedUser> getByName();
 //    List<AuthorizedUser> getBySurname();
-//    List<AuthorizedUser> getByid();
+//    List<AuthorizedUser> getByid(); 
     AuthorizedUserModel getRoleByLogin(String login);
     AuthorizedUserModel getByToken(String token);
     void createVerificationToken(AuthorizedUserModel user, String token);
