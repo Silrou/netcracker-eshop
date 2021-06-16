@@ -13,10 +13,14 @@ public class CustomerRowMapper implements RowMapper<AuthorizedUserModel> {
 
         AuthorizedUserModel authorizedUsersModel = new AuthorizedUserModel();
         authorizedUsersModel.setId(rs.getLong("id"));
-        authorizedUsersModel.setUserLogin(rs.getString("user_login"));
-        authorizedUsersModel.setUserPassword(rs.getString("user_password"));
-        authorizedUsersModel.setUserRole(rs.getString("user_role"));
-        authorizedUsersModel.setUserStatus(rs.getString("user_status"));
+        authorizedUsersModel.setUserLogin(rs.getString("userlogin"));
+        authorizedUsersModel.setUserPassword(rs.getString("userpassword"));
+        authorizedUsersModel.setUserRole(rs.getString("userrole"));
+        authorizedUsersModel.setUserName(rs.getString("username"));
+        authorizedUsersModel.setUserRegistrationDate(rs.getDate("userregistrationdate"));
+        authorizedUsersModel.setUserStatus(rs.getString("userstatus"));
+        authorizedUsersModel.setUserAddress(rs.getString("useraddress"));
+        authorizedUsersModel.setUserNumber(rs.getString("usernumber"));
         return authorizedUsersModel;
 
     }

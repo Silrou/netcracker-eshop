@@ -20,11 +20,11 @@ import static com.eshop.backend.auth.jwt.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    private final AuthorizedUserDao authorizedUserdao;
+    private final AuthorizedUserDao authorizedUserDao;
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager, AuthorizedUserDao authorizedUserdao) {
+    public JWTAuthorizationFilter(AuthenticationManager authManager, AuthorizedUserDao authorizedUserDao) {
         super(authManager);
-        this.authorizedUserdao = authorizedUserdao;
+        this.authorizedUserDao = authorizedUserDao;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (header == null || !header.startsWith(TOKEN_PREFIX) || header.equals(TOKEN_PREFIX + "null")) {
             chain.doFilter(req, res);
-            return;
+                return;
         }
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
@@ -61,7 +61,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (user != null) {
                 // new arraylist means authorities
-                AuthorizedUserModel authorizedUserModel = authorizedUserdao.getByLogin(user);
+                AuthorizedUserModel authorizedUserModel = authorizedUserDao.getByLogin(user);
 
                 ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
                 list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUserModel.getUserStatus()));

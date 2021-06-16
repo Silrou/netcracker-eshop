@@ -18,7 +18,7 @@ export class RestService {
   // role: string;
   managers: Managers;
   constructor(private http: HttpClient) { }
-  url = 'http://localhost:3000/Managers';
+  url = 'http://localhost:4200/Managers';
   getManagers(): Observable<any> {
     return this.http.get<Managers[]>(this.url);
   }

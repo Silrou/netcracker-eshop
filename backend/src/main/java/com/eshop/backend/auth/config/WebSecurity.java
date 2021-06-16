@@ -1,4 +1,5 @@
-package com.eshop.backend.auth.security;
+
+package com.eshop.backend.auth.config;
 
 import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
 import com.eshop.backend.auth.jwt.JWTAuthenticationFilter;
@@ -30,16 +31,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final AuthorizedUserDao authorizedUserdao;
+    private final AuthorizedUserDao authorizedUserDao;
 
     private String[] allowedURIs = new String[] {"/", "/v2/api-docs/**", "/configuration/ui/**",
             "/swagger-resources/**", "/swagger-ui.html*", "/webjars/**",
             "/actuator/*", "/localizations/**"};
 
-    public WebSecurity(UserDetailsServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder, AuthorizedUserDao authorizedUserdao) {
+    public WebSecurity(UserDetailsServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder, AuthorizedUserDao authorizedUserDao) {
         this.userDetailsService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.authorizedUserdao = authorizedUserdao;
+        this.authorizedUserDao = authorizedUserDao;
     }
 
     @Override
@@ -59,18 +60,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/product/**").permitAll()
-                .antMatchers("/author/**").permitAll()
-                .antMatchers("/genre/**").permitAll()
-                .antMatchers("/cover-type/**").permitAll()
-                .antMatchers("/language/**").permitAll()
-                .antMatchers("/publisher/**").permitAll()
                 .antMatchers("/catalog/**").permitAll()
-                .antMatchers("/admin/**").permitAll()
                 .antMatchers(allowedURIs).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserdao));
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), authorizedUserDao));
 
     }
 

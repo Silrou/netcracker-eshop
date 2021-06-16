@@ -1,8 +1,8 @@
-package com.eshop.backend.auth.controllers;
-import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDaoImpl;
+package com.eshop.backend.auth;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDaoImpl;
 import com.eshop.backend.auth.dto.LoginRequstDTO;
-import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -26,9 +26,9 @@ public class LoginController {
     @PostMapping("/user/login")
     public ResponseEntity<?> authenticate(@RequestBody LoginRequstDTO request) {
         try {
-            AuthorizedUser user = authorizedUserdao.getByLogin(request.getUserLogin());
+            AuthorizedUserModel user = authorizedUserdao.getByLogin(request.getEmail());
 
-            if (user != null && bCryptPasswordEncoder.matches(request.getUserPassword(), user.getUserPassword())){
+            if (user != null && bCryptPasswordEncoder.matches(request.getPassword(), user.getUserPassword())){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (DataAccessException e) {
@@ -40,9 +40,15 @@ public class LoginController {
 
     @GetMapping("/user/role")
     public ResponseEntity<?> getSortedProduct(@RequestParam String login) {
-        AuthorizedUser user = authorizedUserdao.getRoleByLogin(login);
+        AuthorizedUserModel user = authorizedUserdao.getRoleByLogin(login);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+//    @GetMapping("/user/me")
+//    public ResponseEntity<?> getSortedProduct(@RequestParam String login) {
+//        AuthorizedUser user = authorizedUserdao.getRoleByLogin(login);
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
 
 
 }

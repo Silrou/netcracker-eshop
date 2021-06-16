@@ -5,7 +5,7 @@ import {MainPageComponent} from './main-page/main-page.component';
 import {LoginComponent} from './authorization/login/login.component';
 import {RegistrationComponent} from './authorization/registration/registration.component';
 import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
-
+import {SettingsComponent} from './settings/settings.component';
 
 import {AuctionComponent} from './auctions/auction/auction.component';
 import {AuctionListComponent} from './auctions/auction-list/auction-list.component';
@@ -60,10 +60,10 @@ const routes: Routes = [
     path: 'product-list',
     component: ProductListComponent
   },
-  {
-    path: 'product-list/product/:id',
-    component: ProductComponent
-  },
+    {
+      path: 'product',
+      component: ProductComponent
+    },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent

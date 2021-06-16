@@ -55,7 +55,6 @@ export class SearchComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(ProfileComponent, dialogConfig);
   }
-
   // deleteContact(id){
   //   id = this.managers[].firstName;
   //   this.service.deleteUser(id).subscribe(
