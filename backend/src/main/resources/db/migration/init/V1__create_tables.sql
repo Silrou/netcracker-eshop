@@ -43,7 +43,7 @@ create table publisher(
                           publisherName varchar(100) NOT NULL
 );
 
-create table product (
+create table product(
                          id bigserial PRIMARY KEY,
                          productName varchar(255) NOT NULL,
                          productAmount bigserial NOT NULL ,
