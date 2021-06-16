@@ -16,20 +16,21 @@ public class ProductMapper implements RowMapper<ProductModel> {
 
     @Override
     public ProductModel mapRow(ResultSet rs, int i) throws SQLException {
-            Long id = rs.getLong("id");
-            String name = rs.getString("productname");
-            Long amount = rs.getLong("productamount");
-            int price = rs.getInt("productprice");
-            int discount = rs.getInt("productdiscount");
-            Date date = rs.getDate("productdate");
-            String pict = rs.getString("productpict");
-            String description = rs.getString("productdescription");
-            String status = rs.getString("productstatus");
-            Long genre = rs.getLong("genre");
-            Long coverType = rs.getLong("covertype");
-            Long author = rs.getLong("author");
-            Long language = rs.getLong("language");
-            Long publisher = rs.getLong("publisher");
+        Long id = rs.getLong("id");
+        String name = rs.getString("productname");
+        int amount = rs.getInt("productamount");
+        int price = rs.getInt("productprice");
+        int discount = rs.getInt("productdiscount");
+        Date date = rs.getDate("productdate");
+        String pict = rs.getString("productpict");
+        String description = rs.getString("productdescription");
+        String status = rs.getString("productstatus");
+        Long genre = rs.getLong("genre");
+        Long coverType = rs.getLong("covertype");
+        Long author = rs.getLong("author");
+        Long language = rs.getLong("language");
+        Long publisher = rs.getLong("publisher");
         return new ProductModel(id, name, amount, price, discount, date, pict, description, status,
-                genre, coverType, author, language, publisher);}
+                genre, coverType, author, language, publisher);
+    }
 }

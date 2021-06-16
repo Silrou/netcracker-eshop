@@ -1,3 +1,4 @@
+
 package com.eshop.backend.auth.config;
 
 import com.eshop.backend.auth.dao.user.AuthorizedUserDao;

@@ -1,32 +1,20 @@
 package com.eshop.backend.product.dao;
+
 import com.eshop.backend.product.dao.models.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.Collections;
 import java.util.List;
+
 @Repository
 public class ProductDaoImpl implements ProductDao {
+
     @Autowired
     JdbcTemplate template;
-    //до смены бд
-//    @Override
-//    public void create(Product product) {
-//        String SQL = "insert into product (productname, productamount,\n" +
-//                "                     productprice, productdiscount,\n" +
-//                "                     productdate, productdescription,\n" +
-//                "                     productstatus, productcategory)\n" +
-//                "                     values (?,?,?,?,?,?,?,?)";
-//        try {
-//            template.update(SQL, product.getProductName(), product.getProductAmount(),
-//                    product.getProductPrice(), product.getProductDiscount(),
-//                    product.getProductDate(), product.getProductDescription(),
-//                    product.getProductStatus(), product.getProductCategory());
-//        } catch (Exception e) {
-//            String str = e.toString();
-//        }
-//    }
+
     @Override
     public void create(ProductModel productModel) {
         String SQL = "insert into product (productname, productamount,\n" +
@@ -49,15 +37,15 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-        public ProductModel getById(Long id) {
+    public ProductModel getById(Long id) {
         String sql = ProductMapper.SELECT_SQL + "where id = ?";
-        return template.queryForObject(sql, new ProductMapper(), id);
-//        return template.queryForObject(sql, new Object[]{Long.valueOf(id)}, (rs, rowNum) -> {
+        return template.queryForObject(sql, new ProductMapper(), new Object[]{Long.valueOf(id)});
+//        return template.queryForObject(sql, (rs, rowNum) -> {
 //            Long id1 = rs.getLong("id");
 //            String name = rs.getString("productname");
-//            Long amount = rs.getLong("productamount");
-//            int price = rs.getInt("productprice");
-//            int discount = rs.getInt("productdiscount");
+//            int amount = rs.getInt("productamount");
+//            double price = rs.getDouble("productprice");
+//            double discount = rs.getDouble("productdiscount");
 //            Date date = rs.getDate("productdate");
 //            String pict = rs.getString("productpict");
 //            String description = rs.getString("productdescription");
@@ -67,28 +55,31 @@ public class ProductDaoImpl implements ProductDao {
 //            Long author = rs.getLong("author");
 //            Long language = rs.getLong("language");
 //            Long publisher = rs.getLong("publisher");
-//            return new Product(id1, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
-//        });
-        }
+//            return new ProductModel(id1, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
+//        },new Object[]{id});
+    }
 
-        @Override
-        public List<ProductModel> getByName(String name) {
-            String sql = ProductMapper.SELECT_SQL +
-                    " WHERE p.productname ILIKE '%" + name + "%'";
-            return template.query(sql, new ProductMapper());
-        }
-        @Override
-        public List<ProductModel> getAll() {
-            return null;
-        }
-        @Override
-        public List<ProductModel> getProductPage(int page, int size) {
-            String sql = ProductMapper.SELECT_SQL +
-                    " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-            return template.query(sql, new ProductMapper());
-        }
-        @Override
-        public void update(ProductModel productModel) {
+    @Override
+    public List<ProductModel> getByName(String name) {
+        String sql = ProductMapper.SELECT_SQL +
+                " WHERE p.productname ILIKE '%" + name + "%'";
+        return template.query(sql, new ProductMapper());
+    }
+
+    @Override
+    public List<ProductModel> getAll() {
+        return null;
+    }
+
+    @Override
+    public List<ProductModel> getProductPage(int page, int size) {
+        String sql = ProductMapper.SELECT_SQL +
+                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+        return template.query(sql, new ProductMapper());
+    }
+
+    @Override
+    public void update(ProductModel productModel) {
 //        String SQL = "update product set productname = ?,\n" +
 //                "                   productamount= ?,\n" +
 //                "                   productprice = ?,\n" +
@@ -106,33 +97,39 @@ public class ProductDaoImpl implements ProductDao {
 //        } catch (Exception e) {
 //            String str = e.toString();
 //        }
-        }
-        @Override
-        public void delete(Long id) {
+    }
+
+    @Override
+    public void delete(Long id) {
 //        try {
 //            String SQL = "delete from product where id = ?";
 //            template.update(SQL, id);
 //        } catch (Exception e) {
 //            String str = e.toString();
 //        }
-        }
-        public void remove(Long id) {
+    }
+
+    public void remove(Long id) {
 //        String SQL = "update product set \"productStatus\" = false where id = ?";
 //        template.update(SQL, id);
-        }
-        @Override
-        public List<ProductModel> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
-            String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
-            String sql = String.format(ProductMapper.SELECT_SQL +
-                    " left join productcategory on p.productcategory = productcategory.id" +
-                    " where productcategory.productcategoryname in (%s) order by p." + orderBy +
-                    " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY", inSql);
-            return template.query(sql, new ProductMapper(), filter.toArray());
-        }
-        @Override
-        public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
-            String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
-                    " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-            return template.query(sql, new ProductMapper());
-        }
     }
+
+    @Override
+    public List<ProductModel> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
+        String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
+        String sql = String.format(ProductMapper.SELECT_SQL +
+                " left join productcategory on p.productcategory = productcategory.id" +
+                " where productcategory.productcategoryname in (%s) order by p." + orderBy +
+                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY", inSql);
+        return template.query(sql, new ProductMapper(), filter.toArray());
+    }
+
+    @Override
+    public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
+        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
+                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+        return template.query(sql, new ProductMapper());
+    }
+
+
+}
