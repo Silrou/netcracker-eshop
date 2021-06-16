@@ -5,6 +5,7 @@ import {Observable, of} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
+
 })
 export class RestService {
   // httpOptions = {
@@ -26,5 +27,15 @@ export class RestService {
   }
   deleteUser(id: number): Observable<Managers>{
     return this.http.delete<Managers>(this.url + '/' + id);
+  }
+  getManager(): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/search/manager';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
+  getCorier(): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/search/courier';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
   }
 }

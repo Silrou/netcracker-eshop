@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface AuthorizeduserService {
     public List<AuthorizedUser> getAllUsers() ;
-    public Collection<AuthorizedUser> getAllManager();
-    public Collection<AuthorizedUser> getAllCourier();
+    public List<AuthorizedUser> getAllManager();
+    public List<AuthorizedUser> getAllCourier();
     public List<AuthorizedUser> getFilteredByStatusOn();
     public  List<AuthorizedUser> getFilteredByStatusOff();
     public List<AuthorizedUser> getByName(String name);

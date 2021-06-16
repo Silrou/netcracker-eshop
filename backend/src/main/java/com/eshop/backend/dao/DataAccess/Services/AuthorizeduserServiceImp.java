@@ -21,10 +21,10 @@ public class AuthorizeduserServiceImp implements AuthorizeduserService {
     public List<AuthorizedUser> getAllUsers() {return authorizedUserDao.getAllUsers();    }
 
     @Override
-    public Collection<AuthorizedUser> getAllManager() {return authorizedUserDao.getAllManager();}
+    public List<AuthorizedUser> getAllManager() {return authorizedUserDao.getAllManager();}
 
     @Override
-    public Collection<AuthorizedUser> getAllCourier() {return authorizedUserDao.getAllCourier();}
+    public List<AuthorizedUser> getAllCourier() {return authorizedUserDao.getAllCourier();}
 
     @Override
     public List<AuthorizedUser> getFilteredByStatusOn() {

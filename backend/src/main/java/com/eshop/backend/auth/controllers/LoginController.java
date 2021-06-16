@@ -26,9 +26,9 @@ public class LoginController {
     @PostMapping("/user/login")
     public ResponseEntity<?> authenticate(@RequestBody LoginRequstDTO request) {
         try {
-            AuthorizedUser user = authorizedUserdao.getByLogin(request.getEmail());
+            AuthorizedUser user = authorizedUserdao.getByLogin(request.getUserLogin());
 
-            if (user != null && bCryptPasswordEncoder.matches(request.getPassword(), user.getUserPassword())){
+            if (user != null && bCryptPasswordEncoder.matches(request.getUserPassword(), user.getUserPassword())){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
         } catch (DataAccessException e) {

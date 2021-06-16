@@ -16,7 +16,7 @@ import {NavBarModule} from './nav-bar/nav-bar.module';
 // import {SettingsModule} from './settings/settings.module';
 // import {UserService} from './_service/user.service';
 import {WorkSpaceModule} from './work-space/work-space.module';
-// import { ProfileComponent } from './account/profile/profile.component';
+import { ProfileComponent } from './account/profile/profile.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -24,7 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
-// import { SearchComponent } from './account/search/search.component';
+import { SearchComponent } from './account/search/search.component';
 // import { RestComponent } from './account/rest/rest.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { EditComponent } from './account/edit/edit.component';
@@ -38,11 +38,11 @@ import {MatRadioModule} from '@angular/material/radio';
     MainPageComponent,
     SettingsComponent,
     ShoppingCartComponent,
-    // ProfileComponent,
+    ProfileComponent,
     // SearchComponent,
     // RestComponent,
     // EditComponent,
-    //SearchComponent,
+    SearchComponent,
     SettingsComponent
   ],
   imports: [

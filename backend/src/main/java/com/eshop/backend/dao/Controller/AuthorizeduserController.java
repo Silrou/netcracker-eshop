@@ -23,18 +23,18 @@ public class AuthorizeduserController {
 //    }
     @GetMapping("/admin/search")
     public ResponseEntity<List<AuthorizedUser>> getAllProduct() {
-        List<AuthorizedUser> authorizedUser = authorizeduserService.getAllUsers();
-        return new ResponseEntity<>(authorizedUser, HttpStatus.OK);
+         List<AuthorizedUser> authorizedUser = authorizeduserService.getAllUsers();
+    return  new ResponseEntity<>(authorizedUser, HttpStatus.OK);
+    };
+    @GetMapping("/admin/search/manager")
+    public ResponseEntity<List<AuthorizedUser>> getAllManager(Model model){
+        List<AuthorizedUser> authorizedManager = authorizeduserService.getAllManager();
+        return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
-    @GetMapping("/admin/AllUsersMenu3")
-    public String getAllManager(Model model){
-        model.addAttribute("getAllUsers",authorizeduserService.getAllManager());
-        return "getAllManager";
-    }
-    @GetMapping("/admin/AllUsersMenu2")
-    public String getAllCourier(Model model){
-        model.addAttribute("getAllUsers",authorizeduserService.getAllCourier());
-        return "getAllCourier";
+    @GetMapping("/admin/search/courier")
+    public ResponseEntity<List<AuthorizedUser>> getAllCourier(Model model){
+        List<AuthorizedUser> authorizedManager = authorizeduserService.getAllCourier();
+        return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
     @GetMapping("/admin/AllUsersMenu1")
     public String getFilteredByStatusOn(Model model){
