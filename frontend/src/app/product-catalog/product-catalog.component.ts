@@ -140,19 +140,19 @@ export class ProductCatalogComponent implements OnInit {
     // this.getProduct();
   }
 
-  searchProduct(key: string): void {
-    console.log(key);
-    const results: Product[] = [];
-    for (const product of this.products) {
-      if (product.productName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        || product.productCategory.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        || product.productDescription.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
-        results.push(product);
-      }
-    }
-    this.products = results;
-    if (results.length === 0 || !key) {
-      // this.getProduct();
-    }
-  }
+  // searchProduct(key: string): void {
+  //   console.log(key);
+  //   const results: Product[] = [];
+  //   for (const product of this.products) {
+  //     if (product.productName.toLowerCase().indexOf(key.toLowerCase()) !== -1
+  //       || product.productCategory.toLowerCase().indexOf(key.toLowerCase()) !== -1
+  //       || product.productDescription.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+  //       results.push(product);
+  //     }
+  //   }
+  //   this.products = results;
+  //   if (results.length === 0 || !key) {
+  //     // this.getProduct();
+  //   }
+  // }
 }

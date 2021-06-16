@@ -1,113 +1,113 @@
 
 
-    <h2 class="text-center p-1">Manager workspace</h2>
-    <form class="form-inline my-2 my-lg-0">
-      <input type="search" (ngModelChange)="searchProduct(key.value)" #key="ngModel" ngModel
-             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search products..." required>
-    </form>
-    <button (click)="onOpenModal(null, 'add')">ADD</button>
-    <div class="row justify-content-around mt-4">
-      <div class="col-md-3">
-        <h2 class="text-center p-1">Sort</h2>
-        <div id="sortContainer">
-          <div class="form-check">
-            <input (change)="changeSort($event)" class="form-check-input" type="radio" value="price" name="sortBy" [ngModel]="orderBy"
-                   id="sortByPrice">
-            <label class="form-check-label" for="sortByPrice">
-              By price descending
-            </label>
-          </div>
-          <div class="form-check">
-            <input (change)="changeSort($event)" class="form-check-input" value="name" type="radio" name="sortBy" [ngModel]="orderBy"
-                   id="sortByName">
-            <label class="form-check-label" for="sortByName">
-              By name
-            </label>
-          </div>
-          <div class="form-check">
-            <input (change)="changeSort($event)" class="form-check-input" value="newest" type="radio" name="sortBy" [ngModel]="orderBy"
-                   id="sortByNewest">
-            <label class="form-check-label" for="sortByNewest">
-              By newest
-            </label>
-          </div>
-        </div>
+<!--    <h2 class="text-center p-1">Manager workspace</h2>-->
+<!--    <form class="form-inline my-2 my-lg-0">-->
+<!--      <input type="search" (ngModelChange)="searchProduct(key.value)" #key="ngModel" ngModel-->
+<!--             name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search products..." required>-->
+<!--    </form>-->
+<!--    <button (click)="onOpenModal(null, 'add')">ADD</button>-->
+<!--    <div class="row justify-content-around mt-4">-->
+<!--      <div class="col-md-3">-->
+<!--        <h2 class="text-center p-1">Sort</h2>-->
+<!--        <div id="sortContainer">-->
+<!--          <div class="form-check">-->
+<!--            <input (change)="changeSort($event)" class="form-check-input" type="radio" value="price" name="sortBy" [ngModel]="orderBy"-->
+<!--                   id="sortByPrice">-->
+<!--            <label class="form-check-label" for="sortByPrice">-->
+<!--              By price descending-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input (change)="changeSort($event)" class="form-check-input" value="name" type="radio" name="sortBy" [ngModel]="orderBy"-->
+<!--                   id="sortByName">-->
+<!--            <label class="form-check-label" for="sortByName">-->
+<!--              By name-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input (change)="changeSort($event)" class="form-check-input" value="newest" type="radio" name="sortBy" [ngModel]="orderBy"-->
+<!--                   id="sortByNewest">-->
+<!--            <label class="form-check-label" for="sortByNewest">-->
+<!--              By newest-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <h2 class="text-center p-1">Filter</h2>
-        <div id="filetContainerCategory">
-          <div class="form-check">
-            <input type="checkbox" value="Fiction" (change)="chooseFilerCategory($event)"/>
-            <label class="form-check-label">
-              Fiction
-            </label>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" value="Non-fiction" (change)="chooseFilerCategory($event)"/>
-            <label class="form-check-label">
-              Non-Fiction
-            </label>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" value="Detective" (change)="chooseFilerCategory($event)"/>
-            <label class="form-check-label">
-              Detective
-            </label>
-          </div>
-        </div>
+<!--        <h2 class="text-center p-1">Filter</h2>-->
+<!--        <div id="filetContainerCategory">-->
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" value="Fiction" (change)="chooseFilerCategory($event)"/>-->
+<!--            <label class="form-check-label">-->
+<!--              Fiction-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" value="Non-fiction" (change)="chooseFilerCategory($event)"/>-->
+<!--            <label class="form-check-label">-->
+<!--              Non-Fiction-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" value="Detective" (change)="chooseFilerCategory($event)"/>-->
+<!--            <label class="form-check-label">-->
+<!--              Detective-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <h2 class="text-center p-1">Price</h2>
-        <div id="filetContainerPrice">
-          <div class="form-check">
-            <input type="checkbox" value="Price200_400" (change)="chooseFilerPrice($event)"/>
-            <label class="form-check-label">
-              200 - 400
-            </label>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" value="Price400_600" (change)="chooseFilerPrice($event)"/>
-            <label class="form-check-label">
-              400 - 600
-            </label>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" value="Price600_1000" (change)="chooseFilerPrice($event)"/>
-            <label class="form-check-label">
-              600 - 1000
-            </label>
-          </div>
-        </div>
+<!--        <h2 class="text-center p-1">Price</h2>-->
+<!--        <div id="filetContainerPrice">-->
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" value="Price200_400" (change)="chooseFilerPrice($event)"/>-->
+<!--            <label class="form-check-label">-->
+<!--              200 - 400-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" value="Price400_600" (change)="chooseFilerPrice($event)"/>-->
+<!--            <label class="form-check-label">-->
+<!--              400 - 600-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input type="checkbox" value="Price600_1000" (change)="chooseFilerPrice($event)"/>-->
+<!--            <label class="form-check-label">-->
+<!--              600 - 1000-->
+<!--            </label>-->
+<!--          </div>-->
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
 
       <div class="col-md-9">
         <div class="container">
 
-          <div class="card text-center m-3" id = "main-container">
-            <h3 class="card-header">Angular 8 Pagination Example</h3>
-            <div class="card-body">
-              <div *ngFor="let item of pageOfItems">
-                <p>{{item.productName}} // {{item.productPrice}} // {{item.productDate}}</p>
-              </div>
-            </div>
-            <div class="card-footer pb-0 pt-3">
-              <jw-pagination [items]="products" (changePage)="onChangePage($event)"></jw-pagination>
-            </div>
-          </div>
-
-<!--          <div>-->
-<!--            <div *ngFor="let product of products">-->
-<!--              <app-temp-product [product]="product"></app-temp-product>-->
-<!--              <div class="card-body">-->
-<!--                <div class="float-right btn-group btn-group-sm">-->
-<!--                  <a (click)="onOpenModal(product, 'edit')" class="btn btn-primary tooltips" data-placement="top"-->
-<!--                     data-original-title="Edit"><i class="fa fa-pencil"></i> </a>-->
-<!--                </div>-->
+<!--          <div class="card text-center m-3" id = "main-container">-->
+<!--            <h3 class="card-header">Angular 8 Pagination Example</h3>-->
+<!--            <div class="card-body">-->
+<!--              <div *ngFor="let item of pageOfItems">-->
+<!--                <p>{{item.productName}} // {{item.productPrice}} // {{item.productDate}}</p>-->
 <!--              </div>-->
 <!--            </div>-->
+<!--            <div class="card-footer pb-0 pt-3">-->
+<!--              <jw-pagination [items]="products" (changePage)="onChangePage($event)"></jw-pagination>-->
+<!--            </div>-->
 <!--          </div>-->
+
+          <div>
+            <div *ngFor="let product of products">
+              <app-temp-product [product]="product"></app-temp-product>
+              <div class="card-body">
+                <div class="float-right btn-group btn-group-sm">
+                  <a (click)="onOpenModal(product, 'edit')" class="btn btn-primary tooltips" data-placement="top"
+                     data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+<!--    </div>-->
 
     <!-- Add Product Modal -->
     <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel"
@@ -132,11 +132,11 @@
                 <input type="text" ngModel name="productDescription" class="form-control" id="editProductDescription"
                        rows="3" placeholder="Description" required>
               </div>
-              <div class="form-group">
-                <label for="productCategory">Category</label>
-                <input type="text" ngModel name="productCategory" class="form-control" id="editProductCategory"
-                       placeholder="Category" required>
-              </div>
+<!--              <div class="form-group">-->
+<!--                <label for="productCategory">Category</label>-->
+<!--                <input type="text" ngModel name="productCategory" class="form-control" id="editProductCategory"-->
+<!--                       placeholder="Category" required>-->
+<!--              </div>-->
               <div class="form-group">
                 <label for="productAmount">Amount</label>
                 <input type="number" ngModel name="productAmount" class="form-control" id="editProductAmount"
@@ -212,8 +212,8 @@
                          class="form-control" id="productDescription" rows="3" placeholder="Description" required>
                 </div>
                 <div class="form-group">
-                  <label for="productCategory">Category</label>
-                  <input type="text" ngModel="{{editProduct?.productCategory}}" name="productCategory" class="form-control"
+<!--                  <label for="productCategory">Category</label>-->
+<!--                  <input type="text" ngModel="{{editProduct?.productCategory}}" name="productCategory" class="form-control"-->
                          id="productCategory" placeholder="Category" required>
                 </div>
                 <div class="form-group">

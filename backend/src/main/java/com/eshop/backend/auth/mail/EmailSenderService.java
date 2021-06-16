@@ -1,19 +1,16 @@
 package com.eshop.backend.auth.mail;
 
-import com.eshop.backend.dao.DataAccess.authorized_user.AuthorizedUserDao;
-import com.eshop.backend.dao.DataAccess.email_token.EmailTokenDao;
-import com.eshop.backend.dao.models.AuthorizedUser;
-import com.eshop.backend.dao.models.EmailToken;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
+import com.eshop.backend.auth.dao.email.EmailTokenDao;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
+import com.eshop.backend.auth.dao.models.EmailTokenModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -33,12 +30,12 @@ public class EmailSenderService {
     }
 
     @Async
-    public void sendEmail(AuthorizedUser user, String type) {
+    public void sendEmail(AuthorizedUserModel user, String type) {
         String token = UUID.randomUUID().toString();
 
         user = authorizedUsersDao.getByLogin(user.getUserLogin());
-        EmailToken emailToken = new EmailToken(type, token, user.getId());
-        emailTokenDao.createVerificationToken(user, emailToken);
+        EmailTokenModel emailTokenModel = new EmailTokenModel(type, token, user.getId());
+        emailTokenDao.createVerificationToken(user, emailTokenModel);
 
         String recipientAddress = user.getUserLogin();
 

@@ -1,6 +1,6 @@
 package com.eshop.backend.auth.jwt;
 
-import com.eshop.backend.dao.models.AuthorizedUser;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,8 +32,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            AuthorizedUser creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), AuthorizedUser.class);
+            AuthorizedUserModel creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), AuthorizedUserModel.class);
 
 
 
