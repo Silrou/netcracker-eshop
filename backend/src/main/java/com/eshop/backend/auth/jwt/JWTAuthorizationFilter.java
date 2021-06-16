@@ -2,8 +2,8 @@ package com.eshop.backend.auth.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.dao.Models.AuthorizedUser;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -61,11 +61,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (user != null) {
                 // new arraylist means authorities
-                AuthorizedUser authorizedUser = authorizedUserdao.getByLogin(user);
+                AuthorizedUserModel authorizedUserModel = authorizedUserdao.getByLogin(user);
 
                 ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
-                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserStatus()));
-                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserRole()));
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUserModel.getUserStatus()));
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUserModel.getUserRole()));
 
                 return new UsernamePasswordAuthenticationToken(user, null,
                         list);

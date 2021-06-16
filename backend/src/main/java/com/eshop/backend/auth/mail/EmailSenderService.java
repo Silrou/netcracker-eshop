@@ -1,9 +1,9 @@
 package com.eshop.backend.auth.mail;
 
-import com.eshop.backend.dao.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.dao.DataAccess.EmailToken.EmailTokenDao;
-import com.eshop.backend.dao.Models.AuthorizedUser;
-import com.eshop.backend.dao.Models.EmailToken;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
+import com.eshop.backend.auth.dao.email.EmailTokenDao;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
+import com.eshop.backend.auth.dao.models.EmailTokenModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,11 +26,11 @@ public class EmailSenderService {
     }
 
     @Async
-    public void sendEmail(AuthorizedUser user) {
+    public void sendEmail(AuthorizedUserModel user) {
         String token = UUID.randomUUID().toString();
 
-        EmailToken emailToken = new EmailToken(token, user.getId());
-        emailTokendao.createVerificationToken(user, emailToken);
+        EmailTokenModel emailTokenModel = new EmailTokenModel(token, user.getId());
+        emailTokendao.createVerificationToken(user, emailTokenModel);
 
         String recipientAddress = user.getUserLogin();
         String subject = "Registration Confirmation";
