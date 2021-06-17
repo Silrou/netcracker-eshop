@@ -20,7 +20,7 @@ export class RestService {
   url = 'http://localhost:3000/Managers';
   private addNewUrl = 'http://localhost:8081/search/new';
   private getAllUrl = 'http://localhost:8081/search/all';
-  private deleteUrl = 'http://localhost8081/search/delete';
+  private deleteUrl = 'http://localhost:8081/search/delete';
   getManagers(): Observable<any> {
     return this.http.get<Managers[]>(this.getAllUrl);
   }
