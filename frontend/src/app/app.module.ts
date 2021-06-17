@@ -21,6 +21,12 @@ import {AlertComponent} from './alert/alert.component';
 import {appInitializer} from './_helper/app.initializer';
 import {ErrorInterceptor} from './_helper/error.interceptor';
 import {CookieService} from 'ngx-cookie-service';
+import {ProfileComponent} from "./account/profile/profile.component";
+import {AdminWorkSpaceLinkComponent} from "./nav-bar/components/admin-work-space-link/admin-work-space-link.component";
+import {SearchComponent} from "./account/search/search.component";
+import {MatIconModule} from "@angular/material/icon";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -30,7 +36,10 @@ import {CookieService} from 'ngx-cookie-service';
     SettingsComponent,
     ShoppingCartComponent,
     ProductCatalogComponent,
-    TempProductComponent
+    TempProductComponent,
+    ProfileComponent,
+    AdminWorkSpaceLinkComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +52,10 @@ import {CookieService} from 'ngx-cookie-service';
     NavBarModule,
     FormsModule,
     JwPaginationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatRadioModule
   ],
   providers: [AuthService, CookieService,
     {
