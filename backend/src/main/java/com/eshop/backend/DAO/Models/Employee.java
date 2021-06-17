@@ -1,38 +1,45 @@
 package com.eshop.backend.DAO.Models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.UUID;
+
+@Entity
 public class Employee {
-    private Long id;
+    UUID uuid = UUID.randomUUID();
+    private String id = uuid.toString();
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private String role;
-    private String status;
+//    private String status;
 
-    public Employee(Long id,
+    public Employee(
                     String firstName,
                     String lastName,
                     String email,
                     String phoneNumber,
-                    String role,
-                    String status) {
-        this.id = id;
+                    String role) {
+//        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = role;
-        this.status = status;
+//        this.status = status;
     }
 
     public Employee() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -85,15 +92,15 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role='" + role + '\'' +
-                ", status='" + status + '\'' +
+//                ", status='" + status + '\'' +
                 '}';
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 }

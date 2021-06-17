@@ -18,14 +18,17 @@ export class RestService {
   managers: Managers;
   constructor(private http: HttpClient) { }
   url = 'http://localhost:3000/Managers';
+  private addNewUrl = 'http://localhost:8081/search/new';
+  private getAllUrl = 'http://localhost:8081/search/all';
+  private deleteUrl = 'http://localhost8081/search/delete';
   getManagers(): Observable<any> {
-    return this.http.get<Managers[]>(this.url);
+    return this.http.get<Managers[]>(this.getAllUrl);
   }
-  addMember(manager): Observable<Managers>{
-    return this.http.post<Managers>(this.url, manager);
-
+  addMember(manager: Managers): Observable<any>{
+    // return this.http.post<Managers>(this.url, manager);
+    return this.http.post<Managers>(this.addNewUrl, manager);
   }
   deleteUser(id: number): Observable<Managers>{
-    return this.http.delete<Managers>(this.url + '/' + id);
+    return this.http.delete<Managers>(this.deleteUrl + '/' + id);
   }
 }

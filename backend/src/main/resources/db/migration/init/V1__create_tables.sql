@@ -62,13 +62,12 @@ CREATE table statistic(
 );
 
 CREATE TABLE public.employee
-(
-    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+(   id  character varying(200) NOT NULL,
     "firstName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    id integer NOT NULL,
     "lastName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
     "phoneNumber" character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    role character(1) COLLATE pg_catalog."default" NOT NULL,
-    status character(1) COLLATE pg_catalog."default" NOT NULL,
+    role character(100) COLLATE pg_catalog."default" NOT NULL,
+    status character(100) COLLATE pg_catalog."default",
     CONSTRAINT employee_pkey PRIMARY KEY (id)
 )

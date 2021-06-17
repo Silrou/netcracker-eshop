@@ -55,18 +55,19 @@ export class ProfileComponent implements OnInit {
     const controls = this.form.controls;
 
     /** Проверяем форму на валидность */
-    if (this.form.invalid) {
-      Object.keys(controls)
-        .forEach(controlName => controls[controlName].markAsTouched());
-
-      return;
-    }
+    // if (this.form.invalid) {
+    //   Object.keys(controls)
+    //     .forEach(controlName => controls[controlName].markAsTouched());
+    //
+    //   return;
+    // }
 
     /** TODO: Обработка данных формы */
     console.warn(this.form.value);
-    this.service.addMember(this.form.value).subscribe((result) =>{
-    console.warn(result);
-    this.onClose();
+    this.service.addMember(this.form.value).subscribe((result) => {
+      console.warn(result);
+      localStorage.setItem('Users', JSON.stringify(this.form.value));
+      this.onClose();
     });
   }
   onClose(): void{

@@ -20,8 +20,9 @@ export class SearchComponent implements OnInit {
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.rs.getManagers().subscribe((response) => {
-      this.managers = response;
+    this.rs.getManagers().subscribe((response: Managers[]) => {
+        this.managers = response;
+        console.log(this.managers);
     });
   }
   getEmployee(): void{
@@ -62,6 +63,8 @@ export class SearchComponent implements OnInit {
    console.log(id);
    this.rs.deleteUser(id) .subscribe(response => {
      this.managers = this.managers.filter(item => item.id !== id);
+     console.log(response);
+     this.getEmployee();
    });
   }
   getID(id: number): number{
