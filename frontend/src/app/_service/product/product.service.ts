@@ -72,7 +72,7 @@ export class ProductService {
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<Product[]>(`${this.productsUrl}/?name=${term}`)
+    return this.http.get<Product[]>(`${this.productsUrl}/get-by-name/${term}`)
       .pipe(
         catchError(this.handleError<Product[]>('getProductsByName', []))
       );

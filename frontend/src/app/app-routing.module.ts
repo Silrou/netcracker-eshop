@@ -15,7 +15,6 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 // import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
 import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 // import {ProfileComponent} from './account/profile/profile.component';
-import {SearchComponent} from './account/search/search.component';
 import {SettingsComponent} from './settings/settings.component';
 import {ProductCatalogComponent} from './product-catalog/product-catalog.component';
 import {Role} from './_model/role';
@@ -23,6 +22,9 @@ import {AuthGuard} from './_helper/auth.guard';
 import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
+// @ts-ignore
+import {SearchComponent} from "./account/search/search.component";
+
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -63,10 +65,10 @@ const routes: Routes = [
     path: 'product-list',
     component: ProductListComponent
   },
-    {
-      path: 'product',
-      component: ProductComponent
-    },
+  {
+    path: 'product',
+    component: ProductComponent
+  },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent
@@ -80,8 +82,10 @@ const routes: Routes = [
   //   component: SettingsComponent,
   //   children: settingsChildRoutes
   // },
-  { path: 'search',
+  {
+    path: 'search',
     component: SearchComponent
+
      },
   {
     path: 'working-cabinet',
