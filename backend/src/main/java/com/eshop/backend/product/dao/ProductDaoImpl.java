@@ -24,16 +24,13 @@ public class ProductDaoImpl implements ProductDao {
                 "                     covertype, author," +
                 "                     language, publisher)\n" +
                 "                     values (?,?,?,?,?,?,?,?,?,?,?,?)";
-        try {
-            template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
-                    productModel.getProductPrice(), productModel.getProductDiscount(),
-                    productModel.getProductDate(), productModel.getProductDescription(),
-                    productModel.getProductStatus(), productModel.getGenre(),
-                    productModel.getCoverType(), productModel.getAuthor(),
-                    productModel.getLanguage(), productModel.getPublisher());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
+                productModel.getProductPrice(), productModel.getProductDiscount(),
+                productModel.getProductDate(), productModel.getProductDescription(),
+                productModel.getProductStatus(), productModel.getGenre(),
+                productModel.getCoverType(), productModel.getAuthor(),
+                productModel.getLanguage(), productModel.getPublisher());
+
     }
 
     @Override

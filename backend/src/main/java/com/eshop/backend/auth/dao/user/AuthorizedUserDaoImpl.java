@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -120,14 +121,13 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
             String getUserSql = "SELECT * FROM authorizeduser WHERE id = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), id);
         } catch (DataAccessException e) {
-            String srt = e.toString();
             return null;
         }
     }
 
     @Override
     public List<AuthorizedUserModel> getAll() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
