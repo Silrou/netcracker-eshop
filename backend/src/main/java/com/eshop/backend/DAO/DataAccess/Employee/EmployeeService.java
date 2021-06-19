@@ -48,6 +48,7 @@ public class EmployeeService {
 //                ps.setString(7, employee.getStatus());
                 return ps.execute();
             }
+
         });
 
     }
@@ -59,7 +60,10 @@ public class EmployeeService {
                 ps.setString(1, id);
                 return ps.execute();
             }
+
         });
+
     }
+
 }
 

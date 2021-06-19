@@ -13,21 +13,19 @@ import {MatDialogRef} from '@angular/material/dialog';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  managers: Managers[] = [];
+  // managers: Managers[] = [];
   clickedID: number;
   firstName: string;
+  create: boolean;
   constructor(public rs: RestService,
               private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.rs.getManagers().subscribe((response: Managers[]) => {
-        this.managers = response;
-        console.log(this.managers);
-    });
+    this.getEmployee();
   }
   getEmployee(): void{
-    this.rs.getManagers().subscribe((response) => {
-      this.managers = response;
+    this.rs.getManagers().subscribe((response: Managers[]) => {
+      this.rs.managers = response;
     });
   }
   Search(): void{
@@ -35,37 +33,42 @@ export class SearchComponent implements OnInit {
       this.ngOnInit();
     }
     else{
-      this.managers = this.managers.filter(res => {
+      this.rs.managers = this.rs.managers.filter(res => {
         return res.firstName.toLocaleLowerCase().match(this.firstName.toLocaleLowerCase());
       });
     }
   }
 
-  // onEdit(): void{
-  // this.dialog.open(EditComponent);
-  // }
+  onEdit(): void{
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.create = false;
+    this.dialog.open(ProfileComponent, dialogConfig);
+  }
   onCreate(): void{
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
+    this.create = true;
     this.dialog.open(ProfileComponent, dialogConfig);
   }
-  // deleteContact(id){
-  //   id = this.managers[].firstName;
-  //   this.service.deleteUser(id).subscribe(
-  //     ()=> console.log(`Employee with Id = ${this.managers.id}deleted`),
-  //     (err) => console.log(err)
-  //   );
-  // }
 
   onDelete(id: number): void{
    console.log(id);
-   this.rs.deleteUser(id) .subscribe(response => {
-     this.managers = this.managers.filter(item => item.id !== id);
-     console.log(response);
-     this.getEmployee();
-   });
+   this.rs.deleteUser(id).subscribe( response => {
+     this.rs.managers = this.rs.managers.filter(item => item.id !== id);
+     console.log(this.rs.getManagers());
+     });
+   setTimeout(() => {
+      this.rs.getManagers().subscribe((response: Managers[]) => {
+        this.rs.managers = response;
+        console.log(response);
+      });
+    }, 1000);
+     // console.log(response);
   }
   getID(id: number): number{
     return this.clickedID = id;

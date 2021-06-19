@@ -26,19 +26,20 @@
   <table class="table table-bordered">
     <thead>
     <tr>
-      <th> Manager id</th>
+
       <th> First name</th>
       <th> Last name </th>
       <th> Email</th>
       <th> Phone number</th>
       <th> Role</th>
+
       <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let manager of managers">
+    <tr *ngFor="let manager of rs.managers">
 
-      <td (click)="getID(manager.id)">{{manager.id}}</td>
+      <td class ="idNum" (click)="getID(manager.id)"></td>
 
       <td>{{manager.firstName}}</td>
       <td>{{manager.lastName}}</td>

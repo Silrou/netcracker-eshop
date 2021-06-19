@@ -15,7 +15,7 @@ export class RestService {
   // email: string;
   // phoneNumber: string;
   // role: string;
-  managers: Managers;
+  managers: Managers [] = [];
   constructor(private http: HttpClient) { }
   url = 'http://localhost:3000/Managers';
   private addNewUrl = 'http://localhost:8081/search/new';

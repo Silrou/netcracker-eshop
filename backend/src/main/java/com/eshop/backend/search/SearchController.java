@@ -52,7 +52,6 @@ public class SearchController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete( @PathVariable ("id")String id){
         employeeService.deleteEmployee(id);
-        getAllEmployees();
         return new ResponseEntity<>("Employee is deleted",HttpStatus.OK);
 
         }

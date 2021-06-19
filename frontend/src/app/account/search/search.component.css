@@ -20,3 +20,6 @@ button{
 .nav-bar{
   display: inline;
 }
+.idNum{
+  display: none;
+}
