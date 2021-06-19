@@ -18,6 +18,10 @@ export class ProductService {
 
   private productsUrl = 'http://localhost:8081/product';
 
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -25,10 +29,6 @@ export class ProductService {
       return of(result as T);
     };
   }
-
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
 
   getAllProducts(page: number, size: number): Observable<Product[]> {
     const url = `${this.productsUrl}/get-all?page=${page}&size=${size}`;

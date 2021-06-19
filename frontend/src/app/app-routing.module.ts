@@ -19,7 +19,10 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 // import {ProfileComponent} from './account/profile/profile.component';
 // @ts-ignore
-import {SearchComponent} from "./account/search/search.component";
+import {SearchComponent} from './account/search/search.component';
+import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
+import {TempProductComponent} from './product-catalog/temp-product/temp-product.component';
+import {ProductManagerComponent} from './products/product-manager/product-manager.component';
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -80,6 +83,14 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+  },
+  {
+    path: 'temp',
+    component: TempProductComponent
+  },
+  {
+    path: 'manager',
+    component: ManagerWorkspaceComponent
   },
   // {
   //   path: 'account/profile',

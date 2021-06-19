@@ -7,6 +7,9 @@ import { ProductCardComponent } from './product-card/product-card.component';
 
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { CategoriesPartComponent } from './categories-part/categories-part.component';
+import { ProductManagerComponent } from './product-manager/product-manager.component';
+import {ManagerWorkspaceComponent} from './manager-workspace/manager-workspace.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -15,11 +18,17 @@ import { CategoriesPartComponent } from './categories-part/categories-part.compo
     ProductListComponent,
     ProductCardComponent,
     ProductSearchComponent,
-    CategoriesPartComponent
+    CategoriesPartComponent,
+    ProductManagerComponent,
+    ManagerWorkspaceComponent
   ],
   imports: [
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatIconModule
+  ],
+  providers: [
+    CategoriesPartComponent
   ]
 })
 export class ProductsModule { }

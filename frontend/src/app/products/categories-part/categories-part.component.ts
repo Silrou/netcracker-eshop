@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {typesOfCategories} from "../../_model/typesOfCategories";
-import {GenreService} from "../../_service/categories/genre.service";
-import {Genre} from "../../_model/genre";
-import {AuthorService} from "../../_service/categories/author.service";
-import {CoverTypeService} from "../../_service/categories/cover-type.service";
-import {LanguageService} from "../../_service/categories/language.service";
-import {PublisherService} from "../../_service/categories/publisher.service";
-import {Author} from "../../_model/author";
-import {CoverType} from "../../_model/cover-type";
-import {Language} from "../../_model/Language";
-import {Publisher} from "../../_model/Publisher";
+import {typesOfCategories} from '../../_model/typesOfCategories';
+import {GenreService} from '../../_service/categories/genre.service';
+import {Genre} from '../../_model/genre';
+import {AuthorService} from '../../_service/categories/author.service';
+import {CoverTypeService} from '../../_service/categories/cover-type.service';
+import {LanguageService} from '../../_service/categories/language.service';
+import {PublisherService} from '../../_service/categories/publisher.service';
+import {Author} from '../../_model/author';
+import {CoverType} from '../../_model/cover-type';
+import {Language} from '../../_model/Language';
+import {Publisher} from '../../_model/Publisher';
 
 @Component({
   selector: 'app-categories-part',
@@ -53,24 +53,24 @@ export class CategoriesPartComponent implements OnInit {
   }
 
   filter(): void {
-    console.log("authorchecked");
-    for (let currentNumber of this.authorsCheckedSet) {
+    console.log('authorchecked');
+    for (const currentNumber of this.authorsCheckedSet) {
       console.log(currentNumber);
     }
-    console.log("coverchecked");
-    for (let currentNumber of this.coverTypesCheckedSet) {
+    console.log('coverchecked');
+    for (const currentNumber of this.coverTypesCheckedSet) {
       console.log(currentNumber);
     }
-    console.log("genrechecked");
-    for (let currentNumber of this.genresCheckedSet) {
+    console.log('genrechecked');
+    for (const currentNumber of this.genresCheckedSet) {
       console.log(currentNumber);
     }
-    console.log("languagechecked");
-    for (let currentNumber of this.languagesCheckedSet) {
+    console.log('languagechecked');
+    for (const currentNumber of this.languagesCheckedSet) {
       console.log(currentNumber);
     }
-    console.log("publisherchecked");
-    for (let currentNumber of this.publishersCheckedSet) {
+    console.log('publisherchecked');
+    for (const currentNumber of this.publishersCheckedSet) {
       console.log(currentNumber);
     }
   }
@@ -112,38 +112,38 @@ export class CategoriesPartComponent implements OnInit {
     }
   }
 
-  getAuthors(): void {
+  getAuthors(): any {
     this.authorService.getAllAuthors()
       .subscribe(authors => {
         this.authors = authors;
-      })
+      });
   }
 
   getCoverTypes(): void {
     this.coverTypeService.getAllCoverTypes()
       .subscribe(coverTypes => {
         this.coverTypes = coverTypes;
-      })
+      });
   }
 
   getGenres(): void {
     this.genreService.getAllGenres()
       .subscribe(genres => {
         this.genres = genres;
-      })
+      });
   }
 
   getLanguages(): void {
     this.languageService.getAllLanguages()
       .subscribe(languages => {
         this.languages = languages;
-      })
+      });
   }
 
   getPublishers(): void {
     this.publisherService.getAllPublishers()
       .subscribe(publishers => {
         this.publishers = publishers;
-      })
+      });
   }
 }

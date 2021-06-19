@@ -14,19 +14,18 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CommonModule} from './common/common.module';
 import {NavBarModule} from './nav-bar/nav-bar.module';
 import {ProductCatalogComponent} from './product-catalog/product-catalog.component';
-import {TempProductComponent} from './product-catalog/temp-product/temp-product.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwPaginationModule} from 'jw-angular-pagination';
 import {AlertComponent} from './alert/alert.component';
 import {appInitializer} from './_helper/app.initializer';
 import {ErrorInterceptor} from './_helper/error.interceptor';
 import {CookieService} from 'ngx-cookie-service';
-import {ProfileComponent} from "./account/profile/profile.component";
-import {AdminWorkSpaceLinkComponent} from "./nav-bar/components/admin-work-space-link/admin-work-space-link.component";
-import {SearchComponent} from "./account/search/search.component";
-import {MatIconModule} from "@angular/material/icon";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatRadioModule} from "@angular/material/radio";
+import {ProfileComponent} from './account/profile/profile.component';
+import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
+import {SearchComponent} from './account/search/search.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import {MatRadioModule} from "@angular/material/radio";
     SettingsComponent,
     ShoppingCartComponent,
     ProductCatalogComponent,
-    TempProductComponent,
     ProfileComponent,
     AdminWorkSpaceLinkComponent,
     SearchComponent

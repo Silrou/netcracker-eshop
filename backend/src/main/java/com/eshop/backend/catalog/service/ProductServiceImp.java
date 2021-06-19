@@ -1,4 +1,3 @@
-
 package com.eshop.backend.catalog.service;
 
 import com.eshop.backend.product.dao.ProductDao;
@@ -62,7 +61,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void update(ProductModel model) {
-
+        productdao.update(model);
     }
 
     public void delete(Long id) {
