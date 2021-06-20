@@ -103,8 +103,8 @@
   </tr>
   <tr>
     <td colspan="4" class="td-button">
-      <button type="button" class="btn btn-primary"  *ngIf="product.productStatus == 'true'"  (click)="onChangeStatus(product.id)">Activate</button>
-      <button type="button" class="btn btn-primary"  *ngIf="product.productStatus == 'false'" (click)="onChangeStatus(product.id)">Deactivate</button>
+      <button type="button" class="btn btn-primary"  *ngIf="product.productStatus == 'false'"  (click)="onChangeStatus(product.id)">Activate</button>
+      <button type="button" class="btn btn-primary"  *ngIf="product.productStatus == 'true'" (click)="onChangeStatus(product.id)">Deactivate</button>
     </td>
     <td colspan="4" class="td-button"><button type="button" class="btn btn-primary" (click)="onCreate()">Edit</button></td>
   </tr>

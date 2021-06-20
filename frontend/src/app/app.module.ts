@@ -27,6 +27,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatOptionModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,12 @@ import {MatOptionModule} from '@angular/material/core';
     MatIconModule,
     MatFormFieldModule,
     MatRadioModule,
-    MatOptionModule
+    MatOptionModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],
   providers: [AuthService, CookieService,
     {

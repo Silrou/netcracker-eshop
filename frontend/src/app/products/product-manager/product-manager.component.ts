@@ -39,7 +39,7 @@ export class ProductManagerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('author: ' + this.author.authorName);
+
   }
 
   onChangeStatus(id: number): void {
@@ -67,7 +67,7 @@ export class ProductManagerComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
+    dialogConfig.width = '40%';
     dialogConfig.data = {product: this.product};
     this.dialog.open(ProductEditComponent, dialogConfig);
   }

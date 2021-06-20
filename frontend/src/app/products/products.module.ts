@@ -17,6 +17,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MatSelectModule,
         MatDialogModule,
         MatRadioModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        ScrollingModule
     ],
   providers: [
     CategoriesPartComponent

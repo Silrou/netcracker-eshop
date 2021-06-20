@@ -1,102 +1,122 @@
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
 
-<h1 style="text-align: center;">
-  Edit product
-</h1>
-<form [formGroup]="form" (ngSubmit)="Submit()">
-  <p>{{data}}</p>
-  <div class="container">
-    <mat-form-field>
-      <input matInput placeholder="Product Name" formControlName="productName">
-      <mat-hint *ngIf="form.get('productName').errors"></mat-hint>
-    </mat-form-field>
+      <mat-dialog-content>
+      <div class="container">
 
-    <mat-form-field>
-      <input matInput placeholder="Last name" formControlName="lastName" />
-      <mat-hint *ngIf="form.get('lastName').errors">Last name is required</mat-hint>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Product Name</mat-label>
+          <input matInput placeholder="Product Name" formControlName="productName">
+          <mat-error *ngIf="editForm.get('productName')?.invalid">Error</mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Email" formControlName="email" />
-      <mat-icon matPrefix>email</mat-icon>
-      <mat-hint *ngIf="form.get('email').errors">Email is required</mat-hint>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Product Description</mat-label>
+          <textarea matInput placeholder="Product Description" formControlName="productDescription"></textarea>
+          <mat-error *ngIf="editForm.get('productDescription')?.invalid">Error</mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Product Price</mat-label>
+          <input matInput formControlName="productPrice" type="number" class="example-right-align" placeholder="0">
+          <span matPrefix>$&nbsp;</span>
+          <span matSuffix>.00</span>
+          <mat-error *ngIf="editForm.get('productPrice')?.invalid">Error</mat-error>
+        </mat-form-field>
 
-      <input matInput  placeholder="Phone number" formControlName="phoneNumber" />
-      <mat-icon matPrefix>phone</mat-icon>
-      <mat-hint *ngIf="form.get('phoneNumber').errors">Phone number is required</mat-hint>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Product Amount</mat-label>
+          <input matInput formControlName="productAmount" type="number" class="example-right-align">
+        </mat-form-field>
 
+        <mat-form-field appearance="fill">
+          <mat-label>Product Discount</mat-label>
+          <input matInput formControlName="productDiscount" type="number" class="example-right-align" min="0">
+        </mat-form-field>
 
-    <div class="add-bottom-padding">
-      <mat-radio-group formControlName="role">
-        <mat-radio-button value="manager">Manager</mat-radio-button>
-        <mat-radio-button value="courier">Courier</mat-radio-button>
-      </mat-radio-group>
-    </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Product Status</mat-label>
+          <input matInput formControlName="productStatus" min="0">
+        </mat-form-field>
 
-    <div class="footer-buttons">
-      <button mat-raised-button color="primary" [disabled]="form.invalid" type="submit" ng-click="onClose()">Submit</button>
-      <button mat-raised-button color="primary"  type="submit" (click)="onClose()">Cancel</button>
-    </div>
-  </div>
-</form>
-
-
-<!--  <mat-grid-list cols="2" rowHeight="300px">-->
-<!--    <mat-grid-tile>-->
-<!--      <div class="controles-container">-->
-<!--        <input type="hidden" formControlName="$key">-->
-<!--        <mat-form-field>-->
-<!--          <input formControlName="fullName" matInput placeholder="Full Name*">-->
-<!--          <mat-error>This field is mandatory.</mat-error>-->
+<!--        <mat-form-field appearance="fill">-->
+<!--          <mat-label>Author</mat-label>-->
+<!--          <mat-select>-->
+<!--            <mat-option *ngFor="let food of authors" [value]="food.id">-->
+<!--              {{food.authorName}}-->
+<!--            </mat-option>-->
+<!--          </mat-select>-->
 <!--        </mat-form-field>-->
-<!--        <mat-form-field>-->
-<!--          <input formControlName="email" matInput placeholder="Email">-->
-<!--          <mat-error>Invalid email address.</mat-error>-->
-<!--        </mat-form-field>-->
-<!--        <mat-form-field>-->
-<!--          <input formControlName="mobile" matInput placeholder="Mobile*">-->
-<!--          <mat-error *ngIf="service.form.controls['mobile'].errors?.required">This field is mandatory.</mat-error>-->
-<!--          <mat-error *ngIf="service.form.controls['mobile'].errors?.minlength">Minimum 8 charactors needed.</mat-error>-->
-<!--        </mat-form-field>-->
-<!--        <mat-form-field>-->
-<!--          <input formControlName="city" matInput placeholder="City">-->
-<!--        </mat-form-field>-->
-<!--      </div>-->
-<!--    </mat-grid-tile>-->
-<!--    <mat-grid-tile>-->
-<!--      <div class="controles-container">-->
-<!--        <div class="add-bottom-padding">-->
-<!--          <mat-radio-group formControlName="gender">-->
-<!--            <mat-radio-button value="1">Male</mat-radio-button>-->
-<!--            <mat-radio-button value="2">Female</mat-radio-button>-->
-<!--            <mat-radio-button value="3">Other</mat-radio-button>-->
-<!--          </mat-radio-group>-->
-<!--        </div>-->
-<!--        <mat-form-field>-->
-<!--&lt;!&ndash;          <mat-select formControlName="department" placeholder="Department">&ndash;&gt;-->
-<!--&lt;!&ndash;            <mat-option>None</mat-option>&ndash;&gt;-->
-<!--&lt;!&ndash;            <ng-container *ngFor="let department of departmentService.array">&ndash;&gt;-->
-<!--&lt;!&ndash;              <mat-option value="{{department.$key}}">{{department.code}}-{{department.name}}</mat-option>&ndash;&gt;-->
-<!--&lt;!&ndash;            </ng-container>&ndash;&gt;-->
-<!--&lt;!&ndash;          </mat-select>&ndash;&gt;-->
-<!--        </mat-form-field>-->
-<!--        <mat-form-field>-->
-<!--&lt;!&ndash;          <input formControlName="hireDate" matInput [matDatepicker]="picker" placeholder="Hire Date">&ndash;&gt;-->
-<!--&lt;!&ndash;          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>&ndash;&gt;-->
-<!--&lt;!&ndash;          <mat-datepicker #picker></mat-datepicker>&ndash;&gt;-->
-<!--        </mat-form-field>-->
-<!--        <div class="add-bottom-padding">-->
-<!--          <mat-checkbox formControlName="isPermanent">Permanent Employee</mat-checkbox>-->
-<!--        </div>-->
-<!--        <div class="button-row">-->
-<!--          <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Submit</button>-->
-<!--&lt;!&ndash;          <button mat-raised-button color="warn" (click)="onClear()">Clear</button>&ndash;&gt;-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </mat-grid-tile>-->
-<!--  </mat-grid-list>-->
-<!--</form>-->
 
+        <!--    <div class="add-bottom-padding">-->
+        <!--      <mat-radio-group formControlName="role">-->
+        <!--        <mat-radio-button value="manager">Manager</mat-radio-button>-->
+        <!--        <mat-radio-button value="courier">Courier</mat-radio-button>-->
+        <!--      </mat-radio-group>-->
+        <!--    </div>-->
+
+        <div class="footer-buttons">
+          <button mat-raised-button color="primary" [disabled]="editForm.invalid" type="submit" ng-click="onClose()">
+            Submit
+          </button>
+          <button mat-raised-button color="primary" type="submit" (click)="onClose()">Cancel</button>
+        </div>
+      </div>
+      </mat-dialog-content>
+    </form>
+
+
+    <!--  <mat-grid-list cols="2" rowHeight="300px">-->
+    <!--    <mat-grid-tile>-->
+    <!--      <div class="controles-container">-->
+    <!--        <input type="hidden" formControlName="$key">-->
+    <!--        <mat-form-field>-->
+    <!--          <input formControlName="fullName" matInput placeholder="Full Name*">-->
+    <!--          <mat-error>This field is mandatory.</mat-error>-->
+    <!--        </mat-form-field>-->
+    <!--        <mat-form-field>-->
+    <!--          <input formControlName="email" matInput placeholder="Email">-->
+    <!--          <mat-error>Invalid email address.</mat-error>-->
+    <!--        </mat-form-field>-->
+    <!--        <mat-form-field>-->
+    <!--          <input formControlName="mobile" matInput placeholder="Mobile*">-->
+    <!--          <mat-error *ngIf="service.form.controls['mobile'].errors?.required">This field is mandatory.</mat-error>-->
+    <!--          <mat-error *ngIf="service.form.controls['mobile'].errors?.minlength">Minimum 8 charactors needed.</mat-error>-->
+    <!--        </mat-form-field>-->
+    <!--        <mat-form-field>-->
+    <!--          <input formControlName="city" matInput placeholder="City">-->
+    <!--        </mat-form-field>-->
+    <!--      </div>-->
+    <!--    </mat-grid-tile>-->
+    <!--    <mat-grid-tile>-->
+    <!--      <div class="controles-container">-->
+    <!--        <div class="add-bottom-padding">-->
+    <!--          <mat-radio-group formControlName="gender">-->
+    <!--            <mat-radio-button value="1">Male</mat-radio-button>-->
+    <!--            <mat-radio-button value="2">Female</mat-radio-button>-->
+    <!--            <mat-radio-button value="3">Other</mat-radio-button>-->
+    <!--          </mat-radio-group>-->
+    <!--        </div>-->
+    <!--        <mat-form-field>-->
+    <!--&lt;!&ndash;          <mat-select formControlName="department" placeholder="Department">&ndash;&gt;-->
+    <!--&lt;!&ndash;            <mat-option>None</mat-option>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <ng-container *ngFor="let department of departmentService.array">&ndash;&gt;-->
+    <!--&lt;!&ndash;              <mat-option value="{{department.$key}}">{{department.code}}-{{department.name}}</mat-option>&ndash;&gt;-->
+    <!--&lt;!&ndash;            </ng-container>&ndash;&gt;-->
+    <!--&lt;!&ndash;          </mat-select>&ndash;&gt;-->
+    <!--        </mat-form-field>-->
+    <!--        <mat-form-field>-->
+    <!--&lt;!&ndash;          <input formControlName="hireDate" matInput [matDatepicker]="picker" placeholder="Hire Date">&ndash;&gt;-->
+    <!--&lt;!&ndash;          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>&ndash;&gt;-->
+    <!--&lt;!&ndash;          <mat-datepicker #picker></mat-datepicker>&ndash;&gt;-->
+    <!--        </mat-form-field>-->
+    <!--        <div class="add-bottom-padding">-->
+    <!--          <mat-checkbox formControlName="isPermanent">Permanent Employee</mat-checkbox>-->
+    <!--        </div>-->
+    <!--        <div class="button-row">-->
+    <!--          <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Submit</button>-->
+    <!--&lt;!&ndash;          <button mat-raised-button color="warn" (click)="onClear()">Clear</button>&ndash;&gt;-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </mat-grid-tile>-->
+    <!--  </mat-grid-list>-->
+    <!--</form>-->

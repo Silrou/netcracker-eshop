@@ -23,6 +23,7 @@ import {SearchComponent} from './account/search/search.component';
 import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
 import {TempProductComponent} from './product-catalog/temp-product/temp-product.component';
 import {ProductManagerComponent} from './products/product-manager/product-manager.component';
+import {ProductEditComponent} from "./products/product-edit/product-edit.component";
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -86,7 +87,7 @@ const routes: Routes = [
   },
   {
     path: 'temp',
-    component: TempProductComponent
+    component: ProductEditComponent
   },
   {
     path: 'manager',
