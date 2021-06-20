@@ -1,0 +1,112 @@
+<!--<p>all good</p>-->
+<!--<div  class="card mt-4">-->
+<!--  <div class="card-body">-->
+<!--    <div class="container" id = "main-container">-->
+<!--      <div class="row" >-->
+<!--        <div class="col-md-2 justify-content-around">-->
+<!--          <img src="../../../assets/img/default.png" class="img-fluid"/></div>-->
+<!--        <div class="col-md-6">-->
+<!--          <div class="container">-->
+<!--            <h5 class="post-title">{{product.productName}}</h5>-->
+<!--            <p class="card-text">{{product.productDescription}}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="col-md-4">-->
+<!--          <div class="container mt-3">-->
+<!--            <p>productPrice: {{product.productPrice}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>productAmount: {{product.productAmount}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>productDate: {{product.productDate}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>productDiscount: {{product.productDiscount}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>productStatus: {{product.productStatus}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>author: {{author?.authorName}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>publisher: {{publisher?.publisherName}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>coverType: {{coverType?.coverTypeName}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>language: {{language?.languageName}}</p>-->
+<!--          </div>-->
+<!--          <div class="container mt-3">-->
+<!--            <p>genre: {{genre?.genreName}}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<table class="table table-bordered">
+  <tbody>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="td-img">
+        <div>
+          <img src="../../../assets/img/default.png" class="img-fluid"/>
+        </div>
+    </td>
+    <td colspan="6">
+      <h5 class="post-title">{{product.productName}}</h5>
+      <p class="card-text">{{product.productDescription}}</p>
+    </td>
+
+  </tr>
+  <tr>
+    <td colspan="2" class="td-product">Price:</td>
+    <td colspan="2" class="td-product">{{product.productPrice}}</td>
+    <td colspan="2">Author:</td>
+    <td colspan="2">{{author?.authorName}}</td>
+  </tr>
+  <tr>
+    <td colspan="2">Amount:</td>
+    <td colspan="2">{{product.productAmount}}</td>
+    <td colspan="2" class="td-product">Publisher:</td>
+    <td colspan="2" class="td-product">{{publisher?.publisherName}}</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="td-product">Date:</td>
+    <td colspan="2" class="td-product">{{product.productDate}}</td>
+    <td colspan="2">Language:</td>
+    <td colspan="2">{{language?.languageName}}</td>
+  </tr>
+  <tr>
+    <td colspan="2">Discount:</td>
+    <td colspan="2">{{product.productDiscount}}</td>
+    <td colspan="2" class="td-product">Cover Type:</td>
+    <td colspan="2" class="td-product">{{coverType?.coverTypeName}}</td>
+  </tr>
+  <tr>
+    <td colspan="2" class="td-product">Status:</td>
+    <td colspan="2" class="td-product">{{product.productStatus}}</td>
+    <td colspan="2">Genre:</td>
+    <td colspan="2">{{genre?.genreName}}</td>
+  </tr>
+  <tr>
+    <td colspan="4" class="td-button"><button type="button" class="btn btn-primary">Primary</button></td>
+    <td colspan="4" class="td-button"><button type="button" class="btn btn-primary">Primary</button></td>
+  </tr>
+  </tbody>
+
+</table>
+
