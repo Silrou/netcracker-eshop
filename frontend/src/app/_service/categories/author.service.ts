@@ -43,10 +43,15 @@ export class AuthorService {
       );
   }
 
-  getAuthorByIdFromList(): Author[] {
-    console.log('aaaaa');
-    console.log(this.authorsList);
-    return this.authorsList;
+  getAuthors(): Observable<Author[]> {
+    if (this.authorsList.length === 0) {
+      this.getAllAuthors().subscribe(
+        res => {
+          this.authorsList = res;
+        }
+      );
+    }
+    return of(this.authorsList);
   }
 
 }

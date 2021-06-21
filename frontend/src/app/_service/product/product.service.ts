@@ -39,7 +39,7 @@ export class ProductService {
   }
 
   getProduct(id: number): Observable<Product> {
-    const url = `${this.productsUrl}/getById/${id}`;
+    const url = `${this.productsUrl}/get-by-id/${id}`;
     return this.http.get<Product>(url)
       .pipe(
         catchError(this.handleError<Product>(`getProduct id=${id}`))
@@ -48,10 +48,7 @@ export class ProductService {
 
   updateProduct(product: Product): Observable<any> {
     const url = `${this.productsUrl}/update`;
-    return this.http.put(url, product, this.httpOptions)
-      .pipe(
-        catchError(this.handleError<any>('updateProduct'))
-      );
+    return this.http.put(url, product);
   }
 
   addProduct(product: Product): Observable<Product> {

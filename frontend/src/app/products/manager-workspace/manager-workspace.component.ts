@@ -89,4 +89,7 @@ export class ManagerWorkspaceComponent implements OnInit {
       });
   }
 
+  update($event: string): void {
+    this.getAllProducts();
+  }
 }
