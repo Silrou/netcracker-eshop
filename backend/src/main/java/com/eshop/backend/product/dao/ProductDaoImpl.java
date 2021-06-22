@@ -1,5 +1,6 @@
 package com.eshop.backend.product.dao;
 
+import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,23 +41,6 @@ public class ProductDaoImpl implements ProductDao {
     public ProductModel getById(Long id) {
         String sql = ProductMapper.SELECT_SQL + "where id = ?";
         return template.queryForObject(sql, new ProductMapper(), new Object[]{Long.valueOf(id)});
-//        return template.queryForObject(sql, (rs, rowNum) -> {
-//            Long id1 = rs.getLong("id");
-//            String name = rs.getString("productname");
-//            int amount = rs.getInt("productamount");
-//            double price = rs.getDouble("productprice");
-//            double discount = rs.getDouble("productdiscount");
-//            Date date = rs.getDate("productdate");
-//            String pict = rs.getString("productpict");
-//            String description = rs.getString("productdescription");
-//            String status = rs.getString("productstatus");
-//            Long genre = rs.getLong("genre");
-//            Long coverType = rs.getLong("covertype");
-//            Long author = rs.getLong("author");
-//            Long language = rs.getLong("language");
-//            Long publisher = rs.getLong("publisher");
-//            return new ProductModel(id1, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
-//        },new Object[]{id});
     }
 
     @Override
@@ -65,6 +49,7 @@ public class ProductDaoImpl implements ProductDao {
                 " WHERE p.productname ILIKE '%" + name + "%'";
         return template.query(sql, new ProductMapper());
     }
+
 
     @Override
     public List<ProductModel> getAll() {
@@ -131,5 +116,42 @@ public class ProductDaoImpl implements ProductDao {
         return template.query(sql, new ProductMapper());
     }
 
+    @Override
+    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
+        String sql = ProductMapper.SELECT_SQL +
+                  filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+        return template.query(sql, new ProductMapper());
+    }
 
+    private String filterSqlBuilder(FilterModel filterModel) {
+        if ((filterModel.getAuthor().length == 0)&&
+                (filterModel.getGenre().length == 0)&&
+                (filterModel.getLanguage().length == 0)&&
+                (filterModel.getPublisher().length == 0)&&
+                (filterModel.getCoverType().length == 0)){
+            return "";
+        }
+        StringBuilder filters = new StringBuilder();
+        filters.append(" WHERE ");
+        filterInBuilder(filters, filterModel.getAuthor(), " p.author ");
+        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ");
+        filterInBuilder(filters, filterModel.getGenre(), " p.genre ");
+        filterInBuilder(filters, filterModel.getLanguage(), " p.language ");
+        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ");
+        return filters.substring(0, filters.length() - 4);
+    }
+
+    private void filterInBuilder(StringBuilder stringBuilder, Long[] foreignKeys, String fkName) {
+        if (foreignKeys.length != 0) {
+            stringBuilder.append(fkName);
+            stringBuilder.append(" IN (");
+            for (int i = 0; i < foreignKeys.length; i++) {
+                stringBuilder.append(foreignKeys[i]);
+                if (foreignKeys.length - i > 1) {
+                    stringBuilder.append(", ");
+                }
+            }
+            stringBuilder.append(")" + " AND ");
+        }
+    }
 }

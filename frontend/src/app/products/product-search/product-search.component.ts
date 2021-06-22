@@ -41,7 +41,6 @@ export class ProductSearchComponent implements OnInit {
   }
 
   onSearchClick(value: string){
-    console.log("onserarchclick");
     this.searchValue.emit(value);
   }
 

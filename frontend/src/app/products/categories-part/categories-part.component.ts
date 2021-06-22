@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {typesOfCategories} from "../../_model/typesOfCategories";
 import {GenreService} from "../../_service/categories/genre.service";
 import {Genre} from "../../_model/genre";
@@ -10,6 +10,7 @@ import {Author} from "../../_model/author";
 import {CoverType} from "../../_model/cover-type";
 import {Language} from "../../_model/Language";
 import {Publisher} from "../../_model/Publisher";
+import {Filters} from "../../_model/filters";
 
 @Component({
   selector: 'app-categories-part',
@@ -29,6 +30,9 @@ export class CategoriesPartComponent implements OnInit {
   genresCheckedSet;
   languagesCheckedSet;
   publishersCheckedSet;
+  filters: Filters;
+  @Output() filterValue = new EventEmitter<Filters>();
+
 
   constructor(
     private authorService: AuthorService,
@@ -50,29 +54,37 @@ export class CategoriesPartComponent implements OnInit {
     this.genresCheckedSet = new Set();
     this.languagesCheckedSet = new Set();
     this.publishersCheckedSet = new Set();
+    this.filters = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
   }
 
   filter(): void {
-    console.log("authorchecked");
+    this.filters.author = [];
+    this.filters.coverType = [];
+    this.filters.genre = [];
+    this.filters.language = [];
+    this.filters.publisher = [];
+
     for (let currentNumber of this.authorsCheckedSet) {
-      console.log(currentNumber);
+      this.filters.author.push(currentNumber);
     }
-    console.log("coverchecked");
+
     for (let currentNumber of this.coverTypesCheckedSet) {
-      console.log(currentNumber);
+      this.filters.coverType.push(currentNumber);
     }
-    console.log("genrechecked");
+
     for (let currentNumber of this.genresCheckedSet) {
-      console.log(currentNumber);
+      this.filters.genre.push(currentNumber);
     }
-    console.log("languagechecked");
+
     for (let currentNumber of this.languagesCheckedSet) {
-      console.log(currentNumber);
+      this.filters.language.push(currentNumber);
     }
-    console.log("publisherchecked");
+
     for (let currentNumber of this.publishersCheckedSet) {
-      console.log(currentNumber);
+      this.filters.publisher.push(currentNumber);
     }
+
+    this.filterValue.emit(this.filters);
   }
 
   authorChecked(id: number): void {
@@ -90,6 +102,7 @@ export class CategoriesPartComponent implements OnInit {
       this.coverTypesCheckedSet.add(id);
     }
   }
+
   genreChecked(id: number): void {
     if (this.genresCheckedSet.has(id)) {
       this.genresCheckedSet.delete(id);
@@ -97,6 +110,7 @@ export class CategoriesPartComponent implements OnInit {
       this.genresCheckedSet.add(id);
     }
   }
+
   languageChecked(id: number): void {
     if (this.languagesCheckedSet.has(id)) {
       this.languagesCheckedSet.delete(id);
@@ -104,6 +118,7 @@ export class CategoriesPartComponent implements OnInit {
       this.languagesCheckedSet.add(id);
     }
   }
+
   publisherChecked(id: number): void {
     if (this.publishersCheckedSet.has(id)) {
       this.publishersCheckedSet.delete(id);

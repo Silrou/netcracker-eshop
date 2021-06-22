@@ -1,7 +1,10 @@
 package com.eshop.backend.catalog;
 
+import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
 import com.eshop.backend.catalog.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,5 +76,13 @@ public class ProductCRUDController {
         return new ResponseEntity<>(productModels, HttpStatus.OK);
     }
 
-
+    @GetMapping("/get-all-filtered")
+    public ResponseEntity<List<ProductModel>> getAllProductFiltered(@RequestParam("page")int page,
+                                                                    @RequestParam("size")int size,
+                                                                    @RequestParam("filters") String filters) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        FilterModel filterModel = objectMapper.readValue(filters, FilterModel.class);
+        List<ProductModel> productModels = productService.getFiltered(page, size, filterModel);
+        return new ResponseEntity<>(productModels, HttpStatus.OK);
+    }
 }

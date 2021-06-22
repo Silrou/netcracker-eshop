@@ -4,6 +4,7 @@ import {ProductCategoryService} from "../../_service/product-category/product-ca
 import {Product} from "../../_model/product";
 import {ProductService} from "../../_service/product/product.service";
 import {typesOfCategories} from "../../_model/typesOfCategories";
+import {Filters} from "../../_model/filters";
 
 @Component({
   selector: 'app-product-list',
@@ -39,11 +40,27 @@ export class ProductListComponent implements OnInit {
       });
   }
 
+  getOrderedProducts(value: number){
+    this.productService.orderProducts(this.page, this.size, value)
+      .subscribe(products =>{
+        this.currentProducts = products;
+      });
+  }
+
   getSearchedProducts(value: string){
     this.productService.searchProducts(value)
       .subscribe(products => {
-        console.log('inside subscribe');
-        console.log(products);
+        // console.log('inside subscribe');
+        // console.log(products);
+        this.currentProducts = products;
+      });
+  }
+
+  getFilteredProducts(filters: Filters): void{
+    this.productService.filterProducts(this.page, this.size, filters)
+      .subscribe(products => {
+         console.log('getFilteredProducts inside subscribe');
+         console.log(products);
         this.currentProducts = products;
       });
   }
