@@ -18,7 +18,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @GetMapping("/admin/search")
+    @GetMapping("/admin/search/")
     public ResponseEntity<List<AuthorizedUserModel>> getAllProduct() {
          List<AuthorizedUserModel> AuthorizedUserModel = adminService.getAllUsers();
     return  new ResponseEntity<>(AuthorizedUserModel, HttpStatus.OK);

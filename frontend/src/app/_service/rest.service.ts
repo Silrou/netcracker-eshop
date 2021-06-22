@@ -18,7 +18,7 @@ export class RestService {
   // role: string;
   managers: Managers;
   constructor(private http: HttpClient) { }
-  url = 'http://localhost:4200/Managers';
+  url = 'http://localhost:8081/admin/search/';
   getManagers(): Observable<any> {
     return this.http.get<Managers[]>(this.url);
   }
@@ -40,7 +40,7 @@ export class RestService {
     return this.http.get(nUrl);
   }
   getByName(name): Observable<any> {
-    const TUrll = 'http://localhost:8081/admin/getByName/' + 'NOT IN(' + name + ')';
+    const TUrll = 'http://localhost:8081/admin/getByName/' + name ;
     const nUrl = `${TUrll}`;
     return this.http.get(nUrl);
   }
