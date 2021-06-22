@@ -12,6 +12,9 @@ import {CoverType} from '../../_model/cover-type';
 import {Genre} from '../../_model/genre';
 import {Language} from '../../_model/Language';
 import {Publisher} from '../../_model/Publisher';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {ProductCreateComponent} from '../product-create/product-create.component';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-manager-workspace',
@@ -26,10 +29,13 @@ export class ManagerWorkspaceComponent implements OnInit {
               private coverTypeService: CoverTypeService,
               private genreService: GenreService,
               private languageService: LanguageService,
-              private publisherService: PublisherService) { }
+              private publisherService: PublisherService,
+              private dialog: MatDialog) { }
 
-  page = 1;
-  size = 5;
+  pageIndex = 0;
+  length = 100;
+  pageSize = 5;
+  pageEvent: PageEvent;
   products: Product[] = [];
   authors: Author[] = [];
   coverTypes: CoverType[] = [];
@@ -39,6 +45,7 @@ export class ManagerWorkspaceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProducts();
+    this.getProductsCount();
     this.getAuthors();
     this.getCoverTypes();
     this.getGenres();
@@ -47,7 +54,7 @@ export class ManagerWorkspaceComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.productService.getAllProducts(this.page, this.size)
+    this.productService.getAllProducts(this.pageIndex + 1, this.pageSize)
       .subscribe(products => {
         console.log(products);
         this.products = products;
@@ -91,5 +98,41 @@ export class ManagerWorkspaceComponent implements OnInit {
 
   update($event: string): void {
     this.getAllProducts();
+    this.getProductsCount();
+  }
+
+  getSearchedProducts(value: string): void {
+    this.productService.searchProducts(value)
+      .subscribe(products => {
+        console.log('inside subscribe');
+        console.log(products);
+        this.products = products;
+      });
+  }
+
+  onCreate(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    this.dialog.open(ProductCreateComponent, dialogConfig);
+    this.dialog.afterAllClosed.subscribe(() => {
+      this.getAllProducts();
+      this.getProductsCount();
+    });
+  }
+
+  getServerData(event?: PageEvent): PageEvent{
+    this.pageIndex = event.pageIndex;
+    this.getAllProducts();
+    return event;
+  }
+
+  private getProductsCount(): void {
+    this.productService.getProductsCount().subscribe(
+      res => {
+        this.length = res;
+      }
+    );
   }
 }

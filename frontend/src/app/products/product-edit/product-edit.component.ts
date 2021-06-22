@@ -42,8 +42,7 @@ export class ProductEditComponent implements OnInit {
               private genreService: GenreService,
               private languageService: LanguageService,
               private publisherService: PublisherService,
-              private productService: ProductService,
-              private http: HttpClient) { }
+              private productService: ProductService) { }
 
   ngOnInit(): void {
     console.log(this.data);

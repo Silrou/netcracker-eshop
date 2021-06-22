@@ -19,14 +19,14 @@ public class ProductDaoImpl implements ProductDao {
     public void create(ProductModel productModel) {
         String SQL = "insert into product (productname, productamount,\n" +
                 "                     productprice, productdiscount,\n" +
-                "                     productdate, productdescription,\n" +
+                "                     productdate, productpict, productdescription,\n" +
                 "                     productstatus, genre, " +
                 "                     covertype, author," +
                 "                     language, publisher)\n" +
-                "                     values (?,?,?,?,?,?,?,?,?,?,?,?)";
+                "                     values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
                 productModel.getProductPrice(), productModel.getProductDiscount(),
-                productModel.getProductDate(), productModel.getProductDescription(),
+                new Date(System.currentTimeMillis()), productModel.getProductPict(), productModel.getProductDescription(),
                 productModel.getProductStatus(), productModel.getGenre(),
                 productModel.getCoverType(), productModel.getAuthor(),
                 productModel.getLanguage(), productModel.getPublisher());
@@ -61,6 +61,12 @@ public class ProductDaoImpl implements ProductDao {
         String sql = ProductMapper.SELECT_SQL +
                 " WHERE p.productname ILIKE '%" + name + "%'";
         return template.query(sql, new ProductMapper());
+    }
+
+    @Override
+    public Long getCount() {
+        String sql = "SELECT COUNT(*) FROM product";
+        return template.queryForObject(sql, Long.class);
     }
 
     @Override

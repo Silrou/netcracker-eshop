@@ -13,4 +13,5 @@ public interface ProductService {
     ProductModel getById(Long id);
     void create(ProductModel productModel);
     void update(ProductModel productModel);
+    Long getProductCount();
 }

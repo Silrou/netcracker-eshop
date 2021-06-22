@@ -48,6 +48,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public void create(ProductModel model) {
+        productdao.create(model);
     }
 
     @Override
@@ -62,6 +63,11 @@ public class ProductServiceImp implements ProductService {
     @Override
     public void update(ProductModel model) {
         productdao.update(model);
+    }
+
+    @Override
+    public Long getProductCount() {
+        return productdao.getCount();
     }
 
     public void delete(Long id) {

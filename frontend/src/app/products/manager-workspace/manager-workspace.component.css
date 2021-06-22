@@ -1,0 +1,14 @@
+.footer-pagination {
+  position: fixed;
+  bottom: 0px;
+  width: 80%;
+}
+
+::ng-deep .mat-paginator-container {
+  background-color: grey;
+  color: white;
+}
+
+::ng-deep .mat-paginator-page-size{
+  display: none !important;
+}

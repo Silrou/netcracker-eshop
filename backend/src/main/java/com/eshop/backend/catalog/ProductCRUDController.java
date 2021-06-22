@@ -45,7 +45,7 @@ public class ProductCRUDController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addProduct(@RequestBody ProductModel productModel) {
+    public ResponseEntity<?> addProduct(@RequestBody (required=false) ProductModel productModel) {
         productService.create(productModel);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -71,6 +71,10 @@ public class ProductCRUDController {
                                                                    @RequestParam("orderBy")String orderBy) {
         List<ProductModel> productModels = productService.getAllOrderBy(page, size, orderBy);
         return new ResponseEntity<>(productModels, HttpStatus.OK);
+    }
+    @GetMapping("/count")
+    public ResponseEntity<Long> getProductCount() {
+        return new ResponseEntity<>(productService.getProductCount(), HttpStatus.OK);
     }
 
 

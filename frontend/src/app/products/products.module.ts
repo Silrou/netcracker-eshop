@@ -21,6 +21,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import { ProductCreateComponent } from './product-create/product-create.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     ProductManagerComponent,
     ManagerWorkspaceComponent,
     ProductEditComponent,
+    ProductCreateComponent,
   ],
     imports: [
         CommonModule,
@@ -47,7 +50,8 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
         MatInputModule,
         MatButtonModule,
         MatDatepickerModule,
-        ScrollingModule
+        ScrollingModule,
+        MatPaginatorModule
     ],
   providers: [
     CategoriesPartComponent

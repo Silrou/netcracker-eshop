@@ -33,6 +33,7 @@ export class ProductManagerComponent implements OnInit {
   @Output() editProductEvent = new EventEmitter<string>();
   editComponent = false;
 
+
   constructor(private productService: ProductService,
               private authorService: AuthorService,
               private dialog: MatDialog) {
@@ -65,7 +66,7 @@ export class ProductManagerComponent implements OnInit {
 
   onCreate(): void {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '40%';
     dialogConfig.data = {product: this.product};
@@ -80,4 +81,5 @@ export class ProductManagerComponent implements OnInit {
       // );
     });
   }
+
 }

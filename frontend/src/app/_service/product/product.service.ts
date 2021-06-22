@@ -30,7 +30,12 @@ export class ProductService {
     };
   }
 
-  getAllProducts(page: number, size: number): Observable<Product[]> {
+  getProductsCount(): Observable<number> {
+    const url = `${this.productsUrl}/count`;
+    return this.http.get<number>(url);
+  }
+
+  getAllProducts(page: number, size: number) {
     const url = `${this.productsUrl}/get-all?page=${page}&size=${size}`;
     return this.http.get<Product[]>(url)
       .pipe(
