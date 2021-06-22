@@ -18,7 +18,8 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
-    public List<AuthorizedUserModel> getAllUsers() {return authorizedUserDao.getAllUsers();    }
+    public List<AuthorizedUserModel> getAllUsers() {
+        return authorizedUserDao.getAllUsers();    }
 
     @Override
     public List<AuthorizedUserModel> getAllManager() {return authorizedUserDao.getAllManager();}
@@ -28,17 +29,17 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public List<AuthorizedUserModel> getFilteredByStatusOn() {
-        return null;
+        return authorizedUserDao.getFilteredByStatusOn();
     }
 
     @Override
     public List<AuthorizedUserModel> getFilteredByStatusOff() {
-        return null;
+        return authorizedUserDao.getFilteredByStatusOff();
     }
 
     @Override
     public List<AuthorizedUserModel> getByName(String name) {
-        return null;
+        return authorizedUserDao.getByName(name);
     }
 
     @Override
