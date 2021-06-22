@@ -5,12 +5,9 @@ import {MainPageComponent} from './main-page/main-page.component';
 import {LoginComponent} from './authorization/login/login.component';
 import {RegistrationComponent} from './authorization/registration/registration.component';
 import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
-import {SettingsComponent} from './settings/settings.component';
-
 import {AuctionComponent} from './auctions/auction/auction.component';
 import {AuctionListComponent} from './auctions/auction-list/auction-list.component';
 import {BidComponent} from './auctions/bid/bid.component';
-
 import {ProductComponent} from './products/product/product.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 // import {SettingsComponent} from './settings/pages/settings/settings.component';
@@ -18,8 +15,16 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 // import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
 import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 // import {ProfileComponent} from './account/profile/profile.component';
+import {SettingsComponent} from './settings/settings.component';
+import {ProductCatalogComponent} from './product-catalog/product-catalog.component';
+import {Role} from './_model/role';
+import {AuthGuard} from './_helper/auth.guard';
+import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
+import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
+import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
 // @ts-ignore
 import {SearchComponent} from "./account/search/search.component";
+
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -80,7 +85,26 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+
+     },
+  {
+    path: 'working-cabinet',
+    component: ProductCatalogComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.MANAGER, Role.ADMIN, Role.COURIER] }
   },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
+  }
   // {
   //   path: 'account/profile',
   //   component: ProfileComponent
