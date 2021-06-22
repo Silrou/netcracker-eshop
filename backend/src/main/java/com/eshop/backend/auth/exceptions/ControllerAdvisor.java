@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 public class ControllerAdvisor {
 
     @ExceptionHandler({UserAlreadyExistsException.class, NeedMailConfirmationException.class,
-                        NoUserWithThisEmailException.class, NewPasswordSameAsOldException.class})
+                        NoUserWithThisEmailException.class, NewPasswordSameAsOldException.class,
+                        WrongEmailOrPasswordException.class})
     public ResponseEntity<ErrorMessageDTO> handleCityNotFoundException(
             Exception ex, WebRequest request) {
 

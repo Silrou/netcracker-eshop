@@ -1,14 +1,13 @@
 package com.eshop.backend.auth.dao.user;
 
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
-import org.flywaydb.core.internal.jdbc.RowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -38,16 +37,6 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
         } catch (Exception e) {
             String str = e.toString();
         }
-    }
-
-    @Override
-    public AuthorizedUserModel getById(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<AuthorizedUserModel> getAll() {
-        return null;
     }
 
     @Override
@@ -127,12 +116,31 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
 
     @Override
-    public void update( AuthorizedUserModel user) {
-        String SQL = "update users set \"user_status\" = ?\n" +
-                "                   where id = ?";
+    public AuthorizedUserModel getById(Long id) {
+        try{
+            String getUserSql = "SELECT * FROM authorizeduser WHERE id = ?";
+            return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), id);
+        } catch (DataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<AuthorizedUserModel> getAll() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public void update(AuthorizedUserModel user) {
+        String SQL = "update authorizeduser set userlogin = ?, " +
+                "userpassword = ?, userrole = ?, username = ?, usersurname = ?, " +
+                "userregistrationdate = ?, "+
+                "userstatus = ?, useraddress = ?, usernumber = ? " +
+                "where id = ?";
+
         try {
             jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
-                    user.getUserRole(), user.getUserName(), user.getUserRegistrationDate(),
+                    user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
                     user.getUserStatus(), user.getUserAddress(), user.getUserNumber(), user.getId());
         } catch (Exception e) {
             String str = e.toString();
