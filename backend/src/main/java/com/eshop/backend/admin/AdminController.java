@@ -18,11 +18,6 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-//    @GetMapping("/admin/search")
-//    public String getAllUsers(Model model){
-//        model.addAttribute("getAllUsers",authorizeduserService.getAllUsers());
-//        return "getAllUsers";
-//    }
     @GetMapping("/admin/search")
     public ResponseEntity<List<AuthorizedUserModel>> getAllProduct() {
          List<AuthorizedUserModel> AuthorizedUserModel = adminService.getAllUsers();

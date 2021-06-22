@@ -40,7 +40,7 @@ export class RestService {
     return this.http.get(nUrl);
   }
   getByName(name): Observable<any> {
-    const TUrll = 'http://localhost:8081/admin/getByName/' + name + '';
+    const TUrll = 'http://localhost:8081/admin/getByName/' + 'NOT IN(' + name + ')';
     const nUrl = `${TUrll}`;
     return this.http.get(nUrl);
   }
