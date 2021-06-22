@@ -10,6 +10,8 @@ export class SettingsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    const login = localStorage.getItem('login');
+    console.log(login);
   }
 
 }

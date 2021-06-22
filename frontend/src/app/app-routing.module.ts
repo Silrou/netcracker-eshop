@@ -23,7 +23,9 @@ import {SearchComponent} from './account/search/search.component';
 import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
 import {TempProductComponent} from './product-catalog/temp-product/temp-product.component';
 import {ProductManagerComponent} from './products/product-manager/product-manager.component';
-import {ProductEditComponent} from "./products/product-edit/product-edit.component";
+import {ProductEditComponent} from './products/product-edit/product-edit.component';
+import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
+import {EditSettingsComponent} from './settings/edit/edit-settings/edit-settings.component';
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -92,6 +94,14 @@ const routes: Routes = [
   {
     path: 'manager',
     component: ManagerWorkspaceComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'settings-edit',
+    component: EditSettingsComponent
   },
   // {
   //   path: 'account/profile',

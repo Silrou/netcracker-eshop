@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
-    private JdbcTemplate jdbcTemplate;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JdbcTemplate jdbcTemplate;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public AuthorizedUserDaoImpl(JdbcTemplate jdbcTemplate, BCryptPasswordEncoder bCryptPasswordEncoder) {

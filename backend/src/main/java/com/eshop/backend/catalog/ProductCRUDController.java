@@ -76,6 +76,11 @@ public class ProductCRUDController {
     public ResponseEntity<Long> getProductCount() {
         return new ResponseEntity<>(productService.getProductCount(), HttpStatus.OK);
     }
+    @GetMapping("/test")
+    public ResponseEntity<Long> test() {
+        List<ProductModel> productModels = productService.getByName("name");
+        return new ResponseEntity<>(productService.getProductCount(), HttpStatus.OK);
+    }
 
 
 }

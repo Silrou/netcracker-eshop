@@ -40,7 +40,7 @@
 
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" style="cursor:pointer"  routerLink="/settings" routerLinkActive="active" >
+        <a class="nav-link" *ngIf="authService.status!=='ANONYMOUS'" style="cursor:pointer"  routerLink="/settings" routerLinkActive="active" >
           <img src="../../../../assets/img/person.png" width="30" height="30"/>
         </a>
       </li>

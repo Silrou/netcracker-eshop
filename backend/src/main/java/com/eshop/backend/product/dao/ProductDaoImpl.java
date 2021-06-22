@@ -3,9 +3,13 @@ package com.eshop.backend.product.dao;
 import com.eshop.backend.product.dao.models.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,9 +62,23 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<ProductModel> getByName(String name) {
+        try {
+
         String sql = ProductMapper.SELECT_SQL +
-                " WHERE p.productname ILIKE '%" + name + "%'";
-        return template.query(sql, new ProductMapper());
+                " WHERE p.productname ILIKE ?";
+
+        PreparedStatementCreator statementCreator = con -> {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + name + "%");
+            return ps;
+        };
+
+        return template.query(statementCreator, new ProductMapper());
+        } catch (Exception e) {
+            String str = e.toString();
+        }
+        return null;
+
     }
 
     @Override
