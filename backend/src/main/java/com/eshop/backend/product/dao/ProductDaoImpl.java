@@ -113,22 +113,65 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
         String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
                 " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+        //System.out.println(sql);
         return template.query(sql, new ProductMapper());
     }
 
     @Override
     public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
         String sql = ProductMapper.SELECT_SQL +
-                  filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+                filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
         return template.query(sql, new ProductMapper());
     }
 
+    @Override
+    public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
+        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
+        if (!search.equals("")) {
+            sql.append(" WHERE ");
+            sql.append("p.productname ILIKE '%" + search + "%' ");
+        }
+
+        if ((filterModel.getAuthor().length != 0) ||
+                (filterModel.getGenre().length != 0) ||
+                (filterModel.getLanguage().length != 0) ||
+                (filterModel.getPublisher().length != 0) ||
+                (filterModel.getCoverType().length != 0)) {
+            if (!search.equals("")) {
+                sql.append(" AND ");
+            }
+            else {
+                sql.append(" WHERE ");
+            }
+            sql.append(filterSqlBuilder2(filterModel));
+        }
+
+        if (!orderBy.equals("")) {
+            sql.append(" order by p." + orderBy);
+
+        }
+        sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
+        System.out.println(sql);
+//        return template.query(sql, new ProductMapper());
+        return template.query(sql.toString(), new ProductMapper());
+    }
+
+    private String filterSqlBuilder2(FilterModel filterModel) {
+        StringBuilder filters = new StringBuilder();
+        filterInBuilder(filters, filterModel.getAuthor(), " p.author ");
+        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ");
+        filterInBuilder(filters, filterModel.getGenre(), " p.genre ");
+        filterInBuilder(filters, filterModel.getLanguage(), " p.language ");
+        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ");
+        return filters.substring(0, filters.length() - 4);
+    }
+
     private String filterSqlBuilder(FilterModel filterModel) {
-        if ((filterModel.getAuthor().length == 0)&&
-                (filterModel.getGenre().length == 0)&&
-                (filterModel.getLanguage().length == 0)&&
-                (filterModel.getPublisher().length == 0)&&
-                (filterModel.getCoverType().length == 0)){
+        if ((filterModel.getAuthor().length == 0) &&
+                (filterModel.getGenre().length == 0) &&
+                (filterModel.getLanguage().length == 0) &&
+                (filterModel.getPublisher().length == 0) &&
+                (filterModel.getCoverType().length == 0)) {
             return "";
         }
         StringBuilder filters = new StringBuilder();

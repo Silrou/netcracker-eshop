@@ -15,11 +15,13 @@ import {Filters} from "../../_model/filters";
 
 export class ProductListComponent implements OnInit {
 
-
   page: number = 1;
   size: number = 50;
   allProducts: Product[] = [];
   currentProducts: Product[] = [];
+  searchValue: string;
+  filtersValue: Filters;
+  orderValue: string;
 
 
   constructor(
@@ -29,7 +31,9 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-
+    this.searchValue = "";
+    this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
+    this.orderValue = '';
   }
 
   getProducts(): void {
@@ -40,29 +44,53 @@ export class ProductListComponent implements OnInit {
       });
   }
 
-  getOrderedProducts(value: number){
-    this.productService.orderProducts(this.page, this.size, value)
-      .subscribe(products =>{
-        this.currentProducts = products;
-      });
+  getOrderedProducts(value: string){
+    this.orderValue = value;
+    this.getSearchedOrderedFilteredProducts();
+    // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
+    // this.productService.orderProducts(this.page, this.size, value)
+    //   .subscribe(products =>{
+    //     this.currentProducts = products;
+    //   });
+
   }
 
   getSearchedProducts(value: string){
-    this.productService.searchProducts(value)
-      .subscribe(products => {
-        // console.log('inside subscribe');
-        // console.log(products);
-        this.currentProducts = products;
-      });
+    if (value != ''){
+      this.searchValue = value;
+      this.getSearchedOrderedFilteredProducts();
+      // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
+      // this.productService.searchProducts(value)
+      //   .subscribe(products => {
+      //     // console.log('inside subscribe');
+      //     // console.log(products);
+      //     this.currentProducts = products;
+      //   });
+    }
+    // else this.getProducts();
+    else this.searchValue = '';
   }
 
   getFilteredProducts(filters: Filters): void{
-    this.productService.filterProducts(this.page, this.size, filters)
+    this.filtersValue = filters;
+    //console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
+    // this.productService.filterProducts(this.page, this.size, filters)
+    //   .subscribe(products => {
+    //      // console.log('getFilteredProducts inside subscribe');
+    //      //console.log(products);
+    //     this.currentProducts = products;
+    //   });
+    this.getSearchedOrderedFilteredProducts();
+  }
+
+  getSearchedOrderedFilteredProducts(): void{
+    this.productService.searchOrderFilterProducts(this.page, this.size, this.searchValue, this.orderValue, this.filtersValue)
       .subscribe(products => {
-         console.log('getFilteredProducts inside subscribe');
-         console.log(products);
         this.currentProducts = products;
       });
   }
 
+  cancelFilters(): void{
+    window.location.reload();
+  }
 }

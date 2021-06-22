@@ -1,16 +1,16 @@
 <div class="container">
 
   <div class="row justify-content-around ">
-    <div class="col-lg-3 col-md-2 mt-2">
+    <div class="col-lg-3 col-md-2">
       <select class="custom-select">
-        <option selected>Select Order by</option>
-        <option value="1" (click)="getOrderedProducts(1)">Price: Low to High</option>
-        <option value="2" (click)="getOrderedProducts(2)">Price: High to Low</option>
-        <option value="3" (click)="getOrderedProducts(3)">Newest</option>
+        <option selected (click)="getOrderedProducts('')">Default order</option>
+        <option value="1" (click)="getOrderedProducts('productprice asc ')">Price: Low to High</option>
+        <option value="2" (click)="getOrderedProducts('productprice desc ')">Price: High to Low</option>
+        <option value="3" (click)="getOrderedProducts('productdate desc')">Newest</option>
       </select>
     </div>
     <div class="col-lg-9 col-md-10">
-      <app-product-search (searchValue)="getSearchedProducts($event)"></app-product-search>
+      <app-product-search (searchValue)="getSearchedProducts($event)" (cancelFilters)="cancelFilters()"></app-product-search>
     </div>
 
 

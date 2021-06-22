@@ -48,6 +48,12 @@ public class ProductServiceImp implements ProductService {
         return productdao.getFiltered(page, size, filterModel);
     }
 
+    @Override
+    public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
+        page = getPageNumeration(page, size);
+        return productdao.getSearchedOrderedFiltered(page, size, search, orderBy, filterModel);
+    }
+
     public int getPageNumeration(int page, int size){
         if(page > 1)
             page = (page - 1) * size + 1;
