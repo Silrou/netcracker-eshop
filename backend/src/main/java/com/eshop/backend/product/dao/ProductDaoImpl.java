@@ -28,16 +28,13 @@ public class ProductDaoImpl implements ProductDao {
                 "                     covertype, author," +
                 "                     language, publisher)\n" +
                 "                     values (?,?,?,?,?,?,?,?,?,?,?,?)";
-        try {
-            template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
-                    productModel.getProductPrice(), productModel.getProductDiscount(),
-                    productModel.getProductDate(), productModel.getProductDescription(),
-                    productModel.getProductStatus(), productModel.getGenre(),
-                    productModel.getCoverType(), productModel.getAuthor(),
-                    productModel.getLanguage(), productModel.getPublisher());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
+                productModel.getProductPrice(), productModel.getProductDiscount(),
+                productModel.getProductDate(), productModel.getProductDescription(),
+                productModel.getProductStatus(), productModel.getGenre(),
+                productModel.getCoverType(), productModel.getAuthor(),
+                productModel.getLanguage(), productModel.getPublisher());
+
     }
 
     @Override
@@ -88,23 +85,31 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void update(ProductModel productModel) {
-//        String SQL = "update product set productname = ?,\n" +
-//                "                   productamount= ?,\n" +
-//                "                   productprice = ?,\n" +
-//                "                   productdiscount = ?,\n" +
-//                "                   productdate = ?,\n" +
-//                "                   productdescription = ?,\n" +
-//                "                   productstatus = ?,\n" +
-//                "                   productcategory = ?\n" +
-//                "                   where id = ?";
-//        try {
-//            template.update(SQL, product.getProductName(), product.getProductAmount(),
-//                    product.getProductPrice(), product.getProductDiscount(),
-//                    product.getProductDate(), product.getProductDescription(),
-//                    product.getProductStatus(), product.getProductCategory(), product.getId());
-//        } catch (Exception e) {
-//            String str = e.toString();
-//        }
+        String SQL = "update product set productname = ?,\n" +
+                "                   productamount= ?,\n" +
+                "                   productprice = ?,\n" +
+                "                   productdiscount = ?,\n" +
+                "                   productdate = ?,\n" +
+                "                   productpict = ?,\n" +
+                "                   productdescription = ?,\n" +
+                "                   productstatus = ?,\n" +
+                "                   genre = ?,\n" +
+                "                   covertype = ?,\n" +
+                "                   author = ?,\n" +
+                "                   language = ?,\n" +
+                "                   publisher = ? \n" +
+                "                   where id = ?";
+        try {
+            template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
+                    productModel.getProductPrice(), productModel.getProductDiscount(),
+                    productModel.getProductDate(), productModel.getProductPict(),
+                    productModel.getProductDescription(), productModel.getProductStatus(),
+                    productModel.getGenre(), productModel.getCoverType(),
+                    productModel.getAuthor(), productModel.getLanguage(),
+                    productModel.getPublisher(), productModel.getId());
+        } catch (Exception e) {
+            String str = e.toString();
+        }
     }
 
     @Override
