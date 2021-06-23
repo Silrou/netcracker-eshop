@@ -93,7 +93,6 @@ public class ProductCRUDController {
                                                                                    @RequestParam("orderBy") String orderBy,
                                                                                    @RequestParam("filters") String filters) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println("orderby " + orderBy + " search " + search);
         FilterModel filterModel = objectMapper.readValue(filters, FilterModel.class);
         List<ProductModel> productModels = productService.getSearchedOrderedFiltered(page, size, search, orderBy, filterModel);
         return new ResponseEntity<>(productModels, HttpStatus.OK);

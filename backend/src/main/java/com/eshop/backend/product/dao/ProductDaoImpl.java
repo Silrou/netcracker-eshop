@@ -4,9 +4,12 @@ import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,11 +48,31 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<ProductModel> getByName(String name) {
-        String sql = ProductMapper.SELECT_SQL +
-                " WHERE p.productname ILIKE '%" + name + "%'";
-        return template.query(sql, new ProductMapper());
-    }
+//        try {
+//            String sql = ProductMapper.SELECT_SQL +
+//                    " WHERE p.productname ILIKE ?";
+//            PreparedStatementCreator statementCreator = con -> {
+//                PreparedStatement ps = con.prepareStatement(sql);
+//                ps.setString(1, "%" + name + "%");
+//                return ps;
+//            };
+//            return template.query(statementCreator, new ProductMapper());
+//        } catch (Exception e) {
+//            String str = e.toString();
+//        }
+//        return null;
+        //----------------------
+        Object[] params = new Object[2];
+        params[0] = "%" + name + "%";
+        params[1] = 1;
+        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
+        sql.append(" WHERE p.productname ILIKE ? and genre in (?)");
+//        params.add(new Object[] {"%" + name + "%"});
+        //-----------------------
+        return template.query(sql.toString(), new ProductMapper(), params);
 
+
+    }
 
     @Override
     public List<ProductModel> getAll() {
@@ -113,7 +136,6 @@ public class ProductDaoImpl implements ProductDao {
     public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
         String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
                 " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-        //System.out.println(sql);
         return template.query(sql, new ProductMapper());
     }
 
@@ -123,47 +145,71 @@ public class ProductDaoImpl implements ProductDao {
                 filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
         return template.query(sql, new ProductMapper());
     }
-
     @Override
     public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
-        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
-        if (!search.equals("")) {
-            sql.append(" WHERE ");
-            sql.append("p.productname ILIKE '%" + search + "%' ");
-        }
+        String paramLike = "";
+        ArrayList<Long> paramsFilter = new ArrayList<>();
+        String paramOrderBy = "";
+        Object[] paramsForQuery;
+        int paramsForQueryLength = 0;
+        int paramsForQueryIterator = 0;
 
+        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL); //select ... from product p
+        if (!search.equals("")) {
+            sql.append(" WHERE p.productname ILIKE ? "); //тут поиск по имени продукта
+            paramLike="%" + search + "%";
+            paramsForQueryLength++;
+        }
         if ((filterModel.getAuthor().length != 0) ||
                 (filterModel.getGenre().length != 0) ||
                 (filterModel.getLanguage().length != 0) ||
                 (filterModel.getPublisher().length != 0) ||
-                (filterModel.getCoverType().length != 0)) {
-            if (!search.equals("")) {
+                (filterModel.getCoverType().length != 0)) { //проверка на то, что хотя бы один из фильтров выбран
+            if (!search.equals("")) { //если первый if сработал, тогда надо добавить AND
                 sql.append(" AND ");
-            }
-            else {
+            } else {
                 sql.append(" WHERE ");
             }
-            sql.append(filterSqlBuilder2(filterModel));
+
+            sql.append(filterSqlBuilder2(filterModel, paramsFilter)); //Тут собираю часть с выбранными фильтрами, (под номером 2 он временно)
+            paramsForQueryLength+=paramsFilter.size();
         }
 
-        if (!orderBy.equals("")) {
-            sql.append(" order by p." + orderBy);
-
+        if (!orderBy.equals("")) { //упорядочение по ...
+//            sql.append(" order by ? ");
+//            paramOrderBy=orderBy;
+//            paramsForQueryLength++;
+            sql.append(" order by " + orderBy);
         }
         sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
-        System.out.println(sql);
-//        return template.query(sql, new ProductMapper());
-        return template.query(sql.toString(), new ProductMapper());
+
+        paramsForQuery = new Object[paramsForQueryLength];
+        if (!paramLike.equals("")){
+            paramsForQuery[paramsForQueryIterator] = paramLike;
+            paramsForQueryIterator++;
+        }
+        if (paramsFilter.size()!=0){
+            for (int i=0; i<paramsFilter.size(); i++){
+                paramsForQuery[paramsForQueryIterator] = paramsFilter.get(i);
+                paramsForQueryIterator++;
+            }
+            paramsForQueryLength+=paramsFilter.size();
+        }
+        if (!paramOrderBy.equals("")){
+            paramsForQuery[paramsForQueryIterator] = paramOrderBy;
+            paramsForQueryIterator++;
+        }
+        return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
     }
 
-    private String filterSqlBuilder2(FilterModel filterModel) {
+    private String filterSqlBuilder2(FilterModel filterModel, ArrayList<Long> params) {
         StringBuilder filters = new StringBuilder();
-        filterInBuilder(filters, filterModel.getAuthor(), " p.author ");
-        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ");
-        filterInBuilder(filters, filterModel.getGenre(), " p.genre ");
-        filterInBuilder(filters, filterModel.getLanguage(), " p.language ");
-        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ");
-        return filters.substring(0, filters.length() - 4);
+        filterInBuilder(filters, filterModel.getAuthor(), " p.author ", params);
+        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ", params);
+        filterInBuilder(filters, filterModel.getGenre(), " p.genre ", params);
+        filterInBuilder(filters, filterModel.getLanguage(), " p.language ", params);
+        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ", params);
+        return filters.substring(0, filters.length() - 4); //удаляет лишний AND
     }
 
     private String filterSqlBuilder(FilterModel filterModel) {
@@ -176,25 +222,26 @@ public class ProductDaoImpl implements ProductDao {
         }
         StringBuilder filters = new StringBuilder();
         filters.append(" WHERE ");
-        filterInBuilder(filters, filterModel.getAuthor(), " p.author ");
-        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ");
-        filterInBuilder(filters, filterModel.getGenre(), " p.genre ");
-        filterInBuilder(filters, filterModel.getLanguage(), " p.language ");
-        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ");
+//        filterInBuilder(filters, filterModel.getAuthor(), " p.author ");
+//        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ");
+//        filterInBuilder(filters, filterModel.getGenre(), " p.genre ");
+//        filterInBuilder(filters, filterModel.getLanguage(), " p.language ");
+//        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ");
         return filters.substring(0, filters.length() - 4);
     }
 
-    private void filterInBuilder(StringBuilder stringBuilder, Long[] foreignKeys, String fkName) {
+    private void filterInBuilder(StringBuilder stringBuilder, Long[] foreignKeys, String fkName, ArrayList<Long> params) {
         if (foreignKeys.length != 0) {
             stringBuilder.append(fkName);
             stringBuilder.append(" IN (");
             for (int i = 0; i < foreignKeys.length; i++) {
-                stringBuilder.append(foreignKeys[i]);
+                stringBuilder.append("?");
+                params.add(foreignKeys[i]);
                 if (foreignKeys.length - i > 1) {
                     stringBuilder.append(", ");
                 }
             }
-            stringBuilder.append(")" + " AND ");
+            stringBuilder.append(") AND ");
         }
     }
 }

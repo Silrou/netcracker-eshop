@@ -4,9 +4,9 @@
     <div class="col-lg-3 col-md-2">
       <select class="custom-select">
         <option selected (click)="getOrderedProducts('')">Default order</option>
-        <option value="1" (click)="getOrderedProducts('productprice asc ')">Price: Low to High</option>
-        <option value="2" (click)="getOrderedProducts('productprice desc ')">Price: High to Low</option>
-        <option value="3" (click)="getOrderedProducts('productdate desc')">Newest</option>
+        <option value="1" (click)="getOrderedProducts('p.productprice asc ')">Price: Low to High</option>
+        <option value="2" (click)="getOrderedProducts('p.productprice desc ')">Price: High to Low</option>
+        <option value="3" (click)="getOrderedProducts('p.productdate desc')">Newest</option>
       </select>
     </div>
     <div class="col-lg-9 col-md-10">
@@ -26,19 +26,16 @@
       <div class="row">
         <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of currentProducts">
           <app-product-card [product]="product"></app-product-card>
+
         </div>
-      </div>
 
-      <!--
-      <div class="col text-center after-posts">
-        <button type="button" class="btn btn-outline-secondary Load-more">
-          Load more
-          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-        </button>
       </div>
-      -->
-
+      <div class="row  justify-content-around">
+        <ngb-pagination [collectionSize]="50" [(page)]="page" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
+      </div>
     </div>
+
   </div>
+
 </div>
 

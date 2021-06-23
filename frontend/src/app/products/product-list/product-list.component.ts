@@ -16,7 +16,7 @@ import {Filters} from "../../_model/filters";
 export class ProductListComponent implements OnInit {
 
   page: number = 1;
-  size: number = 50;
+  size: number = 6;
   allProducts: Product[] = [];
   currentProducts: Product[] = [];
   searchValue: string;
@@ -88,6 +88,11 @@ export class ProductListComponent implements OnInit {
       .subscribe(products => {
         this.currentProducts = products;
       });
+  }
+
+  onPageChange(currentPage: number): void{
+    this.page = currentPage;
+    this.getSearchedOrderedFilteredProducts();
   }
 
   cancelFilters(): void{
