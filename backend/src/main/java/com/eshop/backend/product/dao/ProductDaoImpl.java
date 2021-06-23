@@ -117,11 +117,7 @@ public class ProductDaoImpl implements ProductDao {
 //        }
     }
 
-    public void remove(Long id) {
-//        String SQL = "update product set \"productStatus\" = false where id = ?";
-//        template.update(SQL, id);
-    }
-
+    //delete later
     @Override
     public List<ProductModel> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
         String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
@@ -132,6 +128,7 @@ public class ProductDaoImpl implements ProductDao {
         return template.query(sql, new ProductMapper(), filter.toArray());
     }
 
+    //delete later
     @Override
     public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
         String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
@@ -139,11 +136,13 @@ public class ProductDaoImpl implements ProductDao {
         return template.query(sql, new ProductMapper());
     }
 
+    //delete later
     @Override
     public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
-        String sql = ProductMapper.SELECT_SQL +
-                filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-        return template.query(sql, new ProductMapper());
+//        String sql = ProductMapper.SELECT_SQL +
+//                filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+//        return template.query(sql, new ProductMapper());
+        return null;
     }
 
     @Override
@@ -212,10 +211,6 @@ public class ProductDaoImpl implements ProductDao {
         return paramsForQuery;
     }
 
-
-
-
-
     private String filterSqlBuilder2(FilterModel filterModel, ArrayList<Long> params) {
         StringBuilder filters = new StringBuilder();
         filterInBuilder(filters, filterModel.getAuthor(), " p.author ", params);
@@ -226,6 +221,7 @@ public class ProductDaoImpl implements ProductDao {
         return filters.substring(0, filters.length() - 4); //удаляет лишний AND
     }
 
+    //delete later
     private String filterSqlBuilder(FilterModel filterModel) {
         if ((filterModel.getAuthor().length == 0) &&
                 (filterModel.getGenre().length == 0) &&
@@ -236,11 +232,6 @@ public class ProductDaoImpl implements ProductDao {
         }
         StringBuilder filters = new StringBuilder();
         filters.append(" WHERE ");
-//        filterInBuilder(filters, filterModel.getAuthor(), " p.author ");
-//        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ");
-//        filterInBuilder(filters, filterModel.getGenre(), " p.genre ");
-//        filterInBuilder(filters, filterModel.getLanguage(), " p.language ");
-//        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ");
         return filters.substring(0, filters.length() - 4);
     }
 
@@ -259,7 +250,4 @@ public class ProductDaoImpl implements ProductDao {
         }
     }
 
-    private Long getProductsCount(){
-        return null;
-    }
 }
