@@ -45,30 +45,15 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<ProductModel> getByName(String name) {
-//        try {
-//            String sql = ProductMapper.SELECT_SQL +
-//                    " WHERE p.productname ILIKE ?";
-//            PreparedStatementCreator statementCreator = con -> {
-//                PreparedStatement ps = con.prepareStatement(sql);
-//                ps.setString(1, "%" + name + "%");
-//                return ps;
-//            };
-//            return template.query(statementCreator, new ProductMapper());
-//        } catch (Exception e) {
-//            String str = e.toString();
-//        }
-//        return null;
-        //----------------------
-        Object[] params = new Object[2];
-        params[0] = "%" + name + "%";
-        params[1] = 1;
+        Object[] params = new Object[] {"%" + name + "%"};
         StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
         sql.append(" WHERE p.productname ILIKE ? and genre in (?)");
-//        params.add(new Object[] {"%" + name + "%"});
-        //-----------------------
         return template.query(sql.toString(), new ProductMapper(), params);
+    }
 
-
+    @Override
+    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
+        return null;
     }
 
     @Override
@@ -139,15 +124,6 @@ public class ProductDaoImpl implements ProductDao {
         String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
                 " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
         return template.query(sql, new ProductMapper());
-    }
-
-    //delete later
-    @Override
-    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
-//        String sql = ProductMapper.SELECT_SQL +
-//                filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-//        return template.query(sql, new ProductMapper());
-        return null;
     }
 
     @Override
@@ -226,19 +202,6 @@ public class ProductDaoImpl implements ProductDao {
         return filters.substring(0, filters.length() - 4); //удаляет лишний AND
     }
 
-    //delete later
-    private String filterSqlBuilder(FilterModel filterModel) {
-        if ((filterModel.getAuthor().length == 0) &&
-                (filterModel.getGenre().length == 0) &&
-                (filterModel.getLanguage().length == 0) &&
-                (filterModel.getPublisher().length == 0) &&
-                (filterModel.getCoverType().length == 0)) {
-            return "";
-        }
-        StringBuilder filters = new StringBuilder();
-        filters.append(" WHERE ");
-        return filters.substring(0, filters.length() - 4);
-    }
 
     private void filterInBuilder(StringBuilder stringBuilder, Long[] foreignKeys, String fkName, ArrayList<Long> params) {
         if (foreignKeys.length != 0) {
