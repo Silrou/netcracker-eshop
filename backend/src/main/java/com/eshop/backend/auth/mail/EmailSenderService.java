@@ -1,4 +1,3 @@
-
 package com.eshop.backend.auth.mail;
 
 import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
@@ -34,7 +33,7 @@ public class EmailSenderService {
     public void sendEmail(AuthorizedUserModel user, String type) {
         String token = UUID.randomUUID().toString();
 
-        user = authorizedUsersDao.getByLogin(user.getUserLogin());
+//        user = authorizedUsersDao.getByLogin(user.getUserLogin());
         EmailTokenModel emailTokenModel = new EmailTokenModel(type, token, user.getId());
         emailTokenDao.createVerificationToken(user, emailTokenModel);
 

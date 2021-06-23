@@ -13,18 +13,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/")
 public class LoginController {
+
     private final AuthorizedUserDao authorizedUserDao;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CaptchaService captchaService;
+
     @Autowired
     public LoginController(AuthorizedUserDaoImpl authorizedUserDao, BCryptPasswordEncoder bCryptPasswordEncoder, CaptchaService captchaService) {
         this.authorizedUserDao = authorizedUserDao;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.captchaService = captchaService;
     }
+
     @PostMapping("/user/login")
     public ResponseEntity<?> authenticate(@RequestBody LoginRequestDTO request) {
         //add to if statement

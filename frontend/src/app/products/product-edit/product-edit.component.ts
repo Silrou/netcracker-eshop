@@ -42,35 +42,31 @@ export class ProductEditComponent implements OnInit {
               private genreService: GenreService,
               private languageService: LanguageService,
               private publisherService: PublisherService,
-              private productService: ProductService) { }
+              private productService: ProductService) {
+  }
 
   ngOnInit(): void {
-    console.log(this.data);
+    // console.log(this.data);
     this.getCategories();
     this.initForm();
   }
 
   private initForm(): void {
     this.editForm = this.formBuilder.group({
-      productName: new FormControl(this.data.product.productName,
-        [Validators.required,
-                      Validators.maxLength(28),
-                      Validators.minLength(1)]),
-      productDescription: new FormControl(this.data.product.productDescription,
-        [Validators.required,
-                     Validators.maxLength(100),
-                     Validators.minLength(1)]),
+      productName: new FormControl(this.data.product.productName, [Validators.required,
+        Validators.maxLength(28),
+        Validators.minLength(1)]),
+      productDescription: new FormControl(this.data.product.productDescription, [Validators.required,
+        Validators.maxLength(100),
+        Validators.minLength(1)]),
       productDate: new FormControl(this.data.product.productDate, [Validators.required]),
-      productDiscount: new FormControl(this.data.product.productDiscount,
-        [Validators.required,
-                      Validators.pattern('^0*(?:[0-9][0-9]?|99)$')]),
+      productDiscount: new FormControl(this.data.product.productDiscount, [Validators.required,
+        Validators.pattern('^0*(?:[0-9][0-9]?|99)$')]),
       productStatus: new FormControl(this.data.product.productStatus, [Validators.required]),
-      productPrice: new FormControl(this.data.product.productPrice,
-        [Validators.required,
-                     Validators.pattern('^[1-9][0-9]*$')]),
-      productAmount: new FormControl(this.data.product.productAmount,
-                        [Validators.required,
-                                     Validators.pattern('^[1-9][0-9]*$')]),
+      productPrice: new FormControl(this.data.product.productPrice, [Validators.required,
+        Validators.pattern('^[1-9][0-9]*$')]),
+      productAmount: new FormControl(this.data.product.productAmount, [Validators.required,
+        Validators.pattern('^[1-9][0-9]*$')]),
       author: new FormControl(this.data.product.author, [Validators.required, Validators.min(0)]),
       publisher: new FormControl(this.data.product.publisher, [Validators.required, Validators.min(0)]),
       genre: new FormControl(this.data.product.genre, [Validators.required, Validators.min(0)]),
@@ -79,7 +75,7 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
-  onClose(): void{
+  onClose(): void {
     this.formClose = true;
     this.dialogRef.close('close');
   }
@@ -105,7 +101,6 @@ export class ProductEditComponent implements OnInit {
     console.log('end edit');
     this.onClose();
   }
-
 
 
   getCategories(): void {

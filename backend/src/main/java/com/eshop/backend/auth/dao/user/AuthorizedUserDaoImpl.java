@@ -4,11 +4,13 @@ import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
@@ -33,7 +35,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
         try {
             jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
                     user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
-                    user.getUserStatus(), " ", " ");
+                    user.getUserStatus(), "no address", "no number");
         } catch (Exception e) {
             String str = e.toString();
         }
@@ -79,6 +81,30 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
         } catch (DataAccessException e) {
             String str = e.toString();
             return null;
+        }
+    }
+
+    @Override
+    public String getLoginById(Long id) {
+        try{
+            String getUserSql = "SELECT userlogin FROM authorizeduser WHERE id = ?";
+            RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> AuthorizedUserModel.builder()
+                    .userLogin(rs.getString("userlogin"))
+                    .build();
+            return Objects.requireNonNull(jdbcTemplate.queryForObject(getUserSql, rowMapper, id)).getUserLogin();
+        } catch (DataAccessException e) {
+            String str = e.toString();
+            return null;
+        }
+    }
+
+    @Override
+    public void setStatus(AuthorizedUserModel user) {
+        String SQL = "update authorizeduser set userstatus = ? where id = ?";
+        try {
+            jdbcTemplate.update(SQL, user.getUserStatus(), user.getId());
+        } catch (Exception e) {
+            String str = e.toString();
         }
     }
 

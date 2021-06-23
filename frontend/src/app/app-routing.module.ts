@@ -16,16 +16,16 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 // import {SettingsComponent} from './settings/pages/settings/settings.component';
 // import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
 // import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
-import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 // import {ProfileComponent} from './account/profile/profile.component';
 // @ts-ignore
 import {SearchComponent} from './account/search/search.component';
 import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
-import {TempProductComponent} from './product-catalog/temp-product/temp-product.component';
-import {ProductManagerComponent} from './products/product-manager/product-manager.component';
 import {ProductEditComponent} from './products/product-edit/product-edit.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {EditSettingsComponent} from './settings/edit/edit-settings/edit-settings.component';
+import {Role} from './_model/role';
+import {AuthGuard} from './_helper/auth.guard';
+import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -76,7 +76,9 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: SettingsComponent
+    component: SettingsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.USER, Role.MANAGER, Role.ADMIN, Role.COURIER] }
   },
   // {
   //   path: 'settings',
@@ -100,8 +102,14 @@ const routes: Routes = [
     component: ForgotPasswordComponent
   },
   {
-    path: 'settings-edit',
-    component: EditSettingsComponent
+    path: 'verify-email',
+    component: VerifyEmailComponent
+  },
+  {
+    path: 'settings/edit',
+    component: EditSettingsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.USER] }
   },
   // {
   //   path: 'account/profile',

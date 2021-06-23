@@ -30,10 +30,19 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Full Name</h6>
+                <h6 class="mb-0">First Name</h6>
               </div>
               <div class="col-sm-9 ">
-                Kenneth Valdez
+                {{user?.userName}}
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Last Name</h6>
+              </div>
+              <div class="col-sm-9 ">
+                {{user?.userSurname}}
               </div>
             </div>
             <hr>
@@ -42,7 +51,7 @@
                 <h6 class="mb-0">Email</h6>
               </div>
               <div class="col-sm-9">
-                fip@jukmuh.al
+                {{user?.userLogin}}
               </div>
             </div>
             <hr>
@@ -60,7 +69,7 @@
                 <h6 class="mb-0">Mobile</h6>
               </div>
               <div class="col-sm-9">
-                (320) 380-4539
+                {{user?.userNumber}}
               </div>
             </div>
             <hr>
@@ -69,13 +78,15 @@
                 <h6 class="mb-0">Address</h6>
               </div>
               <div class="col-sm-9 ">
-                Bay Area, San Francisco, CA
+                {{user?.userAddress}}
               </div>
             </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-12">
-                <a class="btn btn-secondary" routerLink="/settings-edit">Edit</a>
+            <div *ngIf="user?.userRole === 'USER'">
+              <hr>
+              <div class="row">
+                <div class="col-sm-12">
+                  <a class="btn btn-secondary" routerLink="/settings/edit">Edit</a>
+                </div>
               </div>
             </div>
           </div>

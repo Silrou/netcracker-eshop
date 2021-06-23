@@ -23,15 +23,17 @@ public class SettingsDaoImpl implements SettingsDao {
     @Override
     public AuthorizedUserModel getByLogin(String login) {
         try{
-            String getUserSql = "SELECT userlogin, username, " +
-                    "usersurname, useraddress, usernumber FROM authorizeduser WHERE userlogin = ?";
+            String getUserSql = "SELECT id, userlogin, username, " +
+                    "usersurname, useraddress, usernumber, userrole FROM authorizeduser WHERE userlogin = ?";
 
             RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> AuthorizedUserModel.builder()
+                    .id(rs.getLong("id"))
                     .userLogin(rs.getString("userlogin"))
                     .userName(rs.getString("username"))
                     .userSurname(rs.getString("usersurname"))
                     .userNumber(rs.getString("usernumber"))
                     .userAddress(rs.getString("useraddress"))
+                    .userRole(rs.getString("userrole"))
                     .build();
             AuthorizedUserModel user = jdbcTemplate.queryForObject(getUserSql, rowMapper, login);
             return user;
@@ -58,7 +60,17 @@ public class SettingsDaoImpl implements SettingsDao {
 
     @Override
     public void update(AuthorizedUserModel model) {
+        String SQL = "update authorizeduser set userlogin = ?, " +
+                "username = ?, usersurname = ?, " +
+                "useraddress = ?, usernumber = ? " +
+                "where id = ?";
 
+        try {
+            jdbcTemplate.update(SQL, model.getUserLogin(), model.getUserName(), model.getUserSurname(),
+                    model.getUserAddress(), model.getUserNumber(), model.getId());
+        } catch (Exception e) {
+            String str = e.toString();
+        }
     }
 
     @Override

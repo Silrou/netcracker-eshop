@@ -13,9 +13,10 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
       if ([401, 403].includes(err.status)) {
-        if (err.url.includes('login')){
-          this.alertService.error(`
-                        <h4>Wrong password or email</h4>
+        if (err.url.includes('settings')){
+          this.alertService.warn(`
+                        <h4>You change email.</h4>
+                        <p>Please verify new email in your mail box</p>
                     `, { autoClose: false, keepAfterRouteChange: true });
         }
         console.log('now is log out this app');
