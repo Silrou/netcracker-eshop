@@ -69,6 +69,11 @@ public class ProductServiceImp implements ProductService {
         return productdao.getById(id);
     }
 
+    @Override
+    public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel) {
+        return productdao.getNumberOfSearchedOrderedFiltered(search, orderBy, filterModel);
+    }
+
     public List<ProductModel> getAll() {
         return null;
     }

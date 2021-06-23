@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
 
   page: number = 1;
   size: number = 6;
-  allProducts: Product[] = [];
+  amountOfProducts: number;
   currentProducts: Product[] = [];
   searchValue: string;
   filtersValue: Filters;
@@ -34,13 +34,13 @@ export class ProductListComponent implements OnInit {
     this.searchValue = "";
     this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
     this.orderValue = '';
+    this.getAmountOfProducts();
   }
 
   getProducts(): void {
     this.productService.getAllProducts(this.page, this.size)
       .subscribe(products => {
-        this.allProducts = products;
-        this.currentProducts = this.allProducts;
+        this.currentProducts = products;
       });
   }
 
@@ -88,6 +88,7 @@ export class ProductListComponent implements OnInit {
       .subscribe(products => {
         this.currentProducts = products;
       });
+    this.getAmountOfProducts();
   }
 
   onPageChange(currentPage: number): void{
@@ -97,5 +98,12 @@ export class ProductListComponent implements OnInit {
 
   cancelFilters(): void{
     window.location.reload();
+  }
+
+  getAmountOfProducts(){
+    this.productService.getProductsCount(this.searchValue, this.orderValue, this.filtersValue)
+      .subscribe(numb => {
+        this.amountOfProducts = numb;
+      });
   }
 }

@@ -97,4 +97,15 @@ public class ProductCRUDController {
         List<ProductModel> productModels = productService.getSearchedOrderedFiltered(page, size, search, orderBy, filterModel);
         return new ResponseEntity<>(productModels, HttpStatus.OK);
     }
+
+    @GetMapping("get-number-of-searched-ordered-filtered")
+    public ResponseEntity<Integer> getNumberOfSearchedOrderedFiltered(@RequestParam("search") String search,
+                                                                      @RequestParam("orderBy") String orderBy,
+                                                                      @RequestParam("filters") String filters) throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        FilterModel filterModel = objectMapper.readValue(filters, FilterModel.class);
+        Integer amount = productService.getNumberOfSearchedOrderedFiltered(search, orderBy, filterModel);
+        return new ResponseEntity<>(amount, HttpStatus.OK);
+    }
+
 }

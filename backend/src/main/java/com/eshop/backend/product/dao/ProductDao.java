@@ -13,4 +13,5 @@ public interface ProductDao extends CrudDao<ProductModel> {
     List<ProductModel> getByName(String name);
     List<ProductModel> getFiltered(int page, int size, FilterModel filterModel);
     List<ProductModel> getSearchedOrderedFiltered (int page, int size, String search, String orderBy, FilterModel filterModel);
+    Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel);
 }

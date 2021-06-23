@@ -14,6 +14,7 @@ public interface ProductService {
     List<ProductModel> getFiltered(int page, int size, FilterModel filterModel);
     List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel);
     ProductModel getById(Long id);
+    Integer getNumberOfSearchedOrderedFiltered (String search, String orderBy, FilterModel filterModel);
     void create(ProductModel productModel);
     void update(ProductModel productModel);
 }

@@ -145,16 +145,35 @@ public class ProductDaoImpl implements ProductDao {
                 filterSqlBuilder(filterModel) + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
         return template.query(sql, new ProductMapper());
     }
+
+    @Override
+    public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT (*) from product p  ");
+        Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
+        return template.queryForObject(sql.toString(), Integer.class, paramsForQuery);
+    }
+
     @Override
     public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
+        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL); //select ... from product p
+        Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
+        if (!orderBy.equals("")) { //упорядочение по ...
+            sql.append(" order by " + orderBy);
+        }
+
+        sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
+        return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
+    }
+
+    private Object[] getSearchedOrderedFilteredBuilder(String search, FilterModel filterModel, StringBuilder sql){
+        Object[] paramsForQuery;
         String paramLike = "";
         ArrayList<Long> paramsFilter = new ArrayList<>();
         String paramOrderBy = "";
-        Object[] paramsForQuery;
         int paramsForQueryLength = 0;
         int paramsForQueryIterator = 0;
 
-        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL); //select ... from product p
+
         if (!search.equals("")) {
             sql.append(" WHERE p.productname ILIKE ? "); //тут поиск по имени продукта
             paramLike="%" + search + "%";
@@ -175,15 +194,9 @@ public class ProductDaoImpl implements ProductDao {
             paramsForQueryLength+=paramsFilter.size();
         }
 
-        if (!orderBy.equals("")) { //упорядочение по ...
-//            sql.append(" order by ? ");
-//            paramOrderBy=orderBy;
-//            paramsForQueryLength++;
-            sql.append(" order by " + orderBy);
-        }
-        sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
 
         paramsForQuery = new Object[paramsForQueryLength];
+
         if (!paramLike.equals("")){
             paramsForQuery[paramsForQueryIterator] = paramLike;
             paramsForQueryIterator++;
@@ -195,12 +208,13 @@ public class ProductDaoImpl implements ProductDao {
             }
             paramsForQueryLength+=paramsFilter.size();
         }
-        if (!paramOrderBy.equals("")){
-            paramsForQuery[paramsForQueryIterator] = paramOrderBy;
-            paramsForQueryIterator++;
-        }
-        return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
+
+        return paramsForQuery;
     }
+
+
+
+
 
     private String filterSqlBuilder2(FilterModel filterModel, ArrayList<Long> params) {
         StringBuilder filters = new StringBuilder();
@@ -243,5 +257,9 @@ public class ProductDaoImpl implements ProductDao {
             }
             stringBuilder.append(") AND ");
         }
+    }
+
+    private Long getProductsCount(){
+        return null;
     }
 }

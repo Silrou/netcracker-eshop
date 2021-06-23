@@ -91,4 +91,13 @@ export class ProductService {
         catchError(this.handleError<Product[]>('searchOrderFilterProducts', []))
       );
   }
+
+  getProductsCount(searchValue: string, orderValue: string, filters: Filters): Observable<number>{
+    const params = new HttpParams().set('search', searchValue).set('orderBy', orderValue).set('filters', JSON.stringify(filters));
+    const url = `${this.productsUrl}/get-number-of-searched-ordered-filtered`;
+    return this.http.get<number>(url, {params})
+      .pipe(
+        catchError(this.handleError<number>('getProductsCount', ))
+      );
+  }
 }

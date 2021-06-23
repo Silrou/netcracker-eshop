@@ -31,7 +31,7 @@
 
       </div>
       <div class="row  justify-content-around">
-        <ngb-pagination [collectionSize]="50" [(page)]="page" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
+        <ngb-pagination [pageSize]="size" [collectionSize]="amountOfProducts" [(page)]="page" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
       </div>
     </div>
 
