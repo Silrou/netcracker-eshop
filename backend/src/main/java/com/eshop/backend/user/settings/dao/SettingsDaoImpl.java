@@ -1,13 +1,11 @@
-package com.eshop.backend.user.dao.settings;
+package com.eshop.backend.user.settings.dao;
 
 
-import com.eshop.backend.auth.dao.user.CustomerRowMapper;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

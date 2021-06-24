@@ -26,6 +26,8 @@ import {EditSettingsComponent} from './settings/edit/edit-settings/edit-settings
 import {Role} from './_model/role';
 import {AuthGuard} from './_helper/auth.guard';
 import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
+import {OrderDetailsComponent} from "./settings/order-history/order-details/order-details.component";
+import {ResetPasswordComponent} from "./authorization/reset-password/reset-password.component";
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -106,8 +108,18 @@ const routes: Routes = [
     component: VerifyEmailComponent
   },
   {
+    path: 'reset-password',
+    component: ResetPasswordComponent
+  },
+  {
     path: 'settings/edit',
     component: EditSettingsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.USER] }
+  },
+  {
+    path: 'settings/order-details',
+    component: OrderDetailsComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.USER] }
   },

@@ -67,6 +67,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/genre/**").permitAll()
                 .antMatchers("/language/**").permitAll()
                 .antMatchers("/publisher/**").permitAll()
+                .antMatchers("/order-history/**").permitAll()
                 .antMatchers("/settings/**").hasAnyRole("USER", "ADMIN", "COURIER", "MANAGER")
                 .antMatchers("/settings/info/update/**").hasRole("USER")
                 .antMatchers(allowedURIs).permitAll()

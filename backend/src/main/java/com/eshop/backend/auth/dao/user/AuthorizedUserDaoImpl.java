@@ -73,9 +73,9 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     @Override
     public AuthorizedUserModel getByToken(String token) {
         try{
-            String getUserSql = "SELECT a.id, a.userlogin , a.userpassword, a.userrole, a.username, " +
+            String getUserSql = "SELECT a.id, a.userlogin , a.userpassword, a.userrole, a.username, a.usersurname," +
                     "a.userregistrationdate, a.userstatus, a.useraddress, a.usernumber from authorizeduser a\n" +
-                    "left join verificationtoken t on a.id = t.authorizeduserid\n" +
+                    "inner join verificationtoken t on a.id = t.authorizeduserid\n" +
                     "WHERE t.tokenvalue = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), token);
         } catch (DataAccessException e) {

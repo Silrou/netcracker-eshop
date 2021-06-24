@@ -3,7 +3,7 @@ import {Role} from './role';
 export class User{
   constructor() {
   }
-  id: string;
+  id: number;
   userName: string;
   userSurname: string;
   userLogin: string;

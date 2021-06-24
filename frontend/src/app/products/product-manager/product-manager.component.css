@@ -20,7 +20,10 @@
   background-color: darkgrey;
 }
 
-.table tr td {
-  width:12.5%;
-}
+/*.table tr td {*/
+/*  width:12.5%;*/
+/*}*/
 
+th, td {
+  width:20%;
+}

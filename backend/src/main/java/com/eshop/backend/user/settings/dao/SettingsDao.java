@@ -1,4 +1,4 @@
-package com.eshop.backend.user.dao.settings;
+package com.eshop.backend.user.settings.dao;
 
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import com.eshop.backend.utils.CrudDao;

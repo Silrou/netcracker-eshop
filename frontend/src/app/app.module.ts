@@ -32,20 +32,24 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import { EditSettingsComponent } from './settings/edit/edit-settings/edit-settings.component';
+import {OrderHistoryComponent} from './settings/order-history/order-history.component';
+import {OrderDetailsComponent} from "./settings/order-history/order-details/order-details.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MainPageComponent,
-    AlertComponent,
-    SettingsComponent,
-    ShoppingCartComponent,
-    ProductCatalogComponent,
-    ProfileComponent,
-    AdminWorkSpaceLinkComponent,
-    SearchComponent,
-    EditSettingsComponent
-  ],
+    declarations: [
+        AppComponent,
+        MainPageComponent,
+        AlertComponent,
+        SettingsComponent,
+        ShoppingCartComponent,
+        ProductCatalogComponent,
+        ProfileComponent,
+        AdminWorkSpaceLinkComponent,
+        SearchComponent,
+        EditSettingsComponent,
+        OrderHistoryComponent,
+        OrderDetailsComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
