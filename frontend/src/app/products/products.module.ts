@@ -23,6 +23,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import { ProductCreateComponent } from './product-create/product-create.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
         MatButtonModule,
         MatDatepickerModule,
         ScrollingModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        NgbPaginationModule
     ],
   providers: [
     CategoriesPartComponent

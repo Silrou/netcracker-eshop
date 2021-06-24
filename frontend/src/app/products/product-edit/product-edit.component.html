@@ -29,9 +29,10 @@
           <mat-error *ngIf="editForm.get('productAmount')?.invalid">Error</mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill" floatLabel="always">
           <mat-label>Product Discount</mat-label>
-          <input matInput formControlName="productDiscount" type="number" min="0" class="example-right-align">
+          <input matInput formControlName="productDiscount" type="number" min="0" class="example-right-align" placeholder="0">
+          <span matPrefix>%&nbsp;</span>
           <mat-error *ngIf="editForm.get('productDiscount')?.invalid">Error</mat-error>
         </mat-form-field>
 

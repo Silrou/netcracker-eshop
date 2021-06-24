@@ -32,6 +32,7 @@
       <mat-form-field appearance="fill">
         <mat-label>Product Discount</mat-label>
         <input matInput formControlName="productDiscount" type="number" min="0" class="example-right-align">
+        <span matPrefix>%&nbsp;</span>
         <mat-error *ngIf="editForm.get('productDiscount')?.invalid">Error</mat-error>
       </mat-form-field>
 
