@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {Product} from '../../_model/product';
 
-import {PRODUCTS} from '../../_utils/products'; // удалить, когда продукты будут браться с бэка
+import {PRODUCTS} from '../../_utils/products';
+import {Filters} from "../../_model/filters"; // удалить, когда продукты будут браться с бэка
 
 @Injectable({
   providedIn: 'root'
@@ -46,13 +47,6 @@ export class ProductService {
       );
   }
 
-  updateProduct(product: Product): Observable<any> {
-    return this.http.put(this.productsUrl, product, this.httpOptions)
-      .pipe(
-        catchError(this.handleError<any>('updateProduct'))
-      );
-  }
-
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(this.productsUrl, product, this.httpOptions)
       .pipe(
@@ -60,21 +54,50 @@ export class ProductService {
       );
   }
 
-  deleteProduct(id: number): Observable<Product> {
-    const url = `${this.productsUrl}/${id}`;
-    return this.http.delete<Product>(url, this.httpOptions)
-      .pipe(
-        catchError(this.handleError<Product>('deleteProduct'))
-      );
-  }
-
   searchProducts(term: string): Observable<Product[]> {
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<Product[]>(`${this.productsUrl}/get-by-name/${term}`)
+    const url = `${this.productsUrl}/get-by-name/${term}`
+    return this.http.get<Product[]>(url)
       .pipe(
         catchError(this.handleError<Product[]>('getProductsByName', []))
+      );
+  }
+
+  filterProducts(page: number, size: number, filters: Filters): Observable<Product[]> {
+    // let params = new HttpParams().set("filters", encodeURIComponent(JSON.stringify(filters)));
+    // const url = `${this.productsUrl}/get-all-filtered?page=${page}&size=${size}&filters=${JSON.stringify(filters)}`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size)).set('filters', JSON.stringify(filters));
+    const url = `${this.productsUrl}/get-all-filtered`;
+
+    return this.http.get<Product[]>(url, {params});
+  }
+
+  orderProducts(page: number, size: number, orderBy: string): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-all-order`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size)).set('orderBy', orderBy);
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('orderProducts', []))
+      );
+  }
+
+  searchOrderFilterProducts(page: number, size: number, searchValue: string, orderValue: string, filters: Filters): Observable<Product[]>{
+    const params = new HttpParams().set('page', String(page)).set('size', String(size)).set('search', searchValue).set('orderBy', orderValue).set('filters', JSON.stringify(filters));
+    const url = `${this.productsUrl}/get-all-searched-ordered-filtered`;
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('searchOrderFilterProducts', []))
+      );
+  }
+
+  getProductsCount(searchValue: string, orderValue: string, filters: Filters): Observable<number>{
+    const params = new HttpParams().set('search', searchValue).set('orderBy', orderValue).set('filters', JSON.stringify(filters));
+    const url = `${this.productsUrl}/get-number-of-searched-ordered-filtered`;
+    return this.http.get<number>(url, {params})
+      .pipe(
+        catchError(this.handleError<number>('getProductsCount', ))
       );
   }
 }

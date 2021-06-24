@@ -2,6 +2,7 @@
 package com.eshop.backend.catalog.service;
 
 import com.eshop.backend.product.dao.ProductDao;
+import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,18 @@ public class ProductServiceImp implements ProductService {
         return productdao.getByName(name);
     }
 
+    @Override
+    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
+        page = getPageNumeration(page, size);
+        return productdao.getFiltered(page, size, filterModel);
+    }
+
+    @Override
+    public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
+        page = getPageNumeration(page, size);
+        return productdao.getSearchedOrderedFiltered(page, size, search, orderBy, filterModel);
+    }
+
     public int getPageNumeration(int page, int size){
         if(page > 1)
             page = (page - 1) * size + 1;
@@ -56,6 +69,11 @@ public class ProductServiceImp implements ProductService {
         return productdao.getById(id);
     }
 
+    @Override
+    public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel) {
+        return productdao.getNumberOfSearchedOrderedFiltered(search, orderBy, filterModel);
+    }
+
     public List<ProductModel> getAll() {
         return null;
     }
@@ -64,6 +82,8 @@ public class ProductServiceImp implements ProductService {
     public void update(ProductModel model) {
         productdao.update(model);
     }
+
+
 
     public void delete(Long id) {
 
