@@ -15,21 +15,22 @@ public class Employee {
     private String email;
     private String phoneNumber;
     private String role;
-//    private String status;
+    private String status;
 
     public Employee(
                     String firstName,
                     String lastName,
                     String email,
                     String phoneNumber,
-                    String role) {
+                    String role,
+                    String status) {
 //        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = role;
-//        this.status = status;
+        this.status = status;
     }
 
     public Employee() {
@@ -82,6 +83,11 @@ public class Employee {
     public void setRole(String role) {
         this.role = role;
     }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) { this.status = status; }
 
     @Override
     public String toString() {
@@ -92,15 +98,9 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role='" + role + '\'' +
-//                ", status='" + status + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 
-//    public String getStatus() {
-//        return status;
-//    }
-//
-//    public void setStatus(String status) {
-//        this.status = status;
-//    }
+
 }

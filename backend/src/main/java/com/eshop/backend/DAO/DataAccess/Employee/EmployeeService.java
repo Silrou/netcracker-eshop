@@ -34,7 +34,7 @@ public class EmployeeService {
 
 
     public Boolean createEmployee(Employee employee) {
-        String sql = ("INSERT INTO employee VALUES(?,?,?,?,?,?)");
+        String sql = ("INSERT INTO employee VALUES(?,?,?,?,?,?,?)");
 
         return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
             @Override
@@ -45,7 +45,8 @@ public class EmployeeService {
                 ps.setString(4, employee.getEmail());
                 ps.setString(5, employee.getPhoneNumber());
                 ps.setString(6, employee.getRole());
-//                ps.setString(7, employee.getStatus());
+                employee.setStatus("Active");
+                ps.setString(7, employee.getStatus());
                 return ps.execute();
             }
 
@@ -65,5 +66,26 @@ public class EmployeeService {
 
     }
 
+
+    public Boolean editEmployee(Employee employee) {
+        String sql = ("UPDATE employee SET firstName = ?, lastName = ?, email = ?, phoneNumber = ?, role = ?, status = ? WHERE id =?");
+
+        return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
+            @Override
+            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+
+                ps.setString(1, employee.getFirstName());
+                ps.setString(2, employee.getLastName());
+                ps.setString(3, employee.getEmail());
+                ps.setString(4, employee.getPhoneNumber());
+                ps.setString(5, employee.getRole());
+                ps.setString(6, employee.getStatus());
+                ps.setString(7, employee.getId());
+                return ps.execute();
+            }
+
+        });
+
+    }
 }
 

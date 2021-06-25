@@ -55,6 +55,13 @@ public class SearchController {
         return new ResponseEntity<>("Employee is deleted",HttpStatus.OK);
 
         }
+
+        @PutMapping("/edit")
+        public ResponseEntity<?> edit(@RequestBody Employee employee){
+            employeeService.editEmployee(employee);
+            return new ResponseEntity<>("Employee is updated",HttpStatus.OK);
+
+        }
     }
 
 

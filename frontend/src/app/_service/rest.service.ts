@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Managers} from '../_model/managers';
 import {Observable, of} from 'rxjs';
+import * as _ from 'lodash';
+
 import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
@@ -31,4 +33,13 @@ export class RestService {
   deleteUser(id: number): Observable<Managers>{
     return this.http.delete<Managers>(this.deleteUrl + '/' + id);
   }
+
+  getDropDownText(id, object): void{
+    const selObj = _.filter(object, (o) => {
+      return (_.includes(id, o.id));
+    });
+    return selObj;
+  }
+
+
 }

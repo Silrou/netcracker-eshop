@@ -30,6 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditComponent } from './account/edit/edit.component';
 import {MatDialogModule, MatDialogConfig} from '@angular/material/dialog';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatOptionModule} from "@angular/material/core";
 // import {MatOptionModule} from "@angular/material/core";
 
 @NgModule({
@@ -66,7 +68,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatIconModule,
     NgbModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatMenuModule,
+    MatOptionModule,
     // MatOptionModule
 
   ],

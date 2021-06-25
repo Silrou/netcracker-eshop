@@ -32,7 +32,7 @@
       <th> Email</th>
       <th> Phone number</th>
       <th> Role</th>
-
+      <th> Status</th>
       <th>Action</th>
     </tr>
     </thead>
@@ -46,8 +46,9 @@
       <td>{{manager.email}}</td>
       <td>{{manager.phoneNumber}}</td>
       <td>{{manager.role}}</td>
+      <td>{{manager.status}}</td>
 
-      <button mat-icon-button color="primary"  title="Edit Contact"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button color="primary"  title="Edit Contact" (click)="onEdit(manager)"><mat-icon>edit</mat-icon></button>
       <button mat-icon-button color="primary" (click)="onDelete(manager.id)" title="Delete Contact"><mat-icon>delete</mat-icon></button>
     </tr>
     </tbody>
