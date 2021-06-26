@@ -9,6 +9,7 @@ import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import com.eshop.backend.auth.services.CaptchaService;
 import com.eshop.backend.auth.utils.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,7 +47,7 @@ public class LoginController {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         else {
-            throw new NeedMailConfirmationException();
+            throw new WrongEmailOrPasswordException();
         }
     }
 

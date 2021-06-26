@@ -5,29 +5,18 @@ import {MainPageComponent} from './main-page/main-page.component';
 import {LoginComponent} from './authorization/login/login.component';
 import {RegistrationComponent} from './authorization/registration/registration.component';
 import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
-import {SettingsComponent} from './settings/settings.component';
-
 import {AuctionComponent} from './auctions/auction/auction.component';
 import {AuctionListComponent} from './auctions/auction-list/auction-list.component';
 import {BidComponent} from './auctions/bid/bid.component';
-
 import {ProductComponent} from './products/product/product.component';
 import {ProductListComponent} from './products/product-list/product-list.component';
 // import {SettingsComponent} from './settings/pages/settings/settings.component';
 // import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
 // import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
+import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 // import {ProfileComponent} from './account/profile/profile.component';
 // @ts-ignore
-import {SearchComponent} from './account/search/search.component';
-import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
-import {ProductEditComponent} from './products/product-edit/product-edit.component';
-import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
-import {EditSettingsComponent} from './settings/edit/edit-settings/edit-settings.component';
-import {Role} from './_model/role';
-import {AuthGuard} from './_helper/auth.guard';
-import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
-import {OrderDetailsComponent} from "./settings/order-history/order-details/order-details.component";
-import {ResetPasswordComponent} from "./authorization/reset-password/reset-password.component";
+import {SearchComponent} from "./account/search/search.component";
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -92,8 +81,16 @@ const routes: Routes = [
     component: SearchComponent
   },
   {
-    path: 'temp',
-    component: ProductEditComponent
+    path: 'verify-email',
+    component: VerifyEmailComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
   },
   {
     path: 'manager',

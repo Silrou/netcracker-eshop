@@ -20,7 +20,8 @@ export class SearchComponent implements OnInit {
   userRole: string;
 
   constructor(public rs: RestService,
-              private dialog: MatDialog) {
+              // private dialog: MatDialog
+  ) {
   }
 
   ngOnInit(): void {
@@ -53,7 +54,7 @@ export class SearchComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(ProfileComponent, dialogConfig);
+    // this.dialog.open(ProfileComponent, dialogConfig);
   }
   // deleteContact(id){
   //   id = this.managers[].firstName;

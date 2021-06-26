@@ -43,7 +43,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let manager of managers" ng-repeat = "(manager.userName, manager.userSurname,manager.userLogin,manager.userNumber,manager.userRole) in data">
+    <tr *ngFor="let manager of managers" ng-repeat >
       <td (click)="getID(manager.id)">{{manager.id}}</td>
 
       <td>{{manager.userName}}</td>

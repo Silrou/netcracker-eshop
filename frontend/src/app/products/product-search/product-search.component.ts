@@ -15,6 +15,7 @@ import {ProductService} from '../../_service/product/product.service';
 export class ProductSearchComponent implements OnInit {
 
   @Output() searchValue = new EventEmitter<string>();
+  @Output() cancelFilters = new EventEmitter();
 
   products$: Observable<Product[]>;
   private searchTerms = new Subject<string>();
@@ -41,8 +42,14 @@ export class ProductSearchComponent implements OnInit {
   }
 
   onSearchClick(value: string){
-    console.log('onserarchclick');
+    // if (value.length<=3){
+    //   console.log("small");
+    // }
     this.searchValue.emit(value);
+  }
+
+  onCancelFiltersClick(){
+    this.cancelFilters.emit();
   }
 
 }

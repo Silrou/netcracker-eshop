@@ -14,6 +14,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {CommonModule} from './common/common.module';
 import {NavBarModule} from './nav-bar/nav-bar.module';
 import {ProductCatalogComponent} from './product-catalog/product-catalog.component';
+import {TempProductComponent} from './product-catalog/temp-product/temp-product.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwPaginationModule} from 'jw-angular-pagination';
 import {AlertComponent} from './alert/alert.component';

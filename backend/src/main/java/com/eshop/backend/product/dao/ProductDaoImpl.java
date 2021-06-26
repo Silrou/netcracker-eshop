@@ -1,5 +1,6 @@
 package com.eshop.backend.product.dao;
 
+import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -41,50 +43,19 @@ public class ProductDaoImpl implements ProductDao {
     public ProductModel getById(Long id) {
         String sql = ProductMapper.SELECT_SQL + "where id = ?";
         return template.queryForObject(sql, new ProductMapper(), new Object[]{Long.valueOf(id)});
-//        return template.queryForObject(sql, (rs, rowNum) -> {
-//            Long id1 = rs.getLong("id");
-//            String name = rs.getString("productname");
-//            int amount = rs.getInt("productamount");
-//            double price = rs.getDouble("productprice");
-//            double discount = rs.getDouble("productdiscount");
-//            Date date = rs.getDate("productdate");
-//            String pict = rs.getString("productpict");
-//            String description = rs.getString("productdescription");
-//            String status = rs.getString("productstatus");
-//            Long genre = rs.getLong("genre");
-//            Long coverType = rs.getLong("covertype");
-//            Long author = rs.getLong("author");
-//            Long language = rs.getLong("language");
-//            Long publisher = rs.getLong("publisher");
-//            return new ProductModel(id1, name, amount, price, discount, date, pict, description, status, genre, coverType, author, language, publisher);
-//        },new Object[]{id});
     }
 
     @Override
     public List<ProductModel> getByName(String name) {
-        try {
-
-        String sql = ProductMapper.SELECT_SQL +
-                " WHERE p.productname ILIKE ?";
-
-        PreparedStatementCreator statementCreator = con -> {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, "%" + name + "%");
-            return ps;
-        };
-
-        return template.query(statementCreator, new ProductMapper());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
-        return null;
-
+        Object[] params = new Object[] {"%" + name + "%"};
+        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
+        sql.append(" WHERE p.productname ILIKE ? and genre in (?)");
+        return template.query(sql.toString(), new ProductMapper(), params);
     }
 
     @Override
-    public Long getCount() {
-        String sql = "SELECT COUNT(*) FROM product";
-        return template.queryForObject(sql, Long.class);
+    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
+        return null;
     }
 
     @Override
@@ -138,11 +109,7 @@ public class ProductDaoImpl implements ProductDao {
 //        }
     }
 
-    public void remove(Long id) {
-//        String SQL = "update product set \"productStatus\" = false where id = ?";
-//        template.update(SQL, id);
-    }
-
+    //delete later
     @Override
     public List<ProductModel> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
         String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
@@ -160,5 +127,96 @@ public class ProductDaoImpl implements ProductDao {
         return template.query(sql, new ProductMapper());
     }
 
+    @Override
+    public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT (*) from product p  ");
+        Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
+        return template.queryForObject(sql.toString(), Integer.class, paramsForQuery);
+    }
+
+    @Override
+    public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
+        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL); //select ... from product p
+        Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
+        if (!orderBy.equals("")) { //упорядочение по ...
+            sql.append(" order by " + orderBy);
+        }
+
+        sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
+        return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
+    }
+
+    private Object[] getSearchedOrderedFilteredBuilder(String search, FilterModel filterModel, StringBuilder sql){
+        Object[] paramsForQuery;
+        String paramLike = "";
+        ArrayList<Long> paramsFilter = new ArrayList<>();
+        String paramOrderBy = "";
+        int paramsForQueryLength = 0;
+        int paramsForQueryIterator = 0;
+
+
+        if (!search.equals("")) {
+            sql.append(" WHERE p.productname ILIKE ? "); //тут поиск по имени продукта
+            paramLike="%" + search + "%";
+            paramsForQueryLength++;
+        }
+        if ((filterModel.getAuthor().length != 0) ||
+                (filterModel.getGenre().length != 0) ||
+                (filterModel.getLanguage().length != 0) ||
+                (filterModel.getPublisher().length != 0) ||
+                (filterModel.getCoverType().length != 0)) { //проверка на то, что хотя бы один из фильтров выбран
+            if (!search.equals("")) { //если первый if сработал, тогда надо добавить AND
+                sql.append(" AND ");
+            } else {
+                sql.append(" WHERE ");
+            }
+
+            sql.append(filterSqlBuilder2(filterModel, paramsFilter)); //Тут собираю часть с выбранными фильтрами, (под номером 2 он временно)
+            paramsForQueryLength+=paramsFilter.size();
+        }
+
+
+        paramsForQuery = new Object[paramsForQueryLength];
+
+        if (!paramLike.equals("")){
+            paramsForQuery[paramsForQueryIterator] = paramLike;
+            paramsForQueryIterator++;
+        }
+        if (paramsFilter.size()!=0){
+            for (int i=0; i<paramsFilter.size(); i++){
+                paramsForQuery[paramsForQueryIterator] = paramsFilter.get(i);
+                paramsForQueryIterator++;
+            }
+            paramsForQueryLength+=paramsFilter.size();
+        }
+
+        return paramsForQuery;
+    }
+
+    private String filterSqlBuilder2(FilterModel filterModel, ArrayList<Long> params) {
+        StringBuilder filters = new StringBuilder();
+        filterInBuilder(filters, filterModel.getAuthor(), " p.author ", params);
+        filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ", params);
+        filterInBuilder(filters, filterModel.getGenre(), " p.genre ", params);
+        filterInBuilder(filters, filterModel.getLanguage(), " p.language ", params);
+        filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ", params);
+        return filters.substring(0, filters.length() - 4); //удаляет лишний AND
+    }
+
+
+    private void filterInBuilder(StringBuilder stringBuilder, Long[] foreignKeys, String fkName, ArrayList<Long> params) {
+        if (foreignKeys.length != 0) {
+            stringBuilder.append(fkName);
+            stringBuilder.append(" IN (");
+            for (int i = 0; i < foreignKeys.length; i++) {
+                stringBuilder.append("?");
+                params.add(foreignKeys[i]);
+                if (foreignKeys.length - i > 1) {
+                    stringBuilder.append(", ");
+                }
+            }
+            stringBuilder.append(") AND ");
+        }
+    }
 
 }
