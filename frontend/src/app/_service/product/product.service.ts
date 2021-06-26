@@ -5,7 +5,7 @@ import {Observable, of} from 'rxjs';
 import {Product} from '../../_model/product';
 
 import {PRODUCTS} from '../../_utils/products';
-import {Filters} from "../../_model/filters"; // удалить, когда продукты будут браться с бэка
+import {Filters} from '../../_model/filters'; // удалить, когда продукты будут браться с бэка
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +63,7 @@ export class ProductService {
     if (!term.trim()) {
       return of([]);
     }
-    const url = `${this.productsUrl}/get-by-name/${term}`
+    const url = `${this.productsUrl}/get-by-name/${term}`;
     return this.http.get<Product[]>(url)
       .pipe(
         catchError(this.handleError<Product[]>('getProductsByName', []))

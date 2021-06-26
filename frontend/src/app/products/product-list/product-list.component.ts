@@ -1,10 +1,10 @@
 import {Component, OnInit, Pipe} from '@angular/core';
-import {ProductCategory} from "../../_model/productCategory";
-import {ProductCategoryService} from "../../_service/product-category/product-category.service";
-import {Product} from "../../_model/product";
-import {ProductService} from "../../_service/product/product.service";
-import {typesOfCategories} from "../../_model/typesOfCategories";
-import {Filters} from "../../_model/filters";
+import {ProductCategory} from '../../_model/productCategory';
+import {ProductCategoryService} from '../../_service/product-category/product-category.service';
+import {Product} from '../../_model/product';
+import {ProductService} from '../../_service/product/product.service';
+import {typesOfCategories} from '../../_model/typesOfCategories';
+import {Filters} from '../../_model/filters';
 
 @Component({
   selector: 'app-product-list',
@@ -15,8 +15,8 @@ import {Filters} from "../../_model/filters";
 
 export class ProductListComponent implements OnInit {
 
-  page: number = 1;
-  size: number = 6;
+  page = 1;
+  size = 6;
   amountOfProducts: number;
   currentProducts: Product[] = [];
   searchValue: string;
@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-    this.searchValue = "";
+    this.searchValue = '';
     this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
     this.orderValue = '';
     this.getAmountOfProducts();
@@ -42,9 +42,15 @@ export class ProductListComponent implements OnInit {
       .subscribe(products => {
         this.currentProducts = products;
       });
+    this.getAmountOfProducts();
   }
 
-  getOrderedProducts(value: string){
+  onPageChange(currentPage: number): void{
+    this.page = currentPage;
+    this.getSearchedOrderedFilteredProducts();
+  }
+
+  getOrderedProducts(value: string): void{
     this.orderValue = value;
     this.getSearchedOrderedFilteredProducts();
     // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
@@ -55,8 +61,8 @@ export class ProductListComponent implements OnInit {
 
   }
 
-  getSearchedProducts(value: string){
-    if (value != ''){
+  getSearchedProducts(value: string): void{
+    if (value !== ''){
       this.searchValue = value;
       this.getSearchedOrderedFilteredProducts();
       // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
@@ -68,12 +74,12 @@ export class ProductListComponent implements OnInit {
       //   });
     }
     // else this.getProducts();
-    else this.searchValue = '';
+    else { this.searchValue = ''; }
   }
 
   getFilteredProducts(filters: Filters): void{
     this.filtersValue = filters;
-    //console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
+    // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
     // this.productService.filterProducts(this.page, this.size, filters)
     //   .subscribe(products => {
     //      // console.log('getFilteredProducts inside subscribe');
@@ -91,16 +97,11 @@ export class ProductListComponent implements OnInit {
     this.getAmountOfProducts();
   }
 
-  onPageChange(currentPage: number): void{
-    this.page = currentPage;
-    this.getSearchedOrderedFilteredProducts();
-  }
-
   cancelFilters(): void{
     window.location.reload();
   }
 
-  getAmountOfProducts(){
+  getAmountOfProducts(): void{
     this.productService.getProductsCount(this.searchValue, this.orderValue, this.filtersValue)
       .subscribe(numb => {
         this.amountOfProducts = numb;

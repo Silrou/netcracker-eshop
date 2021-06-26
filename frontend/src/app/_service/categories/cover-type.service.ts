@@ -24,13 +24,12 @@ export class CoverTypeService {
       console.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
-  }private coverTypeList: CoverType[] = [];
+  }
 
   getAllCoverTypes(): Observable<CoverType[]> {
     const url = `${this.coverTypeUrl}/get-all`;
     return this.http.get<CoverType[]>(url)
       .pipe(
-        tap(x => this.coverTypeList = x),
         catchError(this.handleError<CoverType[]>('getAllCoverTypes', []))
       );
   }
@@ -43,14 +42,14 @@ export class CoverTypeService {
       );
   }
 
-  getCoverTypes(): Observable<CoverType[]> {
-    if (this.coverTypeList.length === 0) {
+  getCoverTypes(): CoverType[] {
+    if (localStorage.getItem('coverTypes') === null) {
       this.getAllCoverTypes().subscribe(
         res => {
-          this.coverTypeList = res;
+          localStorage.setItem('coverTypes', JSON.stringify(res));
         }
       );
     }
-    return of(this.coverTypeList);
+    return JSON.parse(localStorage.getItem('coverTypes'));
   }
 }

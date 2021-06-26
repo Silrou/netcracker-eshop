@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Genre} from '../../_model/genre';
@@ -10,9 +10,9 @@ import {Author} from '../../_model/author';
 })
 export class AuthorService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  private authorsList: Author[];
   private authorUrl = 'http://localhost:8081/author';
 
   httpOptions = {
@@ -30,7 +30,6 @@ export class AuthorService {
     const url = `${this.authorUrl}/get-all`;
     return this.http.get<Author[]>(url)
       .pipe(
-        tap(x => this.authorsList = x),
         catchError(this.handleError<Author[]>('getAllAuthors', []))
       );
   }
@@ -43,15 +42,15 @@ export class AuthorService {
       );
   }
 
-  getAuthors(): Observable<Author[]> {
-    if (this.authorsList.length === 0) {
+  getAuthors(): Author[] {
+    if (localStorage.getItem('authors') === null) {
       this.getAllAuthors().subscribe(
         res => {
-          this.authorsList = res;
+          localStorage.setItem('authors', JSON.stringify(res));
         }
       );
     }
-    return of(this.authorsList);
+    return JSON.parse(localStorage.getItem('authors'));
   }
 
 }
