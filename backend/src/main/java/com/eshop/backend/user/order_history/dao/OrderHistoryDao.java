@@ -6,5 +6,7 @@ import com.eshop.backend.utils.CrudDao;
 import java.util.List;
 
 public interface OrderHistoryDao extends CrudDao<OrderCardModel> {
-    List<OrderCardModel> getAllByUserId(Long id);
+    List<OrderCardModel> getAllByUserId(Long id, int page, int size);
+
+    Long getOrderCount(Long id);
 }

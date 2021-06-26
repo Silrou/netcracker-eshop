@@ -33,7 +33,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import { EditSettingsComponent } from './settings/edit/edit-settings/edit-settings.component';
 import {OrderHistoryComponent} from './settings/order-history/order-history.component';
-import {OrderDetailsComponent} from "./settings/order-history/order-details/order-details.component";
+import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -50,28 +51,29 @@ import {OrderDetailsComponent} from "./settings/order-history/order-details/orde
         OrderHistoryComponent,
         OrderDetailsComponent
     ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AuthorizationModule,
-    AuctionsModule,
-    ProductsModule,
-    HttpClientModule,
-    CommonModule,
-    NavBarModule,
-    FormsModule,
-    JwPaginationModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatRadioModule,
-    MatOptionModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AuthorizationModule,
+        AuctionsModule,
+        ProductsModule,
+        HttpClientModule,
+        CommonModule,
+        NavBarModule,
+        FormsModule,
+        JwPaginationModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatRadioModule,
+        MatOptionModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        NgbPaginationModule,
+    ],
   providers: [AuthService, CookieService,
     {
       provide: HTTP_INTERCEPTORS,

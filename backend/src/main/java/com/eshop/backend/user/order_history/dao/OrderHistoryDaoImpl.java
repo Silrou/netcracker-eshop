@@ -5,9 +5,11 @@ import com.eshop.backend.product.dao.ProductMapper;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -47,9 +49,19 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
     }
 
     @Override
-    public List<OrderCardModel> getAllByUserId(Long id) {
+    public List<OrderCardModel> getAllByUserId(Long id, int page, int size) {
         try {
-            String sql = "SELECT * FROM ordercart WHERE userid = ?";
+            String sql = "SELECT * FROM ordercart WHERE userid = ?" +
+                    "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+
+            PreparedStatementCreator statementCreator = con -> {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setLong(1, id);
+                ps.setInt(2, page);
+                ps.setInt(3, size);
+                return ps;
+            };
+
             RowMapper<OrderCardModel> rowMapper = (rs, rowNum) -> OrderCardModel.builder()
                     .id(rs.getLong("id"))
                     .userId(rs.getLong("userid"))
@@ -62,10 +74,16 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
                     .fullAddress(rs.getString("fulladdress"))
                     .dontDisturb(rs.getBoolean("dontdisturb"))
                     .build();
-            return jdbcTemplate.query(sql, rowMapper, id);
+            return jdbcTemplate.query(statementCreator, rowMapper);
         } catch (Exception e) {
             String str = e.toString();
         }
         return null;
+    }
+
+    @Override
+    public Long getOrderCount(Long id) {
+        String sql = "SELECT COUNT(*) FROM ordercart WHERE userid = ?";
+        return jdbcTemplate.queryForObject(sql, Long.class, id);
     }
 }

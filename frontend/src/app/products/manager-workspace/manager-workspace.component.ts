@@ -32,16 +32,15 @@ export class ManagerWorkspaceComponent implements OnInit {
               private publisherService: PublisherService,
               private dialog: MatDialog) { }
 
-  pageIndex = 0;
-  length = 100;
-  pageSize = 5;
-  pageEvent: PageEvent;
   products: Product[] = [];
   authors: Author[] = [];
   coverTypes: CoverType[] = [];
   genres: Genre[] = [];
   languages: Language[] = [];
   publishers: Publisher[] = [];
+  size = 5;
+  amountOfProducts: number;
+  page = 1;
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -54,7 +53,7 @@ export class ManagerWorkspaceComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.productService.getAllProducts(this.pageIndex + 1, this.pageSize)
+    this.productService.getAllProducts(this.page, this.size)
       .subscribe(products => {
         console.log(products);
         this.products = products;
@@ -123,7 +122,6 @@ export class ManagerWorkspaceComponent implements OnInit {
   }
 
   getServerData(event?: PageEvent): PageEvent{
-    this.pageIndex = event.pageIndex;
     this.getAllProducts();
     return event;
   }
@@ -131,9 +129,13 @@ export class ManagerWorkspaceComponent implements OnInit {
   private getProductsCount(): void {
     this.productService.getProductsCount().subscribe(
       res => {
-        this.length = res;
+        this.amountOfProducts = res;
       }
     );
   }
 
+  onPageChange(currentPage: number): void {
+    this.page = currentPage;
+    this.getAllProducts();
+  }
 }

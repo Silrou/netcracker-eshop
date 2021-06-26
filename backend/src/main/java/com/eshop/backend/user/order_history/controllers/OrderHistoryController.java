@@ -5,10 +5,7 @@ import com.eshop.backend.user.order_history.services.OrderHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,10 +20,17 @@ public class OrderHistoryController {
         this.orderHistoryService = orderHistoryService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<List<OrderCardModel>> getAllOrders(@PathVariable("id")Long id) {
-        List<OrderCardModel> orderHistory = orderHistoryService.getAllByUserId(id);
+    @GetMapping("")
+    public ResponseEntity<List<OrderCardModel>> getAllOrders(@RequestParam("id")Long id,
+                                                             @RequestParam("page")int page,
+                                                             @RequestParam("size")int size) {
+        List<OrderCardModel> orderHistory = orderHistoryService.getAllByUserId(id, page, size);
         return new ResponseEntity<>(orderHistory, HttpStatus.OK);
+    }
+
+    @GetMapping("/count/{id}")
+    public ResponseEntity<Long> getProductCount(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(orderHistoryService.getOrderCount(id), HttpStatus.OK);
     }
 
 }

@@ -18,7 +18,20 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     }
 
     @Override
-    public List<OrderCardModel> getAllByUserId(Long id) {
-        return orderHistoryDao.getAllByUserId(id);
+    public List<OrderCardModel> getAllByUserId(Long id, int page, int size) {
+        page = getPageNumeration(page, size);
+        return orderHistoryDao.getAllByUserId(id, page, size);
+    }
+
+    @Override
+    public Long getOrderCount(Long id) {
+        return orderHistoryDao.getOrderCount(id);
+    }
+
+    public int getPageNumeration(int page, int size){
+        page--;
+        if(page > 0)
+            page = (page) * size;
+        return page;
     }
 }

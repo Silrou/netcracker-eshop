@@ -21,9 +21,17 @@ export class OrderHistoryComponent implements OnInit {
   @Input()
   user?: User;
   orderCards: OrderCard[] = [];
+  size = 5;
+  amountOfProducts: number;
+  page = 1;
 
   ngOnInit(): void {
-    this.orderHistoryService.getAllOrderById(this.user.id).subscribe(
+    this.getOrders();
+    this.getOrderCount();
+  }
+
+  getOrders(): void {
+    this.orderHistoryService.getAllOrderById(this.user.id, this.page, this.size).subscribe(
       res => {
         console.log(res);
         this.orderCards = res;
@@ -34,5 +42,18 @@ export class OrderHistoryComponent implements OnInit {
   viewDetails(id: number): void {
     this.orderDetailsService.setOrderId(id);
     this.router.navigate(['/settings/order-details']);
+  }
+
+  onPageChange(currentPage: number): void {
+    this.page = currentPage;
+    this.ngOnInit();
+  }
+
+  private getOrderCount(): void {
+    this.orderHistoryService.getOrderCount(this.user.id).subscribe(
+      res => {
+        this.amountOfProducts = res;
+      }
+    );
   }
 }
