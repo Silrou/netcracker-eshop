@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -35,7 +36,7 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
     @Override
     public List<OrderCardModel> getAll() {
 
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -76,9 +77,8 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
                     .build();
             return jdbcTemplate.query(statementCreator, rowMapper);
         } catch (Exception e) {
-            String str = e.toString();
+            return Collections.emptyList();
         }
-        return null;
     }
 
     @Override

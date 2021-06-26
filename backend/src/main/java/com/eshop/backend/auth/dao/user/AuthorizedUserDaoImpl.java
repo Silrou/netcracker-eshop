@@ -32,18 +32,14 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 "userrole, username, usersurname, userregistrationdate, userstatus," +
                 " useraddress, usernumber)\n" +
                 "values (?,?,?,?,?,?,?,?,?)";
-        try {
-            jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
-                    user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
-                    user.getUserStatus(), "no address", "no number");
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
+                user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
+                user.getUserStatus(), "no address", "no number");
     }
 
     @Override
     public AuthorizedUserModel getByLogin(String login) throws DataAccessException {
-        try{
+        try {
             String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
             AuthorizedUserModel user = jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
             return user;
@@ -66,7 +62,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
     @Override
     public AuthorizedUserModel getRoleByLogin(String login) {
-        try{
+        try {
             String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
         } catch (DataAccessException e) {
@@ -77,7 +73,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
     @Override
     public AuthorizedUserModel getByToken(String token) {
-        try{
+        try {
             String getUserSql = "SELECT a.id, a.userlogin , a.userpassword, a.userrole, a.username, a.usersurname," +
                     "a.userregistrationdate, a.userstatus, a.useraddress, a.usernumber from authorizeduser a\n" +
                     "inner join verificationtoken t on a.id = t.authorizeduserid\n" +
@@ -91,14 +87,13 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
     @Override
     public String getLoginById(Long id) {
-        try{
+        try {
             String getUserSql = "SELECT userlogin FROM authorizeduser WHERE id = ?";
             RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> AuthorizedUserModel.builder()
                     .userLogin(rs.getString("userlogin"))
                     .build();
             return Objects.requireNonNull(jdbcTemplate.queryForObject(getUserSql, rowMapper, id)).getUserLogin();
         } catch (DataAccessException e) {
-            String str = e.toString();
             return null;
         }
     }
@@ -106,11 +101,8 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     @Override
     public void setStatus(AuthorizedUserModel user) {
         String SQL = "update authorizeduser set userstatus = ? where id = ?";
-        try {
-            jdbcTemplate.update(SQL, user.getUserStatus(), user.getId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        jdbcTemplate.update(SQL, user.getUserStatus(), user.getId());
+
     }
 
     @Override
@@ -146,7 +138,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("userstatus"),
                 rs.getString("useraddress"),
                 rs.getString("usernumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
     }
 
     @Override
@@ -164,7 +156,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("userstatus"),
                 rs.getString("useraddress"),
                 rs.getString("usernumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
     }
 
     @Override
@@ -182,7 +174,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("userstatus"),
                 rs.getString("useraddress"),
                 rs.getString("usernumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
 
     }
 
@@ -201,8 +193,9 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("userstatus"),
                 rs.getString("useraddress"),
                 rs.getString("usernumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
     }
+
     @Override
     public List<AuthorizedUserModel> getFilteredByStatusOff() {
         String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where userstatus='OFF' AND userrole IN ('MANAGER','COURIER') ";
@@ -218,12 +211,12 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("UserStatus"),
                 rs.getString("UserAddres"),
                 rs.getString("UserNumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
     }
 
-//    @Override
+    //    @Override
     public List<AuthorizedUserModel> getBySurname(String surname) {
-        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where usersurname = "+ surname;
+        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where usersurname = " + surname;
 
         RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> new AuthorizedUserModel(
                 rs.getLong("id"),
@@ -236,12 +229,12 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("UserStatus"),
                 rs.getString("UserAddres"),
                 rs.getString("UserNumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
     }
 
     @Override
     public List<AuthorizedUserModel> getById(long id) {
-        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where ID="+id;
+        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where ID=" + id;
 
         RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> new AuthorizedUserModel(
                 rs.getLong("id"),
@@ -254,14 +247,14 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("UserStatus"),
                 rs.getString("UserAddres"),
                 rs.getString("UserNumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
     }
 
-   @Override
+    @Override
     public List<AuthorizedUserModel> getByName(String name) {
-        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where  USERNAME ILIKE '%"+name+"%' or USERSURNAME ILIKE '%" +name+ "%'";
+        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where  USERNAME ILIKE '%" + name + "%' or USERSURNAME ILIKE '%" + name + "%'";
         System.out.println(getAllAuthorizedUsersSQL);
-        RowMapper<AuthorizedUserModel> rowMapper = (rs,rowNum) -> new AuthorizedUserModel(
+        RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> new AuthorizedUserModel(
                 rs.getLong("id"),
                 rs.getString("userlogin"),
                 rs.getString("userpassword"),
@@ -272,12 +265,12 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("userstatus"),
                 rs.getString("useraddress"),
                 rs.getString("usernumber"));
-        return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
     }
 
     @Override
     public AuthorizedUserModel getById(Long id) {
-        try{
+        try {
             String getUserSql = "SELECT * FROM authorizeduser WHERE id = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), id);
         } catch (DataAccessException e) {
@@ -294,7 +287,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public void update(AuthorizedUserModel user) {
         String SQL = "update authorizeduser set userlogin = ?, " +
                 "userpassword = ?, userrole = ?, username = ?, usersurname = ?, " +
-                "userregistrationdate = ?, "+
+                "userregistrationdate = ?, " +
                 "userstatus = ?, useraddress = ?, usernumber = ? " +
                 "where id = ?";
 

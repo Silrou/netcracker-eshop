@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SettingsServiceImpl implements SettingsService {
 
-    private final  SettingsDao settingsDao;
+    private final SettingsDao settingsDao;
     private final AuthorizedUserDao authorizedUserDao;
     private final EmailSenderService emailSenderService;
 
@@ -30,12 +30,9 @@ public class SettingsServiceImpl implements SettingsService {
 
     @Override
     public void update(AuthorizedUserModel authorizedUserModel) {
-
-
         if (!authorizedUserModel.getUserLogin().equals(
-                authorizedUserDao.getLoginById(authorizedUserModel.getId()))){
+                authorizedUserDao.getLoginById(authorizedUserModel.getId()))) {
             //change status to anon
-            AuthorizedUserModel temp = authorizedUserDao.getByLogin(authorizedUserModel.getUserLogin());
             if (authorizedUserDao.getByLogin(authorizedUserModel.getUserLogin()) != null) {
                 throw new ChangeExistMailException();
             }

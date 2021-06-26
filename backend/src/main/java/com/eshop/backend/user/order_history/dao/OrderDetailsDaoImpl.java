@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -41,9 +42,8 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
                     .build();
             return jdbcTemplate.query(sql, rowMapper, id);
         } catch (Exception e) {
-            String str = e.toString();
+            return Collections.emptyList();
         }
-        return null;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
 
     @Override
     public List<ProductModel> getAll() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

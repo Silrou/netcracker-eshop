@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -36,7 +37,6 @@ public class SettingsDaoImpl implements SettingsDao {
             AuthorizedUserModel user = jdbcTemplate.queryForObject(getUserSql, rowMapper, login);
             return user;
         } catch (DataAccessException e) {
-            String str = e.toString();
             return null;
         }
     }
@@ -53,7 +53,7 @@ public class SettingsDaoImpl implements SettingsDao {
 
     @Override
     public List<AuthorizedUserModel> getAll() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -63,12 +63,10 @@ public class SettingsDaoImpl implements SettingsDao {
                 "useraddress = ?, usernumber = ? " +
                 "where id = ?";
 
-        try {
+
             jdbcTemplate.update(SQL, model.getUserLogin(), model.getUserName(), model.getUserSurname(),
                     model.getUserAddress(), model.getUserNumber(), model.getId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+
     }
 
     @Override

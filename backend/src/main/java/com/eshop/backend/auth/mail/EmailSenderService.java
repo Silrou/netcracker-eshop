@@ -33,7 +33,6 @@ public class EmailSenderService {
     public void sendEmail(AuthorizedUserModel user, String type) {
         String token = UUID.randomUUID().toString();
 
-//        user = authorizedUsersDao.getByLogin(user.getUserLogin());
         EmailTokenModel emailTokenModel = new EmailTokenModel(type, token, user.getId());
         emailTokenDao.createVerificationToken(user, emailTokenModel);
 
@@ -42,18 +41,6 @@ public class EmailSenderService {
         String subject = "";
         String confirmationUrl = "";
         String message = "";
-
-//        Map<String, Object> model = new HashMap<String, Object>();
-//        model.put("name", "Developer!");
-//
-//        Context context = new Context();
-//        context.setVariables(model);
-//        String html = "asd";
-//        try {
-//            html = templateEngine.process("email-confirm-template", context);
-//        } catch (Exception e){
-//            String sty = e.toString();
-//        }
 
         if (type.equals("emailVerify")) {
             subject = "Registration Confirmation";
