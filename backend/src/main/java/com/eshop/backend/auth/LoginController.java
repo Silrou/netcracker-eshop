@@ -5,6 +5,7 @@ import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
 import com.eshop.backend.auth.dao.user.AuthorizedUserDaoImpl;
 import com.eshop.backend.auth.dto.LoginRequestDTO;
 import com.eshop.backend.auth.exceptions.NoUserWithThisEmailException;
+import com.eshop.backend.auth.exceptions.WrongEmailOrPasswordException;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import com.eshop.backend.auth.services.CaptchaService;
 import com.eshop.backend.auth.utils.Role;

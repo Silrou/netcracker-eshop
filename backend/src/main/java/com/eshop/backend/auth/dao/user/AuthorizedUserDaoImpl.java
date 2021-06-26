@@ -42,16 +42,6 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     }
 
     @Override
-    public AuthorizedUserModel getById(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<AuthorizedUserModel> getAll() {
-        return null;
-    }
-
-    @Override
     public AuthorizedUserModel getByLogin(String login) throws DataAccessException {
         try{
             String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
@@ -284,17 +274,6 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("usernumber"));
         return   jdbcTemplate.query(getAllAuthorizedUsersSQL,rowMapper);
     }
-
-    @Override
-    public AuthorizedUserModel getById(Long id) {
-        try{
-            String getUserSql = "SELECT * FROM authorizeduser WHERE id = ?";
-            return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), id);
-        } catch (DataAccessException e) {
-            return null;
-        }
-    }
-
 
     @Override
     public AuthorizedUserModel getById(Long id) {

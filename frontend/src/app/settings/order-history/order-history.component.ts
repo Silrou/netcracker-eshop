@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SettingsService} from '../../_service/settings/settings.service';
 import {OrderCard} from '../../_model/orderCard';
 import {OrderHistoryService} from '../../_service/order-history/order-history.service';
-import {Product} from '../../_model/product';
 import {User} from '../../_model/user';
 import {Router} from '@angular/router';
 import {OrderDetailsService} from '../../_service/order-history/order-details.service';

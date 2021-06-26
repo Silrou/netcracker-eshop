@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SettingsService} from '../../../_service/settings/settings.service';
 import {User} from '../../../_model/user';
-import {Router} from "@angular/router";
-import {AuthService} from "../../../_service/auth.service";
-import {AlertService} from "../../../_service/alert.service";
+import {Router} from '@angular/router';
+import {AlertService} from '../../../_service/alert.service';
 
 @Component({
   selector: 'app-edit-settings',

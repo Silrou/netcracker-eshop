@@ -84,7 +84,6 @@ public class ProductServiceImp implements ProductService {
         productdao.update(model);
     }
 
-    }
 
     public void delete(Long id) {
 

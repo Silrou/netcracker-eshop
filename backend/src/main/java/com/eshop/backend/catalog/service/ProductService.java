@@ -17,5 +17,5 @@ public interface ProductService {
     Integer getNumberOfSearchedOrderedFiltered (String search, String orderBy, FilterModel filterModel);
     void create(ProductModel productModel);
     void update(ProductModel productModel);
-    Long getProductCount();
+//    Long getProductCount();
 }

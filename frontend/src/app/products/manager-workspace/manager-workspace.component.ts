@@ -127,7 +127,7 @@ export class ManagerWorkspaceComponent implements OnInit {
   }
 
   private getProductsCount(): void {
-    this.productService.getProductsCount().subscribe(
+    this.productService.getProductsCount(null, null, null).subscribe(
       res => {
         this.amountOfProducts = res;
       }

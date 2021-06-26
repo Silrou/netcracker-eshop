@@ -16,7 +16,16 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 // import {ProfileComponent} from './account/profile/profile.component';
 // @ts-ignore
-import {SearchComponent} from "./account/search/search.component";
+import {SearchComponent} from './account/search/search.component';
+import {EditSettingsComponent} from './settings/edit/edit-settings/edit-settings.component';
+import {AuthGuard} from './_helper/auth.guard';
+import {Role} from './_model/role';
+import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
+import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
+import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
+import {SettingsComponent} from './settings/settings.component';
+import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
+import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -95,10 +104,6 @@ const routes: Routes = [
   {
     path: 'manager',
     component: ManagerWorkspaceComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
   },
   {
     path: 'verify-email',
