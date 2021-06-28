@@ -76,9 +76,7 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: SettingsComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.USER, Role.MANAGER, Role.ADMIN, Role.COURIER] }
+    component: SettingsComponent
   },
   // {
   //   path: 'settings',
@@ -88,7 +86,14 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
-  },
+
+     },
+  // {
+  //   path: 'working-cabinet',
+  //   component: ProductCatalogComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: [Role.MANAGER, Role.ADMIN, Role.COURIER] }
+  // },
   {
     path: 'verify-email',
     component: VerifyEmailComponent
@@ -100,31 +105,7 @@ const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent
-  },
-  {
-    path: 'manager',
-    component: ManagerWorkspaceComponent
-  },
-  {
-    path: 'verify-email',
-    component: VerifyEmailComponent
-  },
-  {
-    path: 'reset-password',
-    component: ResetPasswordComponent
-  },
-  {
-    path: 'settings/edit',
-    component: EditSettingsComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.USER] }
-  },
-  {
-    path: 'settings/order-details',
-    component: OrderDetailsComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.USER] }
-  },
+  }
   // {
   //   path: 'account/profile',
   //   component: ProfileComponent

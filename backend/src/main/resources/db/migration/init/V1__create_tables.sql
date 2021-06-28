@@ -98,7 +98,7 @@ CREATE table courierCalendar(
                                 F18T19 BIGSERIAL ,
                                 F19T20 BIGSERIAL ,
                                 F20T21 BIGSERIAL ,
-                                userRegistrationDate DATE NOT NULL
+                                calendarDate DATE NOT NULL
 );
 
 create table verificationToken(
