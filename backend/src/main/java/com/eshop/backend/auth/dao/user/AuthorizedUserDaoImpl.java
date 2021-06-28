@@ -304,4 +304,5 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public void delete(Long id) {
 
     }
+
 }

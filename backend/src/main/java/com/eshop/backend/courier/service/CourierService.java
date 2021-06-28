@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface CourierService {
     public List<AuthorizedUserModel> getById(long id);
+    public List<AuthorizedUserModel> getMyTimeTable(long id);
 }
