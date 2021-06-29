@@ -4,8 +4,10 @@ import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
 import com.eshop.backend.courier.CustomerRowMapperForCourier;
 import com.eshop.backend.courier.model.CourierModel;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,8 +17,7 @@ import java.util.List;
 public class CourierServiceImp implements CourierService {
     AuthorizedUserDao authorizedUserDao;
     private final JdbcTemplate jdbcTemplate;
-    private ArrayList<CourierModel> Aray;
-
+    @Autowired
     public CourierServiceImp( JdbcTemplate jdbcTemplate)
     {
         this.jdbcTemplate = jdbcTemplate;
@@ -26,9 +27,7 @@ public class CourierServiceImp implements CourierService {
     public List<AuthorizedUserModel> getById(long id) {return null;}
 
     @Override
-    public List<CourierModel> getMyTimeTable(
-//            long courierid
-    ) {
+    public List<CourierModel> getMyTimeTable(long courierid) {
         try {
             String TimeTableSQL = "SELECT " +
                     "dontdisturb,fulladdress,deliverytime,totalprice,orderstatus,hour,c.id,c.username,packagedescription " +
@@ -36,25 +35,18 @@ public class CourierServiceImp implements CourierService {
                     "inner join couriercalendar b " +
                     "on b.courierid = a.id " +
                     "inner join ordercart c on a.id = c.courierid " +
-                    "where c.courierid = 2 ";
+                    "where c.courierid = ? ";
 
-            CourierModel  A = jdbcTemplate.queryForObject(TimeTableSQL, new CustomerRowMapperForCourier()
-//                    ,courierid
-                    );
-            Aray = new ArrayList<CourierModel>();
-            Aray.add(A);
-            return Aray;
+            return jdbcTemplate.query(TimeTableSQL, new CustomerRowMapperForCourier(),courierid);
         }
         catch (DataAccessException e){}
         return null;
     }
 
     @Override
-    public void setOrderCart(
-//            AuthorizedUserModel user
-        ) {
-        String SQL = "update authorizeduser set userstatus = ? where id = ?";
-//        jdbcTemplate.update(SQL, user.getUserStatus(), user.getId());
+    public void setOrderCartStatus(long id ) {
+        String SQL = "UPDATE ordercart SET orderstatus = NOT orderstatus WHERE id = ?";
+        jdbcTemplate.update(SQL);
     }
 
 

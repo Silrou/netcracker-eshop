@@ -80,10 +80,10 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent
   },
-  {
-    path: 'socket',
-    component: NotificationComponent
-  },
+  // {
+  //   path: 'socket',
+  //   component: NotificationComponent
+  // },
   // {
   //   path: 'settings',
   //   component: SettingsComponent,

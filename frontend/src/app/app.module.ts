@@ -53,7 +53,7 @@ import {NotificationComponent} from './socket/notifications/notification.compone
         EditSettingsComponent,
         OrderHistoryComponent,
         CoucabComponent,
-        NotificationComponent,
+        // NotificationComponent,
         OrderDetailsComponent
     ],
     imports: [

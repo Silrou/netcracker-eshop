@@ -66,7 +66,7 @@ create table orderCart(
                           userID BIGSERIAL NOT NULL,
                           courierId BIGSERIAL NOT NULL,
                           packageDescription varchar(100) NOT NULL,
-                          orderStatus varchar(100) NOT NULL,
+                          orderStatus boolean NOT NULL,
                           totalPrice BIGSERIAL NOT NULL,
                           userName varchar(100) NOT NULL,
                           deliveryTime DATE NOT NULL,
@@ -103,5 +103,7 @@ create table orderProduct (
                               id BIGSERIAL PRIMARY KEY,
                               productId BIGSERIAL NOT NULL,
                               orderCardId BIGSERIAL NOT NULL,
-                              inCardProductAmount BIGSERIAL
+                              inCardProductAmount BIGINT,
+                              inCardProductPrice BIGINT
+
 );

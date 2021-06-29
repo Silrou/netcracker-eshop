@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
         this.authService.role = res.userRole;
         this.authService.status = res.userStatus;
         this.loginUserData = res;
+        localStorage.setItem('idUser', res.id);
         localStorage.setItem('login', this.loginUserData.userLogin);
         if (!this.error) {
           loginData.recaptchaResponse = undefined;

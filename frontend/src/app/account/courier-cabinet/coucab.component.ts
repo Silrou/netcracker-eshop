@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RestService} from '../../_service/rest.service';
 import {CourierPackages} from '../../_model/CourierPackages';
-import {User} from '../../_model/user';
-
+import {ErzacModel} from '../../_model/erzacModel';
 
 class Couriercabinets {
 }
@@ -14,8 +13,7 @@ class Couriercabinets {
 })
 
 export class CoucabComponent implements OnInit {
-  @Input()
-  user?: User;
+
   courierpackages: CourierPackages[] = [];
   hour: number;
   id: number;
@@ -26,6 +24,7 @@ export class CoucabComponent implements OnInit {
   totalprice: number;
   orderstatus: string;
   packagedescription: string;
+  erzacModel: ErzacModel;
 
   constructor(public rs: RestService,
               // private dialog: MatDialog
@@ -33,13 +32,17 @@ export class CoucabComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user.id);
-    this.rs.getTask().subscribe((response) => {
+    this.rs.getTask(localStorage.getItem('idUser')).subscribe((response) => {
       this.courierpackages = response;
     });
   }
 
-  getByCourierID(id: number) {
-      return this.user.id = id;
-   }
+  // getByCourierID(id: number) {
+  //     return this.user.id = id;
+  //  }
+  setNewStatus(ids: number): void {
+    this.rs.setStatus(ids).subscribe((response) => {
+      this.courierpackages = response;
+    });
+  }
 }
