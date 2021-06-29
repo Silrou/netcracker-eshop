@@ -22,7 +22,7 @@ import {AuthGuard} from './_helper/auth.guard';
 import {Role} from './_model/role';
 import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
 import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
-import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
+import {ManagerWorkspaceComponent} from './work-space/manager-workspace/manager-workspace.component';
 import {SettingsComponent} from './settings/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
@@ -124,11 +124,7 @@ const routes: Routes = [
     component: OrderDetailsComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.USER] }
-  },
-  // {
-  //   path: 'account/profile',
-  //   component: ProfileComponent
-  // }
+  }
 ];
 
 @NgModule({

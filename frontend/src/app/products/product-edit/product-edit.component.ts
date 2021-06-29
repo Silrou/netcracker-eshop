@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductManagerComponent} from '../product-manager/product-manager.component';
-import {ManagerWorkspaceComponent} from '../manager-workspace/manager-workspace.component';
+import {ManagerWorkspaceComponent} from '../../work-space/manager-workspace/manager-workspace.component';
 import {AuthorService} from '../../_service/categories/author.service';
 import {Author} from '../../_model/author';
 import {CoverType} from '../../_model/cover-type';

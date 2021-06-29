@@ -1,6 +1,6 @@
 package com.eshop.backend.auth.exceptions;
 
-public class UserAlreadyExistsException extends RuntimeException {
+public class UserAlreadyExistsException extends WebException {
     public UserAlreadyExistsException() {
         super("<h4>Email Already Registered</h4>\n" +
                 "<p>Your email is already registered.</p>\n" +

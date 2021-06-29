@@ -1,16 +1,27 @@
 package com.eshop.backend.auth.exceptions;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
+
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class WebException extends RuntimeException {
 
-    private final HttpStatus httpStatus;
+    private HttpStatus httpStatus;
+    private List<Object> problemList;
 
-    public WebException(String message, HttpStatus httpStatus) {
+    public WebException(String message, List<Object> problemList) {
         super(message);
-        this.httpStatus = httpStatus;
+        this.problemList = problemList;
     }
 
+    public WebException(String message) {
+        super(message);
+    }
 }

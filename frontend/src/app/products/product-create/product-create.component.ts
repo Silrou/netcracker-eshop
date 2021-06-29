@@ -73,7 +73,8 @@ export class ProductCreateComponent implements OnInit {
       publisher: new FormControl('', [Validators.required, Validators.min(0)]),
       genre: new FormControl('', [Validators.required, Validators.min(0)]),
       coverType: new FormControl('', [Validators.required, Validators.min(0)]),
-      language: new FormControl('', [Validators.required, Validators.min(0)])
+      language: new FormControl('', [Validators.required, Validators.min(0)]),
+      pictureFile: new FormControl('', [Validators.required])
     });
   }
 

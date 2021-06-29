@@ -14,15 +14,17 @@ public class ControllerAdvisor {
 
     @ExceptionHandler({UserAlreadyExistsException.class, NeedMailConfirmationException.class,
                         NoUserWithThisEmailException.class, NewPasswordSameAsOldException.class,
-                        ChangeExistMailException.class})
+                        ChangeExistMailException.class, WrongEmailOrPasswordException.class,
+                        OrderCartAmountException.class})
     public ResponseEntity<ErrorMessageDTO> handleException(
-            Exception ex, WebRequest request) {
+            WebException ex, WebRequest request) {
 
         ErrorMessageDTO message = new ErrorMessageDTO(
                 LocalDateTime.now(),
-                ex.getMessage());
+                ex.getMessage(),
+                ex.getProblemList());
 
-        return new ResponseEntity<ErrorMessageDTO>(message, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ErrorMessageDTO>(message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

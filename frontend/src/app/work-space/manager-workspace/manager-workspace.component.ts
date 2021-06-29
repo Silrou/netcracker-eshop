@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CategoriesPartComponent} from '../categories-part/categories-part.component';
+import {CategoriesPartComponent} from '../../products/categories-part/categories-part.component';
 import {ProductService} from '../../_service/product/product.service';
 import {Product} from '../../_model/product';
 import {Author} from '../../_model/author';
@@ -13,7 +13,7 @@ import {Genre} from '../../_model/genre';
 import {Language} from '../../_model/Language';
 import {Publisher} from '../../_model/Publisher';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {ProductCreateComponent} from '../product-create/product-create.component';
+import {ProductCreateComponent} from '../../products/product-create/product-create.component';
 import {PageEvent} from '@angular/material/paginator';
 import {Filters} from '../../_model/filters';
 

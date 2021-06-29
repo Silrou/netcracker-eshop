@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../_service/alert.service';
 import {AuthService} from '../../_service/auth.service';
 import {first} from 'rxjs/operators';
+import {ValidationMessages} from '../../_model/labels/validation.messages';
 
 enum TokenStatus {
   Validating,
@@ -18,6 +19,9 @@ enum TokenStatus {
 })
 
 export class ResetPasswordComponent implements OnInit {
+
+  passwordErrorMessage = ValidationMessages.password;
+  passwordNotMatchErrorMessage = ValidationMessages.passwordNotMatch;
 
   TokenStatus = TokenStatus;
   tokenStatus = TokenStatus.Validating;

@@ -1,4 +1,4 @@
-import {Component, OnInit, Pipe} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Pipe} from '@angular/core';
 import {ProductCategory} from '../../_model/productCategory';
 import {ProductCategoryService} from '../../_service/product-category/product-category.service';
 import {Product} from '../../_model/product';
@@ -22,6 +22,7 @@ export class ProductListComponent implements OnInit {
   searchValue: string;
   filtersValue: Filters;
   orderValue: string;
+  productInCart: Array<Product> = [];
 
 
   constructor(
@@ -30,19 +31,23 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.productInCart = JSON.parse(localStorage.getItem('productInCart'));
     this.getProducts();
     this.searchValue = '';
     this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
     this.orderValue = '';
     this.getAmountOfProducts();
+
   }
 
   getProducts(): void {
     this.productService.getAllProducts(this.page, this.size)
       .subscribe(products => {
         this.currentProducts = products;
+        this.temp();
       });
     this.getAmountOfProducts();
+
   }
 
   onPageChange(currentPage: number): void{
@@ -93,6 +98,7 @@ export class ProductListComponent implements OnInit {
     this.productService.searchOrderFilterProducts(this.page, this.size, this.searchValue, this.orderValue, this.filtersValue)
       .subscribe(products => {
         this.currentProducts = products;
+        this.temp();
       });
     this.getAmountOfProducts();
   }
@@ -107,4 +113,33 @@ export class ProductListComponent implements OnInit {
         this.amountOfProducts = numb;
       });
   }
+
+  addProductToCart(product: Product): void {
+    if (localStorage.getItem('productInCart') !== null) {
+      this.productInCart = JSON.parse(localStorage.getItem('productInCart'));
+      if (!(this.productInCart.filter( x => x.id === product.id).length > 0)){
+        product.productAmount = 1;
+        this.productInCart.push(product);
+      }
+    } else {
+      this.productInCart = [];
+      product.productAmount = 1;
+      this.productInCart.push(product);
+    }
+    localStorage.setItem('productInCart', JSON.stringify(this.productInCart));
+    this.temp();
+  }
+
+  temp(): void {
+    this.currentProducts.forEach( element => {
+      this.productInCart.forEach( x => {
+        if (element.id === x.id) {
+          element.productStatus = 'inCard';
+        }
+      });
+    });
+
+
+  }
+
 }

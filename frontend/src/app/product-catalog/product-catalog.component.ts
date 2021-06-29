@@ -98,16 +98,16 @@ export class ProductCatalogComponent implements OnInit {
     button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
-    if (mode === 'add') {
-      button.setAttribute('data-target', '#addProductModal');
-    }
-    if (mode === 'edit') {
-      this.editProduct = product;
-      button.setAttribute('data-target', '#editProductModal');
-    }
-    if (mode === 'remove') {
-      button.setAttribute('data-target', '#removeProductModal');
-    }
+    // if (mode === 'add') {
+    //   button.setAttribute('data-target', '#addProductModal');
+    // }
+    // if (mode === 'edit') {
+    //   this.editProduct = product;
+    //   button.setAttribute('data-target', '#editProductModal');
+    // }
+    // if (mode === 'remove') {
+    //   button.setAttribute('data-target', '#removeProductModal');
+    // }
     container.appendChild(button);
     button.click();
   }

@@ -12,15 +12,15 @@ export class SettingsService {
 
   constructor(private http: HttpClient) { }
 
-  private productsUrl = 'http://localhost:8081/settings';
+  private settingsUrl = 'http://localhost:8081/settings';
 
   getUserByLogin(login: string): Observable<User> {
-    const url = `${this.productsUrl}/info/${login}`;
+    const url = `${this.settingsUrl}/info/${login}`;
     return this.http.get<User>(url);
   }
 
   updateUser(user: User): Observable<User> {
-    const url = `${this.productsUrl}/info/update`;
+    const url = `${this.settingsUrl}/info/update`;
     return this.http.put<User>(url, user);
   }
 
