@@ -1,12 +1,7 @@
 package com.eshop.backend.DAO.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.UUID;
 
-@Entity
 public class Employee {
     UUID uuid = UUID.randomUUID();
     private String id = uuid.toString();

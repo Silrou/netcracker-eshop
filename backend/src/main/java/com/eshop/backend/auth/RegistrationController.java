@@ -7,7 +7,6 @@ import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import com.eshop.backend.auth.dao.models.EmailTokenModel;
 import com.eshop.backend.auth.utils.Role;
 import com.eshop.backend.auth.dto.RegistationRequestDTO;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
 import com.eshop.backend.auth.mail.EmailSenderService;
 import com.eshop.backend.auth.validator.EmailValidator;
 import com.eshop.backend.auth.validator.PasswordValidator;
