@@ -26,7 +26,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         List<Object> problemProducts = new ArrayList<>();
         for (ProductModel prod: orderProducts) {
             if (prod.getProductAmount() > shoppingCartDao.getProductsAmountById(prod.getId())) {
-//                throw new OrderCartAmountException();
                 new ProductModel();
                 problemProducts.add(ProductModel.builder()
                         .id(prod.getId())
@@ -39,8 +38,5 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         if (amountProblem) {
             throw new OrderCartAmountException(problemProducts);
         }
-
-
-        List<ProductModel> storageProduct = shoppingCartDao.getProductsByIds(productIds);
     }
 }

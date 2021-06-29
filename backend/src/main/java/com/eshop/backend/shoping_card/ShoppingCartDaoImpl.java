@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class ShoppingCartDaoImpl implements ShoppingCartDao{
+public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -33,7 +33,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 
     @Override
     public List<ProductModel> getAll() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -48,33 +48,22 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao{
 
     @Override
     public List<ProductModel> getProductsByIds(List<Long> ids) {
-        try {
-            String inSql = String.join(",", Collections.nCopies(ids.size(), "?"));
+        String inSql = String.join(",", Collections.nCopies(ids.size(), "?"));
 
-            String sql = String.format("select id, productamount from product" +
-                    " where id in (%s)", inSql);
+        String sql = String.format("select id, productamount from product" +
+                " where id in (%s)", inSql);
 
-            RowMapper<ProductModel> rowMapper = (rs, rowNum) -> ProductModel.builder()
-                    .id(rs.getLong("id"))
-                    .productAmount(rs.getInt("productamount"))
-                    .build();
-            List<ProductModel> a = jdbcTemplate.query(sql, rowMapper, ids.toArray());
-            return jdbcTemplate.query(sql, rowMapper, ids.toArray());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
-        return null;
+        RowMapper<ProductModel> rowMapper = (rs, rowNum) -> ProductModel.builder()
+                .id(rs.getLong("id"))
+                .productAmount(rs.getInt("productamount"))
+                .build();
+        return jdbcTemplate.query(sql, rowMapper, ids.toArray());
+
     }
 
     @Override
     public int getProductsAmountById(Long id) {
-        try {
-            String sql = "select productamount from product where id = ?";
-            Integer amount = jdbcTemplate.queryForObject(sql, Integer.class, id);
-            return amount == null ? 0 : amount;
-        } catch (Exception e) {
-            String str = e.toString();
-        }
-        return 0;
+        String sql = "SELECT productamount FROM product WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, id);
     }
 }
