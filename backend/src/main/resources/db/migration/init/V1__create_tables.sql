@@ -71,7 +71,7 @@ create table orderCart(
                           userName varchar(100) NOT NULL,
                           deliveryTime DATE NOT NULL,
                           fullAddress VARCHAR(100) NOT NULL,
-                          dontDisturb VARCHAR(1)
+                          dontDisturb boolean
 );
 
 

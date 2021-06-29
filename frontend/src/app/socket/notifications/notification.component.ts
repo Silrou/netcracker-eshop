@@ -13,55 +13,50 @@ export class NotificationComponent {
 
   private client: StompJs.Client;
 
-  connectClicked(): void {
-  //   if (!this.client || this.client.connected) {
-    console.info("disconnected :-/" + new StompJs.Client({
-      webSocketFactory: () => new SockJS('http://localhost:8081/notifications')
-    }));
-    // );
-    //   this.client = new StompJs.Client({
-    //     webSocketFactory: () => new SockJS('http://localhost:8080/notifications'),
-    //     debug: (msg: string) => console.log(msg)
-    //   });
+  connectClicked() {
+    if (!this.client || this.client.connected) {
+      this.client = new StompJs.Client({
+        webSocketFactory: () => new SockJS('http://localhost:8081/notifications'),
+        debug: (msg: string) => console.log(msg)
+      });
 
-  //     this.client.onConnect = () => {
-  //
-  //       this.client.subscribe('/user/notification/item', (response) => {
-  //         const text: string = JSON.parse(response.body).text;
-  //         console.log('Got ' + text);
-  //         this.notifications.push(text);
-  //       });
-  //
-  //       console.info('connected!');
-  //     };
-  //
-  //     this.client.onStompError = (frame) => {
-  //       console.error(frame.headers['message']);
-  //       console.error('Details:', frame.body);
-  //     };
-  //
-  //     this.client.activate();
-  //   }
+      this.client.onConnect = () => {
+
+        this.client.subscribe('/user/notification/item', (response) => {
+          const text: string = JSON.parse(response.body).text;
+          console.log('Got ' + text);
+          this.notifications.push(text);
+        });
+
+        console.info('connected!');
+      };
+
+      this.client.onStompError = (frame) => {
+        console.error(frame.headers['message']);
+        console.error('Details:', frame.body);
+      };
+
+      this.client.activate();
+    }
   }
-  //
-  disconnectClicked(): void {
+
+  disconnectClicked() {
     if (this.client && this.client.connected) {
       this.client.deactivate();
       this.client = null;
       console.info("disconnected :-/");
     }
   }
-  //
-  startClicked(): void {
+
+  startClicked() {
     if (this.client && this.client.connected) {
       this.client.publish({destination: '/swns/start'});
     }
   }
 
-  stopClicked(): void {
+  stopClicked() {
     if (this.client && this.client.connected) {
       this.client.publish({destination: '/swns/stop'});
     }
   }
-
 }

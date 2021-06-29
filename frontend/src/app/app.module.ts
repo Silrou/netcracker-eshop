@@ -37,6 +37,7 @@ import {OrderHistoryComponent} from './settings/order-history/order-history.comp
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {CoucabComponent} from './account/courier-cabinet/coucab.component';
+import {NotificationComponent} from './socket/notifications/notification.component';
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import {CoucabComponent} from './account/courier-cabinet/coucab.component';
         EditSettingsComponent,
         OrderHistoryComponent,
         CoucabComponent,
+        NotificationComponent,
         OrderDetailsComponent
     ],
     imports: [

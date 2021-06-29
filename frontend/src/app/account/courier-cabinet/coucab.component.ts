@@ -33,6 +33,7 @@ export class CoucabComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.user.id);
     this.rs.getTask().subscribe((response) => {
       this.courierpackages = response;
     });
