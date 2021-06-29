@@ -5,6 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AlertService} from '../../_service/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ValidationMessages} from '../../_model/labels/validation.messages';
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +16,11 @@ export class RegistrationComponent implements OnInit {
   registerUserData = new User();
   registerForm: FormGroup;
   submitted = false;
+
+  firstNameErrorMessage = ValidationMessages.firstName;
+  lastNameErrorMessage = ValidationMessages.lastName;
+  emailErrorMessage = ValidationMessages.email;
+  passwordErrorMessage = ValidationMessages.password;
 
   constructor(private router: Router,
               private authService: AuthService,

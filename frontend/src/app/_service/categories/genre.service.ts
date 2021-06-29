@@ -14,7 +14,6 @@ export class GenreService {
   constructor(private http: HttpClient) { }
 
   private genreUrl = 'http://localhost:8081/genre';
-  private genreList: Genre[] = [];
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -31,7 +30,6 @@ export class GenreService {
     const url = `${this.genreUrl}/get-all`;
     return this.http.get<Genre[]>(url)
       .pipe(
-        tap(x => this.genreList = x),
         catchError(this.handleError<Genre[]>('getAllGenres', []))
       );
   }
@@ -44,15 +42,15 @@ export class GenreService {
       );
   }
 
-  getCoverTypes(): Observable<Genre[]> {
-    if (this.genreList.length === 0) {
+  getGenres(): Genre[] {
+    if (localStorage.getItem('genres') === null) {
       this.getAllGenres().subscribe(
         res => {
-          this.genreList = res;
+          localStorage.setItem('genres', JSON.stringify(res));
         }
       );
     }
-    return of(this.genreList);
+    return JSON.parse(localStorage.getItem('genres'));
   }
 
 }

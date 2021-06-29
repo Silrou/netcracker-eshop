@@ -71,7 +71,7 @@ create table orderCart(
                           userName varchar(100) NOT NULL,
                           deliveryTime DATE NOT NULL,
                           fullAddress VARCHAR(100) NOT NULL,
-                          dontDisturb VARCHAR(1)
+                          dontDisturb boolean
 );
 
 
@@ -113,5 +113,6 @@ create table orderProduct (
                               id BIGSERIAL PRIMARY KEY,
                               productId BIGSERIAL NOT NULL,
                               orderCardId BIGSERIAL NOT NULL,
-                              inCardProductAmount BIGSERIAL
+                              inCardProductAmount BIGSERIAL,
+                              inCardProductPrice BIGSERIAL
 );

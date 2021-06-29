@@ -13,7 +13,6 @@ export class PublisherService {
   constructor(private http: HttpClient) { }
 
   private publisherUrl = 'http://localhost:8081/publisher';
-  private publisherList: Publisher[] = [];
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -30,7 +29,6 @@ export class PublisherService {
     const url = `${this.publisherUrl}/get-all`;
     return this.http.get<Publisher[]>(url)
       .pipe(
-        tap(x => this.publisherList = x),
         catchError(this.handleError<Publisher[]>('getAllPublishers', []))
       );
   }
@@ -43,15 +41,15 @@ export class PublisherService {
       );
   }
 
-  getPublishers(): Observable<Publisher[]> {
-    if (this.publisherList.length === 0) {
+  getPublishers(): Publisher[] {
+    if (localStorage.getItem('publishers') === null) {
       this.getAllPublishers().subscribe(
         res => {
-          this.publisherList = res;
+          localStorage.setItem('publishers', JSON.stringify(res));
         }
       );
     }
-    return of(this.publisherList);
+    return JSON.parse(localStorage.getItem('publishers'));
   }
 
 }

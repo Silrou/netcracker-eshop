@@ -1,16 +1,16 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {typesOfCategories} from "../../_model/typesOfCategories";
-import {GenreService} from "../../_service/categories/genre.service";
-import {Genre} from "../../_model/genre";
-import {AuthorService} from "../../_service/categories/author.service";
-import {CoverTypeService} from "../../_service/categories/cover-type.service";
-import {LanguageService} from "../../_service/categories/language.service";
-import {PublisherService} from "../../_service/categories/publisher.service";
-import {Author} from "../../_model/author";
-import {CoverType} from "../../_model/cover-type";
-import {Language} from "../../_model/Language";
-import {Publisher} from "../../_model/Publisher";
-import {Filters} from "../../_model/filters";
+import {typesOfCategories} from '../../_model/typesOfCategories';
+import {GenreService} from '../../_service/categories/genre.service';
+import {Genre} from '../../_model/genre';
+import {AuthorService} from '../../_service/categories/author.service';
+import {CoverTypeService} from '../../_service/categories/cover-type.service';
+import {LanguageService} from '../../_service/categories/language.service';
+import {PublisherService} from '../../_service/categories/publisher.service';
+import {Author} from '../../_model/author';
+import {CoverType} from '../../_model/cover-type';
+import {Language} from '../../_model/Language';
+import {Publisher} from '../../_model/Publisher';
+import {Filters} from '../../_model/filters';
 
 @Component({
   selector: 'app-categories-part',
@@ -44,11 +44,11 @@ export class CategoriesPartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAuthors();
-    this.getCoverTypes();
-    this.getGenres();
-    this.getLanguages();
-    this.getPublishers();
+    this.publishers = this.publisherService.getPublishers();
+    this.authors = this.authorService.getAuthors();
+    this.coverTypes = this.coverTypeService.getCoverTypes();
+    this.genres = this.genreService.getGenres();
+    this.languages = this.languageService.getLanguages();
     this.authorsCheckedSet = new Set();
     this.coverTypesCheckedSet = new Set();
     this.genresCheckedSet = new Set();
@@ -64,23 +64,23 @@ export class CategoriesPartComponent implements OnInit {
     this.filters.language = [];
     this.filters.publisher = [];
 
-    for (let currentNumber of this.authorsCheckedSet) {
+    for (const currentNumber of this.authorsCheckedSet) {
       this.filters.author.push(currentNumber);
     }
 
-    for (let currentNumber of this.coverTypesCheckedSet) {
+    for (const currentNumber of this.coverTypesCheckedSet) {
       this.filters.coverType.push(currentNumber);
     }
 
-    for (let currentNumber of this.genresCheckedSet) {
+    for (const currentNumber of this.genresCheckedSet) {
       this.filters.genre.push(currentNumber);
     }
 
-    for (let currentNumber of this.languagesCheckedSet) {
+    for (const currentNumber of this.languagesCheckedSet) {
       this.filters.language.push(currentNumber);
     }
 
-    for (let currentNumber of this.publishersCheckedSet) {
+    for (const currentNumber of this.publishersCheckedSet) {
       this.filters.publisher.push(currentNumber);
     }
 
@@ -127,38 +127,7 @@ export class CategoriesPartComponent implements OnInit {
     }
   }
 
-  getAuthors(): void {
-    this.authorService.getAllAuthors()
-      .subscribe(authors => {
-        this.authors = authors;
-      });
-  }
+  create(): void {
 
-  getCoverTypes(): void {
-    this.coverTypeService.getAllCoverTypes()
-      .subscribe(coverTypes => {
-        this.coverTypes = coverTypes;
-      });
-  }
-
-  getGenres(): void {
-    this.genreService.getAllGenres()
-      .subscribe(genres => {
-        this.genres = genres;
-      });
-  }
-
-  getLanguages(): void {
-    this.languageService.getAllLanguages()
-      .subscribe(languages => {
-        this.languages = languages;
-      });
-  }
-
-  getPublishers(): void {
-    this.publisherService.getAllPublishers()
-      .subscribe(publishers => {
-        this.publishers = publishers;
-      });
   }
 }

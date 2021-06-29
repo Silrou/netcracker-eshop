@@ -41,11 +41,11 @@ export class OrderDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.orderId = this.orderDetailsService.getOrderId();
-    this.getAuthors();
-    this.getCoverTypes();
-    this.getGenres();
-    this.getLanguages();
-    this.getPublishers();
+    this.languages = this.languageService.getLanguages();
+    this.coverTypes = this.coverTypeService.getCoverTypes();
+    this.authors = this.authorService.getAuthors();
+    this.genres = this.genreService.getGenres();
+    this.publishers = this.publisherService.getPublishers();
     this.getProducts();
     this.getCountOfProduct();
   }
