@@ -35,6 +35,5 @@ VALUES ('2', 'Harry Potter', '20', '200', '0', TO_DATE('2021-06-02 23:39:34', 'Y
         'TESTURL', 'TESTDESC', 'T', '1', '0', '1', '1', '1');
 INSERT INTO ORDERCART (ID, USERID, COURIERID, PACKAGEDESCRIPTION, ORDERSTATUS, TOTALPRICE, USERNAME, DELIVERYTIME,  FULLADDRESS, DONTDISTURB) VALUES ('0', '0', '2', 'testDescription', 'on', '100', 'USER0', TO_DATE('2021-06-02 23:20:43', 'YYYY-MM-DD HH24:MI:SS'), 'USER0STREET', 'T' );
 
-INSERT INTO public.couriercalendar(
-    courierid, cartId, hour, calendardate)
+INSERT INTO public.couriercalendar(courierid, cartId, hour, calendardate)
 VALUES (2 , 0, 9, TO_DATE('2021-06-02 23:39:34', 'YYYY-MM-DD HH24:MI:SS'));

@@ -49,4 +49,9 @@ export class RestService {
     const nUrl = `${TUrll}`;
     return this.http.get(nUrl);
   }
+  getTask(): Observable<any> {
+    const TUrll = 'http://localhost:8081/courier/cabinet/get';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
 }

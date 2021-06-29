@@ -36,6 +36,7 @@ import { EditSettingsComponent } from './settings/edit/edit-settings/edit-settin
 import {OrderHistoryComponent} from './settings/order-history/order-history.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import {CoucabComponent} from './account/courier-cabinet/coucab.component';
 
 @NgModule({
     declarations: [
@@ -50,6 +51,7 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
         SearchComponent,
         EditSettingsComponent,
         OrderHistoryComponent,
+        CoucabComponent,
         OrderDetailsComponent
     ],
     imports: [
