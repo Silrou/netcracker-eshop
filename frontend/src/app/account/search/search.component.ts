@@ -72,8 +72,26 @@ export class SearchComponent implements OnInit {
     }, 1000);
      // console.log(response);
   }
-  getID(id: number): number{
-    return this.clickedID = id;
 
+  getID(id: number): number {
+    return this.clickedID = id;
+  }
+
+  getAllManager(): void {
+    this.rs.getManager().subscribe((response) => {
+      this.managers = response;
+    });
+  }
+
+  getAllCoriers(): void {
+    this.rs.getCorier().subscribe((response) => {
+      this.managers = response;
+    });
+  }
+
+  getOnDuty(): void {
+    this.rs.getOnDutyNow().subscribe((response) => {
+      this.managers = response;
+    });
   }
 }

@@ -1,0 +1,13 @@
+.productCategories{
+  list-style: none;
+  padding: 0;
+}
+
+.authors {
+  list-style: none;
+}
+
+.temp {
+  margin-bottom: 5px;
+  margin-top: 0;
+}

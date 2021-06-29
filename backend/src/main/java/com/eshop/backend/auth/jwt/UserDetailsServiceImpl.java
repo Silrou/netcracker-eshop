@@ -1,8 +1,8 @@
 package com.eshop.backend.auth.jwt;
 
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDaoImpl;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDaoImpl;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        AuthorizedUser user = authorizedUserDao.getByLogin(email);
+        AuthorizedUserModel user = authorizedUserDao.getByLogin(email);
         if (user != null) {
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
             return new User(user.getUserLogin(), user.getUserPassword(), authorities);

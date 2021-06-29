@@ -2,8 +2,8 @@ package com.eshop.backend.auth.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.eshop.backend.DAO.DataAccess.AuthorizedUser.AuthorizedUserDao;
-import com.eshop.backend.DAO.Models.AuthorizedUser;
+import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import static com.eshop.backend.auth.jwt.SecurityConstants.*;
 
@@ -36,7 +35,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (header == null || !header.startsWith(TOKEN_PREFIX) || header.equals(TOKEN_PREFIX + "null")) {
             chain.doFilter(req, res);
-            return;
+                return;
         }
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
@@ -62,11 +61,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (user != null) {
                 // new arraylist means authorities
-                AuthorizedUser authorizedUser = authorizedUserDao.getByLogin(user);
+                AuthorizedUserModel authorizedUserModel = authorizedUserDao.getByLogin(user);
 
                 ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
-                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserStatus()));
-                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUser.getUserRole()));
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUserModel.getUserStatus()));
+                list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUserModel.getUserRole()));
 
                 return new UsernamePasswordAuthenticationToken(user, null,
                         list);

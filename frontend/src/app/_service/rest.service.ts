@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
+
 })
 export class RestService {
   httpOptions = {
@@ -23,6 +24,7 @@ export class RestService {
   private addNewUrl = 'http://localhost:8081/search/new';
   private getAllUrl = 'http://localhost:8081/search/all';
   private deleteUrl = 'http://localhost:8081/search/delete';
+  url = 'http://localhost:8081/admin/search/';
   getManagers(): Observable<any> {
     return this.http.get<Managers[]>(this.getAllUrl);
   }
@@ -42,4 +44,24 @@ export class RestService {
   }
 
 
+  getManager(): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/search/manager';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
+  getCorier(): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/search/courier';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
+  getByName(name): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/getByName/' + name ;
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
+  getOnDutyNow(): Observable<any> {
+    const TUrll = 'http://localhost:8081/admin/onDuty';
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
 }

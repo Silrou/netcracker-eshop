@@ -1,47 +1,41 @@
-<div class="container">
-  <div class="row justify-content-around mt-4 mb-4">
+<h2 class="text-center p-1">Shopping cart</h2>
 
-    <h2 class="text-center p-1">Shopping cart</h2>
+<div class="row justify-content-start">
+<!--  <div class="col-lg-3 col-md-2 ">-->
+<!--    <select class="custom-select">-->
+<!--      <option selected (click)="getOrderedProducts('asc')">Newest</option>-->
+<!--      <option value="1" (click)="getOrderedProducts('desc')">Oldest</option>-->
+<!--    </select>-->
+<!--  </div>-->
 
-    <div class="card mt-4">
-      <div class="card-body">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-3 justify-content-around">
-              <img src="../../../assets/img/default.png" class="img-fluid"/></div>
-            <div class="col-md-6">
-              <div class="container">
-                <h5 class="post-title">Product 1</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="container mt-3">
-                <p>Price: 1000</p>
-              </div>
-              <div class="container mt-3">
-                <input type="number" class="form-control" placeholder="Amount"/>
-              </div>
-              <div class="container mt-3">
-                <p>Total: 1000</p>
-              </div>
-            </div>
+    <div class="col-lg-3 col-md-2">
+      <select class="custom-select" (change)="getOrderedProducts($event.target)">
+        <option selected value="asc">Newest</option>
+        <option value="desc">Oldest</option>
+      </select>
+    </div>
+
+    <div class="row justify-content-around mt-4 mb-4">
+
+      <div class="container" *ngFor="let product of products">
+        <app-product-in-cart [product]="product"
+                             [productsWithBadAmount]="productsWithBadAmount"
+                             (updateAmount)="updatePrice($event)"
+                             (remove)="removeProduct($event)"></app-product-in-cart>
+      </div>
+
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-6 justify-content-around">
+            <button (click)="confirmOrder()" class="btn btn-secondary mb-3">Go to order confirmation</button>
+          </div>
+          <div class="col-md-6 justify-content-around">
+            <p class="h3 text-right">Total before discount: {{this.total}}</p>
+            <p class="h3 text-right">Total: {{this.totalWithDiscount}}</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-md-6 justify-content-around">
-          <a href="" class="btn btn-secondary mb-3">Go to order confirmation</a>
 
-        </div>
-        <div class="col-md-6 justify-content-around">
-          <p class="h3 text-right">Total: 1000</p>
-        </div>
-      </div>
     </div>
-
   </div>
-</div>
 

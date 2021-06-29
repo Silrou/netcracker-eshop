@@ -21,8 +21,15 @@
          placeholder="Enter First name">
 </nav>
 </div>
-<!--  <mat-icon matPrefix>search</mat-icon>-->
-
+  <mat-icon matPrefix>search</mat-icon>
+<tbody>
+<tr>
+  <td><button class="btn btn-lg " (click)="getAllManager()">Managers</button></td>
+  <td><button class="btn btn-lg " (click)="getAllCoriers()">Coriers</button></td>
+  <td><button class="btn btn-lg " (click)="getEmployee()">All</button></td>
+  <td><button class="btn btn-lg " (click)="getOnDuty()">On-Duty</button></td>
+</tr>
+</tbody>
   <table class="table table-bordered">
     <thead>
     <tr>

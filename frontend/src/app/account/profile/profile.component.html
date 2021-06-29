@@ -6,8 +6,9 @@
 <!--  </mat-form-field>-->
 <!--</form>-->
 <!--<button  mat-button (click)="onClose()"><mat-icon>close</mat-icon></button>-->
+
 <h1 style="text-align: center;">
-  Create profile
+  Create profilen
 </h1>
 <form [formGroup]="form" (ngSubmit)="Submit()">
   <div class="container">
@@ -33,8 +34,6 @@
       <mat-icon matPrefix>phone</mat-icon>
       <mat-hint *ngIf="form.get('phoneNumber').errors">Phone number is required</mat-hint>
     </mat-form-field>
-
-
 
 
       <div class="add-bottom-padding">
