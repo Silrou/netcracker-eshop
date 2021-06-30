@@ -74,7 +74,9 @@ export class ProductCreateComponent implements OnInit {
       genre: new FormControl('', [Validators.required, Validators.min(0)]),
       coverType: new FormControl('', [Validators.required, Validators.min(0)]),
       language: new FormControl('', [Validators.required, Validators.min(0)]),
-      pictureFile: new FormControl('', [Validators.required])
+      productPict: new FormControl('', [Validators.required,
+        Validators.maxLength(100),
+        Validators.minLength(1)]),
     });
   }
 
@@ -88,7 +90,6 @@ export class ProductCreateComponent implements OnInit {
       return;
     }
     const result = this.editForm.value;
-    result.productPict = 'some url';
     console.log(result);
 
     this.productService.addProduct(result).subscribe(

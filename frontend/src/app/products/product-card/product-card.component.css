@@ -8,3 +8,10 @@
 .has-discount-text{
   color: brown;
 }
+
+.img {
+  width: 200px;
+  height: 250px;
+  text-align: center;
+  margin-top: 5px;
+}
