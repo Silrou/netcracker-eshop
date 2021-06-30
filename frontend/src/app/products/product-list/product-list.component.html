@@ -10,7 +10,8 @@
       </select>
     </div>
     <div class="col-lg-9 col-md-10">
-      <app-product-search (searchValue)="getSearchedProducts($event)" (cancelFilters)="cancelFilters()"></app-product-search>
+      <app-product-search (searchValue)="getSearchedProducts($event)"
+                          (cancelFilters)="cancelFilters()"></app-product-search>
     </div>
 
 
@@ -25,17 +26,16 @@
     <div class="col-lg-9 col-md-10">
       <div class="row">
         <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of currentProducts">
-          <app-product-card [product]="product"
-                            (addProductToCart)="addProductToCart($event)"></app-product-card>
+          <app-product-card [product]="product"></app-product-card>
+
         </div>
 
       </div>
       <div class="row  justify-content-around">
-        <ngb-pagination [pageSize]="size" [collectionSize]="amountOfProducts" [(page)]="page" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
+        <ngb-pagination [collectionSize]="amountOfProducts" [(page)]="page" [pageSize]="size" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange(page)"></ngb-pagination>
       </div>
     </div>
-
   </div>
-
 </div>
 

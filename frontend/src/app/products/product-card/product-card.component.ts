@@ -25,5 +25,15 @@ export class ProductCardComponent implements OnInit {
     this.addProductToCart.emit(this.product);
   }
 
+  hasDiscount(): boolean {
+    if (this.product.productDiscount > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  getDiscountedPrice(): number{
+    return Math.round(this.product.productPrice * ( 1 - (this.product.productDiscount / 100) ));
+  }
 
 }

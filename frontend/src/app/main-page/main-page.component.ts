@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../_service/auth.service';
+import {Product} from "../_model/product";
+import {ProductService} from "../_service/product/product.service";
 
 @Component({
   selector: 'app-main-page',
@@ -8,10 +10,34 @@ import {AuthService} from '../_service/auth.service';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  newProducts: Product[] = [];
+
+  popularProducts: Product[] = [];
+  page = 1;
+  size = 4;
+
+  constructor(
+    private productService: ProductService) {
+  }
 
   ngOnInit(): void {
-    // this.authService.globalRole = 'ANONYMOUS_USER';
+    this.getNewProducts();
+    this.getPopularProducts();
   }
+
+  getNewProducts(): void {
+    this.productService.getNewProducts(this.page, this.size)
+      .subscribe(products => {
+        this.newProducts = products;
+      });
+  }
+
+  getPopularProducts(): void {
+    this.productService.getPopularProducts(this.page, this.size)
+      .subscribe(products => {
+        this.popularProducts = products;
+      });
+  }
+
 
 }

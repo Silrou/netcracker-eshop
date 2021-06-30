@@ -1,13 +1,13 @@
-.productCategories{
-  list-style: none;
-  padding: 0;
+.category-header-text{
+  margin-top: 15px;
+  color: #5a6268;
+  font-size: 1.5rem;
+  text-align: left;
 }
 
-.authors {
-  list-style: none;
+.text-product-link {
+  color: #5a6268 !important;
 }
-
-.temp {
-  margin-bottom: 5px;
-  margin-top: 0;
+.text-product-link:hover, .text-product-link:active {
+  color: #6c757d !important;
 }
