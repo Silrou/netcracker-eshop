@@ -54,10 +54,6 @@ export class ProductListComponent implements OnInit {
     this.getSearchedOrderedFilteredProducts();
   }
 
-  getOrderedProducts(value: string): void{
-    this.orderValue = value;
-    this.getSearchedOrderedFilteredProducts();
-  }
 
   getSearchedProducts(value: string): void{
     if (value !== ''){
@@ -118,6 +114,11 @@ export class ProductListComponent implements OnInit {
     });
 
 
+  }
+
+  getOrderedProducts(target: any): void {
+    this.orderValue = target.value;
+    this.getSearchedOrderedFilteredProducts();
   }
 
 }
