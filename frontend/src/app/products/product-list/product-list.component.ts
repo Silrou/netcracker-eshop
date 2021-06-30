@@ -58,39 +58,18 @@ export class ProductListComponent implements OnInit {
   getOrderedProducts(value: string): void{
     this.orderValue = value;
     this.getSearchedOrderedFilteredProducts();
-    // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
-    // this.productService.orderProducts(this.page, this.size, value)
-    //   .subscribe(products =>{
-    //     this.currentProducts = products;
-    //   });
-
   }
 
   getSearchedProducts(value: string): void{
     if (value !== ''){
       this.searchValue = value;
       this.getSearchedOrderedFilteredProducts();
-      // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
-      // this.productService.searchProducts(value)
-      //   .subscribe(products => {
-      //     // console.log('inside subscribe');
-      //     // console.log(products);
-      //     this.currentProducts = products;
-      //   });
     }
-    // else this.getProducts();
     else { this.searchValue = ''; }
   }
 
   getFilteredProducts(filters: Filters): void{
     this.filtersValue = filters;
-    // console.info('orderValue ', this.orderValue, ' searchvalue ', this.searchValue, ' filters ', JSON.stringify(this.filtersValue));
-    // this.productService.filterProducts(this.page, this.size, filters)
-    //   .subscribe(products => {
-    //      // console.log('getFilteredProducts inside subscribe');
-    //      //console.log(products);
-    //     this.currentProducts = products;
-    //   });
     this.getSearchedOrderedFilteredProducts();
   }
 

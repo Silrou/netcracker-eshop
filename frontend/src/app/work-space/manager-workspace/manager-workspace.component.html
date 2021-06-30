@@ -1,5 +1,4 @@
 <div class="container">
-
   <div class="row justify-content-around ">
     <div class="col-lg-3 col-md-2">
       <select class="custom-select">
@@ -15,37 +14,43 @@
     </div>
   </div>
 
-  <div>
-    <button (click)="onCreate()" class="btn btn-outline-secondary my-2 my-sm-0 temp" type="secondary">Create</button>
-  </div>
-
-  <div class="row justify-content-around mt-4 mb-4">
+  <div class="row justify-content-around mt-2">
     <div class="col-lg-3 col-md-2">
-      <app-categories-part (filterValue)="getFilteredProducts($event)"></app-categories-part>
+      <div>
+        <button (click)="onCreate()" class="btn btn-outline-secondary my-2 my-sm-0 temp mt-4 mb-4 btn-block" type="secondary">Create</button>
+      </div>
+      <div class="mt-4">
+        <app-categories-part (filterValue)="getFilteredProducts($event)"></app-categories-part>
+      </div>
+
     </div>
 
     <div class="col-lg-9 col-md-10">
-      <div class="row">
-        <div *ngFor="let product of products">
-          <app-product-manager [product]="product"
-                               [author]="authors[product.author]"
-                               [language]="languages[product.language]"
-                               [publisher]="publishers[product.publisher]"
-                               [coverType]="coverTypes[product.coverType]"
-                               [genre]="genres[product.genre]"
-                               (editProductEvent)="update($event)"></app-product-manager>
-          <div class="card-body">
-          </div>
+      <div class="row justify-content-around mb-2">
+        <ngb-pagination [collectionSize]="amountOfProducts" [(page)]="page" [pageSize]="size" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange(page)"></ngb-pagination>
+      </div>
+
+      <div *ngFor="let product of products">
+        <app-product-manager [product]="product"
+                             [author]="authors[product.author]"
+                             [language]="languages[product.language]"
+                             [publisher]="publishers[product.publisher]"
+                             [coverType]="coverTypes[product.coverType]"
+                             [genre]="genres[product.genre]"
+                             (editProductEvent)="update($event)"></app-product-manager>
+        <div class="card-body">
+
         </div>
       </div>
+
+
       <div class="row  justify-content-around">
-        <ngb-pagination [pageSize]="size" [collectionSize]="amountOfProducts" [(page)]="page"
-                        (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
+        <ngb-pagination [collectionSize]="amountOfProducts" [(page)]="page" [pageSize]="size" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange(page)"></ngb-pagination>
       </div>
     </div>
   </div>
 </div>
-
-
 
 
