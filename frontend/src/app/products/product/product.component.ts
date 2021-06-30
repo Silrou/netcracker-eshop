@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProduct();
-    // console.log(this.product.id)
+    console.log(this.product.id);
   }
 
   getProduct(): void {
@@ -30,7 +30,7 @@ export class ProductComponent implements OnInit {
     this.productService.getProduct(id)
       .subscribe(product => {
         console.log(product);
-        this.product = product;
+        this.product = product
       }, error => console.log(error));
 
     // this.product=
@@ -41,6 +41,12 @@ export class ProductComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  hasDiscount():boolean{
+    if (this.product.productDiscount>0){
+      return true;
+    }
   }
 
 }

@@ -54,6 +54,11 @@ public class ProductServiceImp implements ProductService {
         return productdao.getSearchedOrderedFiltered(page, size, search, orderBy, filterModel);
     }
 
+    @Override
+    public List<String> getCategoriesOfProduct(int author, int coverType, int genre, int language, int publisher) {
+        return productdao.getCategoriesOfProduct(author, coverType, genre, language, publisher);
+    }
+
     public int getPageNumeration(int page, int size){
         if(page > 1)
             page = (page - 1) * size + 1;
