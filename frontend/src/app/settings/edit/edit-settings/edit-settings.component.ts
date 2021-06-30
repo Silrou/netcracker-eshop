@@ -65,7 +65,7 @@ export class EditSettingsComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.alertService.error(error, { autoClose: false });
+        this.alertService.error(error.error.message, { autoClose: false });
       }
     );
   }

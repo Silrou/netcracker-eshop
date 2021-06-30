@@ -5,6 +5,7 @@ import {AuthService} from '../../_service/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AlertService} from '../../_service/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ValidationMessages} from '../../_model/labels/validation.messages';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  emailErrorMessage = ValidationMessages.email;
+  passwordErrorMessage = ValidationMessages.password;
+
   loginUserData = new User();
   error = false;
   siteKey = '6Lf8SSgbAAAAALxW_hIMBPJeKQzgvvg7NmbCzVO2';
@@ -87,6 +92,7 @@ export class LoginComponent implements OnInit {
         this.loginUserData = res;
         localStorage.setItem('idUser', res.id);
         localStorage.setItem('login', this.loginUserData.userLogin);
+        localStorage.setItem('idUser', res.id);
         if (!this.error) {
           loginData.recaptchaResponse = undefined;
           this.authService.getToken(loginData).subscribe(
@@ -104,21 +110,11 @@ export class LoginComponent implements OnInit {
         if (this.failedRegistration >= 5) {
           console.log('show recaptcha now!!!!!!');
         }
-        this.alertService.error(error, { autoClose: false });
+        this.alertService.error(error.error.message, { autoClose: false });
         this.invalidLogin = true;
         this.loginResponse = error.message;
         grecaptcha.reset();
       }
     );
-
-    // this.getRole();
-  }
-
-  resolved(captchaResponse: string): void {
-    console.log(`Resolved response token: ${captchaResponse}`);
-  }
-
-  handleSuccess(captchaResponse: string): void {
-    console.log(`Resolved response token: ${captchaResponse}`);
   }
 }

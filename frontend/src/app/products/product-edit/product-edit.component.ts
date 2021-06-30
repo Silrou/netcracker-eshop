@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProductManagerComponent} from '../product-manager/product-manager.component';
-import {ManagerWorkspaceComponent} from '../manager-workspace/manager-workspace.component';
+import {ManagerWorkspaceComponent} from '../../work-space/manager-workspace/manager-workspace.component';
 import {AuthorService} from '../../_service/categories/author.service';
 import {Author} from '../../_model/author';
 import {CoverType} from '../../_model/cover-type';
@@ -46,8 +46,11 @@ export class ProductEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.data);
-    this.getCategories();
+    this.genres = this.genreService.getGenres();
+    this.coverTypes = this.coverTypeService.getCoverTypes();
+    this.authors = this.authorService.getAuthors();
+    this.languages = this.languageService.getLanguages();
+    this.publishers = this.publisherService.getPublishers();
     this.initForm();
   }
 
@@ -100,44 +103,6 @@ export class ProductEditComponent implements OnInit {
 
     console.log('end edit');
     this.onClose();
-  }
-
-
-  getCategories(): void {
-    this.authorService.getAuthors().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.authors = res;
-      }
-    );
-
-    this.coverTypeService.getCoverTypes().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.coverTypes = res;
-      }
-    );
-
-    this.genreService.getCoverTypes().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.genres = res;
-      }
-    );
-
-    this.publisherService.getPublishers().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.publishers = res;
-      }
-    );
-
-    this.languageService.getLanguages().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.languages = res;
-      }
-    );
   }
 
 }

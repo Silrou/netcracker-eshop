@@ -54,6 +54,11 @@ public class ProductServiceImp implements ProductService {
         return productdao.getSearchedOrderedFiltered(page, size, search, orderBy, filterModel);
     }
 
+    @Override
+    public List<String> getCategoriesOfProduct(int author, int coverType, int genre, int language, int publisher) {
+        return productdao.getCategoriesOfProduct(author, coverType, genre, language, publisher);
+    }
+
     public int getPageNumeration(int page, int size){
         if(page > 1)
             page = (page - 1) * size + 1;
@@ -68,6 +73,18 @@ public class ProductServiceImp implements ProductService {
     @Override
     public ProductModel getById(Long id) {
         return productdao.getById(id);
+    }
+
+    @Override
+    public List<ProductModel> getPopular(int page, int size) {
+        page = getPageNumeration(page, size);
+        return productdao.getPopular(page, size);
+    }
+
+    @Override
+    public List<ProductModel> getNew(int page, int size) {
+        page = getPageNumeration(page, size);
+        return productdao.getNew(page, size);
     }
 
     @Override
