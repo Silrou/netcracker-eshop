@@ -27,17 +27,17 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    ProductComponent,
-    ProductListComponent,
-    ProductCardComponent,
-    ProductSearchComponent,
-    CategoriesPartComponent,
-    ProductManagerComponent,
-    ManagerWorkspaceComponent,
-    ProductEditComponent,
-    ProductCreateComponent,
-  ],
+    declarations: [
+        ProductComponent,
+        ProductListComponent,
+        ProductCardComponent,
+        ProductSearchComponent,
+        CategoriesPartComponent,
+        ProductManagerComponent,
+        ManagerWorkspaceComponent,
+        ProductEditComponent,
+        ProductCreateComponent,
+    ],
     imports: [
         CommonModule,
         AppRoutingModule,
@@ -56,8 +56,11 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
         MatPaginatorModule,
         NgbPaginationModule
     ],
-  providers: [
-    CategoriesPartComponent
-  ]
+    exports: [
+        ProductCardComponent
+    ],
+    providers: [
+        CategoriesPartComponent
+    ]
 })
 export class ProductsModule { }

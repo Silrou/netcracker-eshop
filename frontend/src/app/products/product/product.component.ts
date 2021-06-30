@@ -28,7 +28,6 @@ export class ProductComponent implements OnInit {
 
   getProduct(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    console.log('id', id);
     this.productService.getProduct(id)
       .subscribe(product => {
         this.product = product;

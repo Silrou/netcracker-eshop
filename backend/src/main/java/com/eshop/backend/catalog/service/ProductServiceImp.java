@@ -76,6 +76,18 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    public List<ProductModel> getPopular(int page, int size) {
+        page = getPageNumeration(page, size);
+        return productdao.getPopular(page, size);
+    }
+
+    @Override
+    public List<ProductModel> getNew(int page, int size) {
+        page = getPageNumeration(page, size);
+        return productdao.getNew(page, size);
+    }
+
+    @Override
     public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel) {
         return productdao.getNumberOfSearchedOrderedFiltered(search, orderBy, filterModel);
     }

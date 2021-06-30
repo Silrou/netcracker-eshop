@@ -157,6 +157,23 @@ public class ProductDaoImpl implements ProductDao {
         return categories;
     }
 
+    @Override
+    public List<ProductModel> getPopular(int page, int size) {
+        String sql = "SELECT ";
+
+//        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
+//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+//        return template.query(sql, new ProductMapper());
+        return null;
+    }
+
+    @Override
+    public List<ProductModel> getNew(int page, int size) {
+        String sql = ProductMapper.SELECT_SQL + " order by p.productdate desc " +
+                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+        return template.query(sql, new ProductMapper());
+    }
+
     private String getAuthorById(int id){
         String sql = "SELECT authorname from author where id = ?";
         return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});

@@ -118,6 +118,20 @@ public class ProductCRUDController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
+    @GetMapping("/get-popular")
+    public ResponseEntity<List<ProductModel>> getPopular(@RequestParam("page") int page,
+                                                                   @RequestParam("size") int size) {
+        List<ProductModel> productModels = productService.getPopular(page, size);
+        return new ResponseEntity<>(productModels, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-new")
+    public ResponseEntity<List<ProductModel>> getNew(@RequestParam("page") int page,
+                                                         @RequestParam("size") int size) {
+        List<ProductModel> productModels = productService.getNew(page, size);
+        return new ResponseEntity<>(productModels, HttpStatus.OK);
+    }
+
 }
 
 

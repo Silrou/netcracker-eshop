@@ -114,4 +114,22 @@ export class ProductService {
         catchError(this.handleError<string[]>('getProductsCount', ))
       );
   }
+
+  getPopularProducts(page: number, size: number): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-popular`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size));
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('getPopularProducts', []))
+      );
+  }
+
+  getNewProducts(page: number, size: number): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-new`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size));
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('getNewProducts', []))
+      );
+  }
 }

@@ -32,10 +32,10 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.productInCart = JSON.parse(localStorage.getItem('productInCart'));
-    this.getProducts();
     this.searchValue = '';
     this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
     this.orderValue = '';
+    this.getProducts();
     this.getAmountOfProducts();
 
   }
@@ -47,7 +47,6 @@ export class ProductListComponent implements OnInit {
         this.temp();
       });
     this.getAmountOfProducts();
-
   }
 
   onPageChange(currentPage: number): void{
