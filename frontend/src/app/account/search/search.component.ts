@@ -8,6 +8,7 @@ import {RestService} from '../../_service/rest.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProfileComponent} from '../profile/profile.component';
 import {MatDialogRef} from '@angular/material/dialog';
+import {User} from "../../_model/user";
 
 
 
@@ -31,8 +32,8 @@ export class SearchComponent implements OnInit {
     this.getEmployee();
   }
   getEmployee(): void{
-    this.rs.getManagers().subscribe((response: Managers[]) => {
-      this.rs.managers = response;
+    this.rs.getManagers().subscribe((response: User[]) => {
+      this.rs.users = response;
     });
   }
   Search(): void{

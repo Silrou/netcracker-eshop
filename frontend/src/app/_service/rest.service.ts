@@ -5,6 +5,7 @@ import {Observable, of} from 'rxjs';
 import * as _ from 'lodash';
 
 import { catchError, map, tap } from 'rxjs/operators';
+import {User} from "../_model/user";
 @Injectable({
   providedIn: 'root'
 
@@ -19,13 +20,14 @@ export class RestService {
   // phoneNumber: string;
   // role: string;
   managers: Managers [] = [];
+  users: User [] = [];
   constructor(private http: HttpClient) { }
   private addNewUrl = 'http://localhost:8081/search/new';
   private getAllUrl = 'http://localhost:8081/search/all';
   private deleteUrl = 'http://localhost:8081/search/delete';
   url = 'http://localhost:8081/admin/search/';
   getManagers(): Observable<any> {
-    return this.http.get<Managers[]>(this.getAllUrl);
+    return this.http.get<User[]>(this.getAllUrl);
   }
   addMember(manager: Managers): Observable<any>{
     // return this.http.post<Managers>(this.url, manager);

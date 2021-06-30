@@ -44,15 +44,15 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let manager of rs.managers">
+    <tr *ngFor="let manager of rs.users">
 
       <td class ="idNum" (click)="getID(manager.id)"></td>
 
-      <td>{{manager.firstName}}</td>
-      <td>{{manager.lastName}}</td>
-      <td>{{manager.email}}</td>
-      <td>{{manager.phoneNumber}}</td>
-      <td>{{manager.role}}</td>
+      <td>{{manager.userName}}</td>
+      <td>{{manager.userSurname}}</td>
+      <td>{{manager.userLogin}}</td>
+      <td>{{manager.userNumber}}</td>
+      <td>{{manager.userRole}}</td>
       <td>{{manager.status}}</td>
 
       <button mat-icon-button color="primary"  title="Edit Contact" (click)="onEdit(manager)"><mat-icon>edit</mat-icon></button>
