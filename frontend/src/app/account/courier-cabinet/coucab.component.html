@@ -30,7 +30,9 @@
     <td>{{courierPackage.fulladdress}}</td>
     <td>{{courierPackage.deliverytime}}</td>
     <td>{{courierPackage.totalprice}}</td>
-    <td> <input type="checkbox" ng-model="{{courierPackage.orderstatus}}" (click)="setNewStatus(courierPackage.id)"></td>
+    <td>{{courierPackage.orderstatus}}</td>
+    <td> <input type="checkbox"   (click)="setNewStatus(courierPackage.id)" [checked]="courierPackage.orderstatus" /></td>
+    <td><input type="checkbox" [(ngModel)]="theCheckbox"  data-md-icheck/></td>
     <td>{{courierPackage.packagedescription}}</td>
     <td><button class="btn btn-lg ">Description</button></td>
 

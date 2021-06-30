@@ -22,10 +22,10 @@ export class CoucabComponent implements OnInit {
   fulladdress: string;
   deliverytime: string;
   totalprice: number;
-  orderstatus: string;
+  orderstatus: boolean;
   packagedescription: string;
   erzacModel: ErzacModel;
-
+  theCheckbox: any;
   constructor(public rs: RestService,
               // private dialog: MatDialog
   ) {
@@ -35,6 +35,7 @@ export class CoucabComponent implements OnInit {
     this.rs.getTask(localStorage.getItem('idUser')).subscribe((response) => {
       this.courierpackages = response;
     });
+    console.log(this.orderstatus);
   }
 
   // getByCourierID(id: number) {
@@ -43,6 +44,8 @@ export class CoucabComponent implements OnInit {
   setNewStatus(ids: number): void {
     this.rs.setStatus(ids).subscribe((response) => {
       this.courierpackages = response;
+      console.log(this.orderstatus);
+      this.ngOnInit();
     });
   }
 }

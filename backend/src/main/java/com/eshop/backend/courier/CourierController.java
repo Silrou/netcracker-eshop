@@ -23,8 +23,9 @@ public class CourierController {
         return new ResponseEntity<>(courierModel, HttpStatus.OK);
     }
     @PutMapping("/courier/cabinet/{setordercart}")
-    public ResponseEntity<Object> setOrderCartStatus(@PathVariable("courierid") long setordercart) {
+    public ResponseEntity<Object> setOrderCartStatus(@PathVariable("setordercart") long setordercart) {
         courierService.setOrderCartStatus(setordercart);
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<CourierModel> courierModel = courierService.getMyTimeTable(courierid);
+        return new ResponseEntity<>(courierModel, HttpStatus.OK);
     }
 }

@@ -57,6 +57,6 @@ export class RestService {
   setStatus(cartId): Observable<any> {
     const TUrll = 'http://localhost:8081/courier/cabinet/' + cartId;
     const nUrl = `${TUrll}`;
-    return this.http.get(nUrl);
+    return this.http.put(nUrl, cartId);
   }
 }

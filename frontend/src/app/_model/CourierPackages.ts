@@ -6,12 +6,12 @@ export class CourierPackages {
   fulladdress: string;
   deliverytime: string;
   totalprice: number;
-  orderstatus: string;
+  orderstatus: boolean;
   packagedescription: string;
 
 
   constructor(hour: number, id: number, username: string, dontdisturb: boolean, fulladdress: string, deliverytime: string,
-              totalprice: number, orderstatus: string, packagedescription: string) {
+              totalprice: number, orderstatus: boolean, packagedescription: string) {
     this.hour = hour;
     this.id = id;
     this.username = username;
