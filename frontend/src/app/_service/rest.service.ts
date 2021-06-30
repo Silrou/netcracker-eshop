@@ -20,7 +20,6 @@ export class RestService {
   // role: string;
   managers: Managers [] = [];
   constructor(private http: HttpClient) { }
-  url = 'http://localhost:3000/Managers';
   private addNewUrl = 'http://localhost:8081/search/new';
   private getAllUrl = 'http://localhost:8081/search/all';
   private deleteUrl = 'http://localhost:8081/search/delete';

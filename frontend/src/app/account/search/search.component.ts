@@ -79,19 +79,19 @@ export class SearchComponent implements OnInit {
 
   getAllManager(): void {
     this.rs.getManager().subscribe((response) => {
-      this.managers = response;
+      this.rs.managers = response;
     });
   }
 
   getAllCoriers(): void {
     this.rs.getCorier().subscribe((response) => {
-      this.managers = response;
+      this.rs.managers = response;
     });
   }
 
   getOnDuty(): void {
     this.rs.getOnDutyNow().subscribe((response) => {
-      this.managers = response;
+      this.rs.managers = response;
     });
   }
 }

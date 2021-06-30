@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @ComponentScan(basePackages = {"com.eshop.backend.auth"})
+@ComponentScan(basePackages = {"com.eshop.backend.search"})
 @SpringBootApplication
 @EnableAsync
 public class BackendApplication {

@@ -23,7 +23,6 @@ export class ProfileComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data: Managers
 ){}
   form: FormGroup;
-  @Input() edit: boolean;
   emailRegx = /^(([^<>+()\[\]\\.,;:\s@"-#$%&=]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/;
   // managers: Managers[] = [];
   newPerson = new FormGroup({

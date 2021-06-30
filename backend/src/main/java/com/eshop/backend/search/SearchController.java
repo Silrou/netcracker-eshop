@@ -1,9 +1,10 @@
 package com.eshop.backend.search;
 
 
-import com.eshop.backend.DAO.DataAccess.Employee.EmployeeService;
+import com.eshop.backend.utils.Employee.EmployeeService;
 import com.eshop.backend.DAO.Models.Employee;
 
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +24,18 @@ public class SearchController {
         this.employeeService = employeeService;
     }
 
-    @CrossOrigin
+//    @CrossOrigin
     @GetMapping("/all")
-    public ResponseEntity<List<Employee>> getAllEmployees(){
-        List<Employee> emp = employeeService.getEmployees();
+    public ResponseEntity<List<AuthorizedUserModel>> getAllEmployees(){
+        List<AuthorizedUserModel> emp = employeeService.getEmployees();
         return new ResponseEntity<>(emp, HttpStatus.OK);
 
     }
-    @CrossOrigin
+//    @CrossOrigin
     @PostMapping("/new")
-    public ResponseEntity<?> create(@RequestBody Employee employee) {
+    public ResponseEntity<?> create(@RequestBody AuthorizedUserModel authorizedUserModel) {
 
-        employeeService.createEmployee(employee);
+        employeeService.createEmployee(authorizedUserModel);
         return new ResponseEntity<>("Employee is created", HttpStatus.CREATED);
         //return "New employee is successfully added";
 
@@ -49,19 +50,19 @@ public class SearchController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete( @PathVariable ("id")String id){
-        employeeService.deleteEmployee(id);
-        return new ResponseEntity<>("Employee is deleted",HttpStatus.OK);
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<?> delete( @PathVariable ("id")String id){
+//        employeeService.deleteEmployee(id);
+//        return new ResponseEntity<>("Employee is deleted",HttpStatus.OK);
+//
+//        }
 
-        }
-
-        @PutMapping("/edit")
-        public ResponseEntity<?> edit(@RequestBody Employee employee){
-            employeeService.editEmployee(employee);
-            return new ResponseEntity<>("Employee is updated",HttpStatus.OK);
-
-        }
+//        @PutMapping("/edit")
+//        public ResponseEntity<?> edit(@RequestBody Employee employee){
+//            employeeService.editEmployee(employee);
+//            return new ResponseEntity<>("Employee is updated",HttpStatus.OK);
+//
+//        }
     }
 
 
