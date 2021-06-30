@@ -1,8 +1,14 @@
 package com.eshop.backend.courier.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class courierDto {
-    public long courierid;
+    public long cartId;
     public long courierId;
-    public long cartid;
-    String date;
+    public String date;
 }

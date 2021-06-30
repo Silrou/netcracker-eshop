@@ -1,4 +1,4 @@
-export class CourierPackages {
+export class Coucab {
   hour: number;
   id: number;
   username: string;

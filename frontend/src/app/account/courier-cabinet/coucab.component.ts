@@ -1,7 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RestService} from '../../_service/rest.service';
-import {CourierPackages} from '../../_model/CourierPackages';
-import {ErzacModel} from '../../_model/erzacModel';
+import {Coucab} from '../../_model/coucab';
+import {CourierDto} from '../../_model/courierDto';
+import {Filters} from '../../_model/filters';
+import {Observable} from 'rxjs';
+import {Product} from '../../_model/product';
+import {HttpParams} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
 
 class Couriercabinets {
 }
@@ -14,7 +19,7 @@ class Couriercabinets {
 
 export class CoucabComponent implements OnInit {
 
-  courierpackages: CourierPackages[] = [];
+  courierpackages: Coucab[] = [];
   hour: number;
   id: number;
   username: string;
@@ -24,7 +29,7 @@ export class CoucabComponent implements OnInit {
   totalprice: number;
   orderstatus: boolean;
   packagedescription: string;
-  erzacModel: ErzacModel;
+  erzacModel: CourierDto;
   theCheckbox: any;
   constructor(public rs: RestService,
               // private dialog: MatDialog
@@ -41,11 +46,13 @@ export class CoucabComponent implements OnInit {
   // getByCourierID(id: number) {
   //     return this.user.id = id;
   //  }
-  setNewStatus(ids: number): void {
-    this.rs.setStatus(ids).subscribe((response) => {
+  setNewStatus(ids: number, cartid: boolean, date: string): void {
+    const set = new CourierDto( localStorage.getItem('idUser') , ids , date);
+    this.rs.setStatus(set).subscribe((response) => {
       this.courierpackages = response;
       console.log(this.orderstatus);
       this.ngOnInit();
     });
   }
+
 }
