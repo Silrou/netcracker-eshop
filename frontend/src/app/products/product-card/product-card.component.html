@@ -5,7 +5,6 @@
       <a class="text-product-link" routerLink="/product-list/product/{{product.id}}"><h5 class="post-title">
         {{product.productName}} <sup *ngIf="hasDiscount()"
                                      class="badge badge-danger">-{{product.productDiscount}}%</sup></h5></a>
-
       <div class="row">
         <div class="col-sm-6">
           <div *ngIf="!hasDiscount()">

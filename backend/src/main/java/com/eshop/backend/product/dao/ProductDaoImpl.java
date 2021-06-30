@@ -170,8 +170,8 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<ProductModel> getNew(int page, int size) {
         String sql = ProductMapper.SELECT_SQL + " order by p.productdate desc " +
-                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-        return template.query(sql, new ProductMapper());
+                " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
     }
 
     private String getAuthorById(int id){
