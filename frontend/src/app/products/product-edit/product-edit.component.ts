@@ -74,7 +74,10 @@ export class ProductEditComponent implements OnInit {
       publisher: new FormControl(this.data.product.publisher, [Validators.required, Validators.min(0)]),
       genre: new FormControl(this.data.product.genre, [Validators.required, Validators.min(0)]),
       coverType: new FormControl(this.data.product.coverType, [Validators.required, Validators.min(0)]),
-      language: new FormControl(this.data.product.language, [Validators.required, Validators.min(0)])
+      language: new FormControl(this.data.product.language, [Validators.required, Validators.min(0)]),
+      productPict: new FormControl('', [Validators.required,
+        Validators.maxLength(100),
+        Validators.minLength(1)]),
     });
   }
 
@@ -89,7 +92,6 @@ export class ProductEditComponent implements OnInit {
     }
     const result = this.editForm.value;
     result.id = this.data.product.id;
-    result.productPict = 'some url';
     console.log(result);
 
     this.productService.updateProduct(result).subscribe(

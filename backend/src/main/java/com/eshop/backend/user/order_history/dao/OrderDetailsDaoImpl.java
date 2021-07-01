@@ -24,7 +24,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
     public List<ProductModel> getAllProductByOrderId(Long id) {
         try {
             String sql = "select p.productname, p.productdescription, p.productprice, p.productdiscount,\n" +
-                    "       p.author, p.genre, p.publisher, p.covertype, p.language\n" +
+                    "       p.productpict, p.author, p.genre, p.publisher, p.covertype, p.language\n" +
                     "from orderproduct as op\n" +
                     "         inner join ordercart as oc on oc.id = op.ordercardid\n" +
                     "         inner join product as p on p.id = op.productid\n" +
@@ -34,6 +34,7 @@ public class OrderDetailsDaoImpl implements OrderDetailsDao {
                     .productDescription(rs.getString("productdescription"))
                     .productPrice(rs.getInt("productprice"))
                     .productDiscount(rs.getInt("productdiscount"))
+                    .productPict(rs.getString("productpict"))
                     .author(rs.getLong("author"))
                     .genre(rs.getLong("genre"))
                     .publisher(rs.getLong("publisher"))

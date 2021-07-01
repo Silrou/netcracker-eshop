@@ -5,7 +5,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppRoutingModule } from '../app-routing.module';
 import {AuthService} from '../_service/auth.service';
-import { VerifyEmailComponent } from './mail/verify-email/verify-email.component';
+import { VerifyEmailComponent } from './mail/verify-email.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import {NgxCaptchaModule} from 'ngx-captcha';

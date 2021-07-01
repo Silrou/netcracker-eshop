@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {OrderCard} from '../../_model/orderCard';
-import {OrderHistoryService} from '../../_service/order-history/order-history.service';
-import {User} from '../../_model/user';
+import {OrderCard} from '../../../_model/orderCard';
+import {OrderHistoryService} from '../../../_service/order-history/order-history.service';
+import {User} from '../../../_model/user';
 import {Router} from '@angular/router';
-import {OrderDetailsService} from '../../_service/order-history/order-details.service';
+import {OrderDetailsService} from '../../../_service/order-history/order-details.service';
 
 @Component({
   selector: 'app-order-history',
