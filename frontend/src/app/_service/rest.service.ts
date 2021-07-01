@@ -5,13 +5,12 @@ import {Observable, of} from 'rxjs';
 import * as _ from 'lodash';
 
 import { catchError, map, tap } from 'rxjs/operators';
- feature/account
-import {User} from "../_model/user";
-=======
+
+import {User} from '../_model/user';
+
 import {Filters} from '../_model/filters';
 import {Product} from '../_model/product';
 import {CourierDto} from '../_model/courierDto';
- develop
 @Injectable({
   providedIn: 'root'
 
