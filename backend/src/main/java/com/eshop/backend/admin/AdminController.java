@@ -48,7 +48,7 @@ public class AdminController {
         List<AuthorizedUserModel> AuthorizedUserModel = adminService.getByName(name);
         return new ResponseEntity<>(AuthorizedUserModel, HttpStatus.OK);
     }
- feature/account
+
 //    @GetMapping("/admin/AllUsersMenu")
 //    public String getByName(Model model){
 //        model.addAttribute("geByName",authorizeduserService.getByName());
@@ -64,7 +64,7 @@ public class AdminController {
 //        model.addAttribute("getById",authorizeduserService.getById());
 //        return "getById";
 
-=======
- develop
+
+
 
 }
