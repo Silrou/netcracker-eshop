@@ -31,7 +31,7 @@
     <td>{{courierPackage.deliverytime}}</td>
     <td>{{courierPackage.totalprice}}</td>
     <td>{{courierPackage.orderstatus}}</td>
-    <td> <input type="checkbox"   (click)="setNewStatus( courierPackage.id ,courierPackage.orderstatus , courierPackage.deliverytime )" /></td>
+    <td> <input type="checkbox"  [checked]="courierPackage.orderstatus == 't'"   (click)="setNewStatus( courierPackage.id ,courierPackage.orderstatus , courierPackage.deliverytime ) " /></td>
     <td>{{courierPackage.packagedescription}}</td>
     <td><button class="btn btn-lg ">Description</button></td>
 
