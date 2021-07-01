@@ -21,11 +21,11 @@
               </span>
             </p>
           </div>
-          <p *ngIf="product.productStatus === 'inCard'">already in cart:</p>
+
         </div>
         <div class="col-sm-6">
-          <a  (click)="addToCart()"  class="btn btn-secondary text-white">Add to cart</a>
-          <a  (click)="del()"  class="btn btn-secondary text-white">del</a>
+          <a *ngIf="product.productStatus === 'inCard'" routerLink="/shopping-cart" class="btn btn-secondary text-white">Already in cart</a>
+          <a *ngIf="product.productStatus !== 'inCard'" (click)="addToCart()"  class="btn btn-secondary text-white">Add to cart</a>
         </div>
       </div>
     </div>

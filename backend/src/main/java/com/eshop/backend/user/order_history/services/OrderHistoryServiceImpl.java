@@ -1,6 +1,6 @@
 package com.eshop.backend.user.order_history.services;
 
-import com.eshop.backend.order_card.dao.models.OrderCardModel;
+import com.eshop.backend.shoping_card.OrderCartModel;
 import com.eshop.backend.user.order_history.dao.OrderHistoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     }
 
     @Override
-    public List<OrderCardModel> getAllByUserId(Long id, int page, int size) {
+    public List<OrderCartModel> getAllByUserId(Long id, int page, int size) {
         page = getPageNumeration(page, size);
         return orderHistoryDao.getAllByUserId(id, page, size);
     }

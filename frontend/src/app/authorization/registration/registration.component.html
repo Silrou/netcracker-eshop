@@ -11,7 +11,7 @@
             <input type="text" formControlName="firstName" class="form-control"
                    [ngClass]="{ 'is-invalid': submitted && registerForm.controls.firstName.errors }"/>
             <div *ngIf="submitted && registerForm.controls.firstName.errors" class="invalid-feedback">
-              <div *ngIf="registerForm.get('firstName')?.invalid" _ngcontent-sdw-c58="" class="alert alert-danger">
+              <div *ngIf="registerForm.get('firstName')?.invalid" class="alert alert-danger">
                 {{firstNameErrorMessage}}
               </div>
             </div>
@@ -21,7 +21,7 @@
             <input type="text" formControlName="lastName" class="form-control"
                    [ngClass]="{ 'is-invalid': submitted && registerForm.controls.lastName.errors }"/>
             <div *ngIf="submitted && registerForm.controls.lastName.errors" class="invalid-feedback">
-              <div *ngIf="registerForm.get('lastName')?.invalid" _ngcontent-sdw-c58="" class="alert alert-danger">
+              <div *ngIf="registerForm.get('lastName')?.invalid" class="alert alert-danger">
                 {{lastNameErrorMessage}}
               </div>
             </div>
@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="form-group">
-            <button type="button" class="btn btn-secondary">Register</button>
+            <button type="button" class="btn btn-secondary" (click)="onSubmit()">Register</button>
           </div>
         </form>
       </div>

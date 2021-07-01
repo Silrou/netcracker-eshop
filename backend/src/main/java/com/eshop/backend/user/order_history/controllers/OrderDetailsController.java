@@ -1,6 +1,5 @@
 package com.eshop.backend.user.order_history.controllers;
 
-import com.eshop.backend.order_card.dao.models.OrderCardModel;
 import com.eshop.backend.product.dao.models.ProductModel;
 import com.eshop.backend.user.order_history.services.OrderDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;

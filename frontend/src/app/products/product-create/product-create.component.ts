@@ -13,6 +13,7 @@ import {Genre} from '../../_model/genre';
 import {CoverType} from '../../_model/cover-type';
 import {Language} from '../../_model/Language';
 import {Publisher} from '../../_model/Publisher';
+import {ValidationMessages} from '../../_model/labels/validation.messages';
 
 @Component({
   selector: 'app-product-create',
@@ -30,6 +31,18 @@ export class ProductCreateComponent implements OnInit {
   publishers: Publisher[] = [];
   private formClose = false;
 
+  nameErrorMessage = ValidationMessages.productName;
+  descriptionErrorMessage = ValidationMessages.productDescription;
+  discountErrorMessage = ValidationMessages.productDiscount;
+  priceErrorMessage = ValidationMessages.productPrice;
+  amountErrorMessage = ValidationMessages.productAmount;
+  authorErrorMessage = ValidationMessages.productAuthor;
+  publisherErrorMessage = ValidationMessages.productPublisher;
+  genreErrorMessage = ValidationMessages.productGenre;
+  coverTypeErrorMessage = ValidationMessages.productCoverType;
+  languageErrorMessage = ValidationMessages.productLanguage;
+  pictureErrorMessage = ValidationMessages.productProductPicture;
+
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private dialogRef: MatDialogRef<ProductCreateComponent>,
@@ -38,7 +51,7 @@ export class ProductCreateComponent implements OnInit {
               private coverTypeService: CoverTypeService,
               private genreService: GenreService,
               private languageService: LanguageService,
-              private publisherService: PublisherService, ) { }
+              private publisherService: PublisherService ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -68,7 +81,7 @@ export class ProductCreateComponent implements OnInit {
           Validators.pattern('^[1-9][0-9]*$')]),
       productAmount: new FormControl('',
         [Validators.required,
-          Validators.pattern('^[1-9][0-9]*$')]),
+          Validators.pattern('^[0-9][0-9]*$')]),
       author: new FormControl('', [Validators.required, Validators.min(0)]),
       publisher: new FormControl('', [Validators.required, Validators.min(0)]),
       genre: new FormControl('', [Validators.required, Validators.min(0)]),
@@ -76,7 +89,7 @@ export class ProductCreateComponent implements OnInit {
       language: new FormControl('', [Validators.required, Validators.min(0)]),
       productPict: new FormControl('', [Validators.required,
         Validators.maxLength(100),
-        Validators.minLength(1)]),
+        Validators.minLength(1)])
     });
   }
 
@@ -101,7 +114,6 @@ export class ProductCreateComponent implements OnInit {
       }
     );
 
-    console.log('end edit');
     this.onClose();
   }
 

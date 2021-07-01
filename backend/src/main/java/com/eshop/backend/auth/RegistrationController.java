@@ -22,7 +22,7 @@ import java.util.Calendar;
 public class RegistrationController {
 
     private final EmailValidator emailValidator;
-    private final AuthorizedUserDao authorizedUsersDao;
+    private final AuthorizedUserDao authorizedUserDao;
     private final EmailTokenDao emailTokenDao;
     private final PasswordValidator passwordValidator;
     private final EmailSenderService emailSenderService;
@@ -31,7 +31,7 @@ public class RegistrationController {
     public RegistrationController(EmailValidator emailValidator, AuthorizedUserDao authorizedUsersDao,
                                   EmailTokenDao emailTokenDao, PasswordValidator passwordValidator, EmailSenderService emailSenderService) {
         this.emailValidator = emailValidator;
-        this.authorizedUsersDao = authorizedUsersDao;
+        this.authorizedUserDao = authorizedUsersDao;
         this.emailTokenDao = emailTokenDao;
         this.passwordValidator = passwordValidator;
         this.emailSenderService = emailSenderService;
@@ -40,7 +40,7 @@ public class RegistrationController {
     @PostMapping("/user/register")
     public ResponseEntity<?> Registration(@RequestBody RegistationRequestDTO request) {
 
-        AuthorizedUserModel user = authorizedUsersDao.getByLogin(request.getUserLogin());
+        AuthorizedUserModel user = authorizedUserDao.getByLogin(request.getUserLogin());
 
         if (user != null) {
             throw new UserAlreadyExistsException();
@@ -57,11 +57,13 @@ public class RegistrationController {
                     .userSurname(request.getUserSurname())
                     .userRegistrationDate(new Date(System.currentTimeMillis()))
                     .userStatus(Role.ANONYMOUS.name())
+                    .userAddress("no address")
+                    .userNumber("no number")
                     .build();
 
-            authorizedUsersDao.create(user);
+            authorizedUserDao.create(user);
 
-            emailSenderService.sendEmail(authorizedUsersDao.getByLogin(user.getUserLogin()), "emailVerify");
+            emailSenderService.sendEmail(authorizedUserDao.getByLogin(user.getUserLogin()), "emailVerify");
 
         } else new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
@@ -74,14 +76,14 @@ public class RegistrationController {
 
         if (confirmationToken != null) {
             EmailTokenModel emailTokenModel = emailTokenDao.getByToken(confirmationToken, "emailVerify");
-            AuthorizedUserModel user = authorizedUsersDao.getById(emailTokenModel.getAuthorizedUserId());
+            AuthorizedUserModel user = authorizedUserDao.getById(emailTokenModel.getAuthorizedUserId());
 
             Calendar cal = Calendar.getInstance();
 
             if ((emailTokenModel.getTokenExpiryDate().getTime() - cal.getTime().getTime()) >= 0 &&
                     user != null) {
                 user.setUserStatus(Role.AUTHORIZED.name());
-                authorizedUsersDao.setStatus(user);
+                authorizedUserDao.setStatus(user);
 
                 emailTokenDao.deleteByValue(confirmationToken);
 

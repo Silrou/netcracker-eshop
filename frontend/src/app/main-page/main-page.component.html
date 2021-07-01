@@ -27,7 +27,8 @@
         <h2 class="text-center p-1">New products in Shop</h2>
         <div class="row justify-content-around mt-4">
           <div class="col-md-3 col-sm-6 mb-4" *ngFor="let product of newProducts">
-            <app-product-card [product]="product"></app-product-card>
+            <app-product-card [product]="product"
+                              (addProductToCart)="addProductToCart($event)"></app-product-card>
           </div>
         </div>
       </div>
@@ -35,7 +36,8 @@
         <h2 class="text-center p-1">The most popular products in Shop</h2>
         <div class="row justify-content-around mt-4">
           <div class="col-md-3 col-sm-6 mb-4" *ngFor="let product of popularProducts">
-            <app-product-card [product]="product"></app-product-card>
+            <app-product-card [product]="product"
+                              (addProductToCart)="addProductToCart($event)"></app-product-card>
           </div>
         </div>
       </div>
