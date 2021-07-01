@@ -49,4 +49,22 @@ public class AdminController {
         return new ResponseEntity<>(AuthorizedUserModel, HttpStatus.OK);
     }
 
+//    @GetMapping("/admin/AllUsersMenu")
+//    public String getByName(Model model){
+//        model.addAttribute("geByName",authorizeduserService.getByName());
+//        return "geByName";
+//    }
+//    @GetMapping("/admin/AllUsersMenu")
+//    public String getBySurname(Model model){
+//        model.addAttribute("geBySurname",authorizeduserService.getBySurname());
+//        return "geBySurname";
+//    }
+//    @GetMapping("/admin/AllUsersMenu")
+//    public String getById(Model model){
+//        model.addAttribute("getById",authorizeduserService.getById());
+//        return "getById";
+
+
+
+
 }

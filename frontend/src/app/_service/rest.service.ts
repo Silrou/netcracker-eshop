@@ -2,10 +2,16 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Managers} from '../_model/managers';
 import {Observable, of} from 'rxjs';
+import * as _ from 'lodash';
+
 import { catchError, map, tap } from 'rxjs/operators';
+ feature/account
+import {User} from "../_model/user";
+=======
 import {Filters} from '../_model/filters';
 import {Product} from '../_model/product';
 import {CourierDto} from '../_model/courierDto';
+ develop
 @Injectable({
   providedIn: 'root'
 
@@ -19,19 +25,30 @@ export class RestService {
   // email: string;
   // phoneNumber: string;
   // role: string;
-  managers: Managers;
+  managers: Managers [] = [];
+  users: User [] = [];
   constructor(private http: HttpClient) { }
+  private addNewUrl = 'http://localhost:8081/search/new';
+  private getAllUrl = 'http://localhost:8081/search/all';
+  private deleteUrl = 'http://localhost:8081/search/delete';
+  private updateUrl = 'http://localhost:8081/search/edit'
   url = 'http://localhost:8081/admin/search/';
   getManagers(): Observable<any> {
-    return this.http.get<Managers[]>(this.url);
+    return this.http.get<User[]>(this.getAllUrl);
   }
-  addMember(manager): Observable<Managers>{
-    return this.http.post<Managers>(this.url, manager);
+  addMember(user: User): Observable<any>{
+    // return this.http.post<Managers>(this.url, manager);
+    console.log(user);
+    return this.http.post<User>(this.addNewUrl, user);
+  }
+  deleteUser(id: number): Observable<any>{
+    return this.http.delete<User>(this.deleteUrl + '/' + id);
+  }
 
+  updateUser(id: number, user: User): Observable<any>{
+    return this.http.put<User>(this.deleteUrl + '/' + id, user);
   }
-  deleteUser(id: number): Observable<Managers>{
-    return this.http.delete<Managers>(this.url + '/' + id);
-  }
+
   getManager(): Observable<any> {
     const TUrll = 'http://localhost:8081/admin/search/manager';
     const nUrl = `${TUrll}`;

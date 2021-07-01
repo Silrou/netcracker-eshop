@@ -20,3 +20,6 @@ mat-icon{
 .nav-bar{
   display: inline;
 }
+.idNum{
+  display: none;
+}
