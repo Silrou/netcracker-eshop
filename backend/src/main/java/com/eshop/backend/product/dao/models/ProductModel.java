@@ -18,7 +18,7 @@ public class ProductModel {
 
     private int productAmount;
 
-    private double productPrice;
+    private int productPrice;
 
     private double productDiscount;
 

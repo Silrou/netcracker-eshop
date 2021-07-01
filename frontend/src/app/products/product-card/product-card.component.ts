@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from '../../_model/product';
+import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -12,16 +13,13 @@ export class ProductCardComponent implements OnInit {
   product?: Product;
   @Output() addProductToCart = new EventEmitter<Product>();
 
-  constructor() { }
+  constructor(private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit(): void {
   }
 
-  del(): void {
-    localStorage.removeItem('productInCart');
-  }
-
   addToCart(): void {
+    this.shoppingCartService.addProductToCart(this.product);
     this.addProductToCart.emit(this.product);
   }
 

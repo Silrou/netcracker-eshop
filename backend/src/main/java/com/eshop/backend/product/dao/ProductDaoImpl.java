@@ -2,9 +2,11 @@ package com.eshop.backend.product.dao;
 
 import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -132,6 +134,27 @@ public class ProductDaoImpl implements ProductDao {
         StringBuilder sql = new StringBuilder("SELECT COUNT (*) from product p  ");
         Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
         return template.queryForObject(sql.toString(), Integer.class, paramsForQuery);
+    }
+
+    @Override
+    public void updateAmountById(Long id, int price) {
+        String SQL = "update product set productamount = ? where id = ?";
+        try {
+            template.update(SQL, price, id);
+        } catch (Exception e) {
+            String str = e.toString();
+        }
+    }
+
+    @Override
+    public Integer getAmountById(Long id) {
+        try {
+            String sql = "SELECT productamount FROM product where id = ?";
+            return template.queryForObject(sql, Integer.class, id);
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     @Override

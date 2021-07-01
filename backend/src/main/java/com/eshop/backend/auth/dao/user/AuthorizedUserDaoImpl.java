@@ -1,5 +1,6 @@
 package com.eshop.backend.auth.dao.user;
 
+import com.eshop.backend.auth.utils.Role;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -8,6 +9,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -32,9 +35,10 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 "userrole, username, usersurname, userregistrationdate, userstatus," +
                 " useraddress, usernumber)\n" +
                 "values (?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
-                user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
-                user.getUserStatus(), "no address", "no number");
+
+        jdbcTemplate.update(SQL, user.getUserLogin(), user.getUserPassword(),
+                Role.USER.name(), user.getUserName(), user.getUserSurname(), new Date(System.currentTimeMillis()),
+                Role.ANONYMOUS.name(), user.getUserAddress(), user.getUserNumber());
     }
 
     @Override
@@ -233,20 +237,20 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
     @Override
     public List<AuthorizedUserModel> getById(long id) {
-        String getAllAuthorizedUsersSQL = "SELECT * FROM AUTHORIZEDUSER where ID=" + id;
+        String getAllAuthorizedUsersSQL = "SELECT * FROM authorizeduser where id = ?";
 
         RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> new AuthorizedUserModel(
                 rs.getLong("id"),
                 rs.getString("userlogin"),
                 rs.getString("userpassword"),
-                rs.getString("getRole"),
-                rs.getString("getName"),
-                rs.getString("getSurname"),
+                rs.getString("userrole"),
+                rs.getString("username"),
+                rs.getString("usersurname"),
                 rs.getDate("userregistrationdate"),
-                rs.getString("UserStatus"),
-                rs.getString("UserAddres"),
-                rs.getString("UserNumber"));
-        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper);
+                rs.getString("userstatus"),
+                rs.getString("useraddress"),
+                rs.getString("usernumber"));
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper, id);
     }
 
     @Override
