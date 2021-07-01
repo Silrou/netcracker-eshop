@@ -1,5 +1,6 @@
 .img-fluid {
-  /*width: 100px;*/
+  width: 200px;
+  height: 250px;
 }
 
 .td-img {
@@ -26,4 +27,8 @@
 
 th, td {
   width:20%;
+}
+
+.edit-btn {
+  margin-bottom: 12px !important;
 }

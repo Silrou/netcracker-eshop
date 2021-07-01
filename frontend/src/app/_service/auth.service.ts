@@ -20,11 +20,7 @@ export class AuthService {
 
   role: Role;
   status: Status;
-  subject = new Subject<Role>();
-  // public globalRole = 'USER';
-  // public globalStatus = 'ANONYMOUS';
-
-  public user = new User();
+  userId: number;
 
   private accountSubject: BehaviorSubject<User>;
   public account: Observable<User>;
@@ -58,7 +54,6 @@ export class AuthService {
       const body = JSON.parse(JSON.stringify(res)).body;
       if (body != null) {
         this.role = body.userRole;
-        this.subject.next(this.role);
         this.status = body.userStatus;
         localStorage.setItem('globalRole', this.role);
         localStorage.setItem('globalStatus', this.status);
@@ -72,15 +67,12 @@ export class AuthService {
 
   logout(): void {
     this.cookie.deleteAll('/');
-
-    // localStorage.removeItem('token');
     localStorage.removeItem('globalRole');
     localStorage.removeItem('globalStatus');
     localStorage.removeItem('login');
+    localStorage.removeItem('idUser');
     this.role = Role.USER;
     this.status = Status.ANONYMOUS;
-    console.log(this.role);
-    console.log(this.status);
     this.router.navigate(['/login']);
   }
 
@@ -97,8 +89,6 @@ export class AuthService {
     if (role !== null && status !== null) {
       this.role = Role[role];
       this.status = Status[status];
-      console.log(this.role);
-      console.log(this.status);
     }
     return this.http.get<any>(this.roleUrl + '?login=' + localStorage.getItem('login'));
   }

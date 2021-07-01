@@ -23,8 +23,9 @@ public class ShoppingCartController {
         this.shoppingCartService = shoppingCartService;
     }
 
-    @GetMapping("/check-product-in-stock")
-    public ResponseEntity<ProductModel> getById(@RequestParam("products") String orderProducts) throws JsonProcessingException {
+    @GetMapping("/create-order")
+    public ResponseEntity<Long> getById(@RequestParam("products") String orderProducts,
+                                                @RequestParam("userId") Long userId) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -32,8 +33,8 @@ public class ShoppingCartController {
                 .constructCollectionType(List.class, ProductModel.class);
 
         List<ProductModel> productModel = objectMapper.readValue(orderProducts, collectionType);
-        shoppingCartService.checkProductInStock(productModel);
-        return new ResponseEntity<>(HttpStatus.OK);
+        userId = shoppingCartService.createOrder(productModel, userId);
+        return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 
 }

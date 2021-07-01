@@ -3,6 +3,7 @@ import {AuthService} from '../../_service/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../_service/alert.service';
 import {finalize, first} from 'rxjs/operators';
+import {ValidationMessages} from "../../_model/labels/validation.messages";
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,6 +11,8 @@ import {finalize, first} from 'rxjs/operators';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent implements OnInit {
+
+  emailErrorMessage = ValidationMessages.email;
 
   form: FormGroup;
   loading = false;

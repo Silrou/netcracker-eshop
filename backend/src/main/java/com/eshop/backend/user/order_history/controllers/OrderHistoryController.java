@@ -1,6 +1,6 @@
 package com.eshop.backend.user.order_history.controllers;
 
-import com.eshop.backend.order_card.dao.models.OrderCardModel;
+import com.eshop.backend.shoping_card.OrderCartModel;
 import com.eshop.backend.user.order_history.services.OrderHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +21,10 @@ public class OrderHistoryController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<OrderCardModel>> getAllOrders(@RequestParam("id")Long id,
+    public ResponseEntity<List<OrderCartModel>> getAllOrders(@RequestParam("id")Long id,
                                                              @RequestParam("page")int page,
                                                              @RequestParam("size")int size) {
-        List<OrderCardModel> orderHistory = orderHistoryService.getAllByUserId(id, page, size);
+        List<OrderCartModel> orderHistory = orderHistoryService.getAllByUserId(id, page, size);
         return new ResponseEntity<>(orderHistory, HttpStatus.OK);
     }
 

@@ -105,4 +105,31 @@ export class ProductService {
         catchError(this.handleError<number>('getProductsCount', ))
       );
   }
+
+  getCategoriesOfProduct(author: number, coverType: number, genre: number, language: number, publisher: number): Observable<string[]>{
+    const params = new HttpParams().set('author', String(author)).set('cover-type', String(coverType)).set('genre', String(genre)).set('language', String(language)).set('publisher', String(publisher));
+    const url = `${this.productsUrl}/get-categories-of-product`;
+    return this.http.get<string[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<string[]>('getProductsCount', ))
+      );
+  }
+
+  getPopularProducts(page: number, size: number): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-popular`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size));
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('getPopularProducts', []))
+      );
+  }
+
+  getNewProducts(page: number, size: number): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-new`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size));
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('getNewProducts', []))
+      );
+  }
 }

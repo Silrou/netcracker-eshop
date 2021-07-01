@@ -1,8 +1,6 @@
 package com.eshop.backend.user.order_history.dao;
 
-import com.eshop.backend.order_card.dao.models.OrderCardModel;
-import com.eshop.backend.product.dao.ProductMapper;
-import com.eshop.backend.user.dao.models.AuthorizedUserModel;
+import com.eshop.backend.shoping_card.OrderCartModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -24,23 +22,23 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
     }
 
     @Override
-    public void create(OrderCardModel model) {
+    public void create(OrderCartModel model) {
 
     }
 
     @Override
-    public OrderCardModel getById(Long id) {
+    public OrderCartModel getById(Long id) {
         return null;
     }
 
     @Override
-    public List<OrderCardModel> getAll() {
+    public List<OrderCartModel> getAll() {
 
         return Collections.emptyList();
     }
 
     @Override
-    public void update(OrderCardModel model) {
+    public void update(OrderCartModel model) {
 
     }
 
@@ -50,7 +48,7 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
     }
 
     @Override
-    public List<OrderCardModel> getAllByUserId(Long id, int page, int size) {
+    public List<OrderCartModel> getAllByUserId(Long id, int page, int size) {
         try {
             String sql = "SELECT * FROM ordercart WHERE userid = ?" +
                     "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
@@ -63,7 +61,7 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
                 return ps;
             };
 
-            RowMapper<OrderCardModel> rowMapper = (rs, rowNum) -> OrderCardModel.builder()
+            RowMapper<OrderCartModel> rowMapper = (rs, rowNum) -> OrderCartModel.builder()
                     .id(rs.getLong("id"))
                     .userId(rs.getLong("userid"))
                     .courierId(rs.getLong("courierid"))
