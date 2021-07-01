@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {User} from '../_model/user';
 import {map} from 'rxjs/operators';
 import {Role} from '../_model/role';
@@ -20,6 +20,7 @@ export class AuthService {
 
   role: Role;
   status: Status;
+  subject = new Subject<Role>();
   // public globalRole = 'USER';
   // public globalStatus = 'ANONYMOUS';
 
@@ -57,6 +58,7 @@ export class AuthService {
       const body = JSON.parse(JSON.stringify(res)).body;
       if (body != null) {
         this.role = body.userRole;
+        this.subject.next(this.role);
         this.status = body.userStatus;
         localStorage.setItem('globalRole', this.role);
         localStorage.setItem('globalStatus', this.status);
@@ -112,4 +114,5 @@ export class AuthService {
   forgotPassword(email: string): Observable<any> {
     return this.http.post('http://localhost:8081/user/forgot-password', {email});
   }
+
 }

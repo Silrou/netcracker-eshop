@@ -42,7 +42,11 @@ export class ProductCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.getCategories();
+    this.coverTypes = this.coverTypeService.getCoverTypes();
+    this.authors = this.authorService.getAuthors();
+    this.genres = this.genreService.getGenres();
+    this.languages = this.languageService.getLanguages();
+    this.publishers = this.publisherService.getPublishers();
   }
 
   private initForm(): void {
@@ -69,7 +73,8 @@ export class ProductCreateComponent implements OnInit {
       publisher: new FormControl('', [Validators.required, Validators.min(0)]),
       genre: new FormControl('', [Validators.required, Validators.min(0)]),
       coverType: new FormControl('', [Validators.required, Validators.min(0)]),
-      language: new FormControl('', [Validators.required, Validators.min(0)])
+      language: new FormControl('', [Validators.required, Validators.min(0)]),
+      pictureFile: new FormControl('', [Validators.required])
     });
   }
 
@@ -99,40 +104,4 @@ export class ProductCreateComponent implements OnInit {
     this.onClose();
   }
 
-  getCategories(): void {
-    this.authorService.getAuthors().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.authors = res;
-      }
-    );
-
-    this.coverTypeService.getCoverTypes().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.coverTypes = res;
-      }
-    );
-
-    this.genreService.getCoverTypes().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.genres = res;
-      }
-    );
-
-    this.publisherService.getPublishers().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.publishers = res;
-      }
-    );
-
-    this.languageService.getLanguages().subscribe(
-      res => {
-        console.log('response now:' + res);
-        this.languages = res;
-      }
-    );
-  }
 }

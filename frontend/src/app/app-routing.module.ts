@@ -22,7 +22,7 @@ import {AuthGuard} from './_helper/auth.guard';
 import {Role} from './_model/role';
 import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
 import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
-import {ManagerWorkspaceComponent} from './products/manager-workspace/manager-workspace.component';
+import {ManagerWorkspaceComponent} from './work-space/manager-workspace/manager-workspace.component';
 import {SettingsComponent} from './settings/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
@@ -69,7 +69,7 @@ const routes: Routes = [
     component: ProductListComponent
   },
   {
-    path: 'product',
+    path: 'product-list/product/:id',
     component: ProductComponent
   },
   {
@@ -115,11 +115,32 @@ const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent
+
+  },
+  {
+    path: 'manager',
+    component: ManagerWorkspaceComponent
+  },
+  {
+    path: 'verify-email',
+    component: VerifyEmailComponent
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
+  },
+  {
+    path: 'settings/edit',
+    component: EditSettingsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.USER] }
+  },
+  {
+    path: 'settings/order-details',
+    component: OrderDetailsComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.USER] }
   }
-  // {
-  //   path: 'account/profile',
-  //   component: ProfileComponent
-  // }
 ];
 
 @NgModule({

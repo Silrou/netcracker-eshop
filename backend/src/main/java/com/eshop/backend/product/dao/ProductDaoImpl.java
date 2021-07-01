@@ -146,6 +146,59 @@ public class ProductDaoImpl implements ProductDao {
         return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
     }
 
+    @Override
+    public List<String> getCategoriesOfProduct(int author, int coverType, int genre, int language, int publisher) {
+        List<String> categories = new ArrayList<>();
+        categories.add(getAuthorById(author));
+        categories.add(getCoverTypeById(coverType));
+        categories.add(getGenreById(genre));
+        categories.add(getLanguageById(language));
+        categories.add(getPublisherById(publisher));
+        return categories;
+    }
+
+    @Override
+    public List<ProductModel> getPopular(int page, int size) {
+        String sql = "SELECT ";
+
+//        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
+//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+//        return template.query(sql, new ProductMapper());
+        return null;
+    }
+
+    @Override
+    public List<ProductModel> getNew(int page, int size) {
+        String sql = ProductMapper.SELECT_SQL + " order by p.productdate desc " +
+                " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
+    }
+
+    private String getAuthorById(int id){
+        String sql = "SELECT authorname from author where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getCoverTypeById(int id){
+        String sql = "SELECT covertypename from covertype where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getGenreById(int id){
+        String sql = "SELECT genrename from genre where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getLanguageById(int id){
+        String sql = "SELECT languagename from language where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getPublisherById(int id){
+        String sql = "SELECT publishername from publisher where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
     private Object[] getSearchedOrderedFilteredBuilder(String search, FilterModel filterModel, StringBuilder sql){
         Object[] paramsForQuery;
         String paramLike = "";

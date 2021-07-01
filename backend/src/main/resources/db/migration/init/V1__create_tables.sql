@@ -106,4 +106,5 @@ create table orderProduct (
                               inCardProductAmount BIGINT,
                               inCardProductPrice BIGINT
 
+
 );

@@ -5,7 +5,7 @@ import {Observable, of} from 'rxjs';
 import {Product} from '../../_model/product';
 
 import {PRODUCTS} from '../../_utils/products';
-import {Filters} from "../../_model/filters"; // удалить, когда продукты будут браться с бэка
+import {Filters} from '../../_model/filters'; // удалить, когда продукты будут браться с бэка
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +63,7 @@ export class ProductService {
     if (!term.trim()) {
       return of([]);
     }
-    const url = `${this.productsUrl}/get-by-name/${term}`
+    const url = `${this.productsUrl}/get-by-name/${term}`;
     return this.http.get<Product[]>(url)
       .pipe(
         catchError(this.handleError<Product[]>('getProductsByName', []))
@@ -103,6 +103,33 @@ export class ProductService {
     return this.http.get<number>(url, {params})
       .pipe(
         catchError(this.handleError<number>('getProductsCount', ))
+      );
+  }
+
+  getCategoriesOfProduct(author: number, coverType: number, genre: number, language: number, publisher: number): Observable<string[]>{
+    const params = new HttpParams().set('author', String(author)).set('cover-type', String(coverType)).set('genre', String(genre)).set('language', String(language)).set('publisher', String(publisher));
+    const url = `${this.productsUrl}/get-categories-of-product`;
+    return this.http.get<string[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<string[]>('getProductsCount', ))
+      );
+  }
+
+  getPopularProducts(page: number, size: number): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-popular`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size));
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('getPopularProducts', []))
+      );
+  }
+
+  getNewProducts(page: number, size: number): Observable<Product[]> {
+    const url = `${this.productsUrl}/get-new`;
+    const params = new HttpParams().set('page', String(page)).set('size', String(size));
+    return this.http.get<Product[]>(url, {params})
+      .pipe(
+        catchError(this.handleError<Product[]>('getNewProducts', []))
       );
   }
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Observable, of} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, tap} from "rxjs/operators";
-import {Language} from "../../_model/Language";
-import {CoverType} from "../../_model/cover-type";
+import {Observable, of} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, tap} from 'rxjs/operators';
+import {Language} from '../../_model/Language';
+import {CoverType} from '../../_model/cover-type';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,6 @@ export class LanguageService {
   constructor(private http: HttpClient) { }
 
   private languageUrl = 'http://localhost:8081/language';
-  private languagesList: Language[] = [];
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -30,7 +29,6 @@ export class LanguageService {
     const url = `${this.languageUrl}/get-all`;
     return this.http.get<Language[]>(url)
       .pipe(
-        tap(x => this.languagesList = x),
         catchError(this.handleError<Language[]>('getAllLanguages', []))
       );
   }
@@ -43,14 +41,14 @@ export class LanguageService {
       );
   }
 
-  getLanguages(): Observable<Language[]> {
-    if (this.languagesList.length === 0) {
+  getLanguages(): Language[] {
+    if (localStorage.getItem('languages') === null) {
       this.getAllLanguages().subscribe(
         res => {
-          this.languagesList = res;
+          localStorage.setItem('languages', JSON.stringify(res));
         }
       );
     }
-    return of(this.languagesList);
+    return JSON.parse(localStorage.getItem('languages'));
   }
 }
