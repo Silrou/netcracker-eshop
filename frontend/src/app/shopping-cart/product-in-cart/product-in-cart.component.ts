@@ -42,7 +42,7 @@ export class ProductInCartComponent implements OnInit, OnChanges {
   onChange($event: Event): void {
     this.amount = this.form.value.productAmount;
     this.storeAmountProblem = false;
-    this.priceWithDiscount = Math.round(this.product.productPrice * ( 1 - (this.product.productDiscount / 100) ) * this.amount);
+    this.priceWithDiscount = Math.round(this.product.productPrice * ( 1 - (this.product.productDiscount / 100)) * this.amount);
     this.product.productAmount = this.amount;
     this.updateAmount.emit('updatePrice');
   }

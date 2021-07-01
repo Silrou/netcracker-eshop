@@ -5,5 +5,6 @@ import com.eshop.backend.product.dao.models.ProductModel;
 import java.util.List;
 
 public interface ShoppingCartService {
-    void checkProductInStock(List<ProductModel> orderProducts);
+    boolean checkProductInStock(List<ProductModel> orderProducts);
+    Long createOrder(List<ProductModel> orderProducts, Long id);
 }

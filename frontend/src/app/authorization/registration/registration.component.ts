@@ -60,6 +60,8 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
+    console.log('register');
+
     this.registerUserData.userName = this.registerForm.controls.firstName.value;
     this.registerUserData.userSurname = this.registerForm.controls.lastName.value;
     this.registerUserData.userLogin = this.registerForm.controls.email.value;

@@ -5,6 +5,7 @@ import {Product} from '../../_model/product';
 import {ProductService} from '../../_service/product/product.service';
 import {typesOfCategories} from '../../_model/typesOfCategories';
 import {Filters} from '../../_model/filters';
+import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -22,16 +23,17 @@ export class ProductListComponent implements OnInit {
   searchValue: string;
   filtersValue: Filters;
   orderValue: string;
-  productInCart: Array<Product> = [];
+
 
 
   constructor(
     private productService: ProductService,
+    private shoppingCartService: ShoppingCartService
   ) {
   }
 
   ngOnInit(): void {
-    this.productInCart = JSON.parse(localStorage.getItem('productInCart'));
+    this.shoppingCartService.productInCart = JSON.parse(localStorage.getItem('productInCart'));
     this.searchValue = '';
     this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
     this.orderValue = '';
@@ -44,7 +46,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getAllProducts(this.page, this.size)
       .subscribe(products => {
         this.currentProducts = products;
-        this.temp();
+        this.checkStatus();
       });
     this.getAmountOfProducts();
   }
@@ -72,7 +74,7 @@ export class ProductListComponent implements OnInit {
     this.productService.searchOrderFilterProducts(this.page, this.size, this.searchValue, this.orderValue, this.filtersValue)
       .subscribe(products => {
         this.currentProducts = products;
-        this.temp();
+        this.checkStatus();
       });
     this.getAmountOfProducts();
   }
@@ -89,31 +91,19 @@ export class ProductListComponent implements OnInit {
   }
 
   addProductToCart(product: Product): void {
-    if (localStorage.getItem('productInCart') !== null) {
-      this.productInCart = JSON.parse(localStorage.getItem('productInCart'));
-      if (!(this.productInCart.filter( x => x.id === product.id).length > 0)){
-        product.productAmount = 1;
-        this.productInCart.push(product);
-      }
-    } else {
-      this.productInCart = [];
-      product.productAmount = 1;
-      this.productInCart.push(product);
-    }
-    localStorage.setItem('productInCart', JSON.stringify(this.productInCart));
-    this.temp();
+    this.shoppingCartService.addProductToCart(product);
+    this.checkStatus();
   }
 
-  temp(): void {
-    this.currentProducts.forEach( element => {
-      this.productInCart.forEach( x => {
-        if (element.id === x.id) {
-          element.productStatus = 'inCard';
-        }
-      });
-    });
-
-
+  checkStatus(): void {
+    this.shoppingCartService.changeStatusToInCart(this.currentProducts);
+    // this.currentProducts.forEach( element => {
+    //   this.shoppingCartService.productInCart.forEach( x => {
+    //     if (element.id === x.id) {
+    //       element.productStatus = 'inCard';
+    //     }
+    //   });
+    // });
   }
 
   getOrderedProducts(target: any): void {

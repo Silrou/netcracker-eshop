@@ -1,10 +1,10 @@
-<div class = "order-history">
+<div class ="order-history">
   <h2 class="text-center">Orders history</h2>
   <div *ngIf="orderCards.length == 0">
     <h3 class="text-center">No orders</h3>
   </div>
-  <div class="bg-white card mb-4 order-list test" *ngFor="let orderCard of orderCards">
-    <div class="gold-members p-4">
+  <div class="bg-white card mb-4 order-list orders" *ngFor="let orderCard of orderCards">
+    <div class="p-4">
       <div class="media">
         <div class="media-body">
             <span class="float-right text-info">Delivery time: {{orderCard.deliveryTime}}</span>
@@ -31,8 +31,8 @@
       </div>
     </div>
   </div>
-  <div class="row  justify-content-around ngbpagination">
-    <ngb-pagination [pageSize]="size" [collectionSize]="amountOfProducts" [(page)]="page" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
+  <div  *ngIf="orderCards.length !== 0" class="row  justify-content-around ngbpagination">
+    <ngb-pagination  [pageSize]="size" [collectionSize]="amountOfProducts" [(page)]="page" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
   </div>
 </div>
 
