@@ -36,7 +36,12 @@ import { EditSettingsComponent } from './settings/edit-settings/edit-settings.co
 import {OrderHistoryComponent} from './settings/order-history/orders/order-history.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+
+import {CoucabComponent} from './account/courier-cabinet/coucab.component';
+import {NotificationComponent} from './socket/notifications/notification.component';
+
 import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-in-cart.component';
+
 
 @NgModule({
     declarations: [
@@ -51,6 +56,8 @@ import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-
         SearchComponent,
         EditSettingsComponent,
         OrderHistoryComponent,
+        CoucabComponent,
+        // NotificationComponent,
         OrderDetailsComponent,
         ProductInCartComponent
     ],

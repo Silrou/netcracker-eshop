@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Managers} from '../_model/managers';
 import {Observable, of} from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import {Filters} from '../_model/filters';
+import {Product} from '../_model/product';
+import {CourierDto} from '../_model/courierDto';
 @Injectable({
   providedIn: 'root'
 
@@ -49,4 +52,16 @@ export class RestService {
     const nUrl = `${TUrll}`;
     return this.http.get(nUrl);
   }
+  getTask(id): Observable<any> {
+    const TUrll = 'http://localhost:8081/courier/cabinet/get/' + id;
+    const nUrl = `${TUrll}`;
+    return this.http.get(nUrl);
+  }
+  setStatus(coucab: CourierDto): Observable<any> {
+    const TUrll = 'http://localhost:8081/courier/cabinet/set/';
+    const nUrl = `${TUrll}`;
+    const params = new HttpParams().set('courierDto', JSON.stringify(coucab));
+    return this.http.get<string>(nUrl, {params});
+  }
+
 }

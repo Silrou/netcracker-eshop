@@ -26,6 +26,8 @@ import {ManagerWorkspaceComponent} from './work-space/manager-workspace/manager-
 import {SettingsComponent} from './settings/user-profile/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
+import {CoucabComponent} from './account/courier-cabinet/coucab.component';
+import {NotificationComponent} from './socket/notifications/notification.component';
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -76,10 +78,12 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: SettingsComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.USER, Role.MANAGER, Role.ADMIN, Role.COURIER] }
+    component: SettingsComponent
   },
+  // {
+  //   path: 'socket',
+  //   component: NotificationComponent
+  // },
   // {
   //   path: 'settings',
   //   component: SettingsComponent,
@@ -88,6 +92,17 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+
+     },
+  // {
+  //   path: 'working-cabinet',
+  //   component: ProductCatalogComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: [Role.MANAGER, Role.ADMIN, Role.COURIER] }
+  // },
+  {
+    path: 'coucab',
+    component: CoucabComponent
   },
   {
     path: 'verify-email',
@@ -100,6 +115,7 @@ const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent
+
   },
   {
     path: 'manager',

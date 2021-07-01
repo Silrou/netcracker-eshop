@@ -38,28 +38,15 @@ public class AdminController {
         List<AuthorizedUserModel> authorizedManager = adminService.getFilteredByStatusOn();
         return new ResponseEntity<>(authorizedManager, HttpStatus.OK);
     }
-    @GetMapping("/admin/AllUsersMenu4")
-    public String getFilteredByStatusOff(Model model){
-        model.addAttribute("getFilteredByStatusOff", adminService.getFilteredByStatusOff());
-        return "getFilteredByStatusOff";
-    }
+//    @GetMapping("/admin/AllUsersMenu4")
+//    public String getFilteredByStatusOff(Model model){
+//        model.addAttribute("getFilteredByStatusOff", adminService.getFilteredByStatusOff());
+//        return "getFilteredByStatusOff";
+//    }
     @GetMapping("admin/getByName/{name}")
     public ResponseEntity<List<AuthorizedUserModel>> getByName(@PathVariable("name")String name) {
         List<AuthorizedUserModel> AuthorizedUserModel = adminService.getByName(name);
         return new ResponseEntity<>(AuthorizedUserModel, HttpStatus.OK);
     }
-//    @GetMapping("/admin/AllUsersMenu")
-//    public String getByName(Model model){
-//        model.addAttribute("geByName",authorizeduserService.getByName());
-//        return "geByName";
-//    }
-//    @GetMapping("/admin/AllUsersMenu")
-//    public String getBySurname(Model model){
-//        model.addAttribute("geBySurname",authorizeduserService.getBySurname());
-//        return "geBySurname";
-//    }
-//    @GetMapping("/admin/AllUsersMenu")
-//    public String getById(Model model){
-//        model.addAttribute("getById",authorizeduserService.getById());
-//        return "getById";
+
 }

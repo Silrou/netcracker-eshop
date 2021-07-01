@@ -106,7 +106,6 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public void setStatus(AuthorizedUserModel user) {
         String SQL = "update authorizeduser set userstatus = ? where id = ?";
         jdbcTemplate.update(SQL, user.getUserStatus(), user.getId());
-
     }
 
     @Override
@@ -308,4 +307,5 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public void delete(Long id) {
 
     }
+
 }
