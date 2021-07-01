@@ -37,6 +37,8 @@ import {OrderHistoryComponent} from './settings/order-history/order-history.comp
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-in-cart.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-
     MatFormFieldModule,
     MatNativeDateModule,
     NgbPaginationModule,
+    MatSelectModule,
+    MatDialogModule,
   ],
   providers: [AuthService, CookieService,
     {

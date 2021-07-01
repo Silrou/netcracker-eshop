@@ -25,25 +25,23 @@ export class RestService {
   private addNewUrl = 'http://localhost:8081/search/new';
   private getAllUrl = 'http://localhost:8081/search/all';
   private deleteUrl = 'http://localhost:8081/search/delete';
+  private updateUrl = 'http://localhost:8081/search/edit'
   url = 'http://localhost:8081/admin/search/';
   getManagers(): Observable<any> {
     return this.http.get<User[]>(this.getAllUrl);
   }
-  addMember(manager: Managers): Observable<any>{
+  addMember(user: User): Observable<any>{
     // return this.http.post<Managers>(this.url, manager);
-    return this.http.post<Managers>(this.addNewUrl, manager);
+    console.log(user);
+    return this.http.post<User>(this.addNewUrl, user);
   }
-  deleteUser(id: number): Observable<Managers>{
-    return this.http.delete<Managers>(this.deleteUrl + '/' + id);
-  }
-
-  getDropDownText(id, object): void{
-    const selObj = _.filter(object, (o) => {
-      return (_.includes(id, o.id));
-    });
-    return selObj;
+  deleteUser(id: number): Observable<any>{
+    return this.http.delete<User>(this.deleteUrl + '/' + id);
   }
 
+  updateUser(id: number, user: User): Observable<any>{
+    return this.http.put<User>(this.deleteUrl + '/' + id, user);
+  }
 
   getManager(): Observable<any> {
     const TUrll = 'http://localhost:8081/admin/search/manager';

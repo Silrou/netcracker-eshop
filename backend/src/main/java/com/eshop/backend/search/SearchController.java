@@ -2,7 +2,6 @@ package com.eshop.backend.search;
 
 
 import com.eshop.backend.utils.Employee.EmployeeService;
-import com.eshop.backend.DAO.Models.Employee;
 
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class SearchController {
         return new ResponseEntity<>(emp, HttpStatus.OK);
 
     }
-//    @CrossOrigin
+    @CrossOrigin
     @PostMapping("/new")
     public ResponseEntity<?> create(@RequestBody AuthorizedUserModel authorizedUserModel) {
 
@@ -42,20 +41,20 @@ public class SearchController {
     }
 
 
-    @GetMapping("/test")
-    public ResponseEntity<?> test() {
-        Employee user = new Employee();
-        user.setFirstName("testLogin");
-        user.setLastName("some password");
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
+//    @GetMapping("/test")
+//    public ResponseEntity<?> test() {
+//        Employee user = new Employee();
+//        user.setFirstName("testLogin");
+//        user.setLastName("some password");
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
 
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<?> delete( @PathVariable ("id")String id){
-//        employeeService.deleteEmployee(id);
-//        return new ResponseEntity<>("Employee is deleted",HttpStatus.OK);
-//
-//        }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete( @PathVariable ("id")Long id){
+        employeeService.deleteEmployee(id);
+        return new ResponseEntity<>("Employee is deleted",HttpStatus.OK);
+
+        }
 
 //        @PutMapping("/edit")
 //        public ResponseEntity<?> edit(@RequestBody Employee employee){

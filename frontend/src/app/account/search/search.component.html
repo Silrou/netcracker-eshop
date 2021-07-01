@@ -44,19 +44,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let manager of rs.users">
+    <tr *ngFor="let user of rs.users">
 
-      <td class ="idNum" (click)="getID(manager.id)"></td>
+      <td class ="idNum" (click)="getID(user.id)"></td>
 
-      <td>{{manager.userName}}</td>
-      <td>{{manager.userSurname}}</td>
-      <td>{{manager.userLogin}}</td>
-      <td>{{manager.userNumber}}</td>
-      <td>{{manager.userRole}}</td>
-      <td>{{manager.status}}</td>
+      <td>{{user.userName}}</td>
+      <td>{{user.userSurname}}</td>
+      <td>{{user.userLogin}}</td>
+      <td>{{user.userNumber}}</td>
+      <td>{{user.userRole}}</td>
+      <td>{{user.userStatus}}</td>
 
-      <button mat-icon-button color="primary"  title="Edit Contact" (click)="onEdit(manager)"><mat-icon>edit</mat-icon></button>
-      <button mat-icon-button color="primary" (click)="onDelete(manager.id)" title="Delete Contact"><mat-icon>delete</mat-icon></button>
+      <button mat-icon-button color="primary"  title="Edit Contact" (click)="onEdit(user.id, user)"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button color="primary" (click)="onDelete(user.id)" title="Delete Contact"><mat-icon>delete</mat-icon></button>
     </tr>
     </tbody>
   </table>

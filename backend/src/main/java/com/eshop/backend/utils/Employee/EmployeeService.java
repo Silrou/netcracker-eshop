@@ -36,21 +36,29 @@ public class EmployeeService {
 
 
     public Boolean createEmployee(AuthorizedUserModel authorizedUserModel) {
-        String sql = ("INSERT INTO authorizeduser (id,username, username, userlogin, usernumber,userrole, userstatus) VALUES(?,?,?,?,?,?,?,?,?)");
+        String sql = ("INSERT INTO authorizeduser (username, usersurname, userlogin, usernumber,userrole, userstatus, userpassword, userregistrationdate, useraddress) VALUES(?,?,?,?,?,?,?,?,?)");
 
         return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
             @Override
             public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
-                ps.setLong(1, authorizedUserModel.getId());
-                ps.setString(2, authorizedUserModel.getUserName());
-                ps.setString(3, authorizedUserModel.getUserSurname());
-                ps.setString(4, authorizedUserModel.getUserLogin());
-                ps.setString(5, authorizedUserModel.getUserNumber());
-                ps.setString(6, authorizedUserModel.getUserRole());
-                authorizedUserModel.setUserStatus("Active");
-                ps.setString(7, authorizedUserModel.getUserStatus());
+
+//                ps.setLong(1, authorizedUserModel.getId());
+                ps.setString(1, authorizedUserModel.getUserName());
+                System.out.println(authorizedUserModel.getUserName());
+                ps.setString(2, authorizedUserModel.getUserSurname());
+                ps.setString(3, authorizedUserModel.getUserLogin());
+                ps.setString(4, authorizedUserModel.getUserNumber());
+                ps.setString(5, authorizedUserModel.getUserRole());
+                //authorizedUserModel.setUserStatus("Active");
+                ps.setString(6, authorizedUserModel.getUserStatus());
+                System.out.println("Hello");
+                System.out.println(authorizedUserModel.getUserStatus());
                 authorizedUserModel.setUserPassword("password");
+                ps.setString(7,authorizedUserModel.getUserPassword());
                 authorizedUserModel.setUserRegistrationDate(new java.sql.Date(new java.util.Date().getTime()));
+                ps.setDate(8,authorizedUserModel.getUserRegistrationDate());
+                authorizedUserModel.setUserAddress("");
+                ps.setString(9,authorizedUserModel.getUserAddress());
                 return ps.execute();
 
 
@@ -59,40 +67,40 @@ public class EmployeeService {
         });
     }
 
-//    public Boolean deleteEmployee(Long id) {
-//        String sql = ("DELETE FROM employee WHERE id=?");
-//        return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
-//            @Override
-//            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
-//                ps.setLong(1, id);
-//                return ps.execute();
-//            }
+    public Boolean deleteEmployee(Long id) {
+        String sql = ("DELETE FROM authorizeduser WHERE id=?");
+        return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
+            @Override
+            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+                ps.setLong(1, id);
+                return ps.execute();
+            }
+
+        });
+
+    }
 //
-//        });
 //
-//    }
-//
-//
-//    public Boolean editEmployee(Employee employee) {
-//        String sql = ("UPDATE employee SET firstName = ?, lastName = ?, email = ?, phoneNumber = ?, role = ?, status = ? WHERE id =?");
-//
-//        return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
-//            @Override
-//            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
-//
-//                ps.setString(1, employee.getFirstName());
-//                ps.setString(2, employee.getLastName());
-//                ps.setString(3, employee.getEmail());
-//                ps.setString(4, employee.getPhoneNumber());
-//                ps.setString(5, employee.getRole());
-//                ps.setString(6, employee.getStatus());
-//                ps.setString(7, employee.getId());
-//                return ps.execute();
-//            }
-//
-//        });
-//
-//    }
+    public Boolean editEmployee(AuthorizedUserModel authorizedUserModel) {
+        String sql = ("UPDATE authorizeduser SET username = ?, usersurname = ?, userlogin = ?, usernumber = ?, userrole = ?, userstatus = ? WHERE id =?");
+
+        return jdbcTemplate.execute(sql, new PreparedStatementCallback<Boolean>() {
+            @Override
+            public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+
+                ps.setString(1, authorizedUserModel.getUserName());
+                ps.setString(2, authorizedUserModel.getUserSurname());
+                ps.setString(3, authorizedUserModel.getUserLogin());
+                ps.setString(4, authorizedUserModel.getUserNumber());
+                ps.setString(5, authorizedUserModel.getUserRole());
+                ps.setString(6, authorizedUserModel.getUserStatus());
+                ps.setLong(  7, authorizedUserModel.getId());
+                return ps.execute();
+            }
+
+        });
+
+    }
 
 
 }
