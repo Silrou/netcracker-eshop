@@ -97,7 +97,7 @@ export class ManagerWorkspaceComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '50%';
     this.dialog.open(ProductCreateComponent, dialogConfig);
     this.dialog.afterAllClosed.subscribe(() => {
       this.update('update');

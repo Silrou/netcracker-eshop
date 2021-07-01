@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../_service/auth.service';
-import {SettingsService} from '../_service/settings/settings.service';
-import {User} from '../_model/user';
+import {AuthService} from '../../_service/auth.service';
+import {SettingsService} from '../../_service/settings/settings.service';
+import {User} from '../../_model/user';
 
 @Component({
   selector: 'app-settings',

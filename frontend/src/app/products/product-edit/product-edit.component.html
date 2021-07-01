@@ -6,13 +6,19 @@
         <mat-form-field appearance="fill">
           <mat-label>Product Name</mat-label>
           <input matInput placeholder="Product Name" formControlName="productName">
-          <mat-error *ngIf="editForm.get('productName')?.invalid">Error</mat-error>
+          <mat-error *ngIf="editForm.get('productName')?.invalid">{{nameErrorMessage}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Picture URL</mat-label>
+          <input matInput placeholder="Picture URL" formControlName="productPict">
+          <mat-error *ngIf="editForm.get('productPict')?.invalid">{{pictureErrorMessage}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Product Description</mat-label>
           <textarea matInput placeholder="Product Description" formControlName="productDescription"></textarea>
-          <mat-error *ngIf="editForm.get('productDescription')?.invalid">Error</mat-error>
+          <mat-error *ngIf="editForm.get('productDescription')?.invalid">{{descriptionErrorMessage}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" floatLabel="always">
@@ -20,27 +26,21 @@
           <input matInput formControlName="productPrice" type="number" min="0" class="example-right-align" placeholder="0">
           <span matPrefix>$&nbsp;</span>
           <span matSuffix>.00</span>
-          <mat-error *ngIf="editForm.get('productPrice')?.invalid">Error</mat-error>
+          <mat-error *ngIf="editForm.get('productPrice')?.invalid">{{priceErrorMessage}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
           <mat-label>Product Amount</mat-label>
           <input matInput formControlName="productAmount" type="number" min="0" class="example-right-align">
-          <mat-error *ngIf="editForm.get('productAmount')?.invalid">Error</mat-error>
+          <mat-error *ngIf="editForm.get('productAmount')?.invalid">{{amountErrorMessage}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" floatLabel="always">
           <mat-label>Product Discount</mat-label>
           <input matInput formControlName="productDiscount" type="number" min="0" class="example-right-align" placeholder="0">
           <span matPrefix>%&nbsp;</span>
-          <mat-error *ngIf="editForm.get('productDiscount')?.invalid">Error</mat-error>
+          <mat-error *ngIf="editForm.get('productDiscount')?.invalid">{{discountErrorMessage}}</mat-error>
         </mat-form-field>
-
-<!--        <mat-form-field appearance="fill">-->
-<!--          <mat-label>Product Status</mat-label>-->
-<!--          <input matInput formControlName="productStatus" min="0">-->
-<!--          <mat-error *ngIf="editForm.get('productStatus')?.invalid">Error</mat-error>-->
-<!--        </mat-form-field>-->
 
         <mat-form-field appearance="fill">
           <mat-label>Author</mat-label>
@@ -89,16 +89,16 @@
 
             <div class="add-bottom-padding">
               <mat-radio-group formControlName="productStatus">
-                <mat-radio-button value="true">Activated</mat-radio-button>
-                <mat-radio-button value="false">Deactivated</mat-radio-button>
+                <mat-radio-button value="ACTIVE">Active</mat-radio-button>
+                <mat-radio-button value="INACTIVE">Inactive</mat-radio-button>
               </mat-radio-group>
             </div>
 
-        <div class="footer-buttons">
-          <button  mat-raised-button color="primary" [disabled]="editForm.invalid" type="submit">
+        <div class="footer-buttons mb-3 mt-1">
+          <button  mat-raised-button class="btn btn-secondary" [disabled]="editForm.invalid" type="submit">
             Submit
           </button>
-          <button mat-raised-button color="primary"  (click)="onClose()">Cancel</button>
+          <button mat-raised-button class="btn btn-secondary"  (click)="onClose()">Cancel</button>
         </div>
       </div>
       </mat-dialog-content>

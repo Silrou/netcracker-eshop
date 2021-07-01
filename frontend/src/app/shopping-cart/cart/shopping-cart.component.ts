@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from '../_model/product';
-import {ShoppingCartService} from '../_service/shopping-cart/shopping-cart.service';
-import {AlertService} from '../_service/alert.service';
+import {Product} from '../../_model/product';
+import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
+import {AlertService} from '../../_service/alert.service';
 import {Router} from '@angular/router';
+import {AuthService} from '../../_service/auth.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,17 +15,22 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private router: Router,
               private shoppingCartService: ShoppingCartService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private authService: AuthService) {
   }
 
   total = 0;
   totalWithDiscount = 0;
   products: Product[] = [];
   amount = 1;
+  userId = -1;
   productsWithBadAmount: Product[] = [];
 
   ngOnInit(): void {
     this.products = JSON.parse(localStorage.getItem('productInCart'));
+    if (localStorage.getItem('idUser') !== null) {
+      this.userId = JSON.parse(localStorage.getItem('idUser'));
+    }
     this.totalPrice();
   }
 
@@ -62,11 +68,13 @@ export class ShoppingCartComponent implements OnInit {
       checkProducts.push(new Product());
       checkProducts[index].id = x.id;
       checkProducts[index].productAmount = x.productAmount;
+      checkProducts[index].productPrice = Math.round(x.productPrice * (1 - (x.productDiscount / 100)) * x.productAmount);
     });
 
-    this.shoppingCartService.getOrderConfirm(checkProducts).subscribe(
+    this.shoppingCartService.getOrderConfirm(checkProducts, this.userId).subscribe(
       res => {
-        this.router.navigateByUrl('/manager');
+        localStorage.setItem('idUser', res);
+        this.router.navigateByUrl('/');
       },
       error => {
         window.scroll(0, 0);

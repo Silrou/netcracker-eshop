@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {MainPageComponent} from './main-page/main-page.component';
 import {LoginComponent} from './authorization/login/login.component';
 import {RegistrationComponent} from './authorization/registration/registration.component';
-import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
+import {ShoppingCartComponent} from './shopping-cart/cart/shopping-cart.component';
 import {AuctionComponent} from './auctions/auction/auction.component';
 import {AuctionListComponent} from './auctions/auction-list/auction-list.component';
 import {BidComponent} from './auctions/bid/bid.component';
@@ -17,15 +17,17 @@ import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space
 // import {ProfileComponent} from './account/profile/profile.component';
 // @ts-ignore
 import {SearchComponent} from './account/search/search.component';
-import {EditSettingsComponent} from './settings/edit/edit-settings/edit-settings.component';
+import {EditSettingsComponent} from './settings/edit-settings/edit-settings.component';
 import {AuthGuard} from './_helper/auth.guard';
 import {Role} from './_model/role';
 import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
-import {VerifyEmailComponent} from './authorization/mail/verify-email/verify-email.component';
+import {VerifyEmailComponent} from './authorization/mail/verify-email.component';
 import {ManagerWorkspaceComponent} from './work-space/manager-workspace/manager-workspace.component';
-import {SettingsComponent} from './settings/settings.component';
+import {SettingsComponent} from './settings/user-profile/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
+import {CoucabComponent} from './account/courier-cabinet/coucab.component';
+import {NotificationComponent} from './socket/notifications/notification.component';
 
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
@@ -67,7 +69,7 @@ const routes: Routes = [
     component: ProductListComponent
   },
   {
-    path: 'product',
+    path: 'product-list/product/:id',
     component: ProductComponent
   },
   {
@@ -76,10 +78,12 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: SettingsComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.USER, Role.MANAGER, Role.ADMIN, Role.COURIER] }
+    component: SettingsComponent
   },
+  // {
+  //   path: 'socket',
+  //   component: NotificationComponent
+  // },
   // {
   //   path: 'settings',
   //   component: SettingsComponent,
@@ -88,6 +92,17 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+
+     },
+  // {
+  //   path: 'working-cabinet',
+  //   component: ProductCatalogComponent,
+  //   canActivate: [AuthGuard],
+  //   data: { roles: [Role.MANAGER, Role.ADMIN, Role.COURIER] }
+  // },
+  {
+    path: 'coucab',
+    component: CoucabComponent
   },
   {
     path: 'verify-email',
@@ -100,6 +115,7 @@ const routes: Routes = [
   {
     path: 'reset-password',
     component: ResetPasswordComponent
+
   },
   {
     path: 'manager',

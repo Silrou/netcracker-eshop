@@ -2,15 +2,17 @@
 
   <div class="row justify-content-around ">
     <div class="col-lg-3 col-md-2">
-      <select class="custom-select">
-        <option selected (click)="getOrderedProducts('')">Default order</option>
-        <option value="1" (click)="getOrderedProducts('p.productprice asc ')">Price: Low to High</option>
-        <option value="2" (click)="getOrderedProducts('p.productprice desc ')">Price: High to Low</option>
-        <option value="3" (click)="getOrderedProducts('p.productdate desc')">Newest</option>
+      <select class="custom-select" (change)="getOrderedProducts($event.target)">
+        <option selected value="">Default order</option>
+        <option value="p.productprice asc">Price: Low to High</option>
+        <option value="p.productprice desc">Price: High to Low</option>
+        <option value="p.productdate desc">Newest</option>
       </select>
     </div>
+
     <div class="col-lg-9 col-md-10">
-      <app-product-search (searchValue)="getSearchedProducts($event)" (cancelFilters)="cancelFilters()"></app-product-search>
+      <app-product-search (searchValue)="getSearchedProducts($event)"
+                          (cancelFilters)="cancelFilters()"></app-product-search>
     </div>
 
 
@@ -27,15 +29,15 @@
         <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of currentProducts">
           <app-product-card [product]="product"
                             (addProductToCart)="addProductToCart($event)"></app-product-card>
+
         </div>
 
       </div>
       <div class="row  justify-content-around">
-        <ngb-pagination [pageSize]="size" [collectionSize]="amountOfProducts" [(page)]="page" (pageChange)="onPageChange(page)" aria-label="Default pagination"></ngb-pagination>
+        <ngb-pagination [collectionSize]="amountOfProducts" [(page)]="page" [pageSize]="size" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange(page)"></ngb-pagination>
       </div>
     </div>
-
   </div>
-
 </div>
 

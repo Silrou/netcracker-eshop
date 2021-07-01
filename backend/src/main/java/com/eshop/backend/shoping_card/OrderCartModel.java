@@ -1,25 +1,35 @@
-package com.eshop.backend.order_card.dao.models;
+package com.eshop.backend.shoping_card;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 
-@Builder
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderCardModel {
+public class OrderCartModel {
+
     private Long id;
+
     private Long userId;
+
     private Long courierId;
+
     private String packageDescription;
+
     private String orderStatus;
+
     private Integer totalPrice;
+
     private String userName;
+
     private Date deliveryTime;
+
     private String fullAddress;
+
     private Boolean dontDisturb;
 }

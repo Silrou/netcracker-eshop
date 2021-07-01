@@ -6,8 +6,8 @@ import {MainPageComponent} from './main-page/main-page.component';
 import {AuthorizationModule} from './authorization/authorization.module';
 import {AuctionsModule} from './auctions/auctions.module';
 import {ProductsModule} from './products/products.module';
-import {ShoppingCartComponent} from './shopping-cart/shopping-cart.component';
-import {SettingsComponent} from './settings/settings.component';
+import {ShoppingCartComponent} from './shopping-cart/cart/shopping-cart.component';
+import {SettingsComponent} from './settings/user-profile/settings.component';
 import {AuthService} from './_service/auth.service';
 import {TokenInterceptorService} from './_service/token-interceptor.service';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
@@ -32,15 +32,21 @@ import {MatInputModule} from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
-import { EditSettingsComponent } from './settings/edit/edit-settings/edit-settings.component';
-import {OrderHistoryComponent} from './settings/order-history/order-history.component';
+import { EditSettingsComponent } from './settings/edit-settings/edit-settings.component';
+import {OrderHistoryComponent} from './settings/order-history/orders/order-history.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+
+import {CoucabComponent} from './account/courier-cabinet/coucab.component';
+import {NotificationComponent} from './socket/notifications/notification.component';
+
 import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-in-cart.component';
 import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from "@angular/material/dialog";
 
+
 @NgModule({
+ feature/account
   declarations: [
     AppComponent,
     MainPageComponent,
@@ -81,6 +87,48 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatSelectModule,
     MatDialogModule,
   ],
+=======
+    declarations: [
+        AppComponent,
+        MainPageComponent,
+        AlertComponent,
+        SettingsComponent,
+        ShoppingCartComponent,
+        ProductCatalogComponent,
+        ProfileComponent,
+        AdminWorkSpaceLinkComponent,
+        SearchComponent,
+        EditSettingsComponent,
+        OrderHistoryComponent,
+        CoucabComponent,
+        // NotificationComponent,
+        OrderDetailsComponent,
+        ProductInCartComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        AuthorizationModule,
+        AuctionsModule,
+        ProductsModule,
+        HttpClientModule,
+        CommonModule,
+        NavBarModule,
+        FormsModule,
+        JwPaginationModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatRadioModule,
+        MatOptionModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        NgbPaginationModule,
+    ],
+ develop
   providers: [AuthService, CookieService,
     {
       provide: HTTP_INTERCEPTORS,

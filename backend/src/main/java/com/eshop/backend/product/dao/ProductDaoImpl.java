@@ -2,9 +2,11 @@ package com.eshop.backend.product.dao;
 
 import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
+import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -135,6 +137,27 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public void updateAmountById(Long id, int price) {
+        String SQL = "update product set productamount = ? where id = ?";
+        try {
+            template.update(SQL, price, id);
+        } catch (Exception e) {
+            String str = e.toString();
+        }
+    }
+
+    @Override
+    public Integer getAmountById(Long id) {
+        try {
+            String sql = "SELECT productamount FROM product where id = ?";
+            return template.queryForObject(sql, Integer.class, id);
+        } catch (Exception e) {
+            return 0;
+        }
+
+    }
+
+    @Override
     public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
         StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL); //select ... from product p
         Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
@@ -144,6 +167,59 @@ public class ProductDaoImpl implements ProductDao {
 
         sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
         return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
+    }
+
+    @Override
+    public List<String> getCategoriesOfProduct(int author, int coverType, int genre, int language, int publisher) {
+        List<String> categories = new ArrayList<>();
+        categories.add(getAuthorById(author));
+        categories.add(getCoverTypeById(coverType));
+        categories.add(getGenreById(genre));
+        categories.add(getLanguageById(language));
+        categories.add(getPublisherById(publisher));
+        return categories;
+    }
+
+    @Override
+    public List<ProductModel> getPopular(int page, int size) {
+        String sql = "SELECT ";
+
+//        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
+//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+//        return template.query(sql, new ProductMapper());
+        return null;
+    }
+
+    @Override
+    public List<ProductModel> getNew(int page, int size) {
+        String sql = ProductMapper.SELECT_SQL + " order by p.productdate desc " +
+                " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
+    }
+
+    private String getAuthorById(int id){
+        String sql = "SELECT authorname from author where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getCoverTypeById(int id){
+        String sql = "SELECT covertypename from covertype where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getGenreById(int id){
+        String sql = "SELECT genrename from genre where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getLanguageById(int id){
+        String sql = "SELECT languagename from language where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
+    }
+
+    private String getPublisherById(int id){
+        String sql = "SELECT publishername from publisher where id = ?";
+        return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
     }
 
     private Object[] getSearchedOrderedFilteredBuilder(String search, FilterModel filterModel, StringBuilder sql){

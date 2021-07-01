@@ -44,10 +44,10 @@ export class ProductManagerComponent implements OnInit {
   }
 
   onChangeStatus(id: number): void {
-    if (this.product.productStatus === 'true') {
-      this.product.productStatus = 'false';
+    if (this.product.productStatus === 'ACTIVE') {
+      this.product.productStatus = 'INACTIVE';
     } else {
-      this.product.productStatus = 'true';
+      this.product.productStatus = 'ACTIVE';
     }
 
     this.productService.updateProduct(this.product).subscribe(
@@ -68,7 +68,7 @@ export class ProductManagerComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '40%';
+    dialogConfig.width = '50%';
     dialogConfig.data = {product: this.product};
     this.dialog.open(ProductEditComponent, dialogConfig);
     this.dialog.afterAllClosed.subscribe(() => {
