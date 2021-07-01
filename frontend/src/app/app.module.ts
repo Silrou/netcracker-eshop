@@ -41,12 +41,11 @@ import {CoucabComponent} from './account/courier-cabinet/coucab.component';
 import {NotificationComponent} from './socket/notifications/notification.component';
 
 import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-in-cart.component';
-import {MatSelectModule} from "@angular/material/select";
-import {MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
-@NgModule({
- feature/account
+@NgModule ({
   declarations: [
     AppComponent,
     MainPageComponent,
@@ -60,7 +59,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     EditSettingsComponent,
     OrderHistoryComponent,
     OrderDetailsComponent,
-    ProductInCartComponent
+    ProductInCartComponent,
+    CoucabComponent
   ],
   imports: [
     BrowserModule,
@@ -87,48 +87,6 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatSelectModule,
     MatDialogModule,
   ],
-=======
-    declarations: [
-        AppComponent,
-        MainPageComponent,
-        AlertComponent,
-        SettingsComponent,
-        ShoppingCartComponent,
-        ProductCatalogComponent,
-        ProfileComponent,
-        AdminWorkSpaceLinkComponent,
-        SearchComponent,
-        EditSettingsComponent,
-        OrderHistoryComponent,
-        CoucabComponent,
-        // NotificationComponent,
-        OrderDetailsComponent,
-        ProductInCartComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        AuthorizationModule,
-        AuctionsModule,
-        ProductsModule,
-        HttpClientModule,
-        CommonModule,
-        NavBarModule,
-        FormsModule,
-        JwPaginationModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatRadioModule,
-        MatOptionModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
-        NgbPaginationModule,
-    ],
- develop
   providers: [AuthService, CookieService,
     {
       provide: HTTP_INTERCEPTORS,
