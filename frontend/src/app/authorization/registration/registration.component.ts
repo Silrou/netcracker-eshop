@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../_service/alert/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
+import {ErrorMessages} from "../../_model/labels/error.messages";
 
 @Component({
   selector: 'app-registration',
@@ -48,7 +49,7 @@ export class RegistrationComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.alertService.error(error.error.message, { autoClose: false });
+        this.alertService.error(ErrorMessages[error.error.message], { autoClose: false });
       }
     );
   }

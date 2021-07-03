@@ -73,6 +73,7 @@ export class AuthService {
     localStorage.removeItem('idUser');
     this.role = Role.USER;
     this.status = Status.ANONYMOUS;
+    this.stopRefreshTokenTimer();
     this.router.navigate(['/login']);
   }
 
@@ -105,5 +106,24 @@ export class AuthService {
     return this.http.post('http://localhost:8081/user/forgot-password', {email});
   }
 
+
+  refreshToken(): Observable<any> {
+    console.log('refresh-token now');
+    return this.http.post<any>(`http://localhost:8081/user/refresh-token`, {}, { withCredentials: true })
+      .pipe(map((account) => {
+        this.startRefreshTokenTimer();
+        return account;
+      }));
+  }
+
+  startRefreshTokenTimer(): void {
+    // const timeout = Date.now() + (59 * 60 * 1000);
+    const timeout = (5 * 1000);
+    this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+  }
+
+  stopRefreshTokenTimer(): void {
+    clearTimeout(this.refreshTokenTimeout);
+  }
 
 }

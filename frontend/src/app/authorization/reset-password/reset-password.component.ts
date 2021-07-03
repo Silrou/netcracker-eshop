@@ -5,6 +5,7 @@ import {AlertService} from '../../_service/alert/alert.service';
 import {AuthService} from '../../_service/auth/auth.service';
 import {first} from 'rxjs/operators';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
+import {ErrorMessages} from "../../_model/labels/error.messages";
 
 enum TokenStatus {
   Validating,
@@ -104,7 +105,7 @@ export class ResetPasswordComponent implements OnInit {
           this.router.navigate(['../login'], { relativeTo: this.route });
         },
         error: error => {
-          this.alertService.error(error.error.message);
+          this.alertService.error(ErrorMessages[error.error.message]);
           this.loading = false;
         }
       });

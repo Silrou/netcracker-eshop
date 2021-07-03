@@ -4,6 +4,7 @@ import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.se
 import {AlertService} from '../../_service/alert/alert.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../../_service/auth/auth.service';
+import {ErrorMessages} from "../../_model/labels/error.messages";
 
 @Component({
   selector: 'app-shopping-cart',
@@ -79,7 +80,7 @@ export class ShoppingCartComponent implements OnInit {
       error => {
         window.scroll(0, 0);
         this.productsWithBadAmount = error.error.problemList;
-        this.alertService.error(error.error.message, {autoClose: false});
+        this.alertService.error(ErrorMessages[error.error.message], {autoClose: false});
       }
     );
   }

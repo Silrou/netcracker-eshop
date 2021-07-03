@@ -6,6 +6,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {AlertService} from '../../_service/alert/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
+import {ErrorMessages} from "../../_model/labels/error.messages";
 
 @Component({
   selector: 'app-login',
@@ -97,6 +98,7 @@ export class LoginComponent implements OnInit {
           loginData.recaptchaResponse = undefined;
           this.authService.getToken(loginData).subscribe(
             response => {
+              this.authService.startRefreshTokenTimer();
             });
         }
         const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
@@ -110,7 +112,7 @@ export class LoginComponent implements OnInit {
         if (this.failedRegistration >= 5) {
           console.log('show recaptcha now!!!!!!');
         }
-        this.alertService.error(error.error.message, { autoClose: false });
+        this.alertService.error(ErrorMessages[error.error.message], { autoClose: false });
         this.invalidLogin = true;
         this.loginResponse = error.message;
         grecaptcha.reset();

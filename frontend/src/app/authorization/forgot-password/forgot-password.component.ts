@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../_service/alert/alert.service';
 import {finalize, first} from 'rxjs/operators';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
+import {ErrorMessages} from "../../_model/labels/error.messages";
 
 @Component({
   selector: 'app-forgot-password',
@@ -44,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
       .pipe(finalize(() => this.loading = false))
       .subscribe({
         next: () => this.alertService.success('Please check your email for password reset instructions', { autoClose: false }),
-        error: error => this.alertService.error(error.error.message, { autoClose: false })
+        error: error => this.alertService.error(ErrorMessages[error.error.message], { autoClose: false })
       });
   }
 
