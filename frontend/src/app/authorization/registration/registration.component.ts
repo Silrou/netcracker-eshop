@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../../_model/user';
-import {AuthService} from '../../_service/auth.service';
+import {AuthService} from '../../_service/auth/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {AlertService} from '../../_service/alert.service';
+import {AlertService} from '../../_service/alert/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
 
@@ -48,7 +48,7 @@ export class RegistrationComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.alertService.error(error, { autoClose: false });
+        this.alertService.error(error.error.message, { autoClose: false });
       }
     );
   }

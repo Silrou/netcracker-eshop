@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {User} from '../_model/user';
+import {User} from '../../_model/user';
 import {map} from 'rxjs/operators';
-import {Role} from '../_model/role';
-import {Status} from '../_model/status';
+import {Role} from '../../_model/role';
+import {Status} from '../../_model/status';
 import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({

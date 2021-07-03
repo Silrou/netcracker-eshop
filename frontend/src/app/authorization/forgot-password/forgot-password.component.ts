@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../../_service/auth.service';
+import {AuthService} from '../../_service/auth/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../_service/alert.service';
+import {AlertService} from '../../_service/alert/alert.service';
 import {finalize, first} from 'rxjs/operators';
-import {ValidationMessages} from "../../_model/labels/validation.messages";
+import {ValidationMessages} from '../../_model/labels/validation.messages';
 
 @Component({
   selector: 'app-forgot-password',

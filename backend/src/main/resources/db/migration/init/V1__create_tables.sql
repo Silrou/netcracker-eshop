@@ -66,7 +66,7 @@ create table orderCart(
                           userID BIGSERIAL NOT NULL,
                           courierId BIGSERIAL NOT NULL,
                           packageDescription varchar(100) NOT NULL,
-                          orderStatus boolean NOT NULL,
+                          orderStatus varchar(100) NOT NULL,
                           totalPrice BIGSERIAL NOT NULL,
                           userName varchar(100) NOT NULL,
                           deliveryTime DATE NOT NULL,

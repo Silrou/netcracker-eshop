@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Product} from '../../_model/product';
 import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
-import {AlertService} from '../../_service/alert.service';
+import {AlertService} from '../../_service/alert/alert.service';
 import {Router} from '@angular/router';
-import {AuthService} from '../../_service/auth.service';
+import {AuthService} from '../../_service/auth/auth.service';
 
 @Component({
   selector: 'app-shopping-cart',
