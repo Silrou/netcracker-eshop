@@ -13,7 +13,6 @@ export class TokenInterceptorService implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // add auth header with jwt on request and take jwt on response
     const tokenRequest = (document.cookie.split(';').find(x => x.includes('Token')) || '=').split('=')[1];
     request = request.clone({
       setHeaders: {Authorization: `${tokenRequest}`}

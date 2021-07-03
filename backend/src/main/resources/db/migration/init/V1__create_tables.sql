@@ -95,7 +95,7 @@ create table verificationToken(
                                   id BIGSERIAL PRIMARY KEY,
                                   tokenName VARCHAR(100) NOT NULL,
                                   tokenValue VARCHAR(100) NOT NULL,
-                                  tokenExpiryDate DATE NOT NULL,
+                                  tokenExpiryDate TIMESTAMP NOT NULL,
                                   authorizedUserid integer NOT NULL
 );
 
