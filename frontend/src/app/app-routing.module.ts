@@ -13,7 +13,6 @@ import {ProductListComponent} from './products/product-list/product-list.compone
 // import {SettingsComponent} from './settings/pages/settings/settings.component';
 // import {PersonalDataViewComponent} from './settings/components/personal-data-view/personal-data-view.component';
 // import {PersonalDataEditComponent} from './settings/components/personal-data-edit/personal-data-edit.component';
-import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 // import {ProfileComponent} from './account/profile/profile.component';
 // @ts-ignore
 import {SearchComponent} from './account/search/search.component';
@@ -30,6 +29,7 @@ import {CoucabComponent} from './account/courier-cabinet/coucab.component';
 import {NotificationComponent} from './socket/notifications/notification.component';
 import {CheckoutComponent} from "./checkout/checkout.component";
 
+
 // const settingsChildRoutes: Routes = [
 //   { path: 'view', component: PersonalDataViewComponent},
 //   { path: 'edit', component: PersonalDataEditComponent},
@@ -45,14 +45,7 @@ const routes: Routes = [
     path: 'main',
     component: MainPageComponent
   },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegistrationComponent
-  },
+
   {
     path: 'auction-list',
     component: AuctionListComponent
@@ -124,7 +117,9 @@ const routes: Routes = [
   },
   {
     path: 'manager',
-    component: ManagerWorkspaceComponent
+    component: ManagerWorkspaceComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.ADMIN, Role.MANAGER] }
   },
   {
     path: 'verify-email',
@@ -145,7 +140,19 @@ const routes: Routes = [
     component: OrderDetailsComponent,
     canActivate: [AuthGuard],
     data: { roles: [Role.USER] }
-  }
+  },
+  {
+    path: 'register',
+    component: RegistrationComponent,
+    canActivate: [AuthGuard],
+    data: { skipException: ['true']}
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [AuthGuard],
+    data: { skipException: ['true']}
+  },
 ];
 
 @NgModule({
