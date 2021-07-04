@@ -66,6 +66,7 @@ export class SearchComponent implements OnInit {
       this.rs.updateUser(id, result).subscribe((response) => {
         console.log(response);
         localStorage.setItem('Users', JSON.stringify(response));
+        this.ngOnInit();
       });
       console.log('DialogData = ' + result);
     });
