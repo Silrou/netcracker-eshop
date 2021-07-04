@@ -37,7 +37,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 " useraddress, usernumber)\n" +
                 "values (?,?,?,?,?,?,?,?,?)";
 
-        jdbcTemplate.update(SQL, user.getUserLogin(), user.getUserPassword(),
+        jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
                 Role.USER.name(), user.getUserName(), user.getUserSurname(), new Date(System.currentTimeMillis()),
                 Role.ANONYMOUS.name(), user.getUserAddress(), user.getUserNumber());
     }
@@ -120,10 +120,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     }
 
 
-    @Override
-    public List<AuthorizedUserModel> getById(long id) {
-        return null;
-    }
+
 
     @Override
     public List<AuthorizedUserModel> getBy(adminDto admin) {
