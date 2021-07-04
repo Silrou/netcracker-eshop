@@ -81,7 +81,7 @@ export class SearchComponent implements OnInit {
         userLogin: '',
         userNumber: '',
         userRole: '',
-        userStatus: 'Active'
+        userStatus: 'ACTIVE'
       }
     });
     dialogRef.afterClosed().subscribe(result => {
