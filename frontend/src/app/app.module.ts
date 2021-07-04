@@ -43,6 +43,8 @@ import {NotificationComponent} from './socket/notifications/notification.compone
 import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-in-cart.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CheckoutComponent } from './checkout/checkout.component';
+
 
 
 @NgModule ({
@@ -60,7 +62,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     OrderHistoryComponent,
     OrderDetailsComponent,
     ProductInCartComponent,
-    CoucabComponent
+    CoucabComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatNativeDateModule,
     NgbPaginationModule,
     MatSelectModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   providers: [AuthService, CookieService,
     {
