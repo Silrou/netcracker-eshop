@@ -53,7 +53,7 @@
             </div>
             <div class="col-md-3">
               <a *ngIf="product.productStatus === 'inCard'" routerLink="/shopping-cart" class="btn btn-secondary text-white">Already in cart</a>
-              <a *ngIf="product.productStatus !== 'inCard'" (click)="addToCart()" class="btn btn-secondary mb-3">Add to cart</a>
+              <a *ngIf="product.productStatus !== 'inCard'" (click)="addToCart()" class="btn btn-secondary text-white mb-3">Add to cart</a>
             </div>
           </div>
           <div class="card bg-light border-light">
