@@ -6,9 +6,9 @@ export enum ErrorMessages {
     '<p>New Password cannot be same as previously used password</p>',
   NoUserWithThisEmailException = '<h4>Error wrong email</h4>' +
     '<p>User with this email does not exist</p>',
-  OrderCartAmountException = '<h4>Amount problem</h4>' +
+  OrderCartAmountException = '<h4>Problem with some product</h4>' +
     '<p>Some of your product is out of stock ' +
-    'please check all product and change amount</p>',
+    'or inactive please check all product</p>',
   UserAlreadyExistsException = '<h4>Email Already Registered</h4>' +
     '<p>Your email is already registered.</p>' +
     '<p>If you don\'t know your password please visit the <a href="/forgot-password">' +
@@ -16,7 +16,8 @@ export enum ErrorMessages {
   WrongEmailOrPasswordException = '<h4>Wrong email or password</h4>' +
     '<p>Please check your email and password.</p>',
   ChangeExistMailException = '<h4>This mailbox belongs to another user</h4>' +
-    '<p>Please try another mailbox</p>'
-
+    '<p>Please try another mailbox</p>',
+  CaptchaException = '<h4>Captcha verify server error</h4>' +
+    '<p>Please try again later</p>'
 }
 

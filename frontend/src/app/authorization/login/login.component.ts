@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required,
                       Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,20}$')]],
-      recaptcha: [this.defaultKey]
+      recaptcha: ['']
     });
   }
 
@@ -68,16 +68,6 @@ export class LoginComponent implements OnInit {
     // login.recaptchaResponse = undefined;
 
     this.login(login);
-
-    // this.authService.loginUser(login).subscribe(data => {
-    //   if (data.status === 200) {
-    //     this.router.navigate(['/main']);
-    //   } else {
-    //     this.invalidLogin = true;
-    //     this.loginResponse = data.message;
-    //   }
-    //   grecaptcha.reset();
-    // });
   }
 
   getRole(): void {
