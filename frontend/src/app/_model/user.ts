@@ -4,6 +4,7 @@ export class User{
   constructor() {
   }
   id: number;
+  isEdit?: boolean;
   userName: string;
   userSurname: string;
   userLogin: string;
@@ -11,6 +12,6 @@ export class User{
   userNumber: string;
   userAddress: string;
   userRole: Role;
-  status: string;
+  userStatus: string;
   recaptchaResponse: string;
 }

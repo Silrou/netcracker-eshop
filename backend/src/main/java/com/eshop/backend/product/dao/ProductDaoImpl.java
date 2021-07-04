@@ -156,6 +156,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public String getStatusById(Long id) {
+        String sql = "SELECT productstatus FROM product where id = ?";
+        return template.queryForObject(sql, String.class, id);
+    }
+
+    @Override
     public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel, boolean isActive) {
         StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL); //select ... from product p
         Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql, isActive);
@@ -164,8 +170,6 @@ public class ProductDaoImpl implements ProductDao {
         }
 
         sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
-//        System.out.println("SQL:----------");
-//        System.out.println(sql.toString());
         return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
     }
 

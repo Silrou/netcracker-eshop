@@ -86,26 +86,16 @@ CREATE table statistic(
 
 CREATE table courierCalendar(
                                 courierId BIGSERIAL ,
-                                F9T10 BIGSERIAL ,
-                                F10T11 BIGSERIAL ,
-                                F11T12 BIGSERIAL ,
-                                F12T13 BIGSERIAL ,
-                                F13T14 BIGSERIAL ,
-                                F14T15 BIGSERIAL ,
-                                F15T16 BIGSERIAL ,
-                                F16T17 BIGSERIAL ,
-                                F17T18 BIGSERIAL ,
-                                F18T19 BIGSERIAL ,
-                                F19T20 BIGSERIAL ,
-                                F20T21 BIGSERIAL ,
-                                userRegistrationDate DATE NOT NULL
+                                cartId BIGINT ,
+                                hour int ,
+                                calendarDate DATE NOT NULL
 );
 
 create table verificationToken(
                                   id BIGSERIAL PRIMARY KEY,
                                   tokenName VARCHAR(100) NOT NULL,
                                   tokenValue VARCHAR(100) NOT NULL,
-                                  tokenExpiryDate DATE NOT NULL,
+                                  tokenExpiryDate TIMESTAMP NOT NULL,
                                   authorizedUserid integer NOT NULL
 );
 
@@ -113,6 +103,8 @@ create table orderProduct (
                               id BIGSERIAL PRIMARY KEY,
                               productId BIGSERIAL NOT NULL,
                               orderCardId BIGSERIAL NOT NULL,
-                              inCardProductAmount BIGSERIAL,
-                              inCardProductPrice BIGSERIAL
+                              inCardProductAmount BIGINT,
+                              inCardProductPrice BIGINT
+
+
 );

@@ -1,19 +1,21 @@
 export class Managers{
   id: number;
-  userName: string;
-  userSurname: string;
-  userLogin: string;
-  userNumber: string;
-  userRole: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
+  status: string;
 
-
-  constructor(id: number, userName: string, userSurname: string, userLogin: string, userNumber: string, userRole: string) {
+  constructor(id, firstName, lastName, email, phoneNumber, role, status) {
     this.id = id;
-    this.userName = userName;
-    this.userSurname = userSurname;
-    this.userLogin = userLogin;
-    this.userNumber = userNumber;
-    this.userRole = userRole;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.role = role;
+    this.status = status;
+
   }
 }
 

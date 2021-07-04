@@ -36,7 +36,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 " useraddress, usernumber)\n" +
                 "values (?,?,?,?,?,?,?,?,?)";
 
-        jdbcTemplate.update(SQL, user.getUserLogin(), user.getUserPassword(),
+        jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
                 Role.USER.name(), user.getUserName(), user.getUserSurname(), new Date(System.currentTimeMillis()),
                 Role.ANONYMOUS.name(), user.getUserAddress(), user.getUserNumber());
     }
@@ -106,7 +106,6 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public void setStatus(AuthorizedUserModel user) {
         String SQL = "update authorizeduser set userstatus = ? where id = ?";
         jdbcTemplate.update(SQL, user.getUserStatus(), user.getId());
-
     }
 
     @Override
@@ -238,20 +237,25 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
     @Override
     public List<AuthorizedUserModel> getById(long id) {
-        String getAllAuthorizedUsersSQL = "SELECT * FROM authorizeduser where id = ?";
+        try{
+            String getAllAuthorizedUsersSQL = "SELECT * FROM authorizeduser where id = ?";
 
-        RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> new AuthorizedUserModel(
-                rs.getLong("id"),
-                rs.getString("userlogin"),
-                rs.getString("userpassword"),
-                rs.getString("userrole"),
-                rs.getString("username"),
-                rs.getString("usersurname"),
-                rs.getDate("userregistrationdate"),
-                rs.getString("userstatus"),
-                rs.getString("useraddress"),
-                rs.getString("usernumber"));
-        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper, id);
+            RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> new AuthorizedUserModel(
+                    rs.getLong("id"),
+                    rs.getString("userlogin"),
+                    rs.getString("userpassword"),
+                    rs.getString("userrole"),
+                    rs.getString("username"),
+                    rs.getString("usersurname"),
+                    rs.getDate("userregistrationdate"),
+                    rs.getString("userstatus"),
+                    rs.getString("useraddress"),
+                    rs.getString("usernumber"));
+            return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper, id);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     @Override
@@ -308,4 +312,5 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public void delete(Long id) {
 
     }
+
 }

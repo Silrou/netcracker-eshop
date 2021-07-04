@@ -46,13 +46,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//        return httpSecurity -> httpSecurity.authorizeRequests()
-//       // Allow access without authentication to URIs from the array.
-//                .antMatchers(allowedOnlyForM2M).hasRole("M2M")
-//                .antMatchers(ALL_PATH).permitAll()  // No authentication required for all URI paths
-//                .and().logout().permitAll(false);            // Deny all paths after logout
-
-
         http
                 .cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -63,13 +56,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").permitAll()
                 .antMatchers("/product/**").permitAll()
                 .antMatchers("/catalog/**").permitAll()
+                .antMatchers("/search/**").permitAll()
                 .antMatchers("/author/**").permitAll()
+                .antMatchers("/publisher/**").permitAll()
                 .antMatchers("/cover-type/**").permitAll()
                 .antMatchers("/genre/**").permitAll()
                 .antMatchers("/language/**").permitAll()
                 .antMatchers("/publisher/**").permitAll()
                 .antMatchers("/order-history/**").permitAll()
+                .antMatchers("/courier/**").permitAll()
                 .antMatchers("/settings/info/update/**").hasRole("USER")
+                .antMatchers("/search/**").permitAll()
                 .antMatchers("/settings/**").hasAnyRole("USER", "ADMIN", "COURIER", "MANAGER")
                 .antMatchers(allowedURIs).permitAll()
                 .anyRequest().authenticated()

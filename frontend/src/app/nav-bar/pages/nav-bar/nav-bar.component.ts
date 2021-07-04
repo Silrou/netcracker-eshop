@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Role} from '../../../_model/role';
 import {Router} from '@angular/router';
-import {AuthService} from '../../../_service/auth.service';
+import {AuthService} from '../../../_service/auth/auth.service';
 import {Status} from '../../../_model/status';
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
