@@ -51,7 +51,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public void deleteOrderCartById(Long id) {
-        String sql = "delete from ordercart where id = ?";
+        String sql = "DELETE FROM ordercart WHERE id = ?";
         try {
             jdbcTemplate.update(sql, id);
         } catch (Exception e) {
@@ -197,5 +197,17 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     public void updateOrderCartTotalPrice(Long id, Integer totalPrice) {
         String SQL = "update ordercart set totalprice = ? where id = ?";
         jdbcTemplate.update(SQL, totalPrice, id);
+    }
+
+    @Override
+    public Integer getAmountById(Long id, Long orderCardId) {
+        try {
+            String sql = "SELECT incardproductamount FROM orderproduct where productid = ?" +
+                    " AND ordercardid = ?";
+            return jdbcTemplate.queryForObject(sql, Integer.class, id, orderCardId);
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 }

@@ -7,8 +7,8 @@ import com.eshop.backend.product.dao.ProductDao;
 import com.eshop.backend.product.dao.models.ProductModel;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -70,17 +70,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         List<ProductModel> unreservedProducts = shoppingCartDao.getProductsByUserIdAndStatus(
                 userId);
         for (ProductModel unreservedProduct : unreservedProducts) {
-            unReserveProduct(unreservedProduct);
+            unReserveProduct(unreservedProduct, orderCart.getId());
         }
         return shoppingCartDao.getLastOrderCartByUserId(userId);
     }
 
-    private void unReserveProduct (ProductModel unreservedProducts) {
-        int newAmount = productDao.getAmountById(unreservedProducts.getId()) + unreservedProducts.getProductAmount();
+    private void unReserveProduct(ProductModel unreservedProducts, Long orderCartId) {
+        int a = productDao.getAmountById(unreservedProducts.getId());
+        int b = shoppingCartDao.getAmountById(unreservedProducts.getId(), orderCartId);
+        int newAmount = productDao.getAmountById(unreservedProducts.getId()) + shoppingCartDao.getAmountById(unreservedProducts.getId(),orderCartId);
         productDao.updateAmountById(unreservedProducts.getId(), newAmount);
     }
 
-    private OrderCartModel createOrder(AuthorizedUserModel user, String orderStatus) {
+    private OrderCartModel createOrderCart(AuthorizedUserModel user, String orderStatus) {
         shoppingCartDao.createOrderCart(OrderCartModel.builder()
                 .userId(user.getId())
                 .courierId((long) -1)
@@ -115,57 +117,49 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 
     @Override
+    @Transactional
     public Long createOrder(List<ProductModel> orderProducts, Long id) {
+
+        checkProductInStock(orderProducts);
+
         AuthorizedUserModel user = authorizedUserDao.getById(id);
         if (authorizedUserDao.getById(id) == null) {
             user = createAnonymousUser();
         }
 
-        checkProductInStock(orderProducts);
-
         OrderCartModel orderCart = shoppingCartDao.getLastOrderCartByUserId(user.getId());
 
-
-        if (orderCart != null){
-            if (orderCart.getOrderStatus().equals("UNRESERVED")) {
-                shoppingCartDao.deleteOrderCartById(orderCart.getId());
-            }
+        if (orderCart != null) {
             if (orderCart.getOrderStatus().equals("RESERVED")) {
                 unReserveOrderCart(user.getId(), orderCart);
-                shoppingCartDao.deleteOrderCartById(orderCart.getId());
             }
+            shoppingCartDao.deleteOrderCartById(orderCart.getId());
         }
 
-        orderCart = createOrder(user, "RESERVED");
+
+        orderCart = createOrderCart(user, "RESERVED");
         reserveOrderCart(orderProducts, orderCart);
-//        orderCart = createOrder(user, "RESERVED");
-
-//        shoppingCartDao.updateStatusById(orderCart.getId(), "RESERVED");
-
 
         return user.getId();
     }
 
     @Override
+    @Transactional
     public void deleteProductFromOrder(ProductModel orderProduct, Long userId) {
         AuthorizedUserModel user = authorizedUserDao.getById(userId);
         if (user != null) {
             OrderCartModel orderCart = shoppingCartDao.getLastOrderCartByUserId(user.getId());
-            if (orderCart != null && (orderCart.getOrderStatus().equals("RESERVED"))) {
-                unReserveProduct(orderProduct);
-//                orderCart = unReserveOrderCart(user.getId(), orderCart);
+            if (orderCart != null) {
+                if (orderCart.getOrderStatus().equals("RESERVED")) {
+                    unReserveProduct(orderProduct, orderCart.getId());
+                }
                 shoppingCartDao.deleteProductFromOrderCart(orderProduct.getId(), orderCart.getId());
-                //
-//                shoppingCartDao.deleteOrderCartById(orderCart.getId());
-                //
                 List<ProductModel> productInCart = shoppingCartDao.getProductsByUserIdAndStatus(user.getId());
                 if (productInCart.size() == 0) {
                     shoppingCartDao.deleteOrderCartById(orderCart.getId());
                 }
             }
         }
-
-
     }
 
     @Override
@@ -174,6 +168,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public Long addProductToShoppingCart(ProductModel productModel, Long userId) {
         AuthorizedUserModel user = authorizedUserDao.getById(userId);
         if (authorizedUserDao.getById(userId) == null) {
@@ -183,7 +178,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         OrderCartModel orderCart = shoppingCartDao.getLastOrderCartByUserId(user.getId());
 
         if (orderCart == null) {
-            orderCart = createOrder(user, "UNRESERVED");
+            orderCart = createOrderCart(user, "UNRESERVED");
         }
         if (orderCart.getOrderStatus().equals("RESERVED")) {
             orderCart = unReserveOrderCart(user.getId(), orderCart);

@@ -63,8 +63,8 @@ public class ShoppingCartController {
 
         ObjectMapper objectMapper = new ObjectMapper();
         ProductModel productModel = objectMapper.readValue(orderProduct, ProductModel.class);
-        if (productModel.getProductAmount() == 1 )
-            userId = shoppingCartService.addProductToShoppingCart(productModel, userId);
+
+        userId = shoppingCartService.addProductToShoppingCart(productModel, userId);
         return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 

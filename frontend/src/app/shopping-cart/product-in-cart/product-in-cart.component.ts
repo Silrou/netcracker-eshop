@@ -29,11 +29,11 @@ export class ProductInCartComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.stockErrorMessage = 'Not enough product in stock, please remove productCount products';
     this.storeAmountProblem = false;
-    this.productStatusError = false;
     this.amount = this.product.productAmount;
     this.initForm();
     this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
     this.checkAmount();
+    this.productStatusError = false;
     // this.countErrorCheck();
   }
 
@@ -46,16 +46,17 @@ export class ProductInCartComponent implements OnInit, OnChanges {
 
   onChange($event: Event): void {
       this.amount = this.form.value.productAmount;
-      this.storeAmountProblem = false;
       this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
       this.product.productAmount = this.amount;
       // this.countErrorCheck();
       this.updateAmount.emit('updatePrice');
+      this.storeAmountProblem = false;
   }
 
   removeProduct(): void {
     this.remove.emit(this.product);
-    // this.countErrorCheck();
+    this.storeAmountProblem = false;
+    this.productStatusError = false;
   }
 
   ngOnChanges(): void {

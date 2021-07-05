@@ -59,9 +59,7 @@ export class ShoppingCartComponent implements OnInit {
 
   updatePrice($event: string): void {
     this.countError = false;
-    this.products.forEach(x => {
-      console.log('new price: ' + x.productPrice);
-    });
+    this.productsWithErrors = null;
     localStorage.setItem('productInCart', JSON.stringify(this.products));
     this.totalPrice();
   }
@@ -83,6 +81,7 @@ export class ShoppingCartComponent implements OnInit {
         console.log(res);
       }
     );
+    this.countError = false;
   }
 
   confirmOrder(): void {

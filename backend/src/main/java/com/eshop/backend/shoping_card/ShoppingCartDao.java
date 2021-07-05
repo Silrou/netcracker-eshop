@@ -18,4 +18,5 @@ public interface ShoppingCartDao extends CrudDao<ProductModel> {
     void deleteProductFromOrderCart(Long productId, Long orderCartId);
     void addProductToCart(ProductModel productModel, Long orderCaryId);
     void updateStatusById(Long id, String status);
+    Integer getAmountById(Long id, Long orderCardId);
 }
