@@ -57,7 +57,7 @@ export class ShoppingCartService {
   }
 
   changeStatusToInCart(value: Product[]): void {
-    if (value) {
+    if (value != null && this.productInCart != null) {
       value.forEach(element => {
         this.productInCart.forEach(x => {
           if (element.id === x.id) {

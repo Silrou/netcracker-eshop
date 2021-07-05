@@ -76,7 +76,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                     "values (?,?,?,?)";
             jdbcTemplate.update(sql, productModel.getId(), orderCaryId, productModel.getProductAmount(),
                     productModel.getProductPrice());
-        } catch (Exception e){
+        } catch (Exception e) {
             e.toString();
         }
     }
@@ -87,7 +87,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
             String sql = "update ordercart set orderstatus = ?\n" +
                     " WHERE id = ?";
             jdbcTemplate.update(sql, status, id);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.toString();
         }
     }
@@ -109,21 +109,17 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public List<ProductModel> getProductsByUserIdAndStatus(Long id) {
-        try {
-            String sql = "select productid, incardproductamount from orderproduct as op\n" +
-                    "inner join ordercart as oc on oc.id = op.ordercardid\n" +
-                    "where oc.userid = ? and orderstatus in ('RESERVED', 'UNRESERVED')";
+        String sql = "select productid, incardproductamount from orderproduct as op\n" +
+                "inner join ordercart as oc on oc.id = op.ordercardid\n" +
+                "where oc.userid = ? and orderstatus in ('RESERVED', 'UNRESERVED')";
 
-            RowMapper<ProductModel> rowMapper = (rs, rowNum) -> ProductModel.builder()
-                    .id(rs.getLong("productid"))
-                    .productAmount(rs.getInt("incardproductamount"))
-                    .build();
+        RowMapper<ProductModel> rowMapper = (rs, rowNum) -> ProductModel.builder()
+                .id(rs.getLong("productid"))
+                .productAmount(rs.getInt("incardproductamount"))
+                .build();
 
-            return jdbcTemplate.query(sql, rowMapper, id);
-        } catch (Exception e) {
-            String a = e.toString();
-        }
-        return null;
+        return jdbcTemplate.query(sql, rowMapper, id);
+
     }
 
     @Override
@@ -154,42 +150,34 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public void createOrderProduct(OrderProductModel orderProductModel) {
-        try {
-            String SQL = "insert into orderproduct (productid, ordercardid," +
-                    "incardproductamount, incardproductprice)\n " +
-                    "values (?,?,?,?)";
+        String SQL = "insert into orderproduct (productid, ordercardid," +
+                "incardproductamount, incardproductprice)\n " +
+                "values (?,?,?,?)";
 
-            jdbcTemplate.update(SQL, orderProductModel.getProductId(), orderProductModel.getOrderCardId(),
-                    orderProductModel.getInCardProductAmount(), orderProductModel.getInCardProductPrice());
-        } catch (Exception e) {
-            String a = e.toString();
-        }
+        jdbcTemplate.update(SQL, orderProductModel.getProductId(), orderProductModel.getOrderCardId(),
+                orderProductModel.getInCardProductAmount(), orderProductModel.getInCardProductPrice());
+
 
     }
 
     @Override
     public OrderCartModel getLastOrderCartByUserId(Long id) {
-        try {
+        String sql = "SELECT id, userid, courierid, packagedescription, " +
+                "orderstatus, totalprice, username, deliverytime, fulladdress, " +
+                "dontdisturb FROM ordercart where userid = ? order by id desc limit 1";
 
-            String sql = "SELECT id, userid, courierid, packagedescription, " +
-                    "orderstatus, totalprice, username, deliverytime, fulladdress, " +
-                    "dontdisturb FROM ordercart where userid = ? order by id desc limit 1";
-
-            RowMapper<OrderCartModel> rowMapper = (rs, rowNum) -> new OrderCartModel(
-                    rs.getLong("id"),
-                    rs.getLong("userid"),
-                    rs.getLong("courierid"),
-                    rs.getString("packagedescription"),
-                    rs.getString("orderstatus"),
-                    rs.getInt("totalprice"),
-                    rs.getString("username"),
-                    rs.getDate("deliverytime"),
-                    rs.getString("fulladdress"),
-                    rs.getBoolean("dontdisturb"));
-            return jdbcTemplate.queryForObject(sql, rowMapper, id);
-        } catch (Exception e) {
-            return null;
-        }
+        RowMapper<OrderCartModel> rowMapper = (rs, rowNum) -> new OrderCartModel(
+                rs.getLong("id"),
+                rs.getLong("userid"),
+                rs.getLong("courierid"),
+                rs.getString("packagedescription"),
+                rs.getString("orderstatus"),
+                rs.getInt("totalprice"),
+                rs.getString("username"),
+                rs.getDate("deliverytime"),
+                rs.getString("fulladdress"),
+                rs.getBoolean("dontdisturb"));
+        return jdbcTemplate.queryForObject(sql, rowMapper, id);
 
     }
 

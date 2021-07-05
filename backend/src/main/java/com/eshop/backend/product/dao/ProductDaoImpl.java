@@ -221,12 +221,8 @@ public class ProductDaoImpl implements ProductDao {
                 .productPrice(rs.getInt("productprice"))
                 .productStatus(rs.getString("productstatus"))
                 .build();
-        try {
             return template.query(sql, rowMapper, userId);
-        } catch (Exception e) {
-            e.toString();
-        }
-        return null;
+
     }
 
     private String getAuthorById(int id) {

@@ -76,8 +76,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     private void unReserveProduct(ProductModel unreservedProducts, Long orderCartId) {
-        int a = productDao.getAmountById(unreservedProducts.getId());
-        int b = shoppingCartDao.getAmountById(unreservedProducts.getId(), orderCartId);
         int newAmount = productDao.getAmountById(unreservedProducts.getId()) + shoppingCartDao.getAmountById(unreservedProducts.getId(),orderCartId);
         productDao.updateAmountById(unreservedProducts.getId(), newAmount);
     }
