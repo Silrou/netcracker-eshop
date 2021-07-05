@@ -11,7 +11,7 @@ import {ErrorMessages} from '../../_model/labels/error.messages';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit{
+export class ShoppingCartComponent implements OnInit {
 
 
   constructor(private router: Router,
@@ -29,23 +29,39 @@ export class ShoppingCartComponent implements OnInit{
   countError = false;
 
   ngOnInit(): void {
-    this.products = JSON.parse(localStorage.getItem('productInCart'));
     if (localStorage.getItem('idUser') !== null) {
       this.userId = JSON.parse(localStorage.getItem('idUser'));
+      this.shoppingCartService.getShoppingCart(this.userId).subscribe(
+        res => {
+            this.products = res;
+            localStorage.setItem('productInCart', JSON.stringify(this.products));
+            this.totalPrice();
+        }
+      );
     }
-    this.totalPrice();
+    this.products = JSON.parse(localStorage.getItem('productInCart'));
+    if (this.products !== null) {
+      this.totalPrice();
+    }
   }
 
   totalPrice(): void {
     this.total = 0;
     this.totalWithDiscount = 0;
     this.products.forEach(x => {
+      if (!Number.isInteger(x.productAmount)) {
+        this.countError = true;
+      }
       this.total += x.productPrice * x.productAmount;
       this.totalWithDiscount += Math.round(x.productPrice * (1 - (x.productDiscount / 100)) * x.productAmount);
     });
   }
 
   updatePrice($event: string): void {
+    this.countError = false;
+    this.products.forEach(x => {
+      console.log('new price: ' + x.productPrice);
+    });
     localStorage.setItem('productInCart', JSON.stringify(this.products));
     this.totalPrice();
   }
@@ -62,6 +78,11 @@ export class ShoppingCartComponent implements OnInit{
       localStorage.setItem('productInCart', JSON.stringify(this.products));
     }
     this.totalPrice();
+    this.shoppingCartService.deleteReservedProduct($event, this.userId).subscribe(
+      res => {
+        console.log(res);
+      }
+    );
   }
 
   confirmOrder(): void {
@@ -89,13 +110,11 @@ export class ShoppingCartComponent implements OnInit{
         this.countError = true;
       }
     );
-    this.ngOnInit();
+    // this.ngOnInit();
   }
 
   changeCountError($event: any): void {
-    this.products.forEach(x => {
-      console.log(x.productStatus);
-    });
+    this.countError = false;
     this.countError = $event;
   }
 

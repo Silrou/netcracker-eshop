@@ -1,5 +1,6 @@
 package com.eshop.backend.shoping_card;
 
+import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +26,7 @@ public class ShoppingCartController {
 
     @GetMapping("/create-order")
     public ResponseEntity<Long> getById(@RequestParam("products") String orderProducts,
-                                                @RequestParam("userId") Long userId) throws JsonProcessingException {
+                                        @RequestParam("userId") Long userId) throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -34,6 +35,36 @@ public class ShoppingCartController {
 
         List<ProductModel> productModel = objectMapper.readValue(orderProducts, collectionType);
         userId = shoppingCartService.createOrder(productModel, userId);
+        return new ResponseEntity<>(userId, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/remove-order-product")
+    public ResponseEntity<?> removeProductFromOrder(@RequestParam("product") String orderProduct,
+                                                    @RequestParam("userId") Long userId) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProductModel productModel = objectMapper.readValue(orderProduct, ProductModel.class);
+
+        shoppingCartService.deleteProductFromOrder(productModel, userId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/shopping-cart")
+    public ResponseEntity<List<ProductModel>> getShoppingCart(@RequestParam("userId") Long userId){
+
+        List<ProductModel> productInShoppingCart = shoppingCartService.getProductInCart(userId);
+
+        return new ResponseEntity<>(productInShoppingCart, HttpStatus.OK);
+    }
+
+    @GetMapping("/add-product-to-cart")
+    public ResponseEntity<Long> addProductToShoppingCart(@RequestParam("product") String orderProduct,
+                                                         @RequestParam("userId") Long userId) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ProductModel productModel = objectMapper.readValue(orderProduct, ProductModel.class);
+        if (productModel.getProductAmount() == 1 )
+            userId = shoppingCartService.addProductToShoppingCart(productModel, userId);
         return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 

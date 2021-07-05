@@ -47,7 +47,7 @@ export class MainPageComponent implements OnInit {
 
 
   addProductToCart(product: Product): void {
-    // this.shoppingCartService.addProductToCart(product);
+    this.shoppingCartService.addProductToCart(product);
     this.checkStatus();
   }
 

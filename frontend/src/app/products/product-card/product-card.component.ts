@@ -19,7 +19,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToCart(): void {
-    this.shoppingCartService.addProductToCart(this.product);
+    // this.shoppingCartService.addProductToCart(this.product);
     this.addProductToCart.emit(this.product);
   }
 

@@ -203,6 +203,32 @@ public class ProductDaoImpl implements ProductDao {
         return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
     }
 
+    @Override
+    public List<ProductModel> getProductInShoppingCart(Long userId) {
+        String sql = "select p.id, p.productname, op.incardproductamount, p.productdescription,\n" +
+                "p.productdiscount, p.productpict, p.productprice, p.productstatus from product as p\n" +
+                "inner join orderproduct as op on p.id = op.productid\n" +
+                "inner join ordercart oc on oc.id = op.ordercardid\n" +
+                "where oc.userid = ? and oc.orderstatus = 'RESERVED' or oc.orderstatus = 'UNRESERVED'";
+
+        RowMapper<ProductModel> rowMapper = (rs, rowNum) -> ProductModel.builder()
+                .id(rs.getLong("id"))
+                .productName(rs.getString("productname"))
+                .productAmount(rs.getInt("incardproductamount"))
+                .productDescription(rs.getString("productdescription"))
+                .productDiscount(rs.getInt("productdiscount"))
+                .productPict(rs.getString("productpict"))
+                .productPrice(rs.getInt("productprice"))
+                .productStatus(rs.getString("productstatus"))
+                .build();
+        try {
+            return template.query(sql, rowMapper, userId);
+        } catch (Exception e) {
+            e.toString();
+        }
+        return null;
+    }
+
     private String getAuthorById(int id) {
         String sql = "SELECT authorname from author where id = ?";
         return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});

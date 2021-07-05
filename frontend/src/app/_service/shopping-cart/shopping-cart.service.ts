@@ -22,6 +22,16 @@ export class ShoppingCartService {
     return this.http.get<any>(url, {params});
   }
 
+  temp(product: Product, userId: number): Observable<any> {
+    if (userId == null) {
+      userId = -1;
+    }
+    const params = new HttpParams().set('product', JSON.stringify(product))
+      .set('userId', String(userId));
+    const url = `${this.productsUrl}/add-product-to-cart`;
+    return this.http.get<any>(url, {params});
+  }
+
   addProductToCart(value: Product): void {
     const product: Product = Object.assign({}, value);
     if (localStorage.getItem('productInCart') !== null) {
@@ -36,6 +46,14 @@ export class ShoppingCartService {
       this.productInCart.push(product);
     }
     localStorage.setItem('productInCart', JSON.stringify(this.productInCart));
+
+    this.temp(product, JSON.parse(localStorage.getItem('idUser'))).subscribe(
+      res => {
+        if (res !== null) {
+          localStorage.setItem('idUser', res);
+        }
+      }
+    );
   }
 
   changeStatusToInCart(value: Product[]): void {
@@ -50,4 +68,16 @@ export class ShoppingCartService {
     }
   }
 
+  deleteReservedProduct(product: Product, userId: number): Observable<any> {
+    const params = new HttpParams().set('product', JSON.stringify(product))
+      .set('userId', String(userId));
+    const url = `${this.productsUrl}/remove-order-product`;
+    return this.http.delete<any>(url, {params});
+  }
+
+  getShoppingCart(userId: number): Observable<any> {
+    const params = new HttpParams().set('userId', String(userId));
+    const url = `${this.productsUrl}/shopping-cart`;
+    return this.http.get<any>(url, {params});
+  }
 }
