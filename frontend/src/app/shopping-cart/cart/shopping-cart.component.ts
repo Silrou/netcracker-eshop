@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnChanges, OnInit, Output, EventEmitter, SimpleChanges, Input} from '@angular/core';
 import {Product} from '../../_model/product';
 import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
 import {AlertService} from '../../_service/alert/alert.service';
@@ -27,7 +27,8 @@ export class ShoppingCartComponent implements OnInit{
   userId = -1;
   productsWithErrors: Product[] = [];
   countError = false;
-
+  checkout = false;
+  @Input() myInput = true;
   ngOnInit(): void {
     this.products = JSON.parse(localStorage.getItem('productInCart'));
     if (localStorage.getItem('idUser') !== null) {
