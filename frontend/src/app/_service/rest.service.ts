@@ -33,13 +33,14 @@ export class RestService {
   private deleteUrl = 'http://localhost:8081/search/delete';
   private updateUrl = 'http://localhost:8081/search/edit';
   private getSearchUrl = 'http://localhost:8081/admin/get';
+
   url = 'http://localhost:8081/admin/search/';
   getManagers(): Observable<any> {
     return this.http.get<User[]>(this.getAllUrl);
   }
   addMember(user: User): Observable<any>{
     // return this.http.post<Managers>(this.url, manager);
-    console.log(user);
+    console.log(user.userName);
     return this.http.post<User>(this.addNewUrl, user);
   }
   deleteUser(id: number): Observable<any>{
@@ -47,7 +48,7 @@ export class RestService {
   }
 
   updateUser(id: number, user: User): Observable<any>{
-    return this.http.put<User>(this.deleteUrl + '/' + id, user);
+    return this.http.put<User>(this.updateUrl + '/' + id, user);
   }
   getFromUsers(admin: Admin): Observable<any> {
     const params = new HttpParams().set('Admin', JSON.stringify(admin));
