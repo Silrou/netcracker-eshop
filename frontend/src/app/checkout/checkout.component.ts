@@ -13,6 +13,7 @@ export class CheckoutComponent implements OnInit {
   constructor() { }
   @Inject(MAT_DIALOG_DATA) public data: User;
   form: FormGroup;
+  input = false;
 
   ngOnInit(): void {
     this.form = new FormGroup({

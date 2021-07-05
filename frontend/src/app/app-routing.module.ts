@@ -28,6 +28,7 @@ import {OrderDetailsComponent} from './settings/order-history/order-details/orde
 import {CoucabComponent} from './account/courier-cabinet/coucab.component';
 import {NotificationComponent} from './socket/notifications/notification.component';
 import {CheckoutComponent} from "./checkout/checkout.component";
+import {CompareComponent} from "./products/compare/compare.component";
 
 
 // const settingsChildRoutes: Routes = [
@@ -73,6 +74,10 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent
+  },
+  {
+    path: 'compare',
+    component: CompareComponent
   },
   {
    path: 'shopping-cart/checkout',

@@ -4,6 +4,7 @@ import {ProductService} from '../../_service/product/product.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
+import {CompareService} from '../../_service/compare/compare.service';
 
 @Component({
   selector: 'app-product',
@@ -20,7 +21,8 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private location: Location,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private compareService: CompareService
   ) {
   }
 
@@ -40,7 +42,8 @@ export class ProductComponent implements OnInit {
   }
 
   getCategoriesOfProduct(): void {
-    this.productService.getCategoriesOfProduct(this.product.author, this.product.coverType, this.product.genre, this.product.language, this.product.publisher)
+    this.productService.getCategoriesOfProduct(this.product.author, this.product.coverType, this.product.genre,
+      this.product.language, this.product.publisher)
       .subscribe(categories => {
         this.categories = categories;
       });
@@ -66,6 +69,12 @@ export class ProductComponent implements OnInit {
     this.checkStatus();
   }
 
+  addToCompare(element): void{
+    this.compareService.addProductToCompare(this.product.id, this.product.productName, this.product.productPrice,
+      this.product.productDiscount, this.product.productPict, this.categories, this.product.productStatus);
+    element.textContent = 'In compare';
+  }
+
   checkStatus(): void {
     const array: Product[] = [this.product];
     this.shoppingCartService.changeStatusToInCart(array);
@@ -74,5 +83,12 @@ export class ProductComponent implements OnInit {
       //     this.product.productStatus = 'inCard';
       //   }
       // });
+  }
+
+  beingCompared(): boolean{
+    if (this.compareService.beingCompared(this.product.id)){
+      return true;
+    }
+    return false;
   }
 }
