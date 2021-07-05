@@ -119,7 +119,10 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 //        }
     }
 
-
+    @Override
+    public List<AuthorizedUserModel> getById(long id) {
+        return null;
+    }
 
 
     @Override

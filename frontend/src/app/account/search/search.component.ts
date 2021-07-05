@@ -12,7 +12,6 @@ import {ProfileComponent} from '../profile/profile.component';
 import {MatDialogRef} from '@angular/material/dialog';
 import {User} from '../../_model/user';
 import {Admin} from '../../_model/admin';
-import {AdminService} from '../../_service/search/adminService';
 import {NgForm} from '@angular/forms';
 import {Subscription} from "rxjs";
 @Component({
@@ -126,7 +125,7 @@ export class SearchComponent implements OnInit {
     }
 
     if (form.controls['status'].value === 'ALL'){
-      this.admin.status = 'ACTIVE,INACTIVE,Terminated';
+      this.admin.status = 'ACTIVE,INACTIVE,TERMINATED';
     }
     else {
       this.admin.status = form.controls['status'].value + ', , ';
