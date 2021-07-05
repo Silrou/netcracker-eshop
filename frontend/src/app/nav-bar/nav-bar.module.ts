@@ -8,7 +8,6 @@ import {BaseLinkComponent} from './components/base-link/base-link.component';
 import { CatalogueLinkComponent } from './components/catalogue-link/catalogue-link.component';
 import { ShoppingCartLinkComponent } from './components/shopping-cart-link/shopping-cart-link.component';
 import { ProductCatalogLinkComponent } from './components/product-catalog-link/product-catalog-link.component';
-import { CompareLinkComponent } from './components/compare-link/compare-link.component';
 
 
 @NgModule({
@@ -19,7 +18,6 @@ import { CompareLinkComponent } from './components/compare-link/compare-link.com
     CatalogueLinkComponent,
     ShoppingCartLinkComponent,
     ProductCatalogLinkComponent,
-    CompareLinkComponent,
   ],
   exports: [
     NavBarComponent

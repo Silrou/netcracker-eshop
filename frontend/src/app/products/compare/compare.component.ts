@@ -38,4 +38,11 @@ export class CompareComponent implements OnInit {
     this.products = this.compareService.getCompared();
   }
 
+  isEmpty(): boolean{
+    if (this.products.length < 1){
+      return true;
+    }
+    return false;
+  }
+
 }

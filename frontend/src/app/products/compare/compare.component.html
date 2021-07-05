@@ -1,8 +1,8 @@
-<div class="row justify-content-around">
-  <table class="table table-striped  table-responsive-sm table-sm">
+<div class="row justify-content-around" *ngIf="!isEmpty()">
+  <table class="table table-striped table-responsive-sm table-sm">
     <thead>
     <tr>
-      <th>Picture</th>
+      <th></th>
       <th>Name</th>
       <th>Price</th>
       <th>Author</th>
@@ -31,16 +31,13 @@
         <div class="col-md-12">
           <a class="btn btn-secondary mb-3 btn-secondary text-white btn-block" (click)="remove(product)">Delete</a>
         </div>
-        <!--        <div class="col-md-12">-->
-        <!--          <a *ngIf="product.productStatus === 'inCard'" routerLink="/shopping-cart"-->
-        <!--             class="btn btn-secondary text-white btn-block">Already in cart</a>-->
-        <!--          <a *ngIf="product.productStatus !== 'inCard'" (click)="addToCart()"-->
-        <!--             class="btn btn-secondary text-white mb-3 btn-block">Add to cart</a>-->
-        <!--        </div>-->
       </td>
     </tr>
     </tbody>
   </table>
+</div>
 
-
+<div *ngIf="isEmpty()" class="text-center mt-5">
+  <h3>Comparison list is empty now</h3>
+  <a class="btn btn-secondary btn-secondary text-white mt-3" routerLink="/product-list">Return to catalogue</a>
 </div>

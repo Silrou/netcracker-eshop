@@ -53,8 +53,6 @@
           </div>
           <div class="row mt-3 mb-2">
             <div class="col-md-3">
-<!--              <a class="btn btn-secondary mb-3 mr-3 btn-secondary text-white" (click)="addToCompare($event.target)">Compare</a>-->
-
               <a *ngIf="beingCompared()" routerLink="/compare"
                  class="btn btn-secondary text-white">Comparing</a>
               <a *ngIf="!beingCompared()" (click)="addToCompare($event.target)"

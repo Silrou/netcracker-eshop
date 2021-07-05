@@ -33,7 +33,6 @@ export class CompareService {
   }
 
   beingCompared(id: number): boolean {
-
     for (let index in this.productsToCompare) {
       if (this.productsToCompare[index].id === id) {
         return true;
@@ -51,6 +50,11 @@ export class CompareService {
   }
 
   getCompared(): ProductToCompare[] {
+    if (this.productsToCompare.length<1){
+      if (localStorage.getItem('productToCompare') !== null) {
+        this.productsToCompare = JSON.parse(localStorage.getItem('productToCompare'));
+      }
+    }
     return this.productsToCompare;
   }
 
