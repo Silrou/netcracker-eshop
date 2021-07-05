@@ -102,7 +102,7 @@ create table verificationToken(
 create table orderProduct (
                               id BIGSERIAL PRIMARY KEY,
                               productId BIGSERIAL NOT NULL,
-                              orderCardId BIGSERIAL NOT NULL,
+                              orderCardId BIGSERIAL NOT NULL REFERENCES orderCart (id) ON DELETE CASCADE,
                               inCardProductAmount BIGINT,
                               inCardProductPrice BIGINT
 

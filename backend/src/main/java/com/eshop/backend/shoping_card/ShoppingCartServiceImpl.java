@@ -62,16 +62,28 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                         .userName("name")
                         .userSurname("surname")
                         .userRegistrationDate(new Date(System.currentTimeMillis()))
-                        .userStatus(Role.ANONYMOUS.name())
+                        .userStatus(Role.INACTIVE.name())
                         .userAddress("no address")
                         .userNumber("no number")
                         .build());
                 user = authorizedUserDao.getByLogin(login);
             }
 
-            //create order cart for this user
             OrderCartModel orderCart = shoppingCartDao.getOrderCartByUserId(user.getId());
-            if (orderCart == null || orderCart.getOrderStatus().equals("RESERVED")) {
+            //create order cart for this user
+
+            if (orderCart != null && orderCart.getOrderStatus().equals("RESERVED")) {
+                //if exist remove reserved product
+                List<ProductModel> unreservedProduct = shoppingCartDao.getProductsByOrderCartId(
+                        user.getId(), orderCart.getOrderStatus());
+                for (ProductModel unreservedProducts: unreservedProduct) {
+                    int newAmount = productDao.getAmountById(unreservedProducts.getId()) + unreservedProducts.getProductAmount();
+                    productDao.updateAmountById(unreservedProducts.getId(), newAmount);
+                }
+                shoppingCartDao.delete(orderCart.getId());
+            }
+
+            if (orderCart == null) {
                 shoppingCartDao.createOrderCart(OrderCartModel.builder()
                         .userId(user.getId())
                         .courierId((long) -1)
@@ -86,6 +98,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 orderCart = shoppingCartDao.getOrderCartByUserId(user.getId());
                 //таке замовлення вже э потрібно тільки додати orderproduct
             }
+
+            //check if order with status reserved exist for this user
+
+
             //create order product
             int totalPrice = 0;
             for (ProductModel product: orderProducts) {

@@ -46,7 +46,8 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public void delete(Long id) {
-
+        String sql = "DELETE FROM ordercart WHERE userid = ? and orderstatus = 'RESERVED'";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
@@ -62,6 +63,25 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                 .build();
         return jdbcTemplate.query(sql, rowMapper, ids.toArray());
 
+    }
+
+    @Override
+    public List<ProductModel> getProductsByOrderCartId(Long id, String status) {
+        try {
+            String sql = "select productid, incardproductprice from orderproduct as op\n" +
+                    "inner join ordercart as oc on oc.id = op.ordercardid\n" +
+                    "where oc.userid = ? and orderstatus = ?";
+
+            RowMapper<ProductModel> rowMapper = (rs, rowNum) -> ProductModel.builder()
+                    .id(rs.getLong("id"))
+                    .productAmount(rs.getInt("productamount"))
+                    .build();
+
+            return jdbcTemplate.query(sql, rowMapper, id, status);
+        } catch (Exception e) {
+            String a = e.toString();
+        }
+        return null;
     }
 
     @Override
@@ -92,12 +112,16 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
     @Override
     public void createOrderProduct(OrderProductModel orderProductModel) {
-        String SQL = "insert into orderproduct (productid, ordercardid," +
-                "incardproductamount, incardproductprice)\n " +
-                "values (?,?,?,?)";
+        try {
+            String SQL = "insert into orderproduct (productid, ordercardid," +
+                    "incardproductamount, incardproductprice)\n " +
+                    "values (?,?,?,?)";
 
-        jdbcTemplate.update(SQL, orderProductModel.getProductId(), orderProductModel.getOrderCardId(),
-                orderProductModel.getInCardProductAmount(), orderProductModel.getInCardProductPrice());
+            jdbcTemplate.update(SQL, orderProductModel.getProductId(), orderProductModel.getOrderCardId(),
+                    orderProductModel.getInCardProductAmount(), orderProductModel.getInCardProductPrice());
+        } catch (Exception e) {
+            String a = e.toString();
+        }
 
     }
 
@@ -107,7 +131,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
 
             String sql = "SELECT id, userid, courierid, packagedescription, " +
                     "orderstatus, totalprice, username, deliverytime, fulladdress, " +
-                    "dontdisturb FROM ordercart where userid = ? order by id desc limit 1;";
+                    "dontdisturb FROM ordercart where userid = ? and orderstatus = 'RESERVED' order by id desc limit 1;";
 
             RowMapper<OrderCartModel> rowMapper = (rs, rowNum) -> new OrderCartModel(
                     rs.getLong("id"),

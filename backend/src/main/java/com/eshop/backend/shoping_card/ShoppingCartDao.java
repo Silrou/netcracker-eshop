@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ShoppingCartDao extends CrudDao<ProductModel> {
     List<ProductModel> getProductsByIds(List<Long> ids);
+    List<ProductModel> getProductsByOrderCartId(Long id, String status);
     int getProductsAmountById(Long id);
     void createOrderCart(OrderCartModel orderCartModel);
     void createOrderProduct(OrderProductModel orderProductModel);

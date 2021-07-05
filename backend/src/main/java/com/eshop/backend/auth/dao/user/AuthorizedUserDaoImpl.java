@@ -38,7 +38,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
         jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
                 Role.USER.name(), user.getUserName(), user.getUserSurname(), new Date(System.currentTimeMillis()),
-                Role.ANONYMOUS.name(), user.getUserAddress(), user.getUserNumber());
+                Role.INACTIVE.name(), user.getUserAddress(), user.getUserNumber());
     }
 
     @Override

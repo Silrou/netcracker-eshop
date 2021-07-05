@@ -41,7 +41,7 @@ public class LoginController {
 
         if (user == null) throw new NoUserWithThisEmailException();
 
-        if (user.getUserStatus().equals(Role.ANONYMOUS.name())){
+        if (user.getUserStatus().equals(Role.INACTIVE.name())){
             throw new NeedMailConfirmationException();
         }
         if (captchaVerified && bCryptPasswordEncoder.matches(request.getUserPassword(), user.getUserPassword())) {
