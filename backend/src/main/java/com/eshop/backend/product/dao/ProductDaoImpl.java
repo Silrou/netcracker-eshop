@@ -186,17 +186,19 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<ProductModel> getPopular(int page, int size) {
-        String sql = "SELECT ";
-
-//        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
-//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-//        return template.query(sql, new ProductMapper());
-        return null;
+        String sql = ProductMapper.SELECT_SQL +
+                "WHERE p.productamount > 0 AND p.id IN (SELECT productid FROM orderproduct " +
+                "INNER JOIN ordercart ON orderproduct.ordercardid = ordercart.id " +
+                "WHERE ordercart.orderstatus = 'DELIVERED' " +
+                "GROUP BY productid " +
+                "ORDER BY SUM(incardproductamount) DESC " +
+                " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY) ";
+        return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
     }
 
     @Override
     public List<ProductModel> getNew(int page, int size) {
-        String sql = ProductMapper.SELECT_SQL + " order by p.productdate desc " +
+        String sql = ProductMapper.SELECT_SQL + " WHERE p.productstatus = 'ACTIVE' AND p.productamount > 0 order by p.productdate desc " +
                 " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
     }
@@ -241,9 +243,9 @@ public class ProductDaoImpl implements ProductDao {
 
         if (isActive){
             if (search.equals("")){
-                sql.append(" WHERE p.productstatus = 'ACTIVE' ");
+                sql.append(" WHERE p.productstatus = 'ACTIVE' AND p.productamount > 0 ");
             } else {
-                sql.append(" AND p.productstatus = 'ACTIVE' ");
+                sql.append(" AND p.productstatus = 'ACTIVE' AND p.productamount > 0 ");
             }
         }
 
