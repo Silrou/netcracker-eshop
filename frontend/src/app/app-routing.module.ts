@@ -26,8 +26,8 @@ import {SettingsComponent} from './settings/user-profile/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {CoucabComponent} from './account/courier-cabinet/coucab.component';
-import {CheckoutComponent} from './checkout/checkout.component';
-import {CompareComponent} from './products/compare/compare.component';
+import {CheckoutComponent} from "./checkout/checkout.component";
+import {CompareComponent} from "./products/compare/compare.component";
 
 const routes: Routes = [
   {
@@ -99,6 +99,10 @@ const routes: Routes = [
     component: VerifyEmailComponent
   },
   {
+    path: 'workplace',
+    component: WorkplaceComponent
+  },
+  {
     path: 'forgot-password',
     component: ForgotPasswordComponent
   },
@@ -125,7 +129,7 @@ const routes: Routes = [
     path: 'settings/edit',
     component: EditSettingsComponent,
     canActivate: [AuthGuard],
-    data: {roles: [Role.USER]}
+    data: { roles: [Role.USER] }
   },
   {
     path: 'settings/order-details',
