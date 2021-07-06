@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {User} from '../_model/user';
 import {CheckoutService} from '../_service/checkout/checkout.service';
+import {AlertService} from '../_service/alert/alert.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -11,7 +13,9 @@ import {CheckoutService} from '../_service/checkout/checkout.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private checkoutService: CheckoutService) { }
+  constructor(private router: Router,
+              private checkoutService: CheckoutService,
+              private alertService: AlertService) { }
 
   @Inject(MAT_DIALOG_DATA) public data: User;
   form: FormGroup;
@@ -23,13 +27,18 @@ export class CheckoutComponent implements OnInit {
   userId: number;
   disturb = false;
   user: User = new User();
+  myFilter = (date: Date | null): boolean => {
+    const todayDay = new Date();
+    todayDay.setDate(todayDay.getDate() - 1);
+    return date >= todayDay;
+  }
 
   ngOnInit(): void {
     this.findHours = false;
-    this.user.userName = ' ';
-    this.user.userSurname = ' ';
-    this.user.userAddress = ' ';
-    this.user.userNumber = ' ';
+    // this.user.userName = ' ';
+    // this.user.userSurname = ' ';
+    // this.user.userAddress = ' ';
+    // this.user.userNumber = ' ';
     this.userId = JSON.parse(localStorage.getItem('idUser'));
     if (this.userId !== null) {
       this.checkoutService.getUserById(this.userId).subscribe(
@@ -50,7 +59,7 @@ export class CheckoutComponent implements OnInit {
       phoneNumber: new FormControl(this.user.userNumber, Validators.required),
       date: new FormControl('', Validators.required),
       deliveryTime: new FormControl('', Validators.required),
-      doNotDisturb: new FormControl('', Validators.required),
+      doNotDisturb: new FormControl(''),
       comment: new FormControl('', Validators.required)
     });
   }
@@ -65,7 +74,9 @@ export class CheckoutComponent implements OnInit {
 
     this.checkoutService.createOrder(result).subscribe(
       res => {
-
+        this.alertService.success('Your order has been confirmed and will be delivered to you soon',
+          { autoClose: false, keepAfterRouteChange: true});
+        this.router.navigate(['/']);
       }
     );
   }

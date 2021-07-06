@@ -55,12 +55,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 .userLogin(login)
                 .userPassword("password")
                 .userRole(Role.USER.name())
-                .userName("name")
-                .userSurname("surname")
+                .userName(" ")
+                .userSurname(" ")
                 .userRegistrationDate(new Date(System.currentTimeMillis()))
                 .userStatus(Role.INACTIVE.name())
-                .userAddress("no address")
-                .userNumber("no number")
+                .userAddress(" ")
+                .userNumber(" ")
                 .build());
         return authorizedUserDao.getByLogin(login);
     }

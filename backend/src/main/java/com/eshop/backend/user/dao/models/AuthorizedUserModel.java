@@ -99,7 +99,6 @@ public class AuthorizedUserModel {
         this.userPassword = userPassword;
         this.userRole = userRole;
         this.userStatus = userStatus;
-        System.out.println("aaa");
         this.userRegistrationDate = new Date(new java.util.Date().getTime());
     }
 

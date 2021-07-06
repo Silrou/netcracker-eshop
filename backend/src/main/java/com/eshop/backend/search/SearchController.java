@@ -1,6 +1,8 @@
 package com.eshop.backend.search;
 
 
+import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
+import com.eshop.backend.auth.mail.EmailSenderService;
 import com.eshop.backend.utils.Employee.EmployeeService;
 
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
@@ -9,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 //import java.util.List;
@@ -18,9 +19,13 @@ import java.util.List;
 @RequestMapping("/search")
 public class SearchController {
     private final EmployeeService employeeService;
+    private final EmailSenderService emailSenderService;
+    private final AuthorizedUserDao authorizedUserDao;
     @Autowired
-    public SearchController(EmployeeService employeeService) {
+    public SearchController(EmployeeService employeeService, EmailSenderService emailSenderService, AuthorizedUserDao authorizedUserDao) {
         this.employeeService = employeeService;
+        this.emailSenderService = emailSenderService;
+        this.authorizedUserDao = authorizedUserDao;
     }
 
 //    @CrossOrigin
@@ -33,8 +38,8 @@ public class SearchController {
     @CrossOrigin
     @PostMapping("/new")
     public ResponseEntity<?> create(@RequestBody AuthorizedUserModel authorizedUserModel) {
-
         employeeService.createEmployee(authorizedUserModel);
+        emailSenderService.sendEmail(authorizedUserDao.getByLogin(authorizedUserModel.getUserLogin()), "resetPassword");
         return new ResponseEntity<>(authorizedUserModel, HttpStatus.CREATED);
 
 
