@@ -29,6 +29,7 @@ import {CoucabComponent} from './account/courier-cabinet/coucab.component';
 import {NotificationComponent} from './socket/notifications/notification.component';
 import {CheckoutComponent} from "./checkout/checkout.component";
 import {CompareComponent} from "./products/compare/compare.component";
+import {WorkplaceComponent} from "./workplace/workplace.component";
 
 
 // const settingsChildRoutes: Routes = [
@@ -110,6 +111,10 @@ const routes: Routes = [
   {
     path: 'verify-email',
     component: VerifyEmailComponent
+  },
+  {
+    path: 'workplace',
+    component: WorkplaceComponent
   },
   {
     path: 'forgot-password',

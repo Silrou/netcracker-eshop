@@ -42,25 +42,26 @@ export class ProductListComponent implements OnInit {
     this.getAmountOfProducts();
   }
 
-  onPageChange(currentPage: number): void{
+  onPageChange(currentPage: number): void {
     this.page = currentPage;
     this.getSearchedOrderedFilteredProducts();
   }
 
-  getSearchedProducts(value: string): void{
-    if (value !== ''){
+  getSearchedProducts(value: string): void {
+    if (value !== '') {
       this.searchValue = value;
       this.getSearchedOrderedFilteredProducts();
+    } else {
+      this.searchValue = '';
     }
-    else { this.searchValue = ''; }
   }
 
-  getFilteredProducts(filters: Filters): void{
+  getFilteredProducts(filters: Filters): void {
     this.filtersValue = filters;
     this.getSearchedOrderedFilteredProducts();
   }
 
-  getSearchedOrderedFilteredProducts(): void{
+  getSearchedOrderedFilteredProducts(): void {
     this.productService.searchOrderFilterProducts(this.page, this.size, this.searchValue, this.orderValue, this.filtersValue, this.isActive)
       .subscribe(products => {
         this.currentProducts = products;
@@ -69,11 +70,11 @@ export class ProductListComponent implements OnInit {
     this.getAmountOfProducts();
   }
 
-  cancelFilters(): void{
+  cancelFilters(): void {
     window.location.reload();
   }
 
-  getAmountOfProducts(): void{
+  getAmountOfProducts(): void {
     this.productService.getProductsCount(this.searchValue, this.orderValue, this.filtersValue, this.isActive)
       .subscribe(numb => {
         this.amountOfProducts = numb;
@@ -101,7 +102,7 @@ export class ProductListComponent implements OnInit {
     this.getSearchedOrderedFilteredProducts();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
 
   }
 
