@@ -1,3 +1,7 @@
 .cont {
   min-height: calc(100vh - 170px);
 }
+
+.manager-workspace {
+  padding-top: 250px;
+}
