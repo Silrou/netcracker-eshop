@@ -11,9 +11,10 @@ export class ProductInCartComponent implements OnInit, OnChanges {
 
   @Input() product: Product;
   @Input() productsWithErrors: Product[];
+  @Input() countError: boolean;
   @Output() updateAmount = new EventEmitter<string>();
   @Output() remove = new EventEmitter<Product>();
-  @Output() countError = new EventEmitter<boolean>();
+
   amount: number;
   form: FormGroup;
   priceWithDiscount: number;
@@ -26,15 +27,14 @@ export class ProductInCartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    const a = this.productsWithErrors;
     this.stockErrorMessage = 'Not enough product in stock, please remove productCount products';
     this.storeAmountProblem = false;
-    this.productStatusError = false;
     this.amount = this.product.productAmount;
     this.initForm();
     this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
     this.checkAmount();
-    this.countError.emit(this.form.get('productAmount')?.invalid);
+    this.productStatusError = false;
+    // this.countErrorCheck();
   }
 
   private initForm(): void {
@@ -45,17 +45,18 @@ export class ProductInCartComponent implements OnInit, OnChanges {
   }
 
   onChange($event: Event): void {
-    this.amount = this.form.value.productAmount;
-    this.storeAmountProblem = false;
-    this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
-    this.product.productAmount = this.amount;
-    this.countError.emit(this.form.get('productAmount')?.invalid);
-    this.updateAmount.emit('updatePrice');
+      this.amount = this.form.value.productAmount;
+      this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
+      this.product.productAmount = this.amount;
+      // this.countErrorCheck();
+      this.updateAmount.emit('updatePrice');
+      this.storeAmountProblem = false;
   }
 
   removeProduct(): void {
     this.remove.emit(this.product);
-    this.countError.emit(this.form.get('productAmount')?.invalid);
+    this.storeAmountProblem = false;
+    this.productStatusError = false;
   }
 
   ngOnChanges(): void {
@@ -76,4 +77,8 @@ export class ProductInCartComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  // countErrorCheck(): void {
+  //     this.countError = this.productStatusError || this.storeAmountProblem || this.form.get('productAmount')?.invalid;
+  // }
 }

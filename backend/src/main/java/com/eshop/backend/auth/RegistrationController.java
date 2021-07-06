@@ -57,7 +57,7 @@ public class RegistrationController {
                     .userName(request.getUserName())
                     .userSurname(request.getUserSurname())
                     .userRegistrationDate(new Date(System.currentTimeMillis()))
-                    .userStatus(Role.ANONYMOUS.name())
+                    .userStatus(Role.INACTIVE.name())
                     .userAddress("no address")
                     .userNumber("no number")
                     .build();

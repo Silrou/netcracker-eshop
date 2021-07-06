@@ -4,7 +4,6 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angula
 import {Managers} from '../../_model/managers';
 import {RestService} from '../../_service/rest.service';
 import {HttpClient} from '@angular/common/http';
-// import { Model, SurveyNG, JsonObject } from 'survey-angular';
 import {SearchComponent} from '../search/search.component';
 import {User} from '../../_model/user';
 

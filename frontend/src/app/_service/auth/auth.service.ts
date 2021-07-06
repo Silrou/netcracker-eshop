@@ -67,12 +67,13 @@ export class AuthService {
 
   logout(): void {
     this.cookie.deleteAll('/');
-    localStorage.removeItem('globalRole');
-    localStorage.removeItem('globalStatus');
-    localStorage.removeItem('login');
-    localStorage.removeItem('idUser');
+    // localStorage.removeItem('globalRole');
+    // localStorage.removeItem('globalStatus');
+    // localStorage.removeItem('login');
+    // localStorage.removeItem('idUser');
+    localStorage.clear();
     this.role = Role.USER;
-    this.status = Status.ANONYMOUS;
+    this.status = Status.INACTIVE;
     this.stopRefreshTokenTimer();
     this.router.navigate(['/login']);
   }
@@ -83,7 +84,7 @@ export class AuthService {
 
   setUser(): any {
     this.role = Role.USER;
-    this.status = Status.ANONYMOUS;
+    this.status = Status.INACTIVE;
     this.getUserRole(localStorage.getItem('login'));
     const role = localStorage.getItem('globalRole');
     const status = localStorage.getItem('globalStatus');
