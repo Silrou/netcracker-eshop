@@ -28,89 +28,88 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatOptionModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
-import { EditSettingsComponent } from './settings/edit-settings/edit-settings.component';
+import {EditSettingsComponent} from './settings/edit-settings/edit-settings.component';
 import {OrderHistoryComponent} from './settings/order-history/orders/order-history.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {CoucabComponent} from './account/courier-cabinet/coucab.component';
 // import {NotificationComponent} from './socket/notifications/notification.component';
-import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-in-cart.component';
+import {ProductInCartComponent} from './shopping-cart/product-in-cart/product-in-cart.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { WorkplaceComponent } from './workplace/workplace.component';
+import {CheckoutComponent} from './checkout/checkout.component';
+import {WorkplaceComponent} from './workplace/workplace.component';
 
 
-
-@NgModule ({
-    declarations: [
-        AppComponent,
-        MainPageComponent,
-        AlertComponent,
-        SettingsComponent,
-        ShoppingCartComponent,
-        ProfileComponent,
-        AdminWorkSpaceLinkComponent,
-        SearchComponent,
-        EditSettingsComponent,
-        OrderHistoryComponent,
-        OrderDetailsComponent,
-        ProductInCartComponent,
-        CartdelivComponent,
-        CoucabComponent,
-        CheckoutComponent,
-        WorkplaceComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        AuthorizationModule,
-        AuctionsModule,
-        ProductsModule,
-        HttpClientModule,
-        CommonModule,
-        NavBarModule,
-        FormsModule,
-        JwPaginationModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatRadioModule,
-        MatOptionModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatNativeDateModule,
-        NgbPaginationModule,
-        MatSelectModule,
-        MatDialogModule
-    ],
-    providers: [AuthService, CookieService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptorService,
-            multi: true
-        },
-        {
-            provide: APP_INITIALIZER,
-            useFactory: appInitializer,
-            multi: true,
-            deps: [AuthService]
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorInterceptor,
-            multi: true
-        },
-    ],
-    exports: [
-        WorkplaceComponent
-    ],
-    bootstrap: [AppComponent]
+@NgModule({
+  declarations: [
+    AppComponent,
+    MainPageComponent,
+    AlertComponent,
+    SettingsComponent,
+    ShoppingCartComponent,
+    ProfileComponent,
+    AdminWorkSpaceLinkComponent,
+    SearchComponent,
+    EditSettingsComponent,
+    OrderHistoryComponent,
+    OrderDetailsComponent,
+    ProductInCartComponent,
+    CartdelivComponent,
+    CoucabComponent,
+    CheckoutComponent,
+    WorkplaceComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AuthorizationModule,
+    AuctionsModule,
+    ProductsModule,
+    HttpClientModule,
+    CommonModule,
+    NavBarModule,
+    FormsModule,
+    JwPaginationModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatRadioModule,
+    MatOptionModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    NgbPaginationModule,
+    MatSelectModule,
+    MatDialogModule
+  ],
+  providers: [AuthService, CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInitializer,
+      multi: true,
+      deps: [AuthService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+  ],
+  exports: [
+    WorkplaceComponent
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
