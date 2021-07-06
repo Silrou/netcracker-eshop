@@ -1,32 +1,30 @@
 package com.eshop.backend.auth.mail;
 
-import com.eshop.backend.auth.dao.user.AuthorizedUserDao;
 import com.eshop.backend.auth.dao.email.EmailTokenDao;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import com.eshop.backend.auth.dao.models.EmailTokenModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import java.util.UUID;
 
 @Service
 public class EmailSenderService {
 
-    private final AuthorizedUserDao authorizedUsersDao;
+    @Value("${frontend.base.url}")
+    private String FRONT_BASE_URL;
+
     private final EmailTokenDao emailTokenDao;
     private final JavaMailSender mailSender;
-    private SpringTemplateEngine templateEngine;
 
     @Autowired
-    public EmailSenderService(AuthorizedUserDao authorizedUsersDao, EmailTokenDao emailTokenDao, JavaMailSender mailSender, SpringTemplateEngine templateEngine) {
-        this.authorizedUsersDao = authorizedUsersDao;
+    public EmailSenderService(EmailTokenDao emailTokenDao, JavaMailSender mailSender) {
         this.emailTokenDao = emailTokenDao;
         this.mailSender = mailSender;
-        this.templateEngine = templateEngine;
     }
 
     @Async
@@ -56,8 +54,7 @@ public class EmailSenderService {
         SimpleMailMessage email = new SimpleMailMessage();
         email.setTo(recipientAddress);
         email.setSubject(subject);
-        email.setText(message + "\r\n" + "http://localhost:4200" + confirmationUrl);
-//        email.setText(html);
+        email.setText(message + "\r\n" + FRONT_BASE_URL + confirmationUrl);
         mailSender.send(email);
     }
 }

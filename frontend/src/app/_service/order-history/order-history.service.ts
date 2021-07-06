@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {User} from '../../_model/user';
 import {OrderCard} from '../../_model/orderCard';
 
 @Injectable({
@@ -9,13 +8,14 @@ import {OrderCard} from '../../_model/orderCard';
 })
 export class OrderHistoryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private orderHistoryUrl = 'http://localhost:8081/order-history';
 
-  getAllOrderById(id: number, page: number, size: number): Observable<OrderCard[]> {
+  getAllOrderById(id: number, page: number, size: number): Observable<any> {
     const url = `${this.orderHistoryUrl}/?id=${id}&page=${page}&size=${size}`;
-    return this.http.get<OrderCard[]>(url);
+    return this.http.get<any>(url);
   }
 
   getOrderCount(id: number): Observable<number> {

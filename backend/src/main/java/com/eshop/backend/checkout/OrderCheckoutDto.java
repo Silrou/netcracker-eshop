@@ -9,7 +9,6 @@ public class OrderCheckoutDto {
 
     private String firstName;
     private String lastName;
-//    private String email;
     private boolean doNotDisturb;
     private String phoneNumber;
     private String comment;

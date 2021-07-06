@@ -2,19 +2,14 @@ package com.eshop.backend.product.dao;
 
 import com.eshop.backend.product.dao.models.FilterModel;
 import com.eshop.backend.product.dao.models.ProductModel;
-import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -43,34 +38,25 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public ProductModel getById(Long id) {
-        String sql = ProductMapper.SELECT_SQL + "where id = ?";
-        return template.queryForObject(sql, new ProductMapper(), new Object[]{Long.valueOf(id)});
+        String sql = ProductMapper.SELECT_SQL + " where id = ?";
+        try {
+            return template.queryForObject(sql, new ProductMapper(), new Object[]{Long.valueOf(id)});
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
-
-//    @Override
-//    public List<ProductModel> getByName(String name) {
-//        Object[] params = new Object[]{"%" + name + "%"};
-//        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
-//        sql.append(" WHERE p.productname ILIKE ? and genre in (?)");
-//        return template.query(sql.toString(), new ProductMapper(), params);
-//    }
-
-//    @Override
-//    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
-//        return null;
-//    }
 
     @Override
     public List<ProductModel> getAll() {
         return null;
     }
 
-    @Override
-    public List<ProductModel> getProductPage(int page, int size) {
-        String sql = ProductMapper.SELECT_SQL +
-                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-        return template.query(sql, new ProductMapper());
-    }
+//    @Override
+//    public List<ProductModel> getProductPage(int page, int size) {
+//        String sql = ProductMapper.SELECT_SQL +
+//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+//        return template.query(sql, new ProductMapper());
+//    }
 
     @Override
     public void update(ProductModel productModel) {
@@ -88,47 +74,20 @@ public class ProductDaoImpl implements ProductDao {
                 "                   language = ?,\n" +
                 "                   publisher = ? \n" +
                 "                   where id = ?";
-        try {
-            template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
-                    productModel.getProductPrice(), productModel.getProductDiscount(),
-                    productModel.getProductDate(), productModel.getProductPict(),
-                    productModel.getProductDescription(), productModel.getProductStatus(),
-                    productModel.getGenre(), productModel.getCoverType(),
-                    productModel.getAuthor(), productModel.getLanguage(),
-                    productModel.getPublisher(), productModel.getId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        template.update(SQL, productModel.getProductName(), productModel.getProductAmount(),
+                productModel.getProductPrice(), productModel.getProductDiscount(),
+                productModel.getProductDate(), productModel.getProductPict(),
+                productModel.getProductDescription(), productModel.getProductStatus(),
+                productModel.getGenre(), productModel.getCoverType(),
+                productModel.getAuthor(), productModel.getLanguage(),
+                productModel.getPublisher(), productModel.getId());
     }
 
     @Override
     public void delete(Long id) {
-//        try {
-//            String SQL = "delete from product where id = ?";
-//            template.update(SQL, id);
-//        } catch (Exception e) {
-//            String str = e.toString();
-//        }
     }
 
-//    @Override
-//    public List<ProductModel> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
-//        String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
-//        String sql = String.format(ProductMapper.SELECT_SQL +
-//                " left join productcategory on p.productcategory = productcategory.id" +
-//                " where productcategory.productcategoryname in (%s) order by p." + orderBy +
-//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY", inSql);
-//        return template.query(sql, new ProductMapper(), filter.toArray());
-//    }
-
-//    @Override
-//    public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
-//        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
-//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-//        return template.query(sql, new ProductMapper());
-//    }
-
-    @Override // for pagination in products
+    @Override
     public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel, boolean isActive) {
         StringBuilder sql = new StringBuilder("SELECT COUNT (*) from product p  ");
         Object[] paramsForQuery = getSearchedFilteredBuilder(search, filterModel, sql, isActive);
@@ -137,12 +96,8 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void updateAmountById(Long id, int price) {
-        String SQL = "update product set productamount = ? where id = ?";
-        try {
-            template.update(SQL, price, id);
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        String SQL = "UPDATE product SET productamount = ? WHERE id = ?";
+        template.update(SQL, price, id);
     }
 
     @Override
@@ -150,7 +105,7 @@ public class ProductDaoImpl implements ProductDao {
         try {
             String sql = "SELECT productamount FROM product where id = ?";
             return template.queryForObject(sql, Integer.class, id);
-        } catch (Exception e) {
+        } catch (EmptyResultDataAccessException e) {
             return 0;
         }
     }
@@ -158,7 +113,16 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public String getStatusById(Long id) {
         String sql = "SELECT productstatus FROM product where id = ?";
-        return template.queryForObject(sql, String.class, id);
+        try {
+            return template.queryForObject(sql, String.class, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<ProductModel> getProductPage(int page, int size) {
+        return null;
     }
 
     @Override
@@ -169,7 +133,11 @@ public class ProductDaoImpl implements ProductDao {
             sql.append(" order by " + orderBy);
         }
         sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
-        return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
+        try{
+            return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
     }
 
     @Override
@@ -192,14 +160,22 @@ public class ProductDaoImpl implements ProductDao {
                 "GROUP BY productid " +
                 "ORDER BY SUM(incardproductamount) DESC " +
                 " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY) ";
-        return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
+        try {
+            return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
     }
 
     @Override
     public List<ProductModel> getNew(int page, int size) {
         String sql = ProductMapper.SELECT_SQL + " WHERE p.productstatus = 'ACTIVE' AND p.productamount > 0 order by p.productdate desc " +
                 " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-        return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
+        try {
+            return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
     }
 
     @Override
@@ -220,7 +196,11 @@ public class ProductDaoImpl implements ProductDao {
                 .productPrice(rs.getInt("productprice"))
                 .productStatus(rs.getString("productstatus"))
                 .build();
-        return template.query(sql, rowMapper, userId);
+        try {
+            return template.query(sql, rowMapper, userId);
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
 
     }
 

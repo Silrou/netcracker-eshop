@@ -20,22 +20,15 @@ import {EditSettingsComponent} from './settings/edit-settings/edit-settings.comp
 import {AuthGuard} from './_helper/auth.guard';
 import {Role} from './_model/role';
 import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
-import {VerifyEmailComponent} from './authorization/mail/verify-email.component';
+import {VerifyEmailComponent} from './authorization/verify-email/verify-email.component';
 import {ManagerWorkspaceComponent} from './work-space/manager-workspace/manager-workspace.component';
 import {SettingsComponent} from './settings/user-profile/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {CoucabComponent} from './account/courier-cabinet/coucab.component';
-import {NotificationComponent} from './socket/notifications/notification.component';
-import {CheckoutComponent} from "./checkout/checkout.component";
-import {CompareComponent} from "./products/compare/compare.component";
-import {WorkplaceComponent} from "./workplace/workplace.component";
-
-
-// const settingsChildRoutes: Routes = [
-//   { path: 'view', component: PersonalDataViewComponent},
-//   { path: 'edit', component: PersonalDataEditComponent},
-// ];
+import {CheckoutComponent} from './checkout/checkout.component';
+import {CompareComponent} from './products/compare/compare.component';
+import {WorkplaceComponent} from './workplace/workplace.component';
 
 const routes: Routes = [
   {
@@ -81,8 +74,8 @@ const routes: Routes = [
     component: CompareComponent
   },
   {
-   path: 'shopping-cart/checkout',
-   component: CheckoutComponent
+    path: 'shopping-cart/checkout',
+    component: CheckoutComponent
   },
   // {
   //   path: 'socket',
@@ -97,13 +90,7 @@ const routes: Routes = [
     path: 'search',
     component: SearchComponent
 
-     },
-  // {
-  //   path: 'working-cabinet',
-  //   component: ProductCatalogComponent,
-  //   canActivate: [AuthGuard],
-  //   data: { roles: [Role.MANAGER, Role.ADMIN, Role.COURIER] }
-  // },
+  },
   {
     path: 'coucab',
     component: CoucabComponent
@@ -129,7 +116,7 @@ const routes: Routes = [
     path: 'manager',
     component: ManagerWorkspaceComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.ADMIN, Role.MANAGER] }
+    data: {roles: [Role.ADMIN, Role.MANAGER]}
   },
   {
     path: 'verify-email',
@@ -149,19 +136,19 @@ const routes: Routes = [
     path: 'settings/order-details',
     component: OrderDetailsComponent,
     canActivate: [AuthGuard],
-    data: { roles: [Role.USER] }
+    data: {roles: [Role.USER]}
   },
   {
     path: 'register',
     component: RegistrationComponent,
     canActivate: [AuthGuard],
-    data: { skipException: ['true']}
+    data: {skipException: ['true']}
   },
   {
     path: 'login',
     component: LoginComponent,
     canActivate: [AuthGuard],
-    data: { skipException: ['true']}
+    data: {skipException: ['true']}
   },
 ];
 

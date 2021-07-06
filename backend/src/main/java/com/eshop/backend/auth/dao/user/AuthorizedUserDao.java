@@ -9,16 +9,12 @@ import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import java.util.List;
 
 public interface AuthorizedUserDao extends CrudDao<AuthorizedUserModel> {
-
     AuthorizedUserModel getByLogin(String login);
     AuthorizedUserModel getRoleByLogin(String login);
     AuthorizedUserModel getByToken(String token);
     String getLoginById(Long id);
     void setStatus(AuthorizedUserModel user);
-    void createVerificationToken(AuthorizedUserModel user, String token);
     void updateAfterCheckout(OrderCheckoutDto user);
-
-    public  List<AuthorizedUserModel> getById(long id);
-
+    List<AuthorizedUserModel> getById(long id);
     List<AuthorizedUserModel> getBy(adminDto admin);
 }

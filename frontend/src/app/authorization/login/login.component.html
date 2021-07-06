@@ -1,4 +1,3 @@
-
 <div class="row pt-5 card border-0 cont">
   <div class="col-md-6 mx-auto">
     <div class="card rounded-0">
@@ -21,7 +20,7 @@
             <label for="pwd">Password:</label>
             <input type="password" class="form-control" formControlName="password" id="pwd"
                    [ngClass]="{ 'is-invalid': submitted && loginForm.get('password')?.invalid}">
-            <div *ngIf="loginForm.get('password')?.invalid" class="invalid-feedback">
+            <div *ngIf="submitted && loginForm.get('password')?.invalid" class="invalid-feedback is-invalid">
               <div class="alert alert-danger">
                 {{passwordErrorMessage}}
               </div>
@@ -32,16 +31,15 @@
                     (click)="onSubmit()">Submit
             </button>
           </div>
-          <div class = "captcha">
-          <div *ngIf="failedRegistration >= 5">
-            <ngx-recaptcha2 #captchaElem
-                            [siteKey]="siteKey"
-                            formControlName="recaptcha">
-            </ngx-recaptcha2>
-            <div class="form-group">
-              <div *ngIf="captchaError" class="alert alert-danger">Recaptcha not verified.</div>
+          <div class="captcha">
+            <div *ngIf="failedRegistration >= 5">
+              <ngx-recaptcha2 [siteKey]="siteKey"
+                              formControlName="recaptcha">
+              </ngx-recaptcha2>
+              <div class="form-group">
+                <div *ngIf="captchaError" class="alert alert-danger">Recaptcha not verified.</div>
+              </div>
             </div>
-          </div>
           </div>
         </form>
         <div class="text-center mt-3">

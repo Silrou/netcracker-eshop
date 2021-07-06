@@ -17,13 +17,10 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     const login = localStorage.getItem('login');
-    console.log(login);
 
     this.settingsService.getUserByLogin(login).subscribe(
       res => {
         this.user = res;
-        console.log(this.user);
-        console.log(this.user.userRole === 'USER');
       }
     );
   }

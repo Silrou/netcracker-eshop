@@ -9,4 +9,5 @@ export interface OrderCard{
   deliveryTime: Date;
   fullAddress: string;
   dontDisturb: boolean;
+  hour: number;
 }

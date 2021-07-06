@@ -24,7 +24,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
 
-        //Sets the URL that determines if authentication is required
         setFilterProcessesUrl("/user/token");
     }
 
@@ -34,7 +33,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             AuthorizedUserModel creds = new ObjectMapper()
                     .readValue(req.getInputStream(), AuthorizedUserModel.class);
-
 
 
             return authenticationManager.authenticate(
@@ -53,10 +51,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) {
-        //create token
-        String token = JwtCreator.createJwt(((User) auth.getPrincipal()).getUsername());
 
-        // put token in header "Authorization: Bearer ...tokenText"
+        String token = JwtCreator.createJwt(((User) auth.getPrincipal()).getUsername());
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
 
     }

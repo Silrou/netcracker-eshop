@@ -1,9 +1,6 @@
-import {Component, EventEmitter, OnInit, Output, Pipe} from '@angular/core';
-import {ProductCategory} from '../../_model/productCategory';
-import {ProductCategoryService} from '../../_service/product-category/product-category.service';
+import {Component, OnInit} from '@angular/core';
 import {Product} from '../../_model/product';
 import {ProductService} from '../../_service/product/product.service';
-import {typesOfCategories} from '../../_model/typesOfCategories';
 import {Filters} from '../../_model/filters';
 import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
 
@@ -88,13 +85,6 @@ export class ProductListComponent implements OnInit {
 
   checkStatus(): void {
     this.shoppingCartService.changeStatusToInCart(this.currentProducts);
-    // this.currentProducts.forEach( element => {
-    //   this.shoppingCartService.productInCart.forEach( x => {
-    //     if (element.id === x.id) {
-    //       element.productStatus = 'inCard';
-    //     }
-    //   });
-    // });
   }
 
   getOrderedProducts(target: any): void {

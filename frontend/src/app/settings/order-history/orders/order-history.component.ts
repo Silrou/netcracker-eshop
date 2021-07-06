@@ -31,7 +31,6 @@ export class OrderHistoryComponent implements OnInit {
   getOrders(): void {
     this.orderHistoryService.getAllOrderById(this.user.id, this.page, this.size).subscribe(
       res => {
-        console.log(res);
         this.orderCards = res;
       }
     );

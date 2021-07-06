@@ -35,46 +35,35 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (header == null || !header.startsWith(TOKEN_PREFIX) || header.equals(TOKEN_PREFIX + "null")) {
             chain.doFilter(req, res);
-                return;
+            return;
         }
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
-        //refresh token
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + JwtCreator.createJwt((String) (authentication != null ? authentication.getPrincipal() : null)));
-
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
     }
 
-    // Reads the JWT from the Authorization header, and then uses JWT to validate the token
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
 
         if (token != null) {
-            // parse the token.
             String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
 
             if (user != null) {
-                // new arraylist means authorities
                 AuthorizedUserModel authorizedUserModel = authorizedUserDao.getByLogin(user);
-
                 ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
                 list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUserModel.getUserStatus()));
                 list.add(new SimpleGrantedAuthority("ROLE_" + authorizedUserModel.getUserRole()));
-
-                return new UsernamePasswordAuthenticationToken(user, null,
-                        list);
-
+                return new UsernamePasswordAuthenticationToken(user, null, list);
             }
-
             return null;
         }
-
         return null;
     }
 }

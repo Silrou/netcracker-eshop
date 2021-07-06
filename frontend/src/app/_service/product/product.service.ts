@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {Product} from '../../_model/product';
-
-import {PRODUCTS} from '../../_utils/products';
-import {Filters} from '../../_model/filters'; // удалить, когда продукты будут браться с бэка
+import {Filters} from '../../_model/filters';
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +57,7 @@ export class ProductService {
       );
   }
 
-  searchOrderFilterProducts(page: number, size: number, searchValue: string, orderValue: string, filters: Filters, isActive: boolean): Observable<Product[]>{
+  searchOrderFilterProducts(page: number, size: number, searchValue: string, orderValue: string, filters: Filters, isActive: boolean): Observable<Product[]> {
     const params = new HttpParams().set('page', String(page)).set('size', String(size)).set('search', searchValue).set('orderBy', orderValue).set('filters', JSON.stringify(filters)).set('isActive', String(isActive));
     const url = `${this.productsUrl}/get-all-searched-ordered-filtered`;
     return this.http.get<Product[]>(url, {params})
@@ -68,21 +66,21 @@ export class ProductService {
       );
   }
 
-  getProductsCount(searchValue: string, orderValue: string, filters: Filters, isActive: boolean): Observable<number>{
+  getProductsCount(searchValue: string, orderValue: string, filters: Filters, isActive: boolean): Observable<number> {
     const params = new HttpParams().set('search', searchValue).set('orderBy', orderValue).set('filters', JSON.stringify(filters)).set('isActive', String(isActive));
     const url = `${this.productsUrl}/get-number-of-searched-ordered-filtered`;
     return this.http.get<number>(url, {params})
       .pipe(
-        catchError(this.handleError<number>('getProductsCount', ))
+        catchError(this.handleError<number>('getProductsCount',))
       );
   }
 
-  getCategoriesOfProduct(author: number, coverType: number, genre: number, language: number, publisher: number): Observable<string[]>{
+  getCategoriesOfProduct(author: number, coverType: number, genre: number, language: number, publisher: number): Observable<string[]> {
     const params = new HttpParams().set('author', String(author)).set('cover-type', String(coverType)).set('genre', String(genre)).set('language', String(language)).set('publisher', String(publisher));
     const url = `${this.productsUrl}/get-categories-of-product`;
     return this.http.get<string[]>(url, {params})
       .pipe(
-        catchError(this.handleError<string[]>('getProductsCount', ))
+        catchError(this.handleError<string[]>('getProductsCount',))
       );
   }
 

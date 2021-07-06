@@ -6,7 +6,7 @@ import {Location} from '@angular/common';
 import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
 import {CompareService} from '../../_service/compare/compare.service';
 import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
-import {Subscription} from "rxjs";
+import {Subscription} from 'rxjs';
 
 @AutoUnsubscribe()
 @Component({

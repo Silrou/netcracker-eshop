@@ -93,13 +93,12 @@ public class AuthorizedUserModel {
     private String userNumber;
 
 
-    public AuthorizedUserModel(Long id,String userLogin, String userPassword, String userRole, String userStatus) {
+    public AuthorizedUserModel(Long id, String userLogin, String userPassword, String userRole, String userStatus) {
         this.id = id;
         this.userLogin = userLogin;
         this.userPassword = userPassword;
         this.userRole = userRole;
         this.userStatus = userStatus;
-        System.out.println("aaa");
         this.userRegistrationDate = new Date(new java.util.Date().getTime());
     }
 

@@ -24,7 +24,7 @@ public class OrderDetailsController {
     }
 
     @GetMapping("/details/{id}")
-    public ResponseEntity<List<ProductModel>> getAllProductInOrder(@PathVariable("id")Long id) {
+    public ResponseEntity<List<ProductModel>> getAllProductInOrder(@PathVariable("id") Long id) {
         List<ProductModel> products = orderDetailsService.getAllProductByOrderId(id);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }

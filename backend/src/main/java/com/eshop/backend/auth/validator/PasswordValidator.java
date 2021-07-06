@@ -10,12 +10,11 @@ public class PasswordValidator {
 
     private static final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
 
-    public boolean isValid(String password){
+    public boolean isValid(String password) {
         return (validatePassword(password));
     }
 
-    private boolean validatePassword(String password)
-    {
+    private boolean validatePassword(String password) {
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();

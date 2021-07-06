@@ -1,16 +1,12 @@
 package com.eshop.backend.auth.dao.email;
 
-
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import com.eshop.backend.auth.dao.models.EmailTokenModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -25,24 +21,21 @@ public class EmailTokenDaoImpl implements EmailTokenDao {
 
     @Override
     public void createVerificationToken(AuthorizedUserModel user, EmailTokenModel token) {
-        String SQL = "insert into verificationtoken (tokenname, tokenvalue," +
-                "tokenexpirydate, authorizeduserid)\n" +
-                "values (?,?,?,?)";
+        String SQL = "INSERT INTO verificationtoken (tokenname, tokenvalue," +
+                "tokenexpirydate, authorizeduserid) VALUES (?,?,?,?)";
 
-        try {
-            jdbcTemplate.update(SQL, token.getTokenName(), token.getTokenValue(),
-                    token.getTokenExpiryDate(), token.getAuthorizedUserId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        jdbcTemplate.update(SQL, token.getTokenName(), token.getTokenValue(),
+                token.getTokenExpiryDate(), token.getAuthorizedUserId());
     }
 
     @Override
     public EmailTokenModel getByToken(String token, String name) {
-        try{
-            String getByTokenSql = "SELECT id, tokenname , tokenvalue, tokenexpirydate, authorizeduserid " +
+        try {
+            String getByTokenSql = "SELECT id, tokenname , tokenvalue," +
+                    " tokenexpirydate, authorizeduserid " +
                     "FROM verificationtoken WHERE tokenvalue = ?" +
                     " AND tokenname = ?";
+
             return jdbcTemplate.queryForObject(getByTokenSql, (rs, rowNum) ->
                     new EmailTokenModel(
                             rs.getLong("id"),
@@ -51,20 +44,15 @@ public class EmailTokenDaoImpl implements EmailTokenDao {
                             rs.getTimestamp("tokenexpirydate").toLocalDateTime(),
                             rs.getLong("authorizeduserid")
                     ), token, name);
-        } catch (DataAccessException e) {
-            String str = e.toString();
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
 
     @Override
     public void deleteByValue(String token) {
-        String SQL = "delete from verificationtoken where tokenvalue = ?";
-        try {
-            jdbcTemplate.update(SQL, token);
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        String SQL = "DELETE FROM verificationtoken WHERE tokenvalue = ?";
+        jdbcTemplate.update(SQL, token);
     }
 
     @Override
@@ -79,7 +67,7 @@ public class EmailTokenDaoImpl implements EmailTokenDao {
 
     @Override
     public List<EmailTokenModel> getAll() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

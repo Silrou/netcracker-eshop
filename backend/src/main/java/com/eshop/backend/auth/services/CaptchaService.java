@@ -29,14 +29,14 @@ public class CaptchaService {
 
         if (response.equals("")) return true;
 
-        MultiValueMap<Object, Object> param= new LinkedMultiValueMap<>();
+        MultiValueMap<Object, Object> param = new LinkedMultiValueMap<>();
         param.add("secret", recaptchaSecret);
         param.add("response", response);
 
         RecaptchaResponseDTO recaptchaResponse = null;
         try {
             recaptchaResponse = this.restTemplate.postForObject(recaptchaVerifyUrl, param, RecaptchaResponseDTO.class);
-        }catch(RestClientException e){
+        } catch (RestClientException e) {
             System.out.print(e.getMessage());
         }
 
