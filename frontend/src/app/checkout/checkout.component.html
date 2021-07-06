@@ -1,6 +1,5 @@
 <h1>Check out</h1>
 
-<!--<div mat-dialog-content>-->
 <form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="fill">
     <mat-label>First name</mat-label>
@@ -13,11 +12,6 @@
     <input matInput formControlName="lastName">
     <mat-hint *ngIf="form.get('lastName').errors">Last name is required</mat-hint>
   </mat-form-field>
-<!--  <mat-form-field appearance="fill">-->
-<!--    <mat-label>Email</mat-label>-->
-<!--    <input  type="email" matInput formControlName="email">-->
-<!--    <mat-hint *ngIf="form.get('email').errors">Email is required</mat-hint>-->
-<!--  </mat-form-field>-->
   <mat-form-field appearance="fill">
     <mat-label>Address</mat-label>
     <input matInput formControlName="address">
@@ -52,11 +46,9 @@
 
   <mat-checkbox [(ngModel)]="disturb" formControlName="doNotDisturb">Do not disturb</mat-checkbox>
 
-<!--  <button  mat-raised-button class="btn btn-secondary" type="submit">-->
   <button  mat-raised-button class="btn btn-secondary" [disabled]="form.invalid" type="submit">
       Submit
     </button>
 
   </form>
   <app-shopping-cart [myInput]="input"></app-shopping-cart>
-<!--</div>-->
