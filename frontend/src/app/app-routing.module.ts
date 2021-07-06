@@ -26,8 +26,9 @@ import {SettingsComponent} from './settings/user-profile/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {CoucabComponent} from './account/courier-cabinet/coucab.component';
-import {CheckoutComponent} from "./checkout/checkout.component";
-import {CompareComponent} from "./products/compare/compare.component";
+import {CheckoutComponent} from './checkout/checkout.component';
+import {CompareComponent} from './products/compare/compare.component';
+import {WorkplaceComponent} from './workplace/workplace.component';
 
 const routes: Routes = [
   {

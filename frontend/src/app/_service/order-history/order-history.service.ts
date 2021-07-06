@@ -13,9 +13,9 @@ export class OrderHistoryService {
 
   private orderHistoryUrl = 'http://localhost:8081/order-history';
 
-  getAllOrderById(id: number, page: number, size: number): Observable<OrderCard[]> {
+  getAllOrderById(id: number, page: number, size: number): Observable<any> {
     const url = `${this.orderHistoryUrl}/?id=${id}&page=${page}&size=${size}`;
-    return this.http.get<OrderCard[]>(url);
+    return this.http.get<any>(url);
   }
 
   getOrderCount(id: number): Observable<number> {

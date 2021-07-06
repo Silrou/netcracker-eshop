@@ -12,7 +12,6 @@ import {CoverTypeService} from '../../../_service/categories/cover-type.service'
 import {GenreService} from '../../../_service/categories/genre.service';
 import {LanguageService} from '../../../_service/categories/language.service';
 import {PublisherService} from '../../../_service/categories/publisher.service';
-import {ProductService} from '../../../_service/product/product.service';
 
 @Component({
   selector: 'app-order-details',
@@ -40,56 +39,15 @@ export class OrderDetailsComponent implements OnInit {
   publishers: Publisher[] = [];
 
   ngOnInit(): void {
-    this.orderId = this.orderDetailsService.getOrderId();
-    this.languages = this.languageService.getLanguages();
-    this.coverTypes = this.coverTypeService.getCoverTypes();
-    this.authors = this.authorService.getAuthors();
-    this.genres = this.genreService.getGenres();
-    this.publishers = this.publisherService.getPublishers();
+    this.getCategories();
     this.getProducts();
     this.getCountOfProduct();
-  }
-
-  getAuthors(): any {
-    this.authorService.getAllAuthors()
-      .subscribe(authors => {
-        this.authors = authors;
-      });
-  }
-
-  getCoverTypes(): void {
-    this.coverTypeService.getAllCoverTypes()
-      .subscribe(coverTypes => {
-        this.coverTypes = coverTypes;
-      });
-  }
-
-  getGenres(): void {
-    this.genreService.getAllGenres()
-      .subscribe(genres => {
-        this.genres = genres;
-      });
-  }
-
-  getLanguages(): void {
-    this.languageService.getAllLanguages()
-      .subscribe(languages => {
-        this.languages = languages;
-      });
-  }
-
-  getPublishers(): void {
-    this.publisherService.getAllPublishers()
-      .subscribe(publishers => {
-        this.publishers = publishers;
-      });
   }
 
   private getProducts(): void {
     this.orderDetailsService.getAllProductInOrder(this.orderId)
       .subscribe(res => {
         this.products = res;
-        console.log(res);
       });
   }
 
@@ -97,7 +55,15 @@ export class OrderDetailsComponent implements OnInit {
     this.orderDetailsService.getCountOfProduct(this.orderId)
       .subscribe(res => {
         this.count = res;
-        console.log(res);
       });
+  }
+
+  getCategories(): void {
+    this.orderId = this.orderDetailsService.getOrderId();
+    this.languages = this.languageService.getLanguages();
+    this.coverTypes = this.coverTypeService.getCoverTypes();
+    this.authors = this.authorService.getAuthors();
+    this.genres = this.genreService.getGenres();
+    this.publishers = this.publisherService.getPublishers();
   }
 }

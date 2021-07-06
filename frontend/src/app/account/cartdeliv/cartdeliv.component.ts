@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {OrderDetailsService} from "../../_service/order-history/order-details.service";
-import {AuthorService} from "../../_service/categories/author.service";
-import {CoverTypeService} from "../../_service/categories/cover-type.service";
-import {GenreService} from "../../_service/categories/genre.service";
-import {LanguageService} from "../../_service/categories/language.service";
-import {PublisherService} from "../../_service/categories/publisher.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {OrderDetailsService} from '../../_service/order-history/order-details.service';
+import {AuthorService} from '../../_service/categories/author.service';
+import {CoverTypeService} from '../../_service/categories/cover-type.service';
+import {GenreService} from '../../_service/categories/genre.service';
+import {LanguageService} from '../../_service/categories/language.service';
+import {PublisherService} from '../../_service/categories/publisher.service';
 import {Product} from '../../_model/product';
-import {Author} from "../../_model/author";
-import {CoverType} from "../../_model/cover-type";
-import {Genre} from "../../_model/genre";
+import {Author} from '../../_model/author';
+import {CoverType} from '../../_model/cover-type';
+import {Genre} from '../../_model/genre';
 import {Language} from '../../_model/Language';
 import {Publisher} from '../../_model/Publisher';
 
@@ -40,12 +40,12 @@ export class CartdelivComponent implements OnInit {
   publishers: Publisher[] = [];
 
   ngOnInit(): void {
-    this.orderId = this.orderDetailsService.getOrderId();
+    this.publishers = this.publisherService.getPublishers();
     this.languages = this.languageService.getLanguages();
     this.coverTypes = this.coverTypeService.getCoverTypes();
+    this.orderId = this.orderDetailsService.getOrderId();
     this.authors = this.authorService.getAuthors();
     this.genres = this.genreService.getGenres();
-    this.publishers = this.publisherService.getPublishers();
     this.getProducts();
     this.getCountOfProduct();
   }

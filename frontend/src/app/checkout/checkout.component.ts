@@ -15,18 +15,19 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private router: Router,
               private checkoutService: CheckoutService,
-              private alertService: AlertService) { }
+              private alertService: AlertService) {
+  }
 
   @Inject(MAT_DIALOG_DATA) public data: User;
   form: FormGroup;
   input = false;
-  allComplete = false;
   workHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   hours: number[] = [];
   findHours = false;
   userId: number;
   disturb = false;
   user: User = new User();
+
   myFilter = (date: Date | null): boolean => {
     const todayDay = new Date();
     todayDay.setDate(todayDay.getDate() - 1);
@@ -35,10 +36,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.findHours = false;
-    // this.user.userName = ' ';
-    // this.user.userSurname = ' ';
-    // this.user.userAddress = ' ';
-    // this.user.userNumber = ' ';
     this.userId = JSON.parse(localStorage.getItem('idUser'));
     if (this.userId !== null) {
       this.checkoutService.getUserById(this.userId).subscribe(
@@ -75,7 +72,7 @@ export class CheckoutComponent implements OnInit {
     this.checkoutService.createOrder(result).subscribe(
       res => {
         this.alertService.success('Your order has been confirmed and will be delivered to you soon',
-          { autoClose: false, keepAfterRouteChange: true});
+          {autoClose: false, keepAfterRouteChange: true});
         this.router.navigate(['/']);
       }
     );

@@ -16,8 +16,7 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private router: Router,
               private shoppingCartService: ShoppingCartService,
-              private alertService: AlertService,
-              private authService: AuthService) {
+              private alertService: AlertService) {
   }
 
   total = 0;
@@ -29,6 +28,7 @@ export class ShoppingCartComponent implements OnInit {
   countError = false;
   checkout = false;
   @Input() myInput = true;
+
   ngOnInit(): void {
     if (localStorage.getItem('idUser') !== null) {
       this.userId = JSON.parse(localStorage.getItem('idUser'));
@@ -79,7 +79,6 @@ export class ShoppingCartComponent implements OnInit {
     this.totalPrice();
     this.shoppingCartService.deleteReservedProduct($event, this.userId).subscribe(
       res => {
-        console.log(res);
       }
     );
     this.countError = false;
@@ -110,7 +109,6 @@ export class ShoppingCartComponent implements OnInit {
         this.countError = true;
       }
     );
-    // this.ngOnInit();
   }
 
   changeCountError($event: any): void {
