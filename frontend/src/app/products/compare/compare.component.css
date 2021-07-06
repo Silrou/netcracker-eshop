@@ -24,3 +24,11 @@
 .has-discount-text{
   color: brown;
 }
+
+.cont {
+  min-height: calc(100vh - 170px);
+}
+
+.empty-cont {
+  min-height: calc(100vh - 220px);
+}

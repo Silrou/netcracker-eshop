@@ -20,8 +20,8 @@
               </p>
             </div>
 
-            <div class="container mt-3">
-              <input *ngIf="myInput" (change)="onChange($event)" matInput formControlName="productAmount" type="number" class="form-control"
+            <div class="container mt-3" *ngIf="myInput">
+              <input (change)="onChange($event)" matInput formControlName="productAmount" type="number" class="form-control"
                      placeholder="1" min="1"/>
               <div *ngIf="form.get('productAmount')?.invalid" class="alert alert-danger">
                 {{countErrorMessage}}
