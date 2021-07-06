@@ -1,4 +1,4 @@
-<div *ngIf="product">
+<div *ngIf="product" class="cont">
   <div class="card mb-5 bg-light border-light">
     <div class="card-body">
       <div class="row justify-content-around mt-4">
@@ -80,7 +80,7 @@
   </div>
 </div>
 
-<div class="text-center mt-5" *ngIf="!product">
+<div class="text-center mt-5 cont" *ngIf="!product">
   <h3> 404 Product not found</h3>
   <a class="btn btn-secondary btn-secondary text-white mt-3" routerLink="/product-list">Back to products</a>
 </div>

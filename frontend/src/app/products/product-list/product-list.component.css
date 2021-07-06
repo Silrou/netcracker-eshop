@@ -42,3 +42,6 @@ ngb-pagination ::ng-deep .pagination > .active > a:hover
   border: solid 1px #5A4181;
 }
 
+.cont {
+  min-height: calc(100vh - 30px);
+}
