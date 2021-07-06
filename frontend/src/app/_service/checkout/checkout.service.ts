@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../_model/user';
@@ -9,7 +9,8 @@ import {User} from '../../_model/user';
 
 export class CheckoutService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private checkoutUrl = 'http://localhost:8081/checkout';
 
@@ -20,7 +21,6 @@ export class CheckoutService {
   }
 
   createOrder(result: any): Observable<any> {
-    // const params = new HttpParams().set('date', JSON.stringify(result));
     const url = `${this.checkoutUrl}/order`;
     return this.http.post<any>(url, result);
   }

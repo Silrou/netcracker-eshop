@@ -34,7 +34,7 @@ export class AuthService {
 
   validateResetToken(token: string): Observable<any> {
     const url = `${this.baseUrl}/validate-reset-token`;
-    return this.http.post(url, { token });
+    return this.http.post(url, {token});
   }
 
   loginUser(user: User): Observable<any> {
@@ -42,18 +42,18 @@ export class AuthService {
     return this.http.post(url, user);
   }
 
-  getUserRole(login: string): void{
+  getUserRole(login: string): void {
     const url = `${this.baseUrl}/role`;
     this.http.get(url + '?login=' + login, {observe: 'response'}).subscribe(
       res => {
-      const body = JSON.parse(JSON.stringify(res)).body;
-      if (body != null) {
-        this.role = body.userRole;
-        this.status = body.userStatus;
-        localStorage.setItem('globalRole', this.role);
-        localStorage.setItem('globalStatus', this.status);
-      }
-    });
+        const body = JSON.parse(JSON.stringify(res)).body;
+        if (body != null) {
+          this.role = body.userRole;
+          this.status = body.userStatus;
+          localStorage.setItem('globalRole', this.role);
+          localStorage.setItem('globalStatus', this.status);
+        }
+      });
   }
 
   logout(): void {

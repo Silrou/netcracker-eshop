@@ -21,7 +21,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         event => {
           if (event instanceof HttpResponse) {
             const tokenResponse = event.headers.get('Authorization');
-            if (tokenResponse !== null){
+            if (tokenResponse !== null) {
               const expires = new Date(Date.now() + 4 * 60 * 60 * 1000).toUTCString();
               document.cookie = `Token=${tokenResponse}; expires=${expires}; path=/`;
             }

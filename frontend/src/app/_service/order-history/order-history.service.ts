@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {OrderCard} from '../../_model/orderCard';
@@ -8,7 +8,8 @@ import {OrderCard} from '../../_model/orderCard';
 })
 export class OrderHistoryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private orderHistoryUrl = 'http://localhost:8081/order-history';
 

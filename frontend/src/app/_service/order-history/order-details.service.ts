@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Product} from '../../_model/product';
@@ -8,7 +8,8 @@ import {Product} from '../../_model/product';
 })
 export class OrderDetailsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private orderId = 0;
   private publisherUrl = 'http://localhost:8081/order-history/details';

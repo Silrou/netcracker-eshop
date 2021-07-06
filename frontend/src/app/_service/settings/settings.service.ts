@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../_model/user';
@@ -8,7 +8,8 @@ import {User} from '../../_model/user';
 })
 export class SettingsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private settingsUrl = 'http://localhost:8081/settings';
 
