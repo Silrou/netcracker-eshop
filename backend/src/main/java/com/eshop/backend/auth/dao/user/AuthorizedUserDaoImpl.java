@@ -2,6 +2,8 @@ package com.eshop.backend.auth.dao.user;
 
 import com.eshop.backend.admin.adminDto;
 import com.eshop.backend.auth.utils.Role;
+import com.eshop.backend.checkout.OrderCheckoutDto;
+import com.eshop.backend.shoping_card.OrderCartModel;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -181,6 +183,21 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public void updateAfterCheckout(OrderCheckoutDto orderCheckoutDto) {
+        String SQL = "update authorizeduser set username = ?, " +
+                "usersurname = ?, " +
+                "useraddress = ?, usernumber = ? " +
+                "where id = ?";
+
+        try {
+            jdbcTemplate.update(SQL, orderCheckoutDto.getFirstName(), orderCheckoutDto.getLastName(),
+                    orderCheckoutDto.getAddress(), orderCheckoutDto.getPhoneNumber(), orderCheckoutDto.getUserId());
+        } catch (Exception e) {
+            String str = e.toString();
+        }
     }
 
 }

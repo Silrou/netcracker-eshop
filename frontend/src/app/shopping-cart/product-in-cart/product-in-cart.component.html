@@ -21,7 +21,7 @@
             </div>
 
             <div class="container mt-3">
-              <input (change)="onChange($event)" matInput formControlName="productAmount" type="number" class="form-control"
+              <input *ngIf="myInput" (change)="onChange($event)" matInput formControlName="productAmount" type="number" class="form-control"
                      placeholder="1" min="1"/>
               <div *ngIf="form.get('productAmount')?.invalid" class="alert alert-danger">
                 {{countErrorMessage}}
@@ -39,7 +39,7 @@
               <p>Total: {{priceWithDiscount}}$</p>
             </div>
 
-            <div class="container mt-3 ">
+            <div *ngIf="myInput" class="container mt-3 ">
                 <button (click)="removeProduct()" class="btn btn-secondary mb-3 btn-remove">Remove</button>
             </div>
 

@@ -20,13 +20,13 @@ import {appInitializer} from './_helper/app.initializer';
 import {ErrorInterceptor} from './_helper/error.interceptor';
 import {CookieService} from 'ngx-cookie-service';
 import {ProfileComponent} from './account/profile/profile.component';
-import {CartdelivComponent} from "./account/cartdeliv/cartdeliv.component";
+import {CartdelivComponent} from './account/cartdeliv/cartdeliv.component';
 import {AdminWorkSpaceLinkComponent} from './nav-bar/components/admin-work-space-link/admin-work-space-link.component';
 import {SearchComponent} from './account/search/search.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatOptionModule} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatOptionModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -36,15 +36,15 @@ import {OrderHistoryComponent} from './settings/order-history/orders/order-histo
 import {OrderDetailsComponent} from './settings/order-history/order-details/order-details.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import {CoucabComponent} from './account/courier-cabinet/coucab.component';
-// import {NotificationComponent} from './socket/notifications/notification.component';
-import {ProductInCartComponent} from './shopping-cart/product-in-cart/product-in-cart.component';
+import { ProductInCartComponent } from './shopping-cart/product-in-cart/product-in-cart.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {CheckoutComponent} from './checkout/checkout.component';
 import {WorkplaceComponent} from './workplace/workplace.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
-@NgModule({
+@NgModule ({
   declarations: [
     AppComponent,
     MainPageComponent,
@@ -86,9 +86,11 @@ import {WorkplaceComponent} from './workplace/workplace.component';
     MatNativeDateModule,
     NgbPaginationModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [AuthService, CookieService,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
