@@ -22,12 +22,6 @@ ngb-pagination ::ng-deep .pagination > li > span:focus
   background-color: #eee;
   border-color: #ddd;
 }
-ngb-pagination ::ng-deep .pagination > li > span:hover
-{
-  color: #fff118;
-  background-color: #eee;
-  border-color: #ddd;
-}
 
 ngb-pagination ::ng-deep .pagination > .active > a
 {
@@ -42,3 +36,6 @@ ngb-pagination ::ng-deep .pagination > .active > a:hover
   border: solid 1px #5A4181;
 }
 
+.cont {
+  min-height: calc(100vh - 30px);
+}

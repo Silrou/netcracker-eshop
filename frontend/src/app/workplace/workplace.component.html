@@ -1,4 +1,4 @@
-<div [ngSwitch]="authService.role">
+<div [ngSwitch]="authService.role" class="cont">
   <app-search *ngSwitchCase="'ADMIN'"></app-search>
   <app-manager-workspace *ngSwitchCase="'MANAGER'"></app-manager-workspace>
   <app-couriercabinet *ngSwitchCase="'COURIER'"></app-couriercabinet>
