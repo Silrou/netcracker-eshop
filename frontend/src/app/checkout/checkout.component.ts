@@ -64,7 +64,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       date: new FormControl('', Validators.required),
       deliveryTime: new FormControl('', Validators.required),
       doNotDisturb: new FormControl(''),
-      comment: new FormControl('', Validators.required)
+      comment: new FormControl(' ')
     });
   }
 

@@ -34,9 +34,9 @@ export class ProductInCartComponent implements OnInit, OnChanges, OnDestroy {
     this.storeAmountProblem = false;
     this.amount = this.product.productAmount;
     this.initForm();
+    this.productStatusError = false;
     this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
     this.checkAmount();
-    this.productStatusError = false;
   }
 
   private initForm(): void {

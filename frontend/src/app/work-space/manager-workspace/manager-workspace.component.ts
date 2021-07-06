@@ -50,12 +50,13 @@ export class ManagerWorkspaceComponent implements OnInit, OnDestroy {
   isActive: boolean;
 
   ngOnInit(): void {
-    this.searchValue = '';
+    this.isActive = true;
     this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
     this.orderValue = '';
+    this.searchValue = '';
     this.isActive = false;
     this.getSearchedOrderedFilteredProducts();
-    this.getProductsCount();
+    this.getAmountOfProducts();
 
     this.authors = this.authorService.getAuthors();
     this.coverTypes = this.coverTypeService.getCoverTypes();
@@ -64,8 +65,8 @@ export class ManagerWorkspaceComponent implements OnInit, OnDestroy {
     this.publishers = this.publisherService.getPublishers();
   }
 
-  getOrderedProducts(value: string): void{
-    this.orderValue = value;
+  getOrderedProducts(target: any): void {
+    this.orderValue = target.value;
     this.getSearchedOrderedFilteredProducts();
   }
 
@@ -77,7 +78,7 @@ export class ManagerWorkspaceComponent implements OnInit, OnDestroy {
     else { this.searchValue = ''; }
   }
 
-  getFilteredProducts(filters: Filters): void{
+  getFilteredProducts(filters: Filters): void {
     this.filtersValue = filters;
     this.getSearchedOrderedFilteredProducts();
   }
@@ -105,18 +106,24 @@ export class ManagerWorkspaceComponent implements OnInit, OnDestroy {
     );
   }
 
+  getAmountOfProducts(): void {
+    this.productService.getProductsCount(this.searchValue, this.orderValue, this.filtersValue, this.isActive)
+      .subscribe(numb => {
+        this.amountOfProducts = numb;
+      });
+  }
+
   onPageChange(currentPage: number): void {
     this.page = currentPage;
     this.getSearchedOrderedFilteredProducts();
   }
 
-  getSearchedOrderedFilteredProducts(): void{
+  getSearchedOrderedFilteredProducts(): void {
     this.productService.searchOrderFilterProducts(this.page, this.size, this.searchValue, this.orderValue, this.filtersValue, this.isActive)
       .subscribe(products => {
         this.products = products;
-        console.log(this.filtersValue);
       });
-    this.getProductsCount();
+    this.getAmountOfProducts();
   }
 
   cancelFilters(): void{

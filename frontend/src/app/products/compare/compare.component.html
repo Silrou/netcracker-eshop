@@ -1,4 +1,4 @@
-<div class="row justify-content-around" *ngIf="!isEmpty()">
+<div class="row justify-content-around cont" *ngIf="!isEmpty()">
   <table class="table table-striped table-responsive-sm table-sm">
     <thead>
     <tr>
@@ -37,7 +37,7 @@
   </table>
 </div>
 
-<div *ngIf="isEmpty()" class="text-center mt-5">
+<div *ngIf="isEmpty()" class="text-center mt-5 empty-cont">
   <h3>Comparison list is empty now</h3>
   <a class="btn btn-secondary btn-secondary text-white mt-3" routerLink="/product-list">Return to catalogue</a>
 </div>
