@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Product} from '../../_model/product';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -14,8 +14,8 @@ import {CoverType} from '../../_model/cover-type';
 import {Language} from '../../_model/Language';
 import {Publisher} from '../../_model/Publisher';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
-import {Subscription} from "rxjs";
-import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
+import {Subscription} from 'rxjs';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
 @AutoUnsubscribe()
 @Component({
@@ -23,7 +23,7 @@ import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.css']
 })
-export class ProductCreateComponent implements OnInit {
+export class ProductCreateComponent implements OnInit, OnDestroy {
 
   editForm: FormGroup;
   result: Product;
@@ -66,7 +66,7 @@ export class ProductCreateComponent implements OnInit {
     this.publishers = this.publisherService.getPublishers();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
   }
 
   private initForm(): void {

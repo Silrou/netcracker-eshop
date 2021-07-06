@@ -86,7 +86,7 @@
     <input matInput formControlName="role" [(ngModel)]="data.userRole">
     <mat-hint *ngIf="form.get('role').errors">Role is required</mat-hint>
   </mat-form-field>
-  <mat-select *ngIf="data.isEdit" name="my-select" (change)="selectChange(mySelect)" formControlName="status">
+  <mat-select *ngIf="data.isEdit" name="my-select" [(ngModel)]="data.userStatus"  formControlName="status">
     <mat-option [value]="item.status" *ngFor="let item of selection" >
       {{item.status}}
     </mat-option>

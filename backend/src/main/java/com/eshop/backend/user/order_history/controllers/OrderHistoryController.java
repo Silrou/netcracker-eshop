@@ -21,9 +21,9 @@ public class OrderHistoryController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<OrderCartModel>> getAllOrders(@RequestParam("id")Long id,
-                                                             @RequestParam("page")int page,
-                                                             @RequestParam("size")int size) {
+    public ResponseEntity<List<OrderCartModel>> getAllOrders(@RequestParam("id") Long id,
+                                                             @RequestParam("page") int page,
+                                                             @RequestParam("size") int size) {
         List<OrderCartModel> orderHistory = orderHistoryService.getAllByUserId(id, page, size);
         return new ResponseEntity<>(orderHistory, HttpStatus.OK);
     }

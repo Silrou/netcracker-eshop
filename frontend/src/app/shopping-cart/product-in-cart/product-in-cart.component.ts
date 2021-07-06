@@ -1,13 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {Product} from '../../_model/product';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-product-in-cart',
   templateUrl: './product-in-cart.component.html',
   styleUrls: ['./product-in-cart.component.css']
 })
-export class ProductInCartComponent implements OnInit, OnChanges {
+export class ProductInCartComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() product: Product;
   @Input() productsWithErrors: Product[];
@@ -35,7 +37,6 @@ export class ProductInCartComponent implements OnInit, OnChanges {
     this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
     this.checkAmount();
     this.productStatusError = false;
-    // this.countErrorCheck();
   }
 
   private initForm(): void {
@@ -46,12 +47,11 @@ export class ProductInCartComponent implements OnInit, OnChanges {
   }
 
   onChange($event: Event): void {
-      this.amount = this.form.value.productAmount;
-      this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
-      this.product.productAmount = this.amount;
-      // this.countErrorCheck();
-      this.updateAmount.emit('updatePrice');
-      this.storeAmountProblem = false;
+    this.amount = this.form.value.productAmount;
+    this.priceWithDiscount = Math.round(this.product.productPrice * (1 - (this.product.productDiscount / 100)) * this.amount);
+    this.product.productAmount = this.amount;
+    this.updateAmount.emit('updatePrice');
+    this.storeAmountProblem = false;
   }
 
   removeProduct(): void {
@@ -79,7 +79,7 @@ export class ProductInCartComponent implements OnInit, OnChanges {
     }
   }
 
-  // countErrorCheck(): void {
-  //     this.countError = this.productStatusError || this.storeAmountProblem || this.form.get('productAmount')?.invalid;
-  // }
+  ngOnDestroy(): void {
+  }
+
 }

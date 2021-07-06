@@ -1,8 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {Product} from '../../_model/product';
-import {catchError} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {User} from '../../_model/user';
 
 @Injectable({
@@ -10,7 +8,8 @@ import {User} from '../../_model/user';
 })
 export class SettingsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   private settingsUrl = 'http://localhost:8081/settings';
 

@@ -30,15 +30,15 @@ export class ProfileComponent implements OnInit {
   selection = [
     {
       id: 1,
-      status: 'Active'
+      status: 'ACTIVE'
     },
     {
       id: 2,
-      status: 'Inactive'
+      status: 'INACTIVE'
     },
     {
       id: 3,
-      status: 'Terminated'
+      status: 'TERMINATED'
     }
   ];
   selectedValue: any;
@@ -74,6 +74,7 @@ export class ProfileComponent implements OnInit {
   }
 
   selectChange(status): void {
+    console.log(status);
     this.data.userStatus = status;
   }
 

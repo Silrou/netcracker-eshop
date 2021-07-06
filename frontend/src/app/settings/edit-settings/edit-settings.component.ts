@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SettingsService} from '../../_service/settings/settings.service';
 import {User} from '../../_model/user';
 import {Router} from '@angular/router';
 import {AlertService} from '../../_service/alert/alert.service';
-import {ErrorMessages} from "../../_model/labels/error.messages";
+import {ErrorMessages} from '../../_model/labels/error.messages';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-edit-settings',
   templateUrl: './edit-settings.component.html',
   styleUrls: ['./edit-settings.component.css']
 })
-export class EditSettingsComponent implements OnInit {
+export class EditSettingsComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
               private settingsService: SettingsService,
@@ -35,7 +37,7 @@ export class EditSettingsComponent implements OnInit {
       userSurname: new FormControl(this.user?.userSurname, [Validators.required,
         Validators.maxLength(28),
         Validators.minLength(1)]),
-      userLogin:  new FormControl(this.user?.userLogin, [Validators.required, Validators.email]),
+      userLogin: new FormControl(this.user?.userLogin, [Validators.required, Validators.email]),
       userAddress: new FormControl(this.user?.userAddress, [Validators.required]),
       userNumber: new FormControl(this.user?.userNumber, [Validators.required,
         Validators.pattern('((\\+38)?\\(?\\d{3}\\)?[\\s\\.-]?(\\d{7}|\\d{3}[\\s\\.-]\\d{2}[\\s\\.-]\\d{2}|\\d{3}-\\d{4}))')])
@@ -61,13 +63,16 @@ export class EditSettingsComponent implements OnInit {
     this.settingsService.updateUser(result).subscribe(
       res => {
         console.log(res);
-        this.alertService.success('Information update success.', { keepAfterRouteChange: true });
+        this.alertService.success('Information update success.', {keepAfterRouteChange: true});
         this.router.navigate(['/settings']);
       },
       error => {
         console.log(error);
-        this.alertService.error(ErrorMessages[error.error.message], { autoClose: false });
+        this.alertService.error(ErrorMessages[error.error.message], {autoClose: false});
       }
     );
+  }
+
+  ngOnDestroy(): void {
   }
 }

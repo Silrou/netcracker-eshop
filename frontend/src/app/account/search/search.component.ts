@@ -53,9 +53,11 @@ export class SearchComponent implements OnInit {
     const managerData = this.getUserDataById(id);
     console.log(managerData);
     managerData.isEdit = true;
+    console.log(managerData.isEdit);
     const dialogRef = this.dialog.open(ProfileComponent, {
       maxWidth: '300px',
       data: {
+        isEdit: true,
         userName: managerData.userName,
         userSurname: managerData.userSurname ,
         userLogin: managerData.userLogin,

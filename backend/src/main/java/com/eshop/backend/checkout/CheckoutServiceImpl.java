@@ -32,7 +32,6 @@ public class CheckoutServiceImpl implements CheckoutService{
     @Override
     @Transactional
     public void updateOrderCart(OrderCheckoutDto orderCheckoutDto) {
-        //update user
         authorizedUserDao.updateAfterCheckout(orderCheckoutDto);
         OrderCartModel orderCartModel = shoppingCartDao.getLastOrderCartByUserId(orderCheckoutDto.getUserId());
         checkoutDao.updateOrderCart(orderCheckoutDto, orderCartModel.getId());

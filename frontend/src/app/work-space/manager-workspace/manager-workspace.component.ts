@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CategoriesPartComponent} from '../../products/categories-part/categories-part.component';
 import {ProductService} from '../../_service/product/product.service';
 import {Product} from '../../_model/product';
@@ -14,15 +14,16 @@ import {Language} from '../../_model/Language';
 import {Publisher} from '../../_model/Publisher';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProductCreateComponent} from '../../products/product-create/product-create.component';
-import {PageEvent} from '@angular/material/paginator';
 import {Filters} from '../../_model/filters';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-manager-workspace',
   templateUrl: './manager-workspace.component.html',
   styleUrls: ['./manager-workspace.component.css']
 })
-export class ManagerWorkspaceComponent implements OnInit {
+export class ManagerWorkspaceComponent implements OnInit, OnDestroy {
 
 
   constructor(private categoriesPartComponent: CategoriesPartComponent,
@@ -49,12 +50,11 @@ export class ManagerWorkspaceComponent implements OnInit {
   isActive: boolean;
 
   ngOnInit(): void {
-    this.getAllProducts();
     this.searchValue = '';
     this.filtersValue = {author: [], coverType: [], genre: [], language: [], publisher: []} as Filters;
     this.orderValue = '';
     this.isActive = false;
-
+    this.getSearchedOrderedFilteredProducts();
     this.getProductsCount();
 
     this.authors = this.authorService.getAuthors();
@@ -62,15 +62,6 @@ export class ManagerWorkspaceComponent implements OnInit {
     this.genres = this.genreService.getGenres();
     this.languages = this.languageService.getLanguages();
     this.publishers = this.publisherService.getPublishers();
-  }
-
-  getAllProducts(): void {
-    this.productService.getAllProducts(this.page, this.size)
-      .subscribe(products => {
-        console.log(products);
-        this.products = products;
-      }, error => console.log(error));
-
   }
 
   getOrderedProducts(value: string): void{
@@ -116,7 +107,7 @@ export class ManagerWorkspaceComponent implements OnInit {
 
   onPageChange(currentPage: number): void {
     this.page = currentPage;
-    this.getAllProducts();
+    this.getSearchedOrderedFilteredProducts();
   }
 
   getSearchedOrderedFilteredProducts(): void{
@@ -130,5 +121,8 @@ export class ManagerWorkspaceComponent implements OnInit {
 
   cancelFilters(): void{
     window.location.reload();
+  }
+
+  ngOnDestroy(): void {
   }
 }

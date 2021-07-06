@@ -3,17 +3,16 @@ package com.eshop.backend.auth.dao.user;
 import com.eshop.backend.admin.adminDto;
 import com.eshop.backend.auth.utils.Role;
 import com.eshop.backend.checkout.OrderCheckoutDto;
-import com.eshop.backend.shoping_card.OrderCartModel;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +35,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
 
         String SQL = "insert into authorizeduser (userlogin, userpassword," +
                 "userrole, username, usersurname, userregistrationdate, userstatus," +
-                " useraddress, usernumber)\n" +
+                " useraddress, usernumber) " +
                 "values (?,?,?,?,?,?,?,?,?)";
 
         jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
@@ -48,16 +47,12 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     public AuthorizedUserModel getByLogin(String login) throws DataAccessException {
         try {
             String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
-            AuthorizedUserModel user = jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
-            return user;
-        } catch (DataAccessException e) {
-            String str = e.toString();
+            return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
 
     }
-
-
 
 
     @Override
@@ -65,8 +60,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
         try {
             String getUserSql = "SELECT * FROM authorizeduser WHERE userlogin = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), login);
-        } catch (DataAccessException e) {
-            String srt = e.toString();
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
@@ -79,8 +73,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                     "inner join verificationtoken t on a.id = t.authorizeduserid\n" +
                     "WHERE t.tokenvalue = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), token);
-        } catch (DataAccessException e) {
-            String str = e.toString();
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
@@ -93,7 +86,7 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                     .userLogin(rs.getString("userlogin"))
                     .build();
             return Objects.requireNonNull(jdbcTemplate.queryForObject(getUserSql, rowMapper, id)).getUserLogin();
-        } catch (DataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
@@ -105,31 +98,13 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
     }
 
     @Override
-    public void createVerificationToken(AuthorizedUserModel user, String token) {
-        //save token
-//        String SQL = "update users set \"user_login\" = ?,\n" +
-//                "                   \"user_password\"= ?,\n" +
-//                "                   \"user_role\" = ?,\n" +
-//                "                   \"user_status\" = ?,\n" +
-//                "                   \"user_token\" = ?\n" +
-//                "                   where id = ?";
-//        try {
-//            jdbcTemplate.update(SQL, user.getEmail(), user.getPassword(), user.getRole(),
-//                    user.getStatus(), token, user.getId());
-//        } catch (Exception e) {
-//            String str = e.toString();
-//        }
-    }
-
-    @Override
     public List<AuthorizedUserModel> getById(long id) {
         return null;
     }
 
-
     @Override
     public List<AuthorizedUserModel> getBy(adminDto admin) {
-        String getAllAuthorizedUsersSQL ="SELECT * FROM authorizeduser where (USERNAME ILIKE '%' || ? || '%' or USERSURNAME ILIKE  '%' || ? || '%') AND userrole  IN (?,?) AND  userstatus IN (?,?,?)";
+        String getAllAuthorizedUsersSQL = "SELECT * FROM authorizeduser where (USERNAME ILIKE '%' || ? || '%' or USERSURNAME ILIKE  '%' || ? || '%') AND userrole  IN (?,?) AND  userstatus IN (?,?,?)";
         RowMapper<AuthorizedUserModel> rowMapper = (rs, rowNum) -> new AuthorizedUserModel(
                 rs.getLong("id"),
                 rs.getString("userlogin"),
@@ -143,17 +118,15 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 rs.getString("usernumber"));
         String[] job = admin.job.split(",");
         String[] status = admin.status.split(",");
-        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper, admin.NS,admin.NS,job[0],job[1],status[0],status[1],status[2]);
+        return jdbcTemplate.query(getAllAuthorizedUsersSQL, rowMapper, admin.NS, admin.NS, job[0], job[1], status[0], status[1], status[2]);
     }
-
-
 
     @Override
     public AuthorizedUserModel getById(Long id) {
         try {
             String getUserSql = "SELECT * FROM authorizeduser WHERE id = ?";
             return jdbcTemplate.queryForObject(getUserSql, new CustomerRowMapper(), id);
-        } catch (DataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
@@ -170,14 +143,9 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 "userregistrationdate = ?, " +
                 "userstatus = ?, useraddress = ?, usernumber = ? " +
                 "where id = ?";
-
-        try {
-            jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
-                    user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
-                    user.getUserStatus(), user.getUserAddress(), user.getUserNumber(), user.getId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        jdbcTemplate.update(SQL, user.getUserLogin(), bCryptPasswordEncoder.encode(user.getUserPassword()),
+                user.getUserRole(), user.getUserName(), user.getUserSurname(), user.getUserRegistrationDate(),
+                user.getUserStatus(), user.getUserAddress(), user.getUserNumber(), user.getId());
     }
 
     @Override
@@ -192,12 +160,8 @@ public class AuthorizedUserDaoImpl implements AuthorizedUserDao {
                 "useraddress = ?, usernumber = ? " +
                 "where id = ?";
 
-        try {
-            jdbcTemplate.update(SQL, orderCheckoutDto.getFirstName(), orderCheckoutDto.getLastName(),
-                    orderCheckoutDto.getAddress(), orderCheckoutDto.getPhoneNumber(), orderCheckoutDto.getUserId());
-        } catch (Exception e) {
-            String str = e.toString();
-        }
+        jdbcTemplate.update(SQL, orderCheckoutDto.getFirstName(), orderCheckoutDto.getLastName(),
+                orderCheckoutDto.getAddress(), orderCheckoutDto.getPhoneNumber(), orderCheckoutDto.getUserId());
     }
 
 }

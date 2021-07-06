@@ -4,13 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 
 @Builder
 @Data
@@ -30,7 +24,7 @@ public class EmailTokenModel {
         this.tokenName = tokenName;
         this.tokenValue = tokenValue;
         this.authorizedUserId = authorizedUserId;
-        this.tokenExpiryDate =  LocalDateTime.now().plusSeconds(EXPIRATION);
+        this.tokenExpiryDate = LocalDateTime.now().plusSeconds(EXPIRATION);
     }
 
 }

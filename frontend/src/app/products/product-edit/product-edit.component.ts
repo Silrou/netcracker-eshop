@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthorService} from '../../_service/categories/author.service';
@@ -14,8 +14,8 @@ import {Publisher} from '../../_model/Publisher';
 import {Product} from '../../_model/product';
 import {ProductService} from '../../_service/product/product.service';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
-import {Subscription} from "rxjs";
-import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
+import {Subscription} from 'rxjs';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
 @AutoUnsubscribe()
 @Component({
@@ -23,7 +23,7 @@ import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css']
 })
-export class ProductEditComponent implements OnInit {
+export class ProductEditComponent implements OnInit, OnDestroy {
 
   nameErrorMessage = ValidationMessages.productName;
   descriptionErrorMessage = ValidationMessages.productDescription;
@@ -38,7 +38,6 @@ export class ProductEditComponent implements OnInit {
   pictureErrorMessage = ValidationMessages.productProductPicture;
 
   editForm: FormGroup;
-  temp: any;
   authors: Author[] = [];
   genres: Genre[] = [];
   coverTypes: CoverType[] = [];
@@ -69,7 +68,7 @@ export class ProductEditComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
   }
 
   private initForm(): void {
@@ -115,13 +114,8 @@ export class ProductEditComponent implements OnInit {
 
     this.subscriptions.push(this.productService.updateProduct(result).subscribe(
       res => {
-        console.log(res);
-      },
-      error => {
-        console.log(error);
       }
     ));
-
     this.onClose();
   }
 
