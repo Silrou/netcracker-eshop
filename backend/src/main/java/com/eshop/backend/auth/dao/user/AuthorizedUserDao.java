@@ -2,6 +2,7 @@ package com.eshop.backend.auth.dao.user;
 
 
 import com.eshop.backend.admin.adminDto;
+import com.eshop.backend.checkout.OrderCheckoutDto;
 import com.eshop.backend.utils.CrudDao;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 
@@ -15,7 +16,7 @@ public interface AuthorizedUserDao extends CrudDao<AuthorizedUserModel> {
     String getLoginById(Long id);
     void setStatus(AuthorizedUserModel user);
     void createVerificationToken(AuthorizedUserModel user, String token);
-
+    void updateAfterCheckout(OrderCheckoutDto user);
 
     public  List<AuthorizedUserModel> getById(long id);
 

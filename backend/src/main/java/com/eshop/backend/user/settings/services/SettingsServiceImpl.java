@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SettingsServiceImpl implements SettingsService {
 
-    private final SettingsDao settingsDao;
+    private final  SettingsDao settingsDao;
     private final AuthorizedUserDao authorizedUserDao;
     private final EmailSenderService emailSenderService;
 

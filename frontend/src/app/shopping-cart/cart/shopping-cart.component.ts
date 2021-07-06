@@ -100,8 +100,8 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartService.getOrderConfirm(checkProducts, this.userId).subscribe(
       res => {
         localStorage.setItem('idUser', res);
-        this.router.navigateByUrl('/');
         this.countError = false;
+        this.router.navigateByUrl('/shopping-cart/checkout');
       },
       error => {
         window.scroll(0, 0);
