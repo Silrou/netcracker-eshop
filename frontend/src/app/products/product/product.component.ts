@@ -5,7 +5,10 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
 import {CompareService} from '../../_service/compare/compare.service';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {Subscription} from "rxjs";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -16,6 +19,8 @@ export class ProductComponent implements OnInit {
   product?: Product = {} as Product;
 
   categories?: string[] = [];
+
+  subscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -30,23 +35,26 @@ export class ProductComponent implements OnInit {
     this.getProduct();
   }
 
+  ngOnDestroy() {
+  }
+
   getProduct(): void {
     this.shoppingCartService.productInCart = JSON.parse(localStorage.getItem('productInCart'));
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getProduct(id)
+    this.subscriptions.push(this.productService.getProduct(id)
       .subscribe(product => {
         this.product = product;
         this.checkStatus();
         this.getCategoriesOfProduct();
-      }, error => console.log(error));
+      }, error => console.log(error)));
   }
 
   getCategoriesOfProduct(): void {
-    this.productService.getCategoriesOfProduct(this.product.author, this.product.coverType, this.product.genre,
+    this.subscriptions.push(this.productService.getCategoriesOfProduct(this.product.author, this.product.coverType, this.product.genre,
       this.product.language, this.product.publisher)
       .subscribe(categories => {
         this.categories = categories;
-      });
+      }));
   }
 
   hasDiscount(): boolean {
