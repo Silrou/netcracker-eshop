@@ -41,6 +41,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {NotificationComponent} from './socket/notifications/notification.component';
 
 
 @NgModule ({
@@ -59,6 +60,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     ProductInCartComponent,
     CartdelivComponent,
     CoucabComponent,
+    NotificationComponent,
     CheckoutComponent
   ],
   imports: [
