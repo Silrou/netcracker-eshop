@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
-
-import * as SockJS from 'sockjs-client';
-// @ts-ignore
-import * as StompJs from '@stomp/stompjs';
+import {WebSocketAPI} from './WebSocketAPI';
 
 @Component({
   selector: 'app-notification',
@@ -10,54 +7,26 @@ import * as StompJs from '@stomp/stompjs';
 })
 export class NotificationComponent {
 
-  public notifications: string[] = [];
-
-  private client: StompJs.Client;
-
-  connectClicked() {
-    if (!this.client || this.client.connected) {
-      this.client = new StompJs.Client({
-        webSocketFactory: () => new SockJS('http://localhost:8081/notifications'),
-        debug: (msg: string) => console.log(msg)
-      });
-
-      this.client.onConnect = () => {
-
-        this.client.subscribe('/user/notification/item', (response) => {
-          const text: string = JSON.parse(response.body).text;
-          console.log('Got ' + text);
-          this.notifications.push(text);
-        });
-
-        console.info('connected!');
-      };
-
-      this.client.onStompError = (frame) => {
-        console.error(frame.headers['message']);
-        console.error('Details:', frame.body);
-      };
-
-      this.client.activate();
-    }
+  webSocketAPI: WebSocketAPI;
+  greeting: any;
+  name: string;
+  ngOnInit() {
+    this.webSocketAPI = new WebSocketAPI(new NotificationComponent());
   }
 
-  disconnectClicked() {
-    if (this.client && this.client.connected) {
-      this.client.deactivate();
-      this.client = null;
-      console.info("disconnected :-/");
-    }
+  connect(){
+    this.webSocketAPI._connect();
   }
 
-  startClicked() {
-    if (this.client && this.client.connected) {
-      this.client.publish({destination: '/swns/start'});
-    }
+  disconnect(){
+    this.webSocketAPI._disconnect();
   }
 
-  stopClicked() {
-    if (this.client && this.client.connected) {
-      this.client.publish({destination: '/swns/stop'});
-    }
+  sendMessage(){
+    this.webSocketAPI._send(this.name);
+  }
+
+  handleMessage(message){
+    this.greeting = message;
   }
 }

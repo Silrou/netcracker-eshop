@@ -52,6 +52,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/socket/**").permitAll()
                 .antMatchers("/shopping-cart/**").permitAll()
                 .antMatchers("/admin/**").permitAll()
                 .antMatchers("/product/**").permitAll()

@@ -77,10 +77,10 @@ const routes: Routes = [
     path: 'shopping-cart/checkout',
     component: CheckoutComponent
   },
-  // {
-  //   path: 'socket',
-  //   component: NotificationComponent
-  // },
+  {
+    path: 'socket',
+    component: NotificationComponent
+  },
   // {
   //   path: 'settings',
   //   component: SettingsComponent,
