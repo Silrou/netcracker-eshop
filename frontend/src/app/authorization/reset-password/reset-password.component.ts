@@ -104,7 +104,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       });
   }
 
-  private validateToken(token: string) {
+  private validateToken(token: string): void {
     this.authService.validateResetToken(token)
       .pipe(first())
       .subscribe({
