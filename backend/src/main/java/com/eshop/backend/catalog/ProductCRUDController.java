@@ -31,13 +31,6 @@ public class ProductCRUDController {
         return new ResponseEntity<>(productModel, HttpStatus.OK);
     }
 
-//    @GetMapping("/get-all")
-//    public ResponseEntity<List<ProductModel>> getAllProduct(@RequestParam("page") int page,
-//                                                            @RequestParam("size") int size) {
-//        List<ProductModel> productModels = productService.getProductPage(page, size);
-//        return new ResponseEntity<>(productModels, HttpStatus.OK);
-//    }
-
     @PostMapping("/add")
     public ResponseEntity<?> addProduct(@RequestBody(required = false) ProductModel productModel) {
         productService.create(productModel);

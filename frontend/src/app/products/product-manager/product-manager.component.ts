@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {CategoriesPartComponent} from '../categories-part/categories-part.component';
 import {ProductService} from '../../_service/product/product.service';
 import {Product} from '../../_model/product';
@@ -10,8 +10,8 @@ import {Genre} from '../../_model/genre';
 import {Publisher} from '../../_model/Publisher';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProductEditComponent} from '../product-edit/product-edit.component';
-import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
-import {Subscription} from "rxjs";
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
+import {Subscription} from 'rxjs';
 
 @AutoUnsubscribe()
 @Component({
@@ -19,7 +19,7 @@ import {Subscription} from "rxjs";
   templateUrl: './product-manager.component.html',
   styleUrls: ['./product-manager.component.css']
 })
-export class ProductManagerComponent implements OnInit {
+export class ProductManagerComponent implements OnInit, OnDestroy {
 
   @Input()
   product?: Product;
@@ -47,7 +47,7 @@ export class ProductManagerComponent implements OnInit {
 
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
   }
 
   onChangeStatus(id: number): void {
@@ -67,10 +67,6 @@ export class ProductManagerComponent implements OnInit {
     ));
   }
 
-  loadEditComponent(): void {
-    // this.editComponent = !this.editComponent;
-  }
-
   onCreate(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -79,13 +75,7 @@ export class ProductManagerComponent implements OnInit {
     dialogConfig.data = {product: this.product};
     this.dialog.open(ProductEditComponent, dialogConfig);
     this.subscriptions.push(this.dialog.afterAllClosed.subscribe(() => {
-      // Do stuff after the dialog has closed
       this.editProductEvent.emit('update');
-      // this.productService.getProduct(this.product.id).subscribe(
-      //   res => {
-      //     this.product = res;
-      //   }
-      // );
     }));
   }
 

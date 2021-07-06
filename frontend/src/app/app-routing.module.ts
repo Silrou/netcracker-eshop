@@ -20,7 +20,7 @@ import {EditSettingsComponent} from './settings/edit-settings/edit-settings.comp
 import {AuthGuard} from './_helper/auth.guard';
 import {Role} from './_model/role';
 import {ResetPasswordComponent} from './authorization/reset-password/reset-password.component';
-import {VerifyEmailComponent} from './authorization/verify-email/verify-email.component';
+import {VerifyEmailComponent} from './authorization/mail/verify-email.component';
 import {ManagerWorkspaceComponent} from './work-space/manager-workspace/manager-workspace.component';
 import {SettingsComponent} from './settings/user-profile/settings.component';
 import {ForgotPasswordComponent} from './authorization/forgot-password/forgot-password.component';

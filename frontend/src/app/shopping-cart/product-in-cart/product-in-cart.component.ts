@@ -1,13 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {Product} from '../../_model/product';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-product-in-cart',
   templateUrl: './product-in-cart.component.html',
   styleUrls: ['./product-in-cart.component.css']
 })
-export class ProductInCartComponent implements OnInit, OnChanges {
+export class ProductInCartComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() product: Product;
   @Input() productsWithErrors: Product[];
@@ -75,6 +77,9 @@ export class ProductInCartComponent implements OnInit, OnChanges {
         }
       }
     }
+  }
+
+  ngOnDestroy(): void {
   }
 
 }

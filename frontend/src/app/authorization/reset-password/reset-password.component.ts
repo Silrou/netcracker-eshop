@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../_service/alert/alert.service';
@@ -6,6 +6,7 @@ import {AuthService} from '../../_service/auth/auth.service';
 import {first} from 'rxjs/operators';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
 import {ErrorMessages} from '../../_model/labels/error.messages';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
 enum TokenStatus {
   Validating,
@@ -13,13 +14,14 @@ enum TokenStatus {
   Invalid
 }
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
 
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   passwordErrorMessage = ValidationMessages.password;
   passwordNotMatchErrorMessage = ValidationMessages.passwordNotMatch;
@@ -37,8 +39,15 @@ export class ResetPasswordComponent implements OnInit {
               private authService: AuthService,
               private alertService: AlertService) { }
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.initForm();
+    const token = this.route.snapshot.queryParams.token;
+    this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
+    this.validateToken(token);
+  }
+
+  initForm(): void {
     this.form = this.formBuilder.group({
       password: ['', [Validators.required,
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,20}$')]],
@@ -47,23 +56,9 @@ export class ResetPasswordComponent implements OnInit {
     }, {
       validator: this.MustMatch('password', 'confirmPassword')
     });
+  }
 
-    const token = this.route.snapshot.queryParams.token;
-
-    // remove token from url to prevent http referer leakage
-    this.router.navigate([], { relativeTo: this.route, replaceUrl: true });
-
-    this.authService.validateResetToken(token)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          this.token = token;
-          this.tokenStatus = TokenStatus.Valid;
-        },
-        error: () => {
-          this.tokenStatus = TokenStatus.Invalid;
-        }
-      });
+  ngOnDestroy(): void {
   }
 
   MustMatch(controlName: string, matchingControlName: string): (formGroup: FormGroup) => any {
@@ -109,4 +104,17 @@ export class ResetPasswordComponent implements OnInit {
       });
   }
 
+  private validateToken(token: string) {
+    this.authService.validateResetToken(token)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.token = token;
+          this.tokenStatus = TokenStatus.Valid;
+        },
+        error: () => {
+          this.tokenStatus = TokenStatus.Invalid;
+        }
+      });
+  }
 }

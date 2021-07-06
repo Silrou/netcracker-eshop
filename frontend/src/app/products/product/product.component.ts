@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Product} from '../../_model/product';
 import {ProductService} from '../../_service/product/product.service';
 import {ActivatedRoute} from '@angular/router';
@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent implements OnInit {
+export class ProductComponent implements OnInit, OnDestroy {
   @Input()
   product?: Product = {} as Product;
 
@@ -35,7 +35,7 @@ export class ProductComponent implements OnInit {
     this.getProduct();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
   }
 
   getProduct(): void {
