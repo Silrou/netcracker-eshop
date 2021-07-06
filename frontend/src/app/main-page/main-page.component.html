@@ -23,7 +23,7 @@
 <div class="container">
   <div class="row justify-content-around mt-4 mb-4">
 
-      <div class="container mt-5">
+      <div class="container mt-5" *ngIf="newProducts.length>0">
         <h2 class="text-center p-1">New products in Shop</h2>
         <div class="row justify-content-around mt-4">
           <div class="col-md-3 col-sm-6 mb-4" *ngFor="let product of newProducts">
@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="container mt-5">
+      <div class="container mt-5" *ngIf="popularProducts.length>0">
         <h2 class="text-center p-1">The most popular products in Shop</h2>
         <div class="row justify-content-around mt-4">
           <div class="col-md-3 col-sm-6 mb-4" *ngFor="let product of popularProducts">

@@ -8,5 +8,6 @@ public enum Role {
     COURIER,
     AUTHORIZED,
     ANONYMOUS,
-    ACTIVE
+    ACTIVE,
+    INACTIVE
 }

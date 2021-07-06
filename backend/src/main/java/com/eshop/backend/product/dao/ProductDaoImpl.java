@@ -47,18 +47,18 @@ public class ProductDaoImpl implements ProductDao {
         return template.queryForObject(sql, new ProductMapper(), new Object[]{Long.valueOf(id)});
     }
 
-    @Override
-    public List<ProductModel> getByName(String name) {
-        Object[] params = new Object[]{"%" + name + "%"};
-        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
-        sql.append(" WHERE p.productname ILIKE ? and genre in (?)");
-        return template.query(sql.toString(), new ProductMapper(), params);
-    }
+//    @Override
+//    public List<ProductModel> getByName(String name) {
+//        Object[] params = new Object[]{"%" + name + "%"};
+//        StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL);
+//        sql.append(" WHERE p.productname ILIKE ? and genre in (?)");
+//        return template.query(sql.toString(), new ProductMapper(), params);
+//    }
 
-    @Override
-    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
-        return null;
-    }
+//    @Override
+//    public List<ProductModel> getFiltered(int page, int size, FilterModel filterModel) {
+//        return null;
+//    }
 
     @Override
     public List<ProductModel> getAll() {
@@ -111,28 +111,27 @@ public class ProductDaoImpl implements ProductDao {
 //        }
     }
 
-    //delete later
-    @Override
-    public List<ProductModel> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
-        String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
-        String sql = String.format(ProductMapper.SELECT_SQL +
-                " left join productcategory on p.productcategory = productcategory.id" +
-                " where productcategory.productcategoryname in (%s) order by p." + orderBy +
-                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY", inSql);
-        return template.query(sql, new ProductMapper(), filter.toArray());
-    }
+//    @Override
+//    public List<ProductModel> getAllOrderByWithFilters(int page, int size, String orderBy, List<String> filter) {
+//        String inSql = String.join(",", Collections.nCopies(filter.size(), "?"));
+//        String sql = String.format(ProductMapper.SELECT_SQL +
+//                " left join productcategory on p.productcategory = productcategory.id" +
+//                " where productcategory.productcategoryname in (%s) order by p." + orderBy +
+//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY", inSql);
+//        return template.query(sql, new ProductMapper(), filter.toArray());
+//    }
 
-    @Override
-    public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
-        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
-                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-        return template.query(sql, new ProductMapper());
-    }
+//    @Override
+//    public List<ProductModel> getAllOrderBy(int page, int size, String orderBy) {
+//        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
+//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
+//        return template.query(sql, new ProductMapper());
+//    }
 
-    @Override
-    public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel) {
+    @Override // for pagination in products
+    public Integer getNumberOfSearchedOrderedFiltered(String search, String orderBy, FilterModel filterModel, boolean isActive) {
         StringBuilder sql = new StringBuilder("SELECT COUNT (*) from product p  ");
-        Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
+        Object[] paramsForQuery = getSearchedFilteredBuilder(search, filterModel, sql, isActive);
         return template.queryForObject(sql.toString(), Integer.class, paramsForQuery);
     }
 
@@ -154,7 +153,6 @@ public class ProductDaoImpl implements ProductDao {
         } catch (Exception e) {
             return 0;
         }
-
     }
 
     @Override
@@ -164,13 +162,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel) {
+    public List<ProductModel> getSearchedOrderedFiltered(int page, int size, String search, String orderBy, FilterModel filterModel, boolean isActive) {
         StringBuilder sql = new StringBuilder(ProductMapper.SELECT_SQL); //select ... from product p
-        Object[] paramsForQuery = getSearchedOrderedFilteredBuilder(search, filterModel, sql);
-        if (!orderBy.equals("")) { //упорядочение по ...
+        Object[] paramsForQuery = getSearchedFilteredBuilder(search, filterModel, sql, isActive); //create main part of query and Object[] of params
+        if (!orderBy.equals("")) { //append order by
             sql.append(" order by " + orderBy);
         }
-
         sql.append(" OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY");
         return template.query(sql.toString(), new ProductMapper(), paramsForQuery);
     }
@@ -188,19 +185,43 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<ProductModel> getPopular(int page, int size) {
-        String sql = "SELECT ";
-
-//        String sql = ProductMapper.SELECT_SQL + " order by p." + orderBy +
-//                " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + size + " ROWS ONLY";
-//        return template.query(sql, new ProductMapper());
-        return null;
+        String sql = ProductMapper.SELECT_SQL +
+                "WHERE p.productamount > 0 AND p.id IN (SELECT productid FROM orderproduct " +
+                "INNER JOIN ordercart ON orderproduct.ordercardid = ordercart.id " +
+                "WHERE ordercart.orderstatus = 'DELIVERED' " +
+                "GROUP BY productid " +
+                "ORDER BY SUM(incardproductamount) DESC " +
+                " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY) ";
+        return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
     }
 
     @Override
     public List<ProductModel> getNew(int page, int size) {
-        String sql = ProductMapper.SELECT_SQL + " order by p.productdate desc " +
+        String sql = ProductMapper.SELECT_SQL + " WHERE p.productstatus = 'ACTIVE' AND p.productamount > 0 order by p.productdate desc " +
                 " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         return template.query(sql, new ProductMapper(), new Object[]{(page - 1), size});
+    }
+
+    @Override
+    public List<ProductModel> getProductInShoppingCart(Long userId) {
+        String sql = "select p.id, p.productname, op.incardproductamount, p.productdescription,\n" +
+                "p.productdiscount, p.productpict, p.productprice, p.productstatus from product as p\n" +
+                "inner join orderproduct as op on p.id = op.productid\n" +
+                "inner join ordercart oc on oc.id = op.ordercardid\n" +
+                "where oc.userid = ? and oc.orderstatus = 'RESERVED' or oc.orderstatus = 'UNRESERVED'";
+
+        RowMapper<ProductModel> rowMapper = (rs, rowNum) -> ProductModel.builder()
+                .id(rs.getLong("id"))
+                .productName(rs.getString("productname"))
+                .productAmount(rs.getInt("incardproductamount"))
+                .productDescription(rs.getString("productdescription"))
+                .productDiscount(rs.getInt("productdiscount"))
+                .productPict(rs.getString("productpict"))
+                .productPrice(rs.getInt("productprice"))
+                .productStatus(rs.getString("productstatus"))
+                .build();
+        return template.query(sql, rowMapper, userId);
+
     }
 
     private String getAuthorById(int id) {
@@ -228,38 +249,48 @@ public class ProductDaoImpl implements ProductDao {
         return template.queryForObject(sql, String.class, new Object[]{Long.valueOf(id)});
     }
 
-    private Object[] getSearchedOrderedFilteredBuilder(String search, FilterModel filterModel, StringBuilder sql) {
+    // creates query and Object [] that contains params for query for search, filters by categories and active (if needed) products
+    private Object[] getSearchedFilteredBuilder(String search, FilterModel filterModel, StringBuilder sql, boolean isActive) {
         Object[] paramsForQuery;
         String paramLike = "";
         ArrayList<Long> paramsFilter = new ArrayList<>();
-        String paramOrderBy = "";
         int paramsForQueryLength = 0;
         int paramsForQueryIterator = 0;
 
-
+        // search by product name
         if (!search.equals("")) {
-            sql.append(" WHERE p.productname ILIKE ? "); //тут поиск по имени продукта
+            sql.append(" WHERE p.productname ILIKE ? ");
             paramLike = "%" + search + "%";
-            paramsForQueryLength++;
+            paramsForQueryLength++; // Enlarge length of future Object[] for params
         }
+
+        // get only active products for buyer
+        if (isActive) {
+            if (search.equals("")) {
+                sql.append(" WHERE p.productstatus = 'ACTIVE' AND p.productamount > 0 ");
+            } else {
+                sql.append(" AND p.productstatus = 'ACTIVE' AND p.productamount > 0 ");
+            }
+        }
+
+        // select filtered
         if ((filterModel.getAuthor().length != 0) ||
                 (filterModel.getGenre().length != 0) ||
                 (filterModel.getLanguage().length != 0) ||
                 (filterModel.getPublisher().length != 0) ||
-                (filterModel.getCoverType().length != 0)) { //проверка на то, что хотя бы один из фильтров выбран
-            if (!search.equals("")) { //если первый if сработал, тогда надо добавить AND
-                sql.append(" AND ");
-            } else {
+                (filterModel.getCoverType().length != 0)) { // check if at least one filter is selected
+            if (search.equals("") && (!isActive)) { //if both search by name and active filters were not used
                 sql.append(" WHERE ");
+            } else {
+                sql.append(" AND ");
             }
-
-            sql.append(filterSqlBuilder2(filterModel, paramsFilter)); //Тут собираю часть с выбранными фильтрами, (под номером 2 он временно)
-            paramsForQueryLength += paramsFilter.size();
+            sql.append(filterSqlBuilder(filterModel, paramsFilter)); // Build sql with selected filters by categories
+            paramsForQueryLength += paramsFilter.size(); // Enlarge length of future Object[] for params
         }
-
 
         paramsForQuery = new Object[paramsForQueryLength];
 
+        // checks to append only selected params
         if (!paramLike.equals("")) {
             paramsForQuery[paramsForQueryIterator] = paramLike;
             paramsForQueryIterator++;
@@ -269,26 +300,26 @@ public class ProductDaoImpl implements ProductDao {
                 paramsForQuery[paramsForQueryIterator] = paramsFilter.get(i);
                 paramsForQueryIterator++;
             }
-            paramsForQueryLength += paramsFilter.size();
         }
 
         return paramsForQuery;
     }
 
-    private String filterSqlBuilder2(FilterModel filterModel, ArrayList<Long> params) {
+    // sends info to create IN query
+    private String filterSqlBuilder(FilterModel filterModel, ArrayList<Long> params) {
         StringBuilder filters = new StringBuilder();
         filterInBuilder(filters, filterModel.getAuthor(), " p.author ", params);
         filterInBuilder(filters, filterModel.getCoverType(), " p.covertype ", params);
         filterInBuilder(filters, filterModel.getGenre(), " p.genre ", params);
         filterInBuilder(filters, filterModel.getLanguage(), " p.language ", params);
         filterInBuilder(filters, filterModel.getPublisher(), " p.publisher ", params);
-        return filters.substring(0, filters.length() - 4); //удаляет лишний AND
+        return filters.substring(0, filters.length() - 4); // delete unnecessary AND
     }
 
-
+    // creates IN query
     private void filterInBuilder(StringBuilder stringBuilder, Long[] foreignKeys, String fkName, ArrayList<Long> params) {
         if (foreignKeys.length != 0) {
-            stringBuilder.append(fkName);
+            stringBuilder.append(fkName); // append to query name of table which is being referred by a fk
             stringBuilder.append(" IN (");
             for (int i = 0; i < foreignKeys.length; i++) {
                 stringBuilder.append("?");

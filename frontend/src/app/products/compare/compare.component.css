@@ -1,0 +1,26 @@
+.img {
+  width: 100px;
+  height: 130px;
+  text-align: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.table th {
+  text-align: center;
+}
+
+.table td {
+  text-align: center;
+}
+
+.text-product-link {
+  color: #5a6268 !important;
+}
+.text-product-link:hover, .text-product-link:active {
+  color: #6c757d !important;
+}
+
+.has-discount-text{
+  color: brown;
+}

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SettingsServiceImpl implements SettingsService {
 
-    private final SettingsDao settingsDao;
+    private final  SettingsDao settingsDao;
     private final AuthorizedUserDao authorizedUserDao;
     private final EmailSenderService emailSenderService;
 
@@ -36,7 +36,7 @@ public class SettingsServiceImpl implements SettingsService {
             if (authorizedUserDao.getByLogin(authorizedUserModel.getUserLogin()) != null) {
                 throw new ChangeExistMailException();
             }
-            authorizedUserModel.setUserStatus(Role.ANONYMOUS.name());
+            authorizedUserModel.setUserStatus(Role.INACTIVE.name());
             authorizedUserDao.setStatus(authorizedUserModel);
             emailSenderService.sendEmail(authorizedUserModel, "emailVerify");
         }

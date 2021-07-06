@@ -25,6 +25,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { CompareComponent } from './compare/compare.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
         ManagerWorkspaceComponent,
         ProductEditComponent,
         ProductCreateComponent,
+        CompareComponent,
     ],
     imports: [
         CommonModule,
@@ -57,7 +59,8 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
         NgbPaginationModule
     ],
     exports: [
-        ProductCardComponent
+        ProductCardComponent,
+        ManagerWorkspaceComponent
     ],
     providers: [
         CategoriesPartComponent

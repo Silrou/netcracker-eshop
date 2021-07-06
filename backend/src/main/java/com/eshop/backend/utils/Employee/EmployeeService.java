@@ -32,7 +32,7 @@ public class EmployeeService {
 
 
     public List<AuthorizedUserModel> getEmployees() {
-        String sql = ("SELECT * FROM authorizeduser");
+        String sql = ("SELECT * FROM authorizeduser where USERROLE IN('MANAGER','COURIER')");
         return jdbcTemplate.query(sql, new EmployeeMapper());
     }
 

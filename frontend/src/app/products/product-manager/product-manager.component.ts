@@ -10,7 +10,10 @@ import {Genre} from '../../_model/genre';
 import {Publisher} from '../../_model/Publisher';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {ProductEditComponent} from '../product-edit/product-edit.component';
+import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
+import {Subscription} from "rxjs";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-product-manager',
   templateUrl: './product-manager.component.html',
@@ -33,6 +36,7 @@ export class ProductManagerComponent implements OnInit {
   @Output() editProductEvent = new EventEmitter<string>();
   editComponent = false;
 
+  subscriptions: Subscription[] = [];
 
   constructor(private productService: ProductService,
               private authorService: AuthorService,
@@ -43,6 +47,9 @@ export class ProductManagerComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+  }
+
   onChangeStatus(id: number): void {
     if (this.product.productStatus === 'ACTIVE') {
       this.product.productStatus = 'INACTIVE';
@@ -50,14 +57,14 @@ export class ProductManagerComponent implements OnInit {
       this.product.productStatus = 'ACTIVE';
     }
 
-    this.productService.updateProduct(this.product).subscribe(
+    this.subscriptions.push(this.productService.updateProduct(this.product).subscribe(
       res => {
         console.log('update product success');
       },
       error => {
         console.log('update product fail');
       }
-    );
+    ));
   }
 
   loadEditComponent(): void {
@@ -71,7 +78,7 @@ export class ProductManagerComponent implements OnInit {
     dialogConfig.width = '50%';
     dialogConfig.data = {product: this.product};
     this.dialog.open(ProductEditComponent, dialogConfig);
-    this.dialog.afterAllClosed.subscribe(() => {
+    this.subscriptions.push(this.dialog.afterAllClosed.subscribe(() => {
       // Do stuff after the dialog has closed
       this.editProductEvent.emit('update');
       // this.productService.getProduct(this.product.id).subscribe(
@@ -79,7 +86,7 @@ export class ProductManagerComponent implements OnInit {
       //     this.product = res;
       //   }
       // );
-    });
+    }));
   }
 
 }

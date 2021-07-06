@@ -14,7 +14,10 @@ import {Publisher} from '../../_model/Publisher';
 import {Product} from '../../_model/product';
 import {ProductService} from '../../_service/product/product.service';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
+import {Subscription} from "rxjs";
+import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
@@ -43,6 +46,7 @@ export class ProductEditComponent implements OnInit {
   publishers: Publisher[] = [];
   result: Product;
   formClose = false;
+  subscriptions: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -63,6 +67,9 @@ export class ProductEditComponent implements OnInit {
     this.languages = this.languageService.getLanguages();
     this.publishers = this.publisherService.getPublishers();
     this.initForm();
+  }
+
+  ngOnDestroy() {
   }
 
   private initForm(): void {
@@ -92,6 +99,7 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
+
   onClose(): void {
     this.formClose = true;
     this.dialogRef.close('close');
@@ -105,14 +113,14 @@ export class ProductEditComponent implements OnInit {
     result.id = this.data.product.id;
     console.log(result);
 
-    this.productService.updateProduct(result).subscribe(
+    this.subscriptions.push(this.productService.updateProduct(result).subscribe(
       res => {
         console.log(res);
       },
       error => {
         console.log(error);
       }
-    );
+    ));
 
     this.onClose();
   }

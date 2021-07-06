@@ -14,7 +14,10 @@ import {CoverType} from '../../_model/cover-type';
 import {Language} from '../../_model/Language';
 import {Publisher} from '../../_model/Publisher';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
+import {Subscription} from "rxjs";
+import {AutoUnsubscribe} from "ngx-auto-unsubscribe";
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
@@ -30,6 +33,7 @@ export class ProductCreateComponent implements OnInit {
   languages: Language[] = [];
   publishers: Publisher[] = [];
   private formClose = false;
+  subscriptions: Subscription[] = [];
 
   nameErrorMessage = ValidationMessages.productName;
   descriptionErrorMessage = ValidationMessages.productDescription;
@@ -60,6 +64,9 @@ export class ProductCreateComponent implements OnInit {
     this.genres = this.genreService.getGenres();
     this.languages = this.languageService.getLanguages();
     this.publishers = this.publisherService.getPublishers();
+  }
+
+  ngOnDestroy() {
   }
 
   private initForm(): void {
@@ -105,14 +112,14 @@ export class ProductCreateComponent implements OnInit {
     const result = this.editForm.value;
     console.log(result);
 
-    this.productService.addProduct(result).subscribe(
+    this.subscriptions.push(this.productService.addProduct(result).subscribe(
       res => {
         console.log(res);
       },
       error => {
         console.log(error);
       }
-    );
+    ));
 
     this.onClose();
   }
