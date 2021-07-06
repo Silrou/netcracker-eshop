@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {Product} from '../../_model/product';
-
-import {PRODUCTS} from '../../_utils/products';
-import {Filters} from '../../_model/filters'; // удалить, когда продукты будут браться с бэка
+import {Filters} from '../../_model/filters';
 
 @Injectable({
   providedIn: 'root'

@@ -5,4 +5,5 @@ import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 
 public interface LoginService {
     AuthorizedUserModel login(LoginRequestDTO request);
+    AuthorizedUserModel getUserRole(String login);
 }

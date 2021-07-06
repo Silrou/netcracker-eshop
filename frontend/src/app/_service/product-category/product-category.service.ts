@@ -1,17 +1,27 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
-import {Observable, of} from "rxjs";
-import {ProductCategory} from "../../_model/productCategory";
+import {Observable, of} from 'rxjs';
+import {ProductCategory} from '../../_model/productCategory';
 
-import {PRODUCT_CATEGORIES} from "../../_utils/productCategories";  //удалить, когда категории будут браться с бэка
+import {PRODUCT_CATEGORIES} from '../../_utils/productCategories';  // удалить, когда категории будут браться с бэка
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductCategoryService {
 
+
+  constructor(
+    private http: HttpClient,
+  ) {
+  }
+
   private productCategoriesUrl = 'localhost:8081/api/productCategories';
+
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -20,10 +30,6 @@ export class ProductCategoryService {
     };
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
-
   getAllProductCategories(): Observable<ProductCategory[]> {
     /*
     return this.http.get<ProductCategory[]>(this.productCategoriesUrl)
@@ -31,7 +37,7 @@ export class ProductCategoryService {
         catchError(this.handleError<ProductCategory[]>('getAllProductCategories', []))
       );
     */
-    //удалить, когда продукты будут браться с бэка:
+    // удалить, когда продукты будут браться с бэка:
     const productCategories = of(PRODUCT_CATEGORIES);
     return productCategories;
   }
@@ -41,7 +47,7 @@ export class ProductCategoryService {
     return this.http.get<ProductCategory>(url)
       .pipe(
         catchError(this.handleError<ProductCategory>(`getProductCategory id=${id}`))
-      )
+      );
   }
 
   updateProductCategory(productCategory: ProductCategory): Observable<any> {
@@ -74,11 +80,5 @@ export class ProductCategoryService {
       .pipe(
         catchError(this.handleError<ProductCategory[]>('searchProductCategories', []))
       );
-  }
-
-
-  constructor(
-    private http: HttpClient,
-  ) {
   }
 }

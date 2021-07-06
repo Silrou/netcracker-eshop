@@ -9,8 +9,6 @@ import com.eshop.backend.auth.exceptions.WrongEmailOrPasswordException;
 import com.eshop.backend.auth.utils.Role;
 import com.eshop.backend.user.dao.models.AuthorizedUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +43,11 @@ public class LoginServiceIml implements LoginService {
         else {
             throw new WrongEmailOrPasswordException();
         }
+    }
+
+    @Override
+    public AuthorizedUserModel getUserRole(String login) {
+        return authorizedUserDao.getRoleByLogin(login);
     }
 
 }

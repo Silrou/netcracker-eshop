@@ -23,9 +23,7 @@ export class ShoppingCartService {
   }
 
   createOrderedProduct(product: Product, userId: number): Observable<any> {
-    if (userId == null) {
-      userId = -1;
-    }
+    if (userId == null) { userId = -1; }
     const params = new HttpParams().set('product', JSON.stringify(product))
       .set('userId', String(userId));
     const url = `${this.productsUrl}/add-product-to-cart`;

@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../_model/user';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../_service/auth/auth.service';
-import {HttpErrorResponse} from '@angular/common/http';
 import {AlertService} from '../../_service/alert/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
-import {ErrorMessages} from "../../_model/labels/error.messages";
+import {ErrorMessages} from '../../_model/labels/error.messages';
 
 @Component({
   selector: 'app-login',
@@ -88,7 +87,6 @@ export class LoginComponent implements OnInit {
           loginData.recaptchaResponse = undefined;
           this.authService.getToken(loginData).subscribe(
             response => {
-              this.authService.startRefreshTokenTimer();
             });
         }
         const returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
