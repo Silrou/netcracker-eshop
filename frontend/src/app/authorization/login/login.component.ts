@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../_model/user';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../_service/auth/auth.service';
@@ -6,13 +6,15 @@ import {AlertService} from '../../_service/alert/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
 import {ErrorMessages} from '../../_model/labels/error.messages';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   emailErrorMessage = ValidationMessages.email;
   passwordErrorMessage = ValidationMessages.password;
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
+
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -38,6 +41,9 @@ export class LoginComponent implements OnInit {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,20}$')]],
       recaptcha: ['']
     });
+  }
+
+  ngOnDestroy(): void {
   }
 
   onSubmit(): void {

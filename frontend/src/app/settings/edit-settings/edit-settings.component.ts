@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SettingsService} from '../../_service/settings/settings.service';
 import {User} from '../../_model/user';
 import {Router} from '@angular/router';
 import {AlertService} from '../../_service/alert/alert.service';
 import {ErrorMessages} from '../../_model/labels/error.messages';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-edit-settings',
   templateUrl: './edit-settings.component.html',
   styleUrls: ['./edit-settings.component.css']
 })
-export class EditSettingsComponent implements OnInit {
+export class EditSettingsComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
               private settingsService: SettingsService,
@@ -69,5 +71,8 @@ export class EditSettingsComponent implements OnInit {
         this.alertService.error(ErrorMessages[error.error.message], {autoClose: false});
       }
     );
+  }
+
+  ngOnDestroy(): void {
   }
 }

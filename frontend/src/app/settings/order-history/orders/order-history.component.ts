@@ -1,16 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {OrderCard} from '../../../_model/orderCard';
 import {OrderHistoryService} from '../../../_service/order-history/order-history.service';
 import {User} from '../../../_model/user';
 import {Router} from '@angular/router';
 import {OrderDetailsService} from '../../../_service/order-history/order-details.service';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css']
 })
-export class OrderHistoryComponent implements OnInit {
+export class OrderHistoryComponent implements OnInit, OnDestroy {
 
   constructor(private orderHistoryService: OrderHistoryService,
               private router: Router,
@@ -52,5 +54,8 @@ export class OrderHistoryComponent implements OnInit {
         this.amountOfProducts = res;
       }
     );
+  }
+
+  ngOnDestroy(): void {
   }
 }

@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../_service/auth/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../_service/alert/alert.service';
 import {finalize, first} from 'rxjs/operators';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
 import {ErrorMessages} from '../../_model/labels/error.messages';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
   emailErrorMessage = ValidationMessages.email;
 
@@ -24,10 +26,15 @@ export class ForgotPasswordComponent implements OnInit {
               private alertService: AlertService) {
   }
 
+
+
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]]
     });
+  }
+
+  ngOnDestroy(): void {
   }
 
   onSubmit(): void {

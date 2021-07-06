@@ -1,19 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../_service/auth/auth.service';
 import {AlertService} from '../../_service/alert/alert.service';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
 enum EmailStatus {
   Verifying,
   Failed
 }
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
   styleUrls: ['./verify-email.component.css']
 })
-export class VerifyEmailComponent implements OnInit {
+export class VerifyEmailComponent implements OnInit, OnDestroy {
   EmailStatus = EmailStatus;
   emailStatus = EmailStatus.Verifying;
 
@@ -37,6 +39,9 @@ export class VerifyEmailComponent implements OnInit {
           this.emailStatus = EmailStatus.Failed;
         }
       });
+  }
+
+  ngOnDestroy(): void {
   }
 
 }

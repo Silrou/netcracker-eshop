@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {OrderDetailsService} from '../../../_service/order-history/order-details.service';
 import {Product} from '../../../_model/product';
@@ -12,13 +12,15 @@ import {CoverTypeService} from '../../../_service/categories/cover-type.service'
 import {GenreService} from '../../../_service/categories/genre.service';
 import {LanguageService} from '../../../_service/categories/language.service';
 import {PublisherService} from '../../../_service/categories/publisher.service';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
   styleUrls: ['./order-details.component.css']
 })
-export class OrderDetailsComponent implements OnInit {
+export class OrderDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -28,6 +30,8 @@ export class OrderDetailsComponent implements OnInit {
               private genreService: GenreService,
               private languageService: LanguageService,
               private publisherService: PublisherService) { }
+
+
 
   orderId: number;
   products: Product[] = [];
@@ -42,6 +46,9 @@ export class OrderDetailsComponent implements OnInit {
     this.getCategories();
     this.getProducts();
     this.getCountOfProduct();
+  }
+
+  ngOnDestroy(): void {
   }
 
   private getProducts(): void {

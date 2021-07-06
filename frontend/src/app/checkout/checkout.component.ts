@@ -1,22 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {User} from '../_model/user';
 import {CheckoutService} from '../_service/checkout/checkout.service';
 import {AlertService} from '../_service/alert/alert.service';
 import {Router} from '@angular/router';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class CheckoutComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private checkoutService: CheckoutService,
               private alertService: AlertService) {
   }
+
+
 
   @Inject(MAT_DIALOG_DATA) public data: User;
   form: FormGroup;
@@ -46,6 +50,9 @@ export class CheckoutComponent implements OnInit {
       );
     }
     this.initForm();
+  }
+
+  ngOnDestroy(): void {
   }
 
   private initForm(): void {

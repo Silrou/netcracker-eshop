@@ -1,23 +1,25 @@
-import {Component, OnChanges, OnInit, Output, EventEmitter, SimpleChanges, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {Product} from '../../_model/product';
 import {ShoppingCartService} from '../../_service/shopping-cart/shopping-cart.service';
 import {AlertService} from '../../_service/alert/alert.service';
 import {Router} from '@angular/router';
-import {AuthService} from '../../_service/auth/auth.service';
 import {ErrorMessages} from '../../_model/labels/error.messages';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent implements OnInit, OnDestroy {
 
 
   constructor(private router: Router,
               private shoppingCartService: ShoppingCartService,
               private alertService: AlertService) {
   }
+
 
   total = 0;
   totalWithDiscount = 0;
@@ -34,9 +36,9 @@ export class ShoppingCartComponent implements OnInit {
       this.userId = JSON.parse(localStorage.getItem('idUser'));
       this.shoppingCartService.getShoppingCart(this.userId).subscribe(
         res => {
-            this.products = res;
-            localStorage.setItem('productInCart', JSON.stringify(this.products));
-            this.totalPrice();
+          this.products = res;
+          localStorage.setItem('productInCart', JSON.stringify(this.products));
+          this.totalPrice();
         }
       );
     }
@@ -44,6 +46,10 @@ export class ShoppingCartComponent implements OnInit {
     if (this.products !== null) {
       this.totalPrice();
     }
+  }
+
+
+  ngOnDestroy(): void {
   }
 
   totalPrice(): void {

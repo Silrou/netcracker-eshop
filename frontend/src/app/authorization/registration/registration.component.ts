@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../../_model/user';
 import {AuthService} from '../../_service/auth/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -6,14 +6,16 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../_service/alert/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationMessages} from '../../_model/labels/validation.messages';
-import {ErrorMessages} from "../../_model/labels/error.messages";
+import {ErrorMessages} from '../../_model/labels/error.messages';
+import {AutoUnsubscribe} from 'ngx-auto-unsubscribe';
 
+@AutoUnsubscribe()
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
   registerUserData = new User();
   registerForm: FormGroup;
   submitted = false;
@@ -29,6 +31,8 @@ export class RegistrationComponent implements OnInit {
               private formBuilder: FormBuilder) {
   }
 
+
+
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.min(1), Validators.maxLength(35)]],
@@ -37,6 +41,9 @@ export class RegistrationComponent implements OnInit {
       password: ['', [Validators.required,
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,20}$')]]
     });
+  }
+
+  ngOnDestroy(): void {
   }
 
   register(): void {
