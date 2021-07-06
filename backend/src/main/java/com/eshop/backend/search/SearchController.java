@@ -21,6 +21,7 @@ public class SearchController {
     private final EmployeeService employeeService;
     private final EmailSenderService emailSenderService;
     private final AuthorizedUserDao authorizedUserDao;
+
     @Autowired
     public SearchController(EmployeeService employeeService, EmailSenderService emailSenderService, AuthorizedUserDao authorizedUserDao) {
         this.employeeService = employeeService;
@@ -28,13 +29,14 @@ public class SearchController {
         this.authorizedUserDao = authorizedUserDao;
     }
 
-//    @CrossOrigin
+    //    @CrossOrigin
     @GetMapping("/all")
-    public ResponseEntity<List<AuthorizedUserModel>> getAllEmployees(){
+    public ResponseEntity<List<AuthorizedUserModel>> getAllEmployees() {
         List<AuthorizedUserModel> emp = employeeService.getEmployees();
         return new ResponseEntity<>(emp, HttpStatus.OK);
 
     }
+
     @CrossOrigin
     @PostMapping("/new")
     public ResponseEntity<?> create(@RequestBody AuthorizedUserModel authorizedUserModel) {
@@ -47,21 +49,21 @@ public class SearchController {
 
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete( @PathVariable ("id")Long id){
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         employeeService.deleteEmployee(id);
         employeeService.getEmployees();
         List<AuthorizedUserModel> emp = employeeService.getEmployees();
-        return new ResponseEntity<>(emp,HttpStatus.OK);
+        return new ResponseEntity<>(emp, HttpStatus.OK);
 
-        }
-
-        @PutMapping("/edit/{id}")
-        public ResponseEntity<?> edit(@RequestBody AuthorizedUserModel authorizedUserModel, @PathVariable ("id")Long id ){
-            employeeService.editEmployee(authorizedUserModel);
-            return new ResponseEntity<>(authorizedUserModel,HttpStatus.OK);
-
-        }
     }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<?> edit(@RequestBody AuthorizedUserModel authorizedUserModel, @PathVariable("id") Long id) {
+        employeeService.editEmployee(authorizedUserModel);
+        return new ResponseEntity<>(authorizedUserModel, HttpStatus.OK);
+
+    }
+}
 
 
 

@@ -28,26 +28,18 @@ public class ProductCRUDController {
     @GetMapping("/get-by-id/{id}")
     public ResponseEntity<ProductModel> getById(@PathVariable("id") Long id) {
         ProductModel productModel = productService.getById(id);
-        return new ResponseEntity(productModel, HttpStatus.OK);
+        return new ResponseEntity<>(productModel, HttpStatus.OK);
     }
 
-//
-//    @GetMapping("/get-by-name/{name}")
-//    public ResponseEntity<List<ProductModel>> getById(@PathVariable("name") String name) {
-//        List<ProductModel> productModels = productService.getByName(name);
+//    @GetMapping("/get-all")
+//    public ResponseEntity<List<ProductModel>> getAllProduct(@RequestParam("page") int page,
+//                                                            @RequestParam("size") int size) {
+//        List<ProductModel> productModels = productService.getProductPage(page, size);
 //        return new ResponseEntity<>(productModels, HttpStatus.OK);
 //    }
 
-
-    @GetMapping("/get-all")
-    public ResponseEntity<List<ProductModel>> getAllProduct(@RequestParam("page") int page,
-                                                            @RequestParam("size") int size) {
-        List<ProductModel> productModels = productService.getProductPage(page, size);
-        return new ResponseEntity<>(productModels, HttpStatus.OK);
-    }
-
     @PostMapping("/add")
-    public ResponseEntity<?> addProduct(@RequestBody (required=false) ProductModel productModel) {
+    public ResponseEntity<?> addProduct(@RequestBody(required = false) ProductModel productModel) {
         productService.create(productModel);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -57,33 +49,6 @@ public class ProductCRUDController {
         productService.update(productModel);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-//    @GetMapping("/get-all-filter-order")
-//    public ResponseEntity<List<ProductModel>> getAllProductWithFilterAndOrderBy(@RequestParam("page") int page,
-//                                                                                @RequestParam("size") int size,
-//                                                                                @RequestParam("filter") List<String> filter,
-//                                                                                @RequestParam("orderBy") String orderBy) {
-//        List<ProductModel> productModels = productService.getAllOrderByWithFilters(page, size, orderBy, filter);
-//        return new ResponseEntity<>(productModels, HttpStatus.OK);
-//    }
-
-//    @GetMapping("/get-all-order")
-//    public ResponseEntity<List<ProductModel>> getAllProductOrderBy(@RequestParam("page") int page,
-//                                                                   @RequestParam("size") int size,
-//                                                                   @RequestParam("orderBy") String orderBy) {
-//        List<ProductModel> productModels = productService.getAllOrderBy(page, size, orderBy);
-//        return new ResponseEntity<>(productModels, HttpStatus.OK);
-//    }
-
-//    @GetMapping("/get-all-filtered")
-//    public ResponseEntity<List<ProductModel>> getAllProductFiltered(@RequestParam("page") int page,
-//                                                                    @RequestParam("size") int size,
-//                                                                    @RequestParam("filters") String filters) throws JsonProcessingException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        FilterModel filterModel = objectMapper.readValue(filters, FilterModel.class);
-//        List<ProductModel> productModels = productService.getFiltered(page, size, filterModel);
-//        return new ResponseEntity<>(productModels, HttpStatus.OK);
-//    }
 
     @GetMapping("/get-all-searched-ordered-filtered")
     public ResponseEntity<List<ProductModel>> getAllProductSearchedOrderedFiltered(@RequestParam("page") int page,
@@ -102,7 +67,7 @@ public class ProductCRUDController {
     public ResponseEntity<Integer> getNumberOfSearchedOrderedFiltered(@RequestParam("search") String search,
                                                                       @RequestParam("orderBy") String orderBy,
                                                                       @RequestParam("filters") String filters,
-                                                                      @RequestParam("isActive") Boolean isActive) throws JsonProcessingException{
+                                                                      @RequestParam("isActive") Boolean isActive) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         FilterModel filterModel = objectMapper.readValue(filters, FilterModel.class);
         Integer amount = productService.getNumberOfSearchedOrderedFiltered(search, orderBy, filterModel, isActive);
@@ -114,21 +79,21 @@ public class ProductCRUDController {
                                                                @RequestParam("cover-type") int coverType,
                                                                @RequestParam("genre") int genre,
                                                                @RequestParam("language") int language,
-                                                               @RequestParam("publisher") int publisher){
+                                                               @RequestParam("publisher") int publisher) {
         List<String> categories = productService.getCategoriesOfProduct(author, coverType, genre, language, publisher);
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @GetMapping("/get-popular")
     public ResponseEntity<List<ProductModel>> getPopular(@RequestParam("page") int page,
-                                                                   @RequestParam("size") int size) {
+                                                         @RequestParam("size") int size) {
         List<ProductModel> productModels = productService.getPopular(page, size);
         return new ResponseEntity<>(productModels, HttpStatus.OK);
     }
 
     @GetMapping("/get-new")
     public ResponseEntity<List<ProductModel>> getNew(@RequestParam("page") int page,
-                                                         @RequestParam("size") int size) {
+                                                     @RequestParam("size") int size) {
         List<ProductModel> productModels = productService.getNew(page, size);
         return new ResponseEntity<>(productModels, HttpStatus.OK);
     }

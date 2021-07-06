@@ -2,6 +2,7 @@ package com.eshop.backend.user.order_history.dao;
 
 import com.eshop.backend.shoping_card.OrderCartModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class OrderHistoryDaoImpl implements OrderHistoryDao{
+public class OrderHistoryDaoImpl implements OrderHistoryDao {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -33,7 +34,6 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
 
     @Override
     public List<OrderCartModel> getAll() {
-
         return Collections.emptyList();
     }
 
@@ -74,7 +74,7 @@ public class OrderHistoryDaoImpl implements OrderHistoryDao{
                     .dontDisturb(rs.getBoolean("dontdisturb"))
                     .build();
             return jdbcTemplate.query(statementCreator, rowMapper);
-        } catch (Exception e) {
+        } catch (EmptyResultDataAccessException e) {
             return Collections.emptyList();
         }
     }

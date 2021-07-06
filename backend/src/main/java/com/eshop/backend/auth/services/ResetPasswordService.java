@@ -6,6 +6,8 @@ import com.eshop.backend.auth.dto.ValidateResetTokenDTO;
 
 public interface ResetPasswordService {
     void forgotPassword(ForgotPasswordDTO forgotPasswordDTO);
+
     boolean validateResetToken(ValidateResetTokenDTO validateResetTokenDTO);
+
     boolean resetPassword(ResetPasswordDTO resetPasswordDTO);
 }

@@ -33,7 +33,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthorizedUserDao authorizedUserDao;
 
-    private String[] allowedURIs = new String[] {"/", "/v2/api-docs/**", "/configuration/ui/**",
+    private final String[] allowedURIs = new String[]{"/", "/v2/api-docs/**", "/configuration/ui/**",
             "/swagger-resources/**", "/swagger-ui.html*", "/webjars/**",
             "/actuator/*", "/localizations/**"};
 

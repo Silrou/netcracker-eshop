@@ -17,8 +17,6 @@ public class RegistrationController {
         this.registrationService = registrationService;
     }
 
-
-
     @PostMapping("/user/register")
     public ResponseEntity<?> registration(@RequestBody RegistationRequestDTO request) {
         if (registrationService.registration(request))

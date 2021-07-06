@@ -34,13 +34,12 @@ public class LoginServiceIml implements LoginService {
 
         if (user == null) throw new NoUserWithThisEmailException();
 
-        if (user.getUserStatus().equals(Role.INACTIVE.name())){
+        if (user.getUserStatus().equals(Role.INACTIVE.name())) {
             throw new NeedMailConfirmationException();
         }
         if (captchaVerified && bCryptPasswordEncoder.matches(request.getUserPassword(), user.getUserPassword())) {
             return user;
-        }
-        else {
+        } else {
             throw new WrongEmailOrPasswordException();
         }
     }
