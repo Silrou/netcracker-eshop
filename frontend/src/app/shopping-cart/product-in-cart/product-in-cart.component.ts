@@ -12,6 +12,7 @@ export class ProductInCartComponent implements OnInit, OnChanges {
   @Input() product: Product;
   @Input() productsWithErrors: Product[];
   @Input() countError: boolean;
+  @Input() myInput = true;
   @Output() updateAmount = new EventEmitter<string>();
   @Output() remove = new EventEmitter<Product>();
 

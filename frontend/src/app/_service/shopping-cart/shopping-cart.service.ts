@@ -22,7 +22,7 @@ export class ShoppingCartService {
     return this.http.get<any>(url, {params});
   }
 
-  temp(product: Product, userId: number): Observable<any> {
+  createOrderedProduct(product: Product, userId: number): Observable<any> {
     if (userId == null) {
       userId = -1;
     }
@@ -47,7 +47,7 @@ export class ShoppingCartService {
     }
     localStorage.setItem('productInCart', JSON.stringify(this.productInCart));
 
-    this.temp(product, JSON.parse(localStorage.getItem('idUser'))).subscribe(
+    this.createOrderedProduct(product, JSON.parse(localStorage.getItem('idUser'))).subscribe(
       res => {
         if (res !== null) {
           localStorage.setItem('idUser', res);

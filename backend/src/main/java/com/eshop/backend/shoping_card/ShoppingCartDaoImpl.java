@@ -164,7 +164,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     public OrderCartModel getLastOrderCartByUserId(Long id) {
         String sql = "SELECT id, userid, courierid, packagedescription, " +
                 "orderstatus, totalprice, username, deliverytime, fulladdress, " +
-                "dontdisturb FROM ordercart where userid = ? order by id desc limit 1";
+                "dontdisturb FROM ordercart where userid = ? and orderstatus in ('RESERVED', 'UNRESERVED') order by id desc limit 1";
 
         RowMapper<OrderCartModel> rowMapper = (rs, rowNum) -> new OrderCartModel(
                 rs.getLong("id"),
@@ -177,8 +177,12 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                 rs.getDate("deliverytime"),
                 rs.getString("fulladdress"),
                 rs.getBoolean("dontdisturb"));
-        return jdbcTemplate.queryForObject(sql, rowMapper, id);
-
+        try {
+            return jdbcTemplate.queryForObject(sql, rowMapper, id);
+        } catch (Exception e) {
+            // here null
+            return null;
+        }
     }
 
     @Override
