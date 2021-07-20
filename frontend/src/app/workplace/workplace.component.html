@@ -1,0 +1,13 @@
+<div class="cont">
+  <app-search *ngIf="authService.role == 'ADMIN'"></app-search>
+
+  <div class="manager-workspace" *ngIf="authService.role == 'ADMIN'">
+    <h1>Products management</h1>
+  </div>
+  <app-manager-workspace *ngIf="authService.role == 'ADMIN' || authService.role == 'MANAGER'"></app-manager-workspace>
+  <app-couriercabinet *ngIf="authService.role == 'COURIER'"></app-couriercabinet>
+  <div *ngIf="authService.role == 'USER'" class="text-center mt-5">
+    <h3> 404 Page not found</h3>
+    <a class="btn btn-secondary btn-secondary text-white mt-3" routerLink="/main">Go to main page</a>
+  </div>
+</div>

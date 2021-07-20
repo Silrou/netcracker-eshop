@@ -1,0 +1,45 @@
+<div class="cont">
+  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img class="d-block w-100" src="../../../assets/img/main-carousel-item-1.jpg" alt="First slide">
+      </div>
+      <div class="carousel-item">
+        <a routerLink="/product-list"><img class="d-block w-100" src="../../../assets/img/main-carousel-item-2.jpg"
+                                           alt="Second slide"></a>
+      </div>
+    </div>
+    <a class="carousel-control-prev " href="#carouselExampleControls" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-around mt-4 mb-4">
+
+      <div class="container mt-5" *ngIf="newProducts.length>0">
+        <h2 class="text-center p-1">New products in Shop</h2>
+        <div class="row justify-content-around mt-4">
+          <div class="col-md-3 col-sm-6 mb-4" *ngFor="let product of newProducts">
+            <app-product-card [product]="product"
+                              (addProductToCart)="addProductToCart($event)"></app-product-card>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-5" *ngIf="popularProducts.length>0">
+        <h2 class="text-center p-1">The most popular products in Shop</h2>
+        <div class="row justify-content-around mt-4">
+          <div class="col-md-3 col-sm-6 mb-4" *ngFor="let product of popularProducts">
+            <app-product-card [product]="product"
+                              (addProductToCart)="addProductToCart($event)"></app-product-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div *ngIf="product">
+  <div class="card h-100">
+    <div class="text-center">
+      <img class="card-img-top rounded img" [src]="product?.productPict" alt="">
+    </div>
+    <div class="card-body">
+      <a class="text-product-link" routerLink="/product-list/product/{{product.id}}"><h5 class="post-title">
+        {{product.productName}} <sup *ngIf="hasDiscount()"
+                                     class="badge badge-danger">-{{product.productDiscount}}%</sup></h5></a>
+      <div class="row">
+        <div class="col-sm-6">
+          <div *ngIf="!hasDiscount()">
+            <p>Price:
+              ${{product.productPrice}}
+            </p>
+          </div>
+          <div *ngIf="hasDiscount()">
+            <p>Price:
+              <span class="has-discount-text">
+                ${{getDiscountedPrice()}}
+            </span>
+            </p>
+          </div>
+
+        </div>
+        <div class="col-sm-6">
+          <a *ngIf="product.productStatus === 'inCard'" routerLink="/shopping-cart"
+             class="btn btn-secondary text-white">Already in cart</a>
+          <a *ngIf="product.productStatus !== 'inCard'" (click)="addToCart()" class="btn btn-secondary text-white">Add
+            to cart</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,54 @@
+<h1>Check out</h1>
+
+<form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>First name</mat-label>
+    <input matInput formControlName="firstName">
+    <mat-hint *ngIf="form.get('firstName').errors">First name is required</mat-hint>
+
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Last name</mat-label>
+    <input matInput formControlName="lastName">
+    <mat-hint *ngIf="form.get('lastName').errors">Last name is required</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Address</mat-label>
+    <input matInput formControlName="address">
+    <mat-hint *ngIf="form.get('address').errors">Address is required</mat-hint>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Phone</mat-label>
+    <input matInput formControlName="phoneNumber">
+    <mat-hint *ngIf="form.get('phoneNumber').errors">Phone number is required</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepickerFilter]="myFilter" #ref [matDatepicker]="picker" formControlName="date" (dateChange)="findDeliveryHours(ref.value)">
+    <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill"  *ngIf="findHours">
+    <mat-label>Delivery time</mat-label>
+    <mat-select formControlName="deliveryTime">
+      <mat-option *ngFor="let hour of hours" [value]="hour" >
+        {{hour}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Textarea</mat-label>
+    <textarea matInput placeholder="Add comment for the courier" formControlName="comment"></textarea>
+  </mat-form-field>
+
+  <mat-checkbox [(ngModel)]="disturb" formControlName="doNotDisturb">Do not disturb</mat-checkbox>
+
+  <button  mat-raised-button class="btn btn-secondary" [disabled]="form.invalid" type="submit">
+      Submit
+    </button>
+
+  </form>
+  <app-shopping-cart [myInput]="input"></app-shopping-cart>

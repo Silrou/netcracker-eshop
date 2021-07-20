@@ -1,0 +1,134 @@
+<!--<form class="form-inline md-form form-sm active-cyan-2">-->
+<!--  <div class="container">-->
+<!--  <input class="form-control form-control-sm mr-3 w-75"  type="text"  placeholder="Search" aria-label="Search"-->
+<!--         mdbInput>-->
+<!--    <mat-icon matPrefix>search</mat-icon>-->
+<!--  </div>-->
+  <h1>Search</h1>
+  <div>
+
+    <!--  <a class="nav-link" routerLink="/account/profile" routerLinkActive="active"></a>-->
+    <button mat-button (click)="onCreate()">
+      Create
+      <mat-icon matSuffix>add_circle_outline</mat-icon>
+    </button>
+
+<nav class="navbar" >
+
+
+</nav>
+</div>
+  <mat-icon matPrefix>search</mat-icon>
+
+<form #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)" >
+  <input class="form-control" type="text" name="NS" [ngModel]="admin.NS" required #NS="ngModel"
+         placeholder="Enter First name">
+<br>
+  <input type="radio" value="ALL" name="job" [ngModel]="admin.job" checked required #job="ngModel" >All
+  <input type="radio" value="COURIER" name="job" [ngModel]="admin.job"  required #job="ngModel" >Coriers
+  <input type="radio" value="MANAGER" name="job" [ngModel]="admin.job"  required #job="ngModel" >Managers
+<br>
+  <input type="radio" value="ALL" name="status" [ngModel]="admin.status" checked required #job="ngModel" >All
+  <input type="radio" value="ACTIVE" name="status" [ngModel]="admin.status"  required #job="ngModel" >ACTIVE
+  <input type="radio" value="INACTIVE" name="status" [ngModel]="admin.status"  required #job="ngModel" >INACTIVE
+  <input type="radio" value="TERMINATED" name="status" [ngModel]="admin.status"  required #job="ngModel" >Terminated
+  <br>
+    <button>Submit</button>
+</form>
+<tbody>
+<tr>
+</tr>
+</tbody>
+
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+
+      <th> First name</th>
+      <th> Last name</th>
+      <th> Email</th>
+      <th> Phone number</th>
+      <th> Role</th>
+      <th> Status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of rs.users">
+
+
+      <td>{{user.userName}}</td>
+      <td>{{user.userSurname}}</td>
+      <td>{{user.userLogin}}</td>
+      <td>{{user.userNumber}}</td>
+      <td>{{user.userRole}}</td>
+      <td>{{user.userStatus}}</td>
+
+      <button mat-icon-button color="primary" title="Edit Contact" (click)="onEdit(user.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="onDelete(user.id)" title="Delete Contact">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+<!--<button class="btn btn-lg btn-outline-primary"-->
+<!--        (click)="open(content)">-->
+<!--  Popup using Angular and Bootstrap-->
+<!--</button>-->
+<!--<div class="overlay" *ngIf="popup">-->
+<!--  <div class="popup">-->
+<!--    <ng-template #content let-modal>-->
+<!--      <div class="modal-header">-->
+<!--        <h4 class="modal-title"-->
+<!--            id="modal-basic-title">-->
+<!--          Geeks of Geeks-->
+<!--        </h4>-->
+<!--        <button type="button" class="close"-->
+<!--                aria-label="Close" (click)=-->
+<!--                  "modal.dismiss('Cross click')">-->
+
+<!--			<span aria-hidden="true">-->
+<!--				×-->
+<!--			</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form>-->
+<!--          <div class="form-group">-->
+<!--            <label for="dateOfBirth">-->
+<!--              Date of birth-->
+<!--            </label>-->
+<!--            <div class="input-group">-->
+<!--              <input id="dateOfBirth"-->
+<!--                     class="form-control"-->
+<!--                     placeholder="yyyy-mm-dd"-->
+<!--                     name="dp" ngbDatepicker-->
+<!--                     #dp="ngbDatepicker">-->
+
+<!--              <div class="input-group-append">-->
+<!--                <button class="btn-->
+<!--							btn-outline-secondary calendar"-->
+<!--                        (click)="dp.toggle()"-->
+<!--                        type="button">-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button"-->
+<!--                class="btn btn-outline-dark"-->
+<!--                (click)="modal.close('Save click')">-->
+<!--          Save-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </ng-template>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</form>-->

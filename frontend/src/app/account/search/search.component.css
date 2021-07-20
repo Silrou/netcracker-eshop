@@ -1,0 +1,29 @@
+.container{
+  display: flex;
+  justify-content: center;
+}
+table{
+  margin-top: 20px;
+}
+nav{
+  width: 50%;
+  justify-content: center;
+  display: flex;
+
+}
+button{
+  float: left;
+}
+mat-icon{
+  align-self: flex-end;
+}
+.nav-bar{
+  display: inline;
+}
+.idNum{
+  display: none;
+}
+
+.cont {
+  min-height: calc(100vh - 170px);
+}
